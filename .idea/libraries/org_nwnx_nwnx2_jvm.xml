@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="org.nwnx.nwnx2.jvm">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/org.nwnx.nwnx2.jvm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
