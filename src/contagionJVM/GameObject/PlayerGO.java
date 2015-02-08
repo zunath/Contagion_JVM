@@ -50,6 +50,11 @@ public class PlayerGO {
         entity.setCurrentThirst(100);
         entity.setInfectionRemovalTick(600);
         entity.setCreateTimestamp(new Date());
+        entity.setUnallocatedSP(10);
+        entity.setLevel(1);
+        entity.setExperience(0);
+        entity.setLastSPResetDate(null);
+        entity.setNumberOfSPResets(0);
 
         return entity;
     }

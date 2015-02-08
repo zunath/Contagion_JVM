@@ -1,6 +1,6 @@
 package contagionJVM.System;
 
-import Helper.LocalArray;
+import contagionJVM.Helper.LocalArray;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.NWNX.NWNX_TMI;
 import org.nwnx.nwnx2.jvm.NWLocation;

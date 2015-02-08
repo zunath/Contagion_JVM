@@ -1,4 +1,4 @@
-package Helper;
+package contagionJVM.Helper;
 
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;

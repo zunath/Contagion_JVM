@@ -1,9 +1,6 @@
 package contagionJVM.NWNX;
 
-import org.nwnx.nwnx2.jvm.NWLocation;
-import org.nwnx.nwnx2.jvm.NWObject;
-import org.nwnx.nwnx2.jvm.NWScript;
-import org.nwnx.nwnx2.jvm.NWVector;
+import org.nwnx.nwnx2.jvm.*;
 
 @SuppressWarnings("UnusedDeclaration")
 public class NWNX_Funcs {
@@ -901,6 +898,27 @@ public class NWNX_Funcs {
 
     public static void DumpObject (NWObject oObject) {
         NWScript.setLocalString(oObject, "NWNX!FUNCS!DUMPOBJECT", "          ");
+    }
+
+
+
+    public static void StartTimingBar(final NWObject oCreature, int nSeconds, final String sScript) {
+        NWScript.setLocalString(oCreature, "NWNX!FUNCSEXT!STARTTIMINGBAR", nSeconds * 1000 + "    ");
+        NWScript.deleteLocalString(oCreature, "NWNX!FUNCSEXT!STARTTIMINGBAR");
+        Scheduler.delay(oCreature, nSeconds * 1000, new Runnable() {
+            @Override
+            public void run() {
+                StopTimingBar(oCreature, sScript);
+            }
+        });
+    }
+
+    public static void StopTimingBar(NWObject oCreature, String sScript) {
+        NWScript.setLocalString(oCreature, "NWNX!FUNCSEXT!STOPTIMINGBAR", "    ");
+        NWScript.deleteLocalString(oCreature, "NWNX!FUNCSEXT!STOPTIMINGBAR");
+        if(sScript != "") {
+            NWScript.executeScript(sScript, oCreature);
+        }
     }
 
 

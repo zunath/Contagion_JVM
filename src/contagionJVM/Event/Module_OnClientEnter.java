@@ -1,12 +1,12 @@
 package contagionJVM.Event;
 
-import Helper.ColorToken;
+import contagionJVM.Helper.ColorToken;
 import contagionJVM.Constants;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.Repository.PlayerRepository;
-import contagionJVM.System.FoodSystem;
+import contagionJVM.System.ProgressionSystem;
 import contagionJVM.System.RadioSystem;
 import org.nwnx.nwnx2.jvm.*;
 import org.nwnx.nwnx2.jvm.constants.Duration;
@@ -71,7 +71,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             oDatabase = NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
             NWScript.setLocalString(oDatabase, Constants.PCIDNumberVariable, UUID.randomUUID().toString());
 
-            // TODO: ADV initialization
+            new ProgressionSystem().InitializePlayer(oPC, true);
 
             Scheduler.assign(oPC, new Runnable() {
                 @Override

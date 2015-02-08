@@ -44,6 +44,25 @@ public class PlayerEntity {
     private int maxThirst;
     @Column(name="CurrentThirst")
     private int currentThirst;
+    @Column(name = "UnallocatedSkillPoints")
+    private int unallocatedSP;
+    @Column(name = "Level")
+    private int level;
+    @Column(name = "Experience")
+    private int experience;
+    @Column(name ="LastSPResetDate")
+    private Date lastSPResetDate;
+    @Column(name="SPResetCount")
+    private int numberOfSPResets;
+    @Column(name="HPRegenerationAmount")
+    private int hpRegenerationAmount;
+    @Column(name="InventorySpaceBonus")
+    private int inventorySpaceBonus;
+    @Column(name="RegenerationTick")
+    private int regenerationTick;
+    @Column(name="RegenerationRate")
+    private int regenerationRate;
+
 
 
     public PlayerEntity()
@@ -183,5 +202,69 @@ public class PlayerEntity {
         else if(currentInfection > infectionCap) currentInfection = infectionCap;
 
         this.currentInfection = currentInfection;
+    }
+
+    public int getUnallocatedSP() {
+        return unallocatedSP;
+    }
+
+    public void setUnallocatedSP(int unallocatedSP) {
+        this.unallocatedSP = unallocatedSP;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public Date getLastSPResetDate() {
+        return lastSPResetDate;
+    }
+
+    public void setLastSPResetDate(Date lastSPResetDate) {
+        this.lastSPResetDate = lastSPResetDate;
+    }
+
+    public int getNumberOfSPResets() {
+        return numberOfSPResets;
+    }
+
+    public void setNumberOfSPResets(int numberOfSPResets) {
+        this.numberOfSPResets = numberOfSPResets;
+    }
+
+    public int getHpRegenerationAmount() {
+        return hpRegenerationAmount;
+    }
+
+    public void setHpRegenerationAmount(int hpRegenerationAmount) {
+        this.hpRegenerationAmount = hpRegenerationAmount;
+    }
+
+    public int getInventorySpaceBonus() {
+        return inventorySpaceBonus;
+    }
+
+    public void setInventorySpaceBonus(int inventorySpaceBonus) {
+        this.inventorySpaceBonus = inventorySpaceBonus;
+    }
+
+    public int getRegenerationTick() {
+        return regenerationTick;
+    }
+
+    public void setRegenerationTick(int regenerationTick) {
+        this.regenerationTick = regenerationTick;
     }
 }

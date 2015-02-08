@@ -1,6 +1,6 @@
 package contagionJVM.System;
 
-import Helper.ColorToken;
+import contagionJVM.Helper.ColorToken;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.NWNX.ChatMessage;
 import contagionJVM.NWNX.NWNX_Chat;

@@ -1,6 +1,6 @@
 package contagionJVM.System;
 
-import Helper.ColorToken;
+import contagionJVM.Helper.ColorToken;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -13,6 +13,9 @@ import org.nwnx.nwnx2.jvm.constants.*;
 import org.nwnx.nwnx2.jvm.constants.Package;
 
 public class DiseaseSystem {
+
+    public static int DCCheck = 10;
+
 
     public void IncreaseDiseaseLevel(final NWObject oPC, int iIncreaseBy)
     {
