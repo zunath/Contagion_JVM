@@ -26,12 +26,12 @@ import java.util.logging.Level;
 public class ProgressionSystem {
 
     // Configuration
-    private final int LevelCap = 50;
-    private final int SPEarnedOnLevelUp = 10;
-    private final int ResetInitialCost = 2000;
-    private final int ResetAdditionalCost = 500;
-    private final int ResetCooldownDays = 3;
-    private final boolean IsResetFirstTimeFree = true;
+    private static final int LevelCap = 50;
+    private static final int SPEarnedOnLevelUp = 10;
+    private static final int ResetInitialCost = 2000;
+    private static final int ResetAdditionalCost = 500;
+    private static final int ResetCooldownDays = 3;
+    private static final boolean IsResetFirstTimeFree = true;
 
 
     public static final int SkillType_INVALID                    = 0;
@@ -121,7 +121,7 @@ public class ProgressionSystem {
     }
 
 
-    public void GiveExperienceToPC(NWObject oPC, int amount)
+    public static void GiveExperienceToPC(NWObject oPC, int amount)
     {
         if(amount <= 0 || NWScript.getIsDM(oPC)) return;
 
@@ -229,6 +229,15 @@ public class ProgressionSystem {
         }
 
         return canWear;
+    }
+
+    public static int GetPlayerLevel(NWObject oPC)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        PlayerRepository repo = new PlayerRepository();
+        PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
+
+        return entity.getLevel();
     }
 
     public static int GetPlayerSkillLevel(NWObject oPC, int skillID)
