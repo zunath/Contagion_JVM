@@ -44,6 +44,8 @@ public class PlayerEntity {
     private int maxThirst;
     @Column(name="CurrentThirst")
     private int currentThirst;
+    @Column(name="CurrentHungerTick")
+    private int currentHungerTick;
     @Column(name = "UnallocatedSkillPoints")
     private int unallocatedSP;
     @Column(name = "Level")
@@ -266,5 +268,21 @@ public class PlayerEntity {
 
     public void setRegenerationTick(int regenerationTick) {
         this.regenerationTick = regenerationTick;
+    }
+
+    public int getCurrentHungerTick() {
+        return currentHungerTick;
+    }
+
+    public void setCurrentHungerTick(int currentHungerTick) {
+        this.currentHungerTick = currentHungerTick;
+    }
+
+    public int getRegenerationRate() {
+        return regenerationRate;
+    }
+
+    public void setRegenerationRate(int regenerationRate) {
+        this.regenerationRate = regenerationRate;
     }
 }

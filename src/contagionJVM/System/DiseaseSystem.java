@@ -49,34 +49,19 @@ public class DiseaseSystem {
         Scheduler.flushQueues();
     }
 
-    private void ReduceDiseaseLevel(NWObject oPC, int iDecreaseBy)
+    public static PlayerEntity RunDiseaseRemovalProcess(NWObject oPC, PlayerEntity entity)
     {
-        PlayerGO pcGO = new PlayerGO(oPC);
-        PlayerRepository repo = new PlayerRepository();
-        PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
-        entity.setCurrentInfection(entity.getCurrentInfection() - iDecreaseBy);
-
-        NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectVisualEffect(Vfx.IMP_REMOVE_CONDITION, false), oPC, 0.0f);
-        NWScript.sendMessageToPC(oPC, ColorToken.Red() + "Infection Level: " + entity.getCurrentInfection() + "%" + ColorToken.End());
-    }
-
-    // TODO: Call this from the regen_mod_hb equivalent in java
-    public void RunDiseaseRemovalProcess(NWObject oPC)
-    {
-        PlayerGO pcGO = new PlayerGO(oPC);
-        PlayerRepository repo = new PlayerRepository();
-        PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
         entity.setInfectionRemovalTick(entity.getInfectionRemovalTick() - 1);
 
         if(entity.getInfectionRemovalTick() <= 0)
         {
-            ReduceDiseaseLevel(oPC, NWScript.random(10) + 5);
+            entity.setCurrentInfection(NWScript.random(10) + 5);
             NWScript.sendMessageToPC(oPC, "Your body fights off some of the infection...");
 
             entity.setInfectionRemovalTick(600);
         }
 
-        repo.save(entity);
+        return entity;
     }
 
 
