@@ -98,16 +98,11 @@ public class SpawnSystem {
 
         for(NWObject pc : players)
         {
-            System.out.println("PC area: " + NWScript.getName(NWScript.getArea(pc), false));
-
             if(oArea.equals(NWScript.getArea(pc)))
             {
                 iPCCount++;
             }
         }
-
-
-        System.out.println("iPCCount = " + iPCCount);
 
         // Only spawn zombies if this is the first PC in the area
         if(iPCCount == 1)
@@ -132,10 +127,7 @@ public class SpawnSystem {
                 NWObject oWaypoint = LocalArray.GetLocalArrayObject(oArea, ZSS_SPAWN_WAYPOINT_OBJECT_ARRAY, iWaypoint);
                 NWLocation lLocation = NWScript.getLocation(oWaypoint);
 
-                System.out.println("About to create zombie resref = " + sResref);
                 final NWObject oZombie = NWScript.createObject(ObjectType.CREATURE, sResref, lLocation, false, "");
-
-                System.out.println("created zombie resref = " + sResref);
 
                 // Mark zombie as spawned via the system (as opposed from a DM)
                 NWScript.setLocalInt(oZombie, ZSS_ZOMBIE_SPAWNED, 1);

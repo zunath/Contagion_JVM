@@ -1,5 +1,6 @@
 package contagionJVM.Event;
 
+import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Constants;
 import contagionJVM.GameObject.PlayerGO;
@@ -71,8 +72,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             oDatabase = NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
             NWScript.setLocalString(oDatabase, Constants.PCIDNumberVariable, UUID.randomUUID().toString());
 
-            new ProgressionSystem().InitializePlayer(oPC, true);
-
             Scheduler.assign(oPC, new Runnable() {
                 @Override
                 public void run() {
@@ -105,9 +104,15 @@ public class Module_OnClientEnter implements IScriptEventHandler {
 
             // Save to database
             PlayerRepository repo = new PlayerRepository();
-            repo.save(pcGO.createEntity());
+            PlayerEntity entity = pcGO.createEntity();
+            repo.save(entity);
+
+            pcGO.setCreateDate(entity.getCreateTimestamp());
+
+            new ProgressionSystem().InitializePlayer(oPC, true);
         }
 
+        Scheduler.flushQueues();
     }
 
     private void ShowMOTD()

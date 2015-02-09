@@ -46,7 +46,7 @@ public class PlayerEntity {
     private int currentThirst;
     @Column(name="CurrentHungerTick")
     private int currentHungerTick;
-    @Column(name = "UnallocatedSkillPoints")
+    @Column(name = "UnallocatedSP")
     private int unallocatedSP;
     @Column(name = "Level")
     private int level;
@@ -54,7 +54,7 @@ public class PlayerEntity {
     private int experience;
     @Column(name ="LastSPResetDate")
     private Date lastSPResetDate;
-    @Column(name="SPResetCount")
+    @Column(name="NumberOfSPResets")
     private int numberOfSPResets;
     @Column(name="HPRegenerationAmount")
     private int hpRegenerationAmount;

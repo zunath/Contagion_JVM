@@ -1,5 +1,6 @@
 package contagionJVM.Event;
 import contagionJVM.IScriptEventHandler;
+import contagionJVM.System.DurabilitySystem;
 import contagionJVM.System.ProgressionSystem;
 import org.nwnx.nwnx2.jvm.*;
 
@@ -16,7 +17,7 @@ public class Module_OnPlayerEquipItem implements IScriptEventHandler {
 		// Combat System
 		NWScript.executeScript("gun_mod_equip", objSelf);
 		// Item Durability System
-		NWScript.executeScript("dcy_mod_equip", objSelf);
+        DurabilitySystem.OnModuleEquip();
 		// Armor
 		NWScript.executeScript("armor_mod_equip", objSelf);
 		// Inventory Limits
