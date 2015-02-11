@@ -5,6 +5,7 @@ public class Constants {
 	public static final String PCDatabaseTag = "database";
 	// Name of the unique PC ID number variable (stored on PC's database item)
 	public static final String PCIDNumberVariable = "PC_ID_NUMBER";
+    public static final String GunEquippedTemporaryVariable = "GUN_TEMP_GUN_EQUIPPED";
 
 	public static final int BaseHitPoints = 30;
 	public static final int BaseStrength = 10;
