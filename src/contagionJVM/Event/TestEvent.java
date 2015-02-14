@@ -14,9 +14,6 @@ public class TestEvent implements IScriptEventHandler {
         NWObject oItem = NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oPC);
         ItemGO itemGO = new ItemGO(oItem);
 
-
-        System.out.println("Current durability = " + itemGO.getDurability());
-
         itemGO.setDurability(45);
     }
 }

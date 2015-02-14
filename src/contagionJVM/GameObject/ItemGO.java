@@ -1,9 +1,7 @@
 package contagionJVM.GameObject;
 
-import contagionJVM.Bioware.AddItemPropertyPolicy;
-import contagionJVM.Bioware.XP2;
 import contagionJVM.Enumerations.CustomItemProperty;
-import contagionJVM.NWNX.NWNX_Structs;
+import contagionJVM.Helper.ItemPropertyHelper;
 import org.nwnx.nwnx2.jvm.NWItemProperty;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -69,9 +67,7 @@ public class ItemGO {
         else if(durability > 100) durability = 100;
         int row2DA = 101 - durability;
 
-        NWItemProperty durabilityIP = NWNX_Structs.ItemPropertyDirect(CustomItemProperty.ItemDurability, 0, 35, row2DA, 0, 0);
-        XP2.IPSafeAddItemProperty(item, durabilityIP, 0.0f, AddItemPropertyPolicy.ReplaceExisting, false, true);
-
+        ItemPropertyHelper.AddCustomItemProperty(item, CustomItemProperty.ItemDurability, 0, 35, row2DA, 0, 0);
     }
 
 
@@ -81,7 +77,7 @@ public class ItemGO {
 
         for(NWItemProperty ip : itemProperties)
         {
-            if(ip.getItemPropertyId() == CustomItemProperty.ItemDurability)
+            if(NWScript.getItemPropertyType(ip) == CustomItemProperty.ItemDurability)
             {
                 return true;
             }

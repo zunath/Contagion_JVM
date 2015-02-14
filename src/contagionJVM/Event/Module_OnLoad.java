@@ -2,6 +2,7 @@ package contagionJVM.Event;
 
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.AreaScript;
+import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.System.DeathSystem;
 import contagionJVM.System.SpawnSystem;
@@ -14,6 +15,7 @@ public class Module_OnLoad implements IScriptEventHandler {
 	public void runScript(NWObject objSelf) {
 		SpawnSystem spawnSystem = new SpawnSystem();
 
+        AddGlobalEventHandlers();
 		AddAreaEventHandlers();
 
 		// NWNX Setup
@@ -53,4 +55,17 @@ public class Module_OnLoad implements IScriptEventHandler {
 		}
 	}
 
+    private void AddGlobalEventHandlers()
+    {
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_ATTACK, "reo_mod_attack");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_CAST_SPELL, "reo_mod_castspel");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_EXAMINE, "reo_mod_examine");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_PICKPOCKET, "reo_mod_pickpock");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_SAVE_CHAR, "reo_mod_save");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_TOGGLE_MODE, "reo_mod_toggmode");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_TOGGLE_PAUSE, "reo_mod_toggpaus");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_USE_FEAT, "reo_mod_usefeat");
+        NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_USE_ITEM, "reo_mod_useitem");
+
+    }
 }

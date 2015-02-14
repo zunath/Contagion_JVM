@@ -6,21 +6,21 @@ import org.nwnx.nwnx2.jvm.NWVector;
 import org.nwnx.nwnx2.jvm.constants.Gender;
 
 public class NWNX_Events {
-    final int EVENT_TYPE_ALL                = 0;
-    final int EVENT_TYPE_SAVE_CHAR          = 1;
-    final int EVENT_TYPE_PICKPOCKET         = 2;
-    final int EVENT_TYPE_ATTACK             = 3;
-    final int EVENT_TYPE_USE_ITEM           = 4;
-    final int EVENT_TYPE_QUICKCHAT          = 5;
-    final int EVENT_TYPE_EXAMINE            = 6;
-    final int EVENT_TYPE_USE_SKILL          = 7;
-    final int EVENT_TYPE_USE_FEAT           = 8;
-    final int EVENT_TYPE_TOGGLE_MODE        = 9;
-    final int EVENT_TYPE_CAST_SPELL         = 10;
-    final int EVENT_TYPE_TOGGLE_PAUSE       = 11;
-    final int EVENT_TYPE_POSSESS_FAMILIAR   = 12;
-    final int EVENT_TYPE_VALIDATE_CHARACTER = 13;
-    final int EVENT_TYPE_DESTROY_OBJECT     = 14;
+    public static final int EVENT_TYPE_ALL                = 0;
+    public static final int EVENT_TYPE_SAVE_CHAR          = 1;
+    public static final int EVENT_TYPE_PICKPOCKET         = 2;
+    public static final int EVENT_TYPE_ATTACK             = 3;
+    public static final int EVENT_TYPE_USE_ITEM           = 4;
+    public static final int EVENT_TYPE_QUICKCHAT          = 5;
+    public static final int EVENT_TYPE_EXAMINE            = 6;
+    public static final int EVENT_TYPE_USE_SKILL          = 7;
+    public static final int EVENT_TYPE_USE_FEAT           = 8;
+    public static final int EVENT_TYPE_TOGGLE_MODE        = 9;
+    public static final int EVENT_TYPE_CAST_SPELL         = 10;
+    public static final int EVENT_TYPE_TOGGLE_PAUSE       = 11;
+    public static final int EVENT_TYPE_POSSESS_FAMILIAR   = 12;
+    public static final int EVENT_TYPE_VALIDATE_CHARACTER = 13;
+    public static final int EVENT_TYPE_DESTROY_OBJECT     = 14;
 
 // DEPRECATED
 // For backwards compatibility only - use above constants instead

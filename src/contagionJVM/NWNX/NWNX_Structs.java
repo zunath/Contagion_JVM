@@ -322,7 +322,7 @@ public class NWNX_Structs {
         return NWScript.stringToInt(NWScript.getLocalString(NWObject.MODULE, "NWNX!STRUCTS!GETINTEGER"));
     }
 
-    public static void SetItemPropertyInteger (NWItemProperty ipProp, int nIndex, int nValue) {
+    public static void SetItemPropertyInteger (final NWItemProperty ipProp, int nIndex, int nValue) {
         NWScript.setLocalString(NWObject.MODULE, "NWNX!STRUCTS!SETINTEGER", NWScript.intToString(nIndex) + " " + NWScript.intToString(nValue));
     }
 
@@ -352,28 +352,6 @@ public class NWNX_Structs {
 
         SetEffectTrueType(eEff, EFFECT_TRUETYPE_ICON);
         return eEff;
-    }
-
-
-    // Builds a constructor for a new item property type.
-    // nType = The type of item property
-    // nSubType = The subtype of the item property
-    // nCostTable = The cost table of the item property
-    // nParamTable = The ParamTable of the item property
-    // nParamValue = The ParamValue of the item property
-    // Created by Funkyswerve
-    public static NWItemProperty ItemPropertyDirect (int nType, int nSubType, int nCostTable, int nCostValue, int nParamTable, int nParamValue)
-    {
-        NWItemProperty ip = NWScript.itemPropertyAdditional(0);
-
-        SetItemPropertyInteger(ip, 0, nType);
-        SetItemPropertyInteger(ip, 1, nSubType);
-        SetItemPropertyInteger(ip, 2, nCostTable);
-        SetItemPropertyInteger(ip, 3, nCostValue);
-        SetItemPropertyInteger(ip, 4, nParamTable);
-        SetItemPropertyInteger(ip, 5, nParamValue);
-
-        return ip;
     }
 
 }
