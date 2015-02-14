@@ -59,7 +59,7 @@ public class ItemGO {
 
             if(ipType == CustomItemProperty.ItemDurability)
             {
-                return NWScript.getItemPropertyCostTableValue(ip);
+                return 101 - NWScript.getItemPropertyCostTableValue(ip);
             }
         }
 
@@ -70,8 +70,7 @@ public class ItemGO {
     {
         if(durability < 0) durability = 0;
         else if(durability > 100) durability = 100;
-
-        int row2DA = 100 - durability;
+        int row2DA = 101 - durability;
 
         NWItemProperty durabilityIP = NWNX_Structs.ItemPropertyDirect(CustomItemProperty.ItemDurability, 0, 35, row2DA, 0, 0);
         XP2.IPSafeAddItemProperty(item, durabilityIP, 0.0f, AddItemPropertyPolicy.ReplaceExisting, false, true);

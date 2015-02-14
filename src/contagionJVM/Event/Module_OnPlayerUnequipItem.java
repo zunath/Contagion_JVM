@@ -1,6 +1,7 @@
 package contagionJVM.Event;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.System.CombatSystem;
+import contagionJVM.System.InventorySystem;
 import org.nwnx.nwnx2.jvm.*;
 
 @SuppressWarnings("unused")
@@ -14,8 +15,8 @@ public class Module_OnPlayerUnequipItem implements IScriptEventHandler {
 		combatSystem.OnModuleUnequip();
 		// Armor System
 		NWScript.executeScript("armor_mod_unequi", objSelf);
-		// Inventory Limits
-		NWScript.executeScript("inv_mod_unequip", objSelf);
+
+        InventorySystem.OnModuleUnEquipItem();
 
 	}
 }

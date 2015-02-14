@@ -403,7 +403,6 @@ public class CombatSystem {
 
     public void ReloadAmmo(final NWObject oPC, final NWObject oGun, boolean bDualWield)
     {
-        System.out.println("Firing ReloadAmmo");
         // Time it takes to reload this weapon
         float fDelay = 0.0f;
         GunGO stGunInfo = new GunGO(oGun);
