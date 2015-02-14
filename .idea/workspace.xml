@@ -6,14 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Gun mode switching, reloading, ammo priority switching, etc">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunAmmo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunMode.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Creature/NPC_CombatRoutine.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java" />
+    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Fixed to gun reloading">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerEquipItem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerEquipItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerUnequipItem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerUnequipItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -41,7 +36,7 @@
             <file leaf-file-name="DeathSystem.java" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.0" vertical-offset="2091" max-vertical-offset="3094">
+                  <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="3094">
                     <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
                     <folding />
                   </state>
@@ -51,8 +46,8 @@
             <file leaf-file-name="CombatSystem.java" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state vertical-scroll-proportion="0.33295584" vertical-offset="13170" max-vertical-offset="27217">
-                    <caret line="792" column="19" selection-start-line="792" selection-start-column="19" selection-end-line="792" selection-end-column="19" />
+                  <state vertical-scroll-proportion="0.35220838" vertical-offset="10518" max-vertical-offset="27132">
+                    <caret line="637" column="12" selection-start-line="637" selection-start-column="12" selection-end-line="637" selection-end-column="12" />
                     <folding />
                   </state>
                 </provider>
@@ -69,16 +64,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Module_OnLoad.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnLoad.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1054">
-              <caret line="35" column="58" selection-start-line="35" selection-start-column="58" selection-end-line="35" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Module_OnPlayerDeath.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerDeath.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -89,70 +74,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Module_OnPlayerRespawn.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerRespawn.java">
+      <file leaf-file-name="Module_OnPlayerEquipItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerEquipItem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-              <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+              <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DeathCorpseDisturbed.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpseDisturbed.java">
+      <file leaf-file-name="ReloadGun.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding>
-                <element signature="e#151#189#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PCCorpseRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1088">
-              <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.13333334" vertical-offset="0" max-vertical-offset="765">
+              <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangeGunMode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunMode.java">
+      <file leaf-file-name="Module_OnClientEnter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="e#185#223#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NPC_CombatRoutine.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Creature/NPC_CombatRoutine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17480719" vertical-offset="0" max-vertical-offset="778">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="e#187#225#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChangeGunAmmo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunAmmo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="e#185#223#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="2346">
+              <caret line="91" column="83" selection-start-line="91" selection-start-column="69" selection-end-line="91" selection-end-column="83" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -161,20 +108,8 @@
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerUnequipItem.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DeathCorpseClosed.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpseClosed.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding>
-                <element signature="e#151#189#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -232,12 +167,12 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpseClosed.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpseDisturbed.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerEquipItem.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunAmmo.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerUnequipItem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunMode.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Creature/NPC_CombatRoutine.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java" />
       </list>
     </option>
   </component>
@@ -908,7 +843,13 @@
       <option name="project" value="LOCAL" />
       <updated>1423877227790</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Gun mode switching, reloading, ammo priority switching, etc">
+      <created>1423883392537</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1423883392537</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -921,10 +862,11 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13519314" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13519314" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -932,13 +874,12 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18884121" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -961,7 +902,8 @@
     <MESSAGE value="Item durability system migration to Java" />
     <MESSAGE value="Death system migration" />
     <MESSAGE value="Gun mode switching, reloading, ammo priority switching, etc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Gun mode switching, reloading, ammo priority switching, etc" />
+    <MESSAGE value="Fixed to gun reloading" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed to gun reloading" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -974,20 +916,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/FoodSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
-          <caret line="34" column="112" selection-start-line="34" selection-start-column="112" selection-end-line="34" selection-end-column="112" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnHeartbeat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1921">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Creature_OnDeath.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.3448277" vertical-offset="8462" max-vertical-offset="9095">
@@ -1123,14 +1051,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7449438" vertical-offset="1258" max-vertical-offset="2346">
-          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DurabilitySystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="595" max-vertical-offset="1870">
@@ -1253,18 +1173,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2091" max-vertical-offset="3094">
-          <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerRespawn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
           <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Creature/NPC_CombatRoutine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17480719" vertical-offset="0" max-vertical-offset="778">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="e#187#225#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunMode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17480719" vertical-offset="0" max-vertical-offset="778">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="e#185#223#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4588689" vertical-offset="0" max-vertical-offset="1088">
+          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunAmmo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17777778" vertical-offset="0" max-vertical-offset="765">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="e#185#223#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpseDisturbed.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15295629" vertical-offset="0" max-vertical-offset="778">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1279,93 +1237,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpseClosed.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+        <state vertical-scroll-proportion="0.15295629" vertical-offset="0" max-vertical-offset="778">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="e#151#189#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpseDisturbed.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="e#151#189#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1088">
-          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerEquipItem.java">
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2622108" vertical-offset="0" max-vertical-offset="778">
-          <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2091" max-vertical-offset="3094">
+          <caret line="45" column="49" selection-start-line="45" selection-start-column="49" selection-end-line="45" selection-end-column="49" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35555556" vertical-offset="0" max-vertical-offset="765">
-          <caret line="16" column="59" selection-start-line="16" selection-start-column="59" selection-end-line="16" selection-end-column="59" />
-          <folding>
-            <element signature="e#317#355#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33295584" vertical-offset="13170" max-vertical-offset="27217">
-          <caret line="792" column="19" selection-start-line="792" selection-start-column="19" selection-end-line="792" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunAmmo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#185#223#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerUnequipItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ChangeGunMode.java">
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnPlayerEquipItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#185#223#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <caret line="12" column="55" selection-start-line="12" selection-start-column="55" selection-end-line="12" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Creature/NPC_CombatRoutine.java">
+    <entry file="jar://$PROJECT_DIR$/org.nwnx.nwnx2.jvm.jar!/org/nwnx/nwnx2/jvm/constants/InventorySlot.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17480719" vertical-offset="0" max-vertical-offset="778">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#187#225#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.17249155" vertical-offset="0" max-vertical-offset="887">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/org.nwnx.nwnx2.jvm.jar!/org/nwnx/nwnx2/jvm/NWScript.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3427283" vertical-offset="274" max-vertical-offset="27574">
+          <caret line="34" column="43" selection-start-line="34" selection-start-column="43" selection-end-line="34" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1071" max-vertical-offset="2346">
+          <caret line="91" column="83" selection-start-line="91" selection-start-column="69" selection-end-line="91" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35220838" vertical-offset="10518" max-vertical-offset="27132">
+          <caret line="637" column="12" selection-start-line="637" selection-start-column="12" selection-end-line="637" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Feat/ReloadGun.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13333334" vertical-offset="0" max-vertical-offset="765">
+          <caret line="6" column="35" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>

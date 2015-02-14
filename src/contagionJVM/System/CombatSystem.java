@@ -140,7 +140,6 @@ public class CombatSystem {
         NWObject oItem = NWScript.getPCItemLastUnequipped();
         NWObject oGun = NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oPC);
         String sTag = NWScript.getTag(oItem);
-        //int iStackSize = GetItemStackSize(oItem);
         int iAmmoType = NWScript.getLocalInt(oItem, GUN_TEMP_AMMO_TYPE);
         int iBulletCount = NWScript.getLocalInt(oItem, GUN_MAGAZINE_BULLET_COUNT);
 
@@ -404,6 +403,7 @@ public class CombatSystem {
 
     public void ReloadAmmo(final NWObject oPC, final NWObject oGun, boolean bDualWield)
     {
+        System.out.println("Firing ReloadAmmo");
         // Time it takes to reload this weapon
         float fDelay = 0.0f;
         GunGO stGunInfo = new GunGO(oGun);
@@ -473,7 +473,7 @@ public class CombatSystem {
         NWScript.setLocalInt(oPC, GUN_TEMP_RELOADING_GUN, 1);
 
         // Play animations
-        final NWEffect eSound = NWScript.effectVisualEffect(CBT_OVR_SOUND_GUN_RELOAD, false);
+        NWEffect eSound = NWScript.effectVisualEffect(CBT_OVR_SOUND_GUN_RELOAD, false);
         int iAnimation;
         float fAnimationLength;
         float fSoundDelay = 0.0f;
@@ -518,6 +518,7 @@ public class CombatSystem {
             Scheduler.delay(oPC, (int) (fSoundDelay * 1000), new Runnable() {
                 @Override
                 public void run() {
+                    NWEffect eSound = NWScript.effectVisualEffect(CBT_OVR_SOUND_GUN_RELOAD, false);
                     NWScript.applyEffectAtLocation(DurationType.INSTANT, eSound, NWScript.getLocation(oPC), 0.0f);
                 }
             });
@@ -529,7 +530,6 @@ public class CombatSystem {
                 LoadAmmo(oPC, oGun, -1);
             }
         });
-
 
         Scheduler.flushQueues();
     }
@@ -559,7 +559,7 @@ public class CombatSystem {
         }
 
         // Item equipped doesn't match the gun. Stop the loading
-        if(NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oPC) != oGun)
+        if(!NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oPC).equals(oGun))
         {
             NWScript.deleteLocalInt(oPC, GUN_TEMP_RELOADING_GUN);
             return;
@@ -628,7 +628,7 @@ public class CombatSystem {
         // October 16, 2010 - Added a check to make sure the ammo created is on the inventory of the player.
         // Otherwise, PCs could exploit this by reloading constantly with a full inventory (causing the created ammo to drop to the ground)
         // PCs could then pick up the ammo and equip it - bypassing ammo caps on firearms
-        if(NWScript.getItemPossessor(oAmmo) != oPC)
+        if(!NWScript.getItemPossessor(oAmmo).equals(oPC))
         {
             NWScript.destroyObject(oAmmo, 0.0f);
             NWScript.createItemOnObject(sTag, oPC, iAmmoFound, "");
@@ -637,15 +637,12 @@ public class CombatSystem {
         }
         else
         {
-            Scheduler.assign(oPC, new Runnable() {
+            // Equipping the ammo outright doesn't work. Not sure why a delay fixes it.
+            // Maybe the item hasn't been created at the time of execution?
+            Scheduler.delay(oPC, 1, new Runnable() {
                 @Override
                 public void run() {
                     NWScript.actionEquipItem(oAmmo, InventorySlot.ARROWS);
-                }
-            });
-            Scheduler.delay(oPC, 500, new Runnable() {
-                @Override
-                public void run() {
                     NWScript.deleteLocalInt(oPC, GUN_TEMP_RELOADING_GUN);
                 }
             });
@@ -1121,7 +1118,6 @@ public class CombatSystem {
                 });
 
                 Scheduler.flushQueues();
-                System.out.println("MainAttack: Finished schedling fireshot again"); // DEBUG
             }
         }
 
@@ -1290,7 +1286,6 @@ public class CombatSystem {
         // Convert durability to a decimal, then multiply that value with the Firepower
         // Finally, multiply that value with the multiplier.
         int iFirepower = NWScript.floatToInt(stGunInfo.getFirepower() * (0.01f * stGunInfo.getDurability()));
-        //NWScript.sendMessageToPC(oAttacker, "DEBUG: iFirepower = " + IntToString(iFirepower)); // DEBUG
         int iDamage = NWScript.floatToInt(iFirepower * fMultiplier);
         // Attack missed - return zero damaged
         if(NWScript.random(100) > iChanceToHit) return 0;

@@ -24,7 +24,7 @@ public class ReloadGun implements IScriptEventHandler {
             NWObject oLeftHand = NWScript.getItemInSlot(InventorySlot.LEFTHAND, oPC);
             boolean bDualWield = false;
 
-            if(oLeftHand != NWObject.INVALID) bDualWield = true;
+            if(!oLeftHand.equals(NWObject.INVALID)) bDualWield = true;
 
             combatSystem.ReloadAmmo(oPC, oRightHand, bDualWield);
         }
