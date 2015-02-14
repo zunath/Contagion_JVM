@@ -4,6 +4,7 @@ import contagionJVM.Bioware.Position;
 import contagionJVM.Enumerations.CustomAnimationType;
 import contagionJVM.Enumerations.GunType;
 import contagionJVM.GameObject.GunGO;
+import contagionJVM.GameObject.ItemGO;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.NWNX.NWNX_Events;
@@ -50,12 +51,144 @@ public class CombatSystem {
 
     final String GUN_TEMP_AMMO_LOADED_TYPE     = "GUN_TEMP_AMMO_LOADED_TYPE";
 
+    final int GUN_AMMUNITION_PRIORITY_BASIC = 0;
     final int GUN_AMMUNITION_PRIORITY_ENHANCED = 1;
     final int GUN_AMMUNITION_PRIORITY_INCENDIARY = 2;
     final String GUN_GAS_CANISTER_TAG = "gas_canister";
+    final String GUN_TEMP_GUN_EQUIPPED = "GUN_EQUIPPED";
+    final String GUN_FIREARM_MAGAZINE_RESREF = "firearm_magazine";
+    final String GUN_ENHANCED_FIREARM_MAGAZINE_RESREF = "e_gun_mag";
+    final String GUN_INCENDIARY_FIREARM_MAGAZINE_RESREF = "i_gun_mag";
+    final String GUN_TEMP_AMMO_TYPE = "AMMO_TYPE";
+    final String GUN_TEMP_UNLOADING_AMMO = "UNLOADING_AMMO";
+    final String GUN_NORMAL_AMMO_BOX_PREFIX = "ammo_box_";
+    final String GUN_ENHANCED_AMMO_BOX_PREFIX = "e_ammo_box_";
+    final String GUN_INCENDIARY_AMMO_BOX_PREFIX = "i_ammo_box_";
+    final String GUN_TEMP_RELOADING_GUN = "RELOADING_GUN";
+
+    final int IP_CONST_FIREARM_RELOAD_SPEED_VERY_SLOW = 1;
+    final int IP_CONST_FIREARM_RELOAD_SPEED_SLOW      = 2;
+    final int IP_CONST_FIREARM_RELOAD_SPEED_MEDIUM    = 3;
+    final int IP_CONST_FIREARM_RELOAD_SPEED_FAST      = 4;
+    final int IP_CONST_FIREARM_RELOAD_SPEED_VERY_FAST = 5;
+
+    final float GUN_RELOAD_SPEED_VERY_SLOW = 4.2f;
+    final float GUN_RELOAD_SPEED_SLOW = 3.6f;
+    final float GUN_RELOAD_SPEED_MEDIUM = 2.8f;
+    final float GUN_RELOAD_SPEED_FAST = 2.2f;
+    final float GUN_RELOAD_SPEED_VERY_FAST = 1.2f;
+
+    final int CBT_OVR_SOUND_GUN_RELOAD = 8200;
+    final String GUN_TEMP_AMMO_PRIORITY = "GUN_AMMO_PRIORITY";
+
+    final String GUN_TEMP_CURRENT_RATE_OF_FIRE = "GUN_CUR_RATE_OF_FIRE";
+    final int IP_CONST_FIREARM_ROF_SEMI_AUTOMATIC = 1;
+    final int IP_CONST_FIREARM_ROF_AUTOMATIC      = 2;
+
+    final int GUN_WEAPON_MODE_THREE_ROUND_BURST = 1;
+    final int GUN_TYPE_INVALID = 0;
 
     // END CONSTANTS
 
+    public void OnModuleEquip()
+    {
+        NWObject oPC = NWScript.getPCItemLastEquippedBy();
+        NWObject oItem = NWScript.getPCItemLastEquipped();
+        ItemGO itemGO = new ItemGO(oItem);
+        int iBulletCount = NWScript.getLocalInt(oItem, GUN_MAGAZINE_BULLET_COUNT);
+
+        if(iBulletCount > 0 && NWScript.getLocalInt(oItem, GUN_TEMP_GUN_EQUIPPED) == 0 && itemGO.getDurability() != 0)
+        {
+            GunGO stGunInfo = new GunGO(oItem);
+            final NWObject oAmmo;
+
+            int iLoadedType = NWScript.getLocalInt(oItem, GUN_TEMP_AMMO_LOADED_TYPE);
+            if(iLoadedType == GUN_AMMUNITION_PRIORITY_ENHANCED)
+            {
+                oAmmo = NWScript.createItemOnObject(GUN_ENHANCED_FIREARM_MAGAZINE_RESREF, oPC, iBulletCount, "");
+            }
+            else if(iLoadedType == GUN_AMMUNITION_PRIORITY_INCENDIARY) {
+                oAmmo = NWScript.createItemOnObject(GUN_INCENDIARY_FIREARM_MAGAZINE_RESREF, oPC, iBulletCount, "");
+            }
+            // Default to basic ammo if all else fails
+            else
+            {
+                oAmmo = NWScript.createItemOnObject(GUN_FIREARM_MAGAZINE_RESREF, oPC, iBulletCount, "");
+            }
+
+            // Prevent exploits by making the loaded ammo cursed
+            NWScript.setItemCursedFlag(oAmmo, true);
+            NWScript.setLocalInt(oAmmo, GUN_TEMP_AMMO_TYPE, stGunInfo.getAmmoType());
+
+            Scheduler.assign(oPC, new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.clearAllActions(false);
+                    NWScript.actionEquipItem(oAmmo, InventorySlot.ARROWS);
+                }
+            });
+
+            // Prevent this from firing on module entry
+            NWScript.setLocalInt(oItem, GUN_TEMP_GUN_EQUIPPED, 1);
+            Scheduler.flushQueues();
+        }
+    }
+
+    public void OnModuleUnequip()
+    {
+        NWObject oPC = NWScript.getPCItemLastUnequippedBy();
+        NWObject oItem = NWScript.getPCItemLastUnequipped();
+        NWObject oGun = NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oPC);
+        String sTag = NWScript.getTag(oItem);
+        //int iStackSize = GetItemStackSize(oItem);
+        int iAmmoType = NWScript.getLocalInt(oItem, GUN_TEMP_AMMO_TYPE);
+        int iBulletCount = NWScript.getLocalInt(oItem, GUN_MAGAZINE_BULLET_COUNT);
+
+        // If gun is unequipped, destroy ammo. The bullets are persistently saved on the gun as a variable (GUN_MAGAZINE_BULLET_COUNT)
+        if(iBulletCount > 0)
+        {
+            NWObject oAmmo = NWScript.getItemInSlot(InventorySlot.ARROWS, oPC);
+
+            if(NWScript.getIsObjectValid(oAmmo))
+            {
+                NWScript.setLocalInt(oAmmo, GUN_TEMP_UNLOADING_AMMO, 1);
+                NWScript.destroyObject(oAmmo, 0.0f);
+            }
+
+            // Makes the OnEquip script fire when this gun is equipped again.
+            NWScript.deleteLocalInt(oItem, GUN_TEMP_GUN_EQUIPPED);
+        }
+
+        // If ammo magazine is unequipped, convert to ammo box
+        else if(NWScript.getLocalInt(oItem, GUN_TEMP_UNLOADING_AMMO) == 0)
+        {
+            iBulletCount = NWScript.getLocalInt(oGun, GUN_MAGAZINE_BULLET_COUNT);
+            String sAmmoBoxTag = GUN_NORMAL_AMMO_BOX_PREFIX + iAmmoType;
+
+            if(Objects.equals(sTag, GUN_ENHANCED_FIREARM_MAGAZINE_RESREF))
+            {
+                sAmmoBoxTag = GUN_ENHANCED_AMMO_BOX_PREFIX + iAmmoType;
+            }
+            else if(Objects.equals(sTag, GUN_INCENDIARY_FIREARM_MAGAZINE_RESREF))
+            {
+                sAmmoBoxTag = GUN_INCENDIARY_AMMO_BOX_PREFIX + iAmmoType;
+            }
+
+            if(Objects.equals(sTag, GUN_FIREARM_MAGAZINE_RESREF) || Objects.equals(sTag, GUN_ENHANCED_FIREARM_MAGAZINE_RESREF) || Objects.equals(sTag, GUN_INCENDIARY_FIREARM_MAGAZINE_RESREF))
+            {
+                NWScript.createItemOnObject(sAmmoBoxTag, oPC, iBulletCount, "");
+
+                NWScript.destroyObject(oItem, 0.0f);
+
+                // Remove persistent bullet counter
+                NWScript.deleteLocalInt(oGun, GUN_MAGAZINE_BULLET_COUNT);
+                // Remove temporary variables
+                NWScript.deleteLocalInt(oGun, GUN_TEMP_AMMO_LOADED_TYPE);
+                // Update gun name
+                UpdateItemName(oGun);
+            }
+        }
+    }
 
     public void OnModuleAttack(final NWObject oAttacker)
     {
@@ -267,6 +400,440 @@ public class CombatSystem {
                 }
             }
         }
+    }
+
+    public void ReloadAmmo(final NWObject oPC, final NWObject oGun, boolean bDualWield)
+    {
+        // Time it takes to reload this weapon
+        float fDelay = 0.0f;
+        GunGO stGunInfo = new GunGO(oGun);
+
+        // PC can't reload non-guns
+        if(stGunInfo.getAmmoType() == 0)
+        {
+            NWScript.floatingTextStringOnCreature(ColorToken.Red() + "Cannot reload that weapon!" + ColorToken.End(), oPC, false);
+            return;
+        }
+
+        // PC cancels reloading if he or she selects it again
+        if(NWScript.getLocalInt(oPC, GUN_TEMP_RELOADING_GUN) == 1)
+        {
+            // NPCs must finish loading - they cannot cancel.
+            if(!NWScript.getIsPC(oPC))
+            {
+                return;
+            }
+
+            NWScript.floatingTextStringOnCreature(ColorToken.LightPurple() + "Reloading canceled." + ColorToken.End(), oPC, false);
+            NWScript.deleteLocalInt(oPC, GUN_TEMP_RELOADING_GUN);
+            // Allow PC to be commanded again
+            NWScript.setCommandable(true, oPC);
+            return;
+        }
+
+        float fAnimationSpeed = 0.0f;
+        // Determine reloading speed
+        switch(stGunInfo.getReloadSetting())
+        {
+            case IP_CONST_FIREARM_RELOAD_SPEED_VERY_SLOW:
+            {
+                fDelay = GUN_RELOAD_SPEED_VERY_SLOW;
+                fAnimationSpeed = 0.4f;
+                break;
+            }
+            case IP_CONST_FIREARM_RELOAD_SPEED_SLOW:
+            {
+                fDelay = GUN_RELOAD_SPEED_SLOW;
+                fAnimationSpeed = 0.5f;
+                break;
+            }
+            case IP_CONST_FIREARM_RELOAD_SPEED_MEDIUM:
+            {
+                fDelay = GUN_RELOAD_SPEED_MEDIUM;
+                fAnimationSpeed = 0.6f;
+                break;
+            }
+            case IP_CONST_FIREARM_RELOAD_SPEED_FAST:
+            {
+                fDelay = GUN_RELOAD_SPEED_FAST;
+                fAnimationSpeed = 0.7f;
+                break;
+            }
+            case IP_CONST_FIREARM_RELOAD_SPEED_VERY_FAST:
+            {
+                fDelay = GUN_RELOAD_SPEED_VERY_FAST;
+                fAnimationSpeed = 0.9f;
+                break;
+            }
+        }
+
+        UnloadAmmo(oPC, oGun);
+
+        // Mark player as reloading (prevents them from firing shots and other actions)
+        NWScript.setLocalInt(oPC, GUN_TEMP_RELOADING_GUN, 1);
+
+        // Play animations
+        final NWEffect eSound = NWScript.effectVisualEffect(CBT_OVR_SOUND_GUN_RELOAD, false);
+        int iAnimation;
+        float fAnimationLength;
+        float fSoundDelay = 0.0f;
+        NWLocation lLocation = NWScript.getLocation(oPC);
+
+        if (bDualWield)
+        {
+            fAnimationLength = 0.0f;
+            fSoundDelay = 2.8f;
+            iAnimation = CustomAnimationType.ReloadDual;
+        }
+        else
+        {
+            fAnimationLength = 0.0f;
+            iAnimation = CustomAnimationType.Reload;
+        }
+
+        // Player will be set to uncommandable during the time it takes to reload the weapon.
+
+        final int animationID = iAnimation;
+        final float animationSpeed = fAnimationSpeed;
+        final float animationLength = fAnimationLength;
+        Scheduler.assign(oPC, new Runnable() {
+            @Override
+            public void run() {
+                NWScript.clearAllActions(true);
+                NWScript.playAnimation(animationID, animationSpeed, animationLength);
+                NWScript.setCommandable(false, oPC);
+            }
+        });
+
+        Scheduler.delay(oPC, (int) (fDelay * 1000), new Runnable() {
+            @Override
+            public void run() {
+                NWScript.setCommandable(true, oPC);
+            }
+        });
+
+        NWScript.applyEffectAtLocation(DurationType.INSTANT, eSound, lLocation, 0.0f);
+        if (bDualWield)
+        {
+            Scheduler.delay(oPC, (int) (fSoundDelay * 1000), new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.applyEffectAtLocation(DurationType.INSTANT, eSound, NWScript.getLocation(oPC), 0.0f);
+                }
+            });
+        }
+
+        Scheduler.delay(oPC, (int) (fDelay * 1000), new Runnable() {
+            @Override
+            public void run() {
+                LoadAmmo(oPC, oGun, -1);
+            }
+        });
+
+
+        Scheduler.flushQueues();
+    }
+
+    private void LoadAmmo(final NWObject oPC, final NWObject oGun, int iAmmoOverride)
+    {
+        GunGO stGunInfo = new GunGO(oGun);
+        int iAmmoPriority = NWScript.getLocalInt(oGun, GUN_TEMP_AMMO_PRIORITY);
+
+        // An ammo override was set - we're now looking this type of ammo instead of what the gun is set to look for.
+        if(iAmmoOverride > -1) iAmmoPriority = iAmmoOverride;
+
+        String sTag = GUN_NORMAL_AMMO_BOX_PREFIX + stGunInfo.getAmmoType();
+        String sMagazineResref = GUN_FIREARM_MAGAZINE_RESREF;
+
+        // Enhanced ammo is priority here
+        if(iAmmoPriority == GUN_AMMUNITION_PRIORITY_ENHANCED)
+        {
+            sMagazineResref = GUN_ENHANCED_FIREARM_MAGAZINE_RESREF;
+            sTag = GUN_ENHANCED_AMMO_BOX_PREFIX + stGunInfo.getAmmoType();
+        }
+        // Incendiary ammo is priority here
+        else if(iAmmoPriority == GUN_AMMUNITION_PRIORITY_INCENDIARY)
+        {
+            sMagazineResref = GUN_INCENDIARY_FIREARM_MAGAZINE_RESREF;
+            sTag = GUN_INCENDIARY_AMMO_BOX_PREFIX + stGunInfo.getAmmoType();
+        }
+
+        // Item equipped doesn't match the gun. Stop the loading
+        if(NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oPC) != oGun)
+        {
+            NWScript.deleteLocalInt(oPC, GUN_TEMP_RELOADING_GUN);
+            return;
+        }
+
+        // PC decided to cancel reloading.
+        if(NWScript.getLocalInt(oPC, GUN_TEMP_RELOADING_GUN) == 0) return;
+
+        // Look for ammo (PCs only - NPCs get ammo for free)
+        int iAmmoFound = 0;
+        NWObject[] inventory = NWScript.getItemsInInventory(oPC);
+        if(NWScript.getIsPC(oPC))
+        {
+            // As long as more ammo items are found and clip isn't full,
+            // keep converting ammo boxes to magazines
+            for(NWObject oAmmo : inventory)
+            {
+                if(iAmmoFound >= stGunInfo.getMagazineSize()) break;
+
+                // Currently selected item matches the tag of the ammo we're looking for
+                if(Objects.equals(NWScript.getTag(oAmmo), sTag))
+                {
+                    int iStackSize = NWScript.getItemStackSize(oAmmo);
+
+                    if(iStackSize + iAmmoFound > stGunInfo.getMagazineSize())
+                    {
+                        iStackSize = iStackSize - (stGunInfo.getMagazineSize() - iAmmoFound);
+                        iAmmoFound = stGunInfo.getMagazineSize();
+                        NWScript.setItemStackSize(oAmmo, iStackSize);
+                        break;
+                    }
+                    else if(iStackSize + iAmmoFound <= stGunInfo.getMagazineSize())
+                    {
+                        NWScript.destroyObject(oAmmo, 0.0f);
+                        iAmmoFound = iAmmoFound + iStackSize;
+                    }
+                }
+            }
+
+            // Found no enhanced ammunition. Switch to basic ammunition and run this function again.
+            if(iAmmoFound == 0)
+            {
+                if(iAmmoPriority == GUN_AMMUNITION_PRIORITY_ENHANCED || iAmmoPriority == GUN_AMMUNITION_PRIORITY_INCENDIARY)
+                {
+                    LoadAmmo(oPC, oGun, GUN_AMMUNITION_PRIORITY_BASIC);
+                    return;
+                }
+            }
+        }
+        else
+        {
+            // NPCs - Full amount of ammo on the magazine
+            iAmmoFound = stGunInfo.getMagazineSize();
+        }
+
+
+        // Create an ammo magazine on PC and equip it automatically
+        final NWObject oAmmo = NWScript.createItemOnObject(sMagazineResref, oPC, iAmmoFound, "");
+        // Prevent exploits by making the loaded ammo cursed
+        NWScript.setItemCursedFlag(oAmmo, true);
+        NWScript.setLocalInt(oAmmo, GUN_TEMP_AMMO_TYPE, stGunInfo.getAmmoType());
+
+        // Store bullet count on the firearm
+        NWScript.setLocalInt(oGun, GUN_MAGAZINE_BULLET_COUNT, iAmmoFound);
+
+        // October 16, 2010 - Added a check to make sure the ammo created is on the inventory of the player.
+        // Otherwise, PCs could exploit this by reloading constantly with a full inventory (causing the created ammo to drop to the ground)
+        // PCs could then pick up the ammo and equip it - bypassing ammo caps on firearms
+        if(NWScript.getItemPossessor(oAmmo) != oPC)
+        {
+            NWScript.destroyObject(oAmmo, 0.0f);
+            NWScript.createItemOnObject(sTag, oPC, iAmmoFound, "");
+            NWScript.floatingTextStringOnCreature(ColorToken.Red() + "Reloading failed. Your inventory is too full or you have no ammo." + ColorToken.End(), oPC, false);
+            NWScript.deleteLocalInt(oPC, GUN_TEMP_RELOADING_GUN);
+        }
+        else
+        {
+            Scheduler.assign(oPC, new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.actionEquipItem(oAmmo, InventorySlot.ARROWS);
+                }
+            });
+            Scheduler.delay(oPC, 500, new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.deleteLocalInt(oPC, GUN_TEMP_RELOADING_GUN);
+                }
+            });
+
+            // Mark ammunition type (basic, enhanced, etc)
+            NWScript.setLocalInt(oGun, GUN_TEMP_AMMO_LOADED_TYPE, iAmmoPriority);
+        }
+
+        UpdateItemName(oGun);
+
+        Scheduler.flushQueues();
+    }
+
+    private void UnloadAmmo(NWObject oPC, NWObject oGun)
+    {
+        String sResref;
+        GunGO gunGO = new GunGO(oGun);
+        int iAmmo = gunGO.getAmmoType();
+
+        // Weapon uses no ammo, end.
+        if(iAmmo <= 0){return;}
+
+        NWObject oAmmo = NWScript.getItemInSlot(InventorySlot.ARROWS, oPC);
+
+        // Ammo not valid. Just end
+        if(!NWScript.getIsObjectValid(oAmmo)) return;
+
+        // Check the ammo resref to see if we're dealing with basic ammo, or another type
+        sResref = NWScript.getResRef(oAmmo);
+
+        // Basic bullets
+        if(Objects.equals(sResref, GUN_FIREARM_MAGAZINE_RESREF))
+        {
+            sResref = GUN_NORMAL_AMMO_BOX_PREFIX + iAmmo;
+        }
+        // Enhanced bullets
+        else if(Objects.equals(sResref, GUN_ENHANCED_FIREARM_MAGAZINE_RESREF))
+        {
+            sResref = GUN_ENHANCED_AMMO_BOX_PREFIX + iAmmo;
+        }
+        // Incendiary bullets
+        else if(Objects.equals(sResref, GUN_INCENDIARY_FIREARM_MAGAZINE_RESREF))
+        {
+            sResref = GUN_INCENDIARY_AMMO_BOX_PREFIX + iAmmo;
+        }
+
+        // Prevents the ammo from firing the module OnUnequip script
+        // which would duplicate the ammo rounds
+        NWScript.setLocalInt(oAmmo, GUN_TEMP_UNLOADING_AMMO, 1);
+
+        // Note: NPCs get ammo for free. No need to create ammo boxes on them.
+        if(NWScript.getIsPC(oPC))
+        {
+            int iStackSize = NWScript.getItemStackSize(oAmmo);
+            NWScript.createItemOnObject(sResref, oPC, iStackSize, "");
+        }
+
+        NWScript.destroyObject(oAmmo, 0.0f);
+
+        // Remove persistent bullet counter
+        NWScript.deleteLocalInt(oGun, GUN_MAGAZINE_BULLET_COUNT);
+
+        UpdateItemName(oGun);
+    }
+
+
+    public void ChangeGunAmmoPriority(NWObject oWeapon)
+    {
+        NWObject oPC = NWScript.getItemPossessor(oWeapon);
+        int iCurrentAmmoPriority = NWScript.getLocalInt(oWeapon, GUN_TEMP_AMMO_PRIORITY);
+        GunGO stGunInfo = new GunGO(oWeapon);
+
+        // Currently using basic ammunition - prioritize enhanced ammo
+        if(iCurrentAmmoPriority == 0 && stGunInfo.isEnhancedAmmoAvailable())
+        {
+            NWScript.setLocalInt(oWeapon, GUN_TEMP_AMMO_PRIORITY, GUN_AMMUNITION_PRIORITY_ENHANCED);
+            NWScript.sendMessageToPC(oPC, ColorToken.LightPurple() + "Ammunition Priority: Enhanced" + ColorToken.End());
+        }
+        // Currently using enhanced or basic ammunition (if enhanced is not available) - prioritize incendiary ammo
+        else if(iCurrentAmmoPriority != 2 && stGunInfo.isIncendiaryAmmoAvailable())
+        {
+            NWScript.setLocalInt(oWeapon, GUN_TEMP_AMMO_PRIORITY, GUN_AMMUNITION_PRIORITY_INCENDIARY);
+            NWScript.sendMessageToPC(oPC, ColorToken.LightPurple() + "Ammunition Priority: Incendiary" + ColorToken.End());
+        }
+        // Prioritize basic ammo on all other circumstances
+        else
+        {
+            NWScript.deleteLocalInt(oWeapon, GUN_TEMP_AMMO_PRIORITY);
+            NWScript.sendMessageToPC(oPC, ColorToken.LightPurple() + "Ammunition Priority: Basic" + ColorToken.End());
+        }
+    }
+
+    public void ChangeWeaponMode(NWObject oWeapon)
+    {
+        NWObject oPC = NWScript.getItemPossessor(oWeapon);
+        GunGO stGunInfo = new GunGO(oWeapon);
+        int iCurMode = NWScript.getLocalInt(oWeapon, GUN_TEMP_CURRENT_RATE_OF_FIRE);
+
+        // Weapon cannot change rate of fire or the rate of fire
+        // item property is missing
+        if(stGunInfo.getRateOfFire() == -1)
+        {
+            NWScript.sendMessageToPC(oPC, ColorToken.Red() + "You cannot change this weapon's mode of fire." + ColorToken.End());
+        }
+        // Semi-Auto cannot change rate of fire
+        else if(stGunInfo.getRateOfFire() == IP_CONST_FIREARM_ROF_SEMI_AUTOMATIC)
+        {
+            NWScript.sendMessageToPC(oPC, ColorToken.Red() + "This weapon has no alternative modes of fire." + ColorToken.End());
+        }
+        // Automatic can switch between Semi-Auto and 3-Round Burst
+        else if(stGunInfo.getRateOfFire() == IP_CONST_FIREARM_ROF_AUTOMATIC)
+        {
+            // Currently in Semi-Auto mode. Switch to Automatic.
+            if(iCurMode == 0)
+            {
+                NWScript.setLocalInt(oWeapon, GUN_TEMP_CURRENT_RATE_OF_FIRE, GUN_WEAPON_MODE_THREE_ROUND_BURST);
+                NWScript.sendMessageToPC(oPC, ColorToken.LightPurple() + "Rate of Fire: 3-Round Burst" + ColorToken.End());
+            }
+            // Currently in 3-Round Burst mode. Switch to Semi-Auto.
+            else
+            {
+                NWScript.deleteLocalInt(oWeapon, GUN_TEMP_CURRENT_RATE_OF_FIRE);
+                NWScript.sendMessageToPC(oPC, ColorToken.LightPurple() + "Rate of Fire: Semi-Auto" + ColorToken.End());
+            }
+        }
+    }
+
+    private void UpdateItemName(NWObject oItem)
+    {
+        String sName = NWScript.getName(oItem, true);
+        int iBulletCount = NWScript.getLocalInt(oItem, GUN_MAGAZINE_BULLET_COUNT);
+        GunGO stGunInfo = new GunGO(oItem);
+        String sNewName = "";
+
+        // Firearms - Display current and max bullets chambered in the gun
+        if(stGunInfo.getMagazineSize() > 0)
+        {
+            sNewName = sName + ColorToken.Custom(0, 255, 0) + " (" + iBulletCount + "/" + stGunInfo.getMagazineSize() + ")" + ColorToken.End();
+        }
+
+        // Update item name
+        NWScript.setName(oItem, sNewName);
+    }
+
+    public boolean NPCCombatRoutine(final NWObject oNPC, NWObject oTarget)
+    {
+        if(oTarget == NWObject.INVALID)
+        {
+            oTarget = NWScript.getNearestCreature(CreatureType.REPUTATION, ReputationType.ENEMY, oNPC, 1, -1, -1, -1, -1);
+        }
+        final NWObject oFinalTarget = oTarget;
+
+        NWObject oWeapon = NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oNPC);
+        GunGO stGunInfo = new GunGO(oWeapon);
+        int iBulletCount = NWScript.getLocalInt(oWeapon, GUN_MAGAZINE_BULLET_COUNT);
+        boolean bFireDefaultScript = true;
+
+        if (stGunInfo.getGunType() != GUN_TYPE_INVALID && NWScript.getHasFeat(1116, oNPC)) // 1116 = Reload Feat
+        {
+            bFireDefaultScript = false;
+
+            // Out of ammo or have no target and not at max ammo.
+            if(iBulletCount <= 0 || (iBulletCount < stGunInfo.getMagazineSize() && oFinalTarget == NWObject.INVALID))
+            {
+                Scheduler.assign(oNPC, new Runnable() {
+                    @Override
+                    public void run() {
+                        NWScript.actionUseFeat(1116, oNPC);
+                    }
+                });
+            }
+            else
+            {
+                if(NWScript.getIsEnemy(oFinalTarget, oNPC) && oFinalTarget != NWObject.INVALID)
+                {
+                    Scheduler.assign(oNPC, new Runnable() {
+                        @Override
+                        public void run() {
+                            NWScript.actionAttack(oFinalTarget, true);
+                        }
+                    });
+                }
+            }
+        }
+
+        Scheduler.flushQueues();
+
+        return bFireDefaultScript;
     }
 
 
@@ -575,13 +1142,10 @@ public class CombatSystem {
         }
 
         // Update gun name to reflect change in ammo currently chambered
-        //UpdateItemName(oWeapon1); // TODO: Update item name
+        UpdateItemName(oWeapon1);
 
         // Fire durability system for gun
-        //DCY_RunItemDecay(oPC, oWeapon1); // TODO: Run item decay system
-
-        // Disabled auto-attack - There's not an easy way to stop this from firing infinitely because the NWNX OnAttack event only fires when combat initially starts
-        //AssignCommand(oPC, DelayCommand(fAnimationLength+fNextAttackDelay+0.3,ActionAttack(oTarget)));
+        DurabilitySystem.RunItemDecay(oAttacker, oWeapon1, 0, 0, true);
     }
 
     void FireShot(NWObject oAttacker, NWObject oTarget, NWObject oWeapon, int iAnimation, NWObject objSelf)
