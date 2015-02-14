@@ -3,6 +3,7 @@ package contagionJVM.Event;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.AreaScript;
 import contagionJVM.NWNX.NWNX_Funcs;
+import contagionJVM.System.DeathSystem;
 import contagionJVM.System.SpawnSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -28,13 +29,11 @@ public class Module_OnLoad implements IScriptEventHandler {
 		NWScript.executeScript("initialize_event", objSelf);
 		// Key Items
 		NWScript.executeScript("key_item_modload", objSelf);
-		// Death System
-		NWScript.executeScript("dth_mod_load", objSelf);
+        DeathSystem.OnModuleLoad();
 		// Portrait Selection System
 		NWScript.executeScript("portrait_modload", objSelf);
 		// Craft System
 		NWScript.executeScript("craft_mod_load", objSelf);
-
 		// Spawn System
 		spawnSystem.ZSS_OnModuleLoad();
 

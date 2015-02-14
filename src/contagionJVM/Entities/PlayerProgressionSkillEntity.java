@@ -9,6 +9,7 @@ public class PlayerProgressionSkillEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="PlayerProgressionSkillID")
     private int playerProgressionSkillID;
 
     @Column(name="PlayerID")
