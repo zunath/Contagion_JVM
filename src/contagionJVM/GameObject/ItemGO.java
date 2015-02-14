@@ -19,13 +19,6 @@ public class ItemGO {
         this.item = oItem;
     }
 
-    public ItemGO(String tag, String resref, String script) {
-        this.setTag(tag);
-        this.setResref(resref);
-        this.setScript(script);
-        this.item = NWObject.INVALID;
-    }
-
     public String getTag() {
         return tag;
     }
@@ -52,6 +45,8 @@ public class ItemGO {
 
     public int getDurability()
     {
+        if(!canHaveDurability()) return -1;
+
         NWItemProperty[] itemProperties = NWScript.getItemProperties(item);
         for(NWItemProperty ip : itemProperties)
         {
@@ -68,6 +63,8 @@ public class ItemGO {
 
     public void setDurability(int durability)
     {
+        if(!canHaveDurability()) return;
+
         if(durability < 0) durability = 0;
         else if(durability > 100) durability = 100;
         int row2DA = 101 - durability;
@@ -77,6 +74,21 @@ public class ItemGO {
 
     }
 
+
+    private boolean canHaveDurability()
+    {
+        NWItemProperty[] itemProperties = NWScript.getItemProperties(item);
+
+        for(NWItemProperty ip : itemProperties)
+        {
+            if(ip.getItemPropertyId() == CustomItemProperty.ItemDurability)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
 }

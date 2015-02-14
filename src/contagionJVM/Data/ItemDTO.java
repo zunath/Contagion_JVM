@@ -1,67 +1,68 @@
 package contagionJVM.Data;
 
 public class ItemDTO {
-    private int _version;
-    private String _resref;
-    private String _tag;
-    private String _nameFormat;
-    private boolean _replace;
+    private int version;
+    private String resref;
+    private String tag;
+    private String nameFormat;
+    private boolean replace;
+    private int quantity;
 
-    public ItemDTO(String resref, String tag, int version, String nameFormat, boolean replace)
-    {
-        _tag = tag;
-        _version = version;
-        _resref = resref;
-        _nameFormat = nameFormat;
-        _replace = replace;
+    public ItemDTO() {
+        this.setNameFormat("");
+        this.setQuantity(0);
+        this.setReplace(false);
+        this.setResref("");
+        this.setVersion(0);
+        this.setTag("");
     }
 
-    public void SetTag(String tag)
-    {
-        _tag = tag;
+
+    public int getVersion() {
+        return version;
     }
 
-    public String GetTag()
-    {
-        return _tag;
+    public void setVersion(int version) {
+        this.version = version;
     }
 
-    public int GetVersion()
-    {
-        return _version;
-    }
-    public void SetVersion(int version)
-    {
-        _version = version;
+    public String getResref() {
+        return resref;
     }
 
-    public String GetResref()
-    {
-        return _resref;
+    public void setResref(String resref) {
+        this.resref = resref;
     }
 
-    public void SetResref(String resref)
-    {
-        _resref = resref;
+    public String getTag() {
+        return tag;
     }
 
-    public String GetNameFormat()
-    {
-        return _nameFormat;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
-    public void SetNameFormat(String nameFormat)
-    {
-        _nameFormat = nameFormat;
+    public String getNameFormat() {
+        return nameFormat;
     }
 
-    public boolean GetReplace()
-    {
-        return _replace;
+    public void setNameFormat(String nameFormat) {
+        this.nameFormat = nameFormat;
     }
 
-    public void SetReplace(boolean replace)
-    {
-        _replace = replace;
+    public boolean isReplace() {
+        return replace;
+    }
+
+    public void setReplace(boolean replace) {
+        this.replace = replace;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

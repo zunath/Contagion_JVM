@@ -21,13 +21,13 @@ public class PlayerEntity {
     @Column(name="LocationAreaTag")
     private String locationAreaTag;
     @Column(name="LocationX")
-    private double locationX;
+    private float locationX;
     @Column(name="LocationY")
-    private double locationY;
+    private float locationY;
     @Column(name="LocationZ")
-    private double locationZ;
+    private float locationZ;
     @Column(name="LocationOrientation")
-    private double locationOrientation;
+    private float locationOrientation;
     @Column(name="CreateTimestamp")
     private Date createTimestamp;
     @Column(name="InfectionCap")
@@ -106,7 +106,7 @@ public class PlayerEntity {
         this.locationAreaTag = _locationAreaTag;
     }
 
-    public double getLocationX() {
+    public float getLocationX() {
         return locationX;
     }
 
@@ -114,7 +114,7 @@ public class PlayerEntity {
         this.locationX = _locationX;
     }
 
-    public double getLocationY() {
+    public float getLocationY() {
         return locationY;
     }
 
@@ -122,7 +122,7 @@ public class PlayerEntity {
         this.locationY = _locationY;
     }
 
-    public double getLocationZ() {
+    public float getLocationZ() {
         return locationZ;
     }
 
@@ -130,7 +130,7 @@ public class PlayerEntity {
         this.locationZ = _locationZ;
     }
 
-    public double getLocationOrientation() {
+    public float getLocationOrientation() {
         return locationOrientation;
     }
 

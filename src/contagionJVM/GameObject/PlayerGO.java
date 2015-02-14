@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class PlayerGO {
@@ -166,15 +165,6 @@ public class PlayerGO {
         Date sanctuaryCutOffDate = calendar.getTime();
         Date currentDate = new Date();
 
-
-        if(hasOverride || currentDate.after(sanctuaryCutOffDate))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return !(hasOverride || currentDate.after(sanctuaryCutOffDate));
     }
-
 }
