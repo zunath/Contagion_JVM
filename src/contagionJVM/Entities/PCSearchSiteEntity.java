@@ -24,8 +24,8 @@ public class PCSearchSiteEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumns({
-        @JoinColumn(name="SearchSiteID"),
-        @JoinColumn(name="PlayerID")
+        @JoinColumn(name="SearchSiteID", referencedColumnName = "SearchSiteID"),
+        @JoinColumn(name="PlayerID", referencedColumnName = "PlayerID")
     })
     private List<PCSearchSiteItemEntity> searchItems;
 

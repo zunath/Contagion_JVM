@@ -1,8 +1,5 @@
 package contagionJVM.Data;
-import contagionJVM.Entities.AuthorizedDMEntity;
-import contagionJVM.Entities.DMRoleEntity;
-import contagionJVM.Entities.PlayerEntity;
-import contagionJVM.Entities.StorageEntity;
+import contagionJVM.Entities.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -78,7 +75,15 @@ public class DataAccess {
         // Link all DB entities to the configuration here.
         _configuration.addAnnotatedClass(AuthorizedDMEntity.class);
         _configuration.addAnnotatedClass(DMRoleEntity.class);
+        _configuration.addAnnotatedClass(ItemCombinationEntity.class);
+        _configuration.addAnnotatedClass(PCCorpseEntity.class);
+        _configuration.addAnnotatedClass(PCCorpseItemEntity.class);
+        _configuration.addAnnotatedClass(PCSearchSiteEntity.class);
+        _configuration.addAnnotatedClass(PCSearchSiteItemEntity.class);
         _configuration.addAnnotatedClass(PlayerEntity.class);
+        _configuration.addAnnotatedClass(PlayerProgressionSkillEntity.class);
+        _configuration.addAnnotatedClass(ProgressionLevelEntity.class);
+        _configuration.addAnnotatedClass(ProgressionSkillEntity.class);
         _configuration.addAnnotatedClass(StorageEntity.class);
 
 

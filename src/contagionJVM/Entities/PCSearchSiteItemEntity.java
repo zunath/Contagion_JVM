@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class PCSearchSiteItemEntity {
 
     @Id
-    @Column(name = "PCSearchItemID")
+    @Column(name = "PCSearchSiteItemID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int searchItemID;
 

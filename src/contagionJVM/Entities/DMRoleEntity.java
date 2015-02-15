@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class DMRoleEntity {
 
     @Id
-    @Column(name ="DMRoleID")
+    @Column(name ="DMRoleDomainID")
     private int _dmRoleID;
 
     @Column(name="Description")

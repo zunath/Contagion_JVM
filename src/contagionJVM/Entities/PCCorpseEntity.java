@@ -1,6 +1,7 @@
 package contagionJVM.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -10,6 +11,7 @@ public class PCCorpseEntity {
 
     @Id
     @Column(name="PCCorpseID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int pcCorpseID;
 
     @Column(name="Name")
@@ -30,10 +32,13 @@ public class PCCorpseEntity {
     @Column(name="AreaTag")
     private String areaTag;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="PCCorpseItemID")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "corpse")
     private List<PCCorpseItemEntity> corpseItems;
 
+    public PCCorpseEntity()
+    {
+        corpseItems = new ArrayList<>();
+    }
 
     public int getPcCorpseID() {
         return pcCorpseID;

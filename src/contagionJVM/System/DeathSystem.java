@@ -93,18 +93,19 @@ public class DeathSystem {
 
         NWScript.setName(corpse, corpseName);
         NWScript.setDescription(corpse, corpseName, true);
-        NWScript.setLocalInt(corpse, "CORPSE_ID", entity.getPcCorpseID());
 
         for(NWObject corpseItem : NWScript.getItemsInInventory(corpse))
         {
             PCCorpseItemEntity corpseItemEntity = new PCCorpseItemEntity();
             byte[] data = SCORCO.saveObject(corpseItem);
             corpseItemEntity.setItem(data);
+            corpseItemEntity.setCorpse(entity);
             entity.getCorpseItems().add(corpseItemEntity);
         }
 
         PCCorpseRepository repo = new PCCorpseRepository();
         repo.Save(entity);
+        NWScript.setLocalInt(corpse, "CORPSE_ID", entity.getPcCorpseID());
         Scheduler.flushQueues();
     }
 

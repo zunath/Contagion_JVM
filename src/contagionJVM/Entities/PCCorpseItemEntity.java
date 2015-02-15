@@ -11,12 +11,13 @@ public class PCCorpseItemEntity {
     @Column(name="PCCorpseItemID")
     private int pcCorpseItemID;
 
-    @Column(name="PCCorpseID")
-    private int pcCorpseID;
-
     @Lob
     @Column(name="NWItemObject")
     private byte[] item;
+
+    @ManyToOne
+    @JoinColumn(name = "PCCorpseID")
+    private PCCorpseEntity corpse;
 
     public int getPcCorpseItemID() {
         return pcCorpseItemID;
@@ -26,19 +27,19 @@ public class PCCorpseItemEntity {
         this.pcCorpseItemID = pcCorpseItemID;
     }
 
-    public int getPcCorpseID() {
-        return pcCorpseID;
-    }
-
-    public void setPcCorpseID(int pcCorpseID) {
-        this.pcCorpseID = pcCorpseID;
-    }
-
     public byte[] getItem() {
         return item;
     }
 
     public void setItem(byte[] item) {
         this.item = item;
+    }
+
+    public PCCorpseEntity getCorpse() {
+        return corpse;
+    }
+
+    public void setCorpse(PCCorpseEntity corpse) {
+        this.corpse = corpse;
     }
 }

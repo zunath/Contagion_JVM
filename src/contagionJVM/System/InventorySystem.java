@@ -87,10 +87,15 @@ public class InventorySystem {
     {
         PlayerGO pcGO = new PlayerGO(oPC);
         PlayerEntity entity = new PlayerRepository().getByUUID(pcGO.getUUID());
-        int slots = BaseInventoryLimit + entity.getInventorySpaceBonus();
+        int slots = BaseInventoryLimit;
+
+        if(entity != null)
+        {
+            slots += entity.getInventorySpaceBonus();
+        }
 
         int equipBonusSlots = 0;
-        for(int invSlot = 0; invSlot < 16; invSlot++)
+        for(int invSlot = 0; invSlot < Constants.NumberOfInventorySlots; invSlot++)
         {
             NWObject oItem = NWScript.getItemInSlot(invSlot, oPC);
             if(!oItem.equals(NWObject.INVALID))
