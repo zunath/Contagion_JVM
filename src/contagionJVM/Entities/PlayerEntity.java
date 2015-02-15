@@ -168,6 +168,8 @@ public class PlayerEntity {
     }
 
     public void setCurrentHunger(int currentHunger) {
+        if(currentHunger < 0) currentHunger = 0;
+
         this.currentHunger = currentHunger;
     }
 
@@ -180,6 +182,8 @@ public class PlayerEntity {
     }
 
     public int getCurrentThirst() {
+        if(currentThirst < 0) currentThirst = 0;
+
         return currentThirst;
     }
 

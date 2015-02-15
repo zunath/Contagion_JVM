@@ -8,6 +8,8 @@ import contagionJVM.NWNX.NWNX_Events;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
+import java.util.Objects;
+
 public class RadioSystem {
 
     // The number of channels available to players using radios.
@@ -167,7 +169,7 @@ public class RadioSystem {
         NWObject oRadio = NWScript.getModuleItemLost();
         String sResref = NWScript.getResRef(oRadio);
 
-        if(sResref == RADIO_RESREF)
+        if(Objects.equals(sResref, RADIO_RESREF))
         {
             NWObject oDatabase = pcGO.GetDatabaseItem();
             int bPoweredOn = NWScript.getLocalInt(oRadio, RADIO_POWER);
@@ -190,7 +192,7 @@ public class RadioSystem {
         String sUUID = pcGO.getUUID();
         String sRadioPCID = NWScript.getLocalString(oRadio, RADIO_PC_ID_ENABLED_BY);
 
-        if(sResref == RADIO_RESREF)
+        if(Objects.equals(sResref, RADIO_RESREF))
         {
             int bPoweredOn = NWScript.getLocalInt(oRadio, RADIO_POWER);
 
@@ -198,7 +200,7 @@ public class RadioSystem {
             // the current owner. I.E: When the server resets, the OnAcquire event is fired
             // for all items. This check prevents the radio's status from being reset when
             // that happens.
-            if(bPoweredOn == 1 && sUUID != sRadioPCID)
+            if(bPoweredOn == 1 && !Objects.equals(sUUID, sRadioPCID))
             {
                 NWScript.deleteLocalInt(oDatabase, RADIO_CHANNEL);
                 NWScript.deleteLocalInt(oRadio, RADIO_POWER);

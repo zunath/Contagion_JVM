@@ -30,7 +30,16 @@ public class FoodSystem {
                 NWScript.floatingTextStringOnCreature("You are starving!", pc, false);
             }
 
-            if(entity.getCurrentHunger() <= 0)
+            if(entity.getCurrentThirst() == 70 || entity.getCurrentThirst() == 60 || entity.getCurrentThirst() == 50 || entity.getCurrentThirst() == 40)
+            {
+                NWScript.floatingTextStringOnCreature("You are thirsty.", pc, false);
+            }
+            else if(entity.getCurrentThirst() == 30 || entity.getCurrentThirst() == 20 || entity.getCurrentThirst() <= 10)
+            {
+                NWScript.floatingTextStringOnCreature("You are dying of thirst!", pc, false);
+            }
+
+            if(entity.getCurrentHunger() <= 0 || entity.getCurrentThirst() <= 0)
             {
                 NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectDeath(false, true), pc, 0.0f);
             }
