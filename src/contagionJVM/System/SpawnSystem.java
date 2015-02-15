@@ -226,43 +226,36 @@ public class SpawnSystem {
             oArea = NWNX_Funcs.GetNextArea();
         }
 
-        NWScript.printString("Spawn System: Module load procedure complete.");
-
         // Set the TMI limit back to normal
         NWNX_TMI.SetTMILimit(131071);
     }
 
     public void ZSS_OnZombieDeath(NWObject oZombie)
     {
+        if(NWScript.getLocalInt(oZombie, ZSS_ZOMBIE_SPAWNED) != 1) return;
+
         final NWObject oArea = NWScript.getArea(oZombie);
 
         int iPCCount = NWScript.getLocalInt(oArea, ZSS_PLAYER_COUNT);
         int iWaypointCount = NWScript.getLocalInt(oArea, ZSS_RESPAWN_WAYPOINT_COUNT);
         int iGroupID = NWScript.getLocalInt(oArea, ZSS_GROUP_ID);
 
-        // Safety check
-        if(iGroupID < 1) iGroupID = 1;
-
-        // Only respawn zombies that were created through this system (as opposed from DMs)
-        if(NWScript.getLocalInt(oZombie, ZSS_ZOMBIE_SPAWNED) == 1)
+        if(iPCCount > 0)
         {
-            // Only spawn when PCs are in the area
-            if(iPCCount > 0)
-            {
-                int iWaypoint = NWScript.random(iWaypointCount) + 1;
-                final String sResref = ZSS_GetZombieToSpawn(iGroupID, false);
-                NWObject oWaypoint = LocalArray.GetLocalArrayObject(oArea, ZSS_RESPAWN_WAYPOINT_OBJECT_ARRAY, iWaypoint);
-                final NWLocation lLocation = NWScript.getLocation(oWaypoint);
+            int iWaypoint = NWScript.random(iWaypointCount) + 1;
+            final String sResref = ZSS_GetZombieToSpawn(iGroupID, false);
+            NWObject oWaypoint = LocalArray.GetLocalArrayObject(oArea, ZSS_RESPAWN_WAYPOINT_OBJECT_ARRAY, iWaypoint);
+            final NWLocation lLocation = NWScript.getLocation(oWaypoint);
 
-                Scheduler.delay(oZombie, ZSS_SPAWN_DELAY * 1000, new Runnable() {
-                    @Override
-                    public void run() {
-                        ZSS_DelayCreateZombie(sResref, lLocation, oArea);
-                    }
-                });
+            Scheduler.delay(oZombie, ZSS_SPAWN_DELAY * 1000, new Runnable() {
+                @Override
+                public void run() {
+                    ZSS_DelayCreateZombie(sResref, lLocation, oArea);
+                }
+            });
 
-            }
         }
+
 
         Scheduler.flushQueues();
     }

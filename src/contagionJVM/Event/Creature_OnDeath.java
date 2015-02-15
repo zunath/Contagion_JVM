@@ -2,15 +2,19 @@ package contagionJVM.Event;
 
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.System.ProgressionSystem;
+import contagionJVM.System.SpawnSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.constants.AssociateType;
 
+@SuppressWarnings("UnusedDeclaration")
 public class Creature_OnDeath implements IScriptEventHandler {
     
     @Override
     public void runScript(NWObject oDead) {
         NWObject oKiller = NWScript.getLastKiller();
+        SpawnSystem spawnSystem = new SpawnSystem();
+        spawnSystem.ZSS_OnZombieDeath(oDead);
 
         // only continue if killer is valid and not from same faction...
         if ((oKiller==NWObject.INVALID) || (NWScript.getFactionEqual(oKiller, oDead))) return;
@@ -22,12 +26,12 @@ public class Creature_OnDeath implements IScriptEventHandler {
         int nGroupSize = 0;
 
         // get some basic group data like average PC level , PC group size, and XP divisor
-        
+
         NWObject[] groupMembers = NWScript.getFactionMembers(oKiller, false);
         
         for(NWObject oGroupMbr : groupMembers)
         {
-            if( PWFXP_CheckDistance(oDead, oGroupMbr) || oGroupMbr == oKiller)
+            if( PWFXP_CheckDistance(oDead, oGroupMbr) || oGroupMbr.equals(oKiller))
             {
                 if(NWScript.getIsPC(oGroupMbr))
                 {
@@ -37,7 +41,9 @@ public class Creature_OnDeath implements IScriptEventHandler {
                     fAvgLevel += PWFXP_GetLevel(oGroupMbr);
                 }
                 else
+                {
                     fDivisor += PWFXP_GetAssociateDivisor(oGroupMbr); // add npc divisor
+                }
             }
         }
 
@@ -67,7 +73,7 @@ public class Creature_OnDeath implements IScriptEventHandler {
         for(NWObject oGroupMbr : factionMembers)
         {
             fMbrLevel =  PWFXP_GetLevel(oGroupMbr);
-            if( PWFXP_CheckDistance(oDead, oGroupMbr) || oGroupMbr == oKiller)
+            if( PWFXP_CheckDistance(oDead, oGroupMbr) || oGroupMbr.equals(oKiller))
             {
                 // get global level modifier
                 fLevelModifier = PWFXP_GetLevelModifier((int)(fMbrLevel));
@@ -487,7 +493,7 @@ public class Creature_OnDeath implements IScriptEventHandler {
     // see PWFXP_KILLINGBLOW_MODIFIER constant description
     float PWFXP_GetMiscModifier(NWObject oPC, NWObject oKiller)
     {
-        if(oPC == oKiller && PWFXP_KILLINGBLOW_MODIFIER != 0.0)
+        if(oPC.equals(oKiller) && PWFXP_KILLINGBLOW_MODIFIER != 0.0)
         {
             return 1 + PWFXP_KILLINGBLOW_MODIFIER;
         }
@@ -517,7 +523,7 @@ public class Creature_OnDeath implements IScriptEventHandler {
     // see PWFXP_MAXIMUM_DISTANCE_TO_GROUP constant description
     boolean PWFXP_CheckDistance(NWObject oDead, NWObject oGroupMbr)
     {
-        return ( NWScript.getDistanceBetween(oDead, oGroupMbr) <= PWFXP_MAXIMUM_DISTANCE_TO_GROUP ) && ( NWScript.getArea(oDead) == NWScript.getArea(oGroupMbr) );
+        return ( NWScript.getDistanceBetween(oDead, oGroupMbr) <= PWFXP_MAXIMUM_DISTANCE_TO_GROUP ) && ( NWScript.getArea(oDead).equals(NWScript.getArea(oGroupMbr)));
     }
 
     // see PWFXP_USE_SETXP constant description
