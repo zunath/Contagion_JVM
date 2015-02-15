@@ -91,6 +91,14 @@ public class SearchSystem {
         int skillRank = NWScript.getSkillRank(Skill.SEARCH, oPC, false);
         int numberOfSearches = skillRank / ExtraSearchPerNumberLevels;
         PCSearchSiteEntity searchEntity = repo.GetSearchSiteByID(chestID, pcGO.getUUID());
+        DateTime timeLock = new DateTime();
+
+        if(numberOfSearches <= 0) numberOfSearches = 1;
+
+        if(searchEntity != null)
+        {
+            timeLock = new DateTime(searchEntity.getUnlockDateTime());
+        }
 
         if(resref.equals(SearchSiteCopyResref))
         {
@@ -99,8 +107,7 @@ public class SearchSystem {
 
         QuestSystem.SpawnQuestItems(oChest, oPC);
 
-        DateTime timeLock = new DateTime(searchEntity.getUnlockDateTime());
-        if(timeLock.isBeforeNow())
+        if(timeLock.isBefore(DateTime.now().minus(1)) || searchEntity == null)
         {
             int dc = NWScript.getLocalInt(oChest, SearchSiteDCVariableName);
 
@@ -178,9 +185,8 @@ public class SearchSystem {
         for(NWObject item : inventory)
         {
             PCSearchSiteItemEntity itemEntity = new PCSearchSiteItemEntity();
-            itemEntity.setSearchSiteID(chestID);
-            itemEntity.setPcID(pcGO.getUUID());
             itemEntity.setSearchItem(SCORCO.saveObject(item));
+            itemEntity.setSearchSite(entity);
 
             entity.getSearchItems().add(itemEntity);
         }
@@ -205,7 +211,7 @@ public class SearchSystem {
 
             if(!spawnItem.getResref().equals("") && spawnItem.getQuantity() > 0)
             {
-                NWObject foundItem = NWScript.createItemOnObject(spawnItem.getResref(), oPC, spawnItem.getQuantity(), "");
+                NWObject foundItem = NWScript.createItemOnObject(spawnItem.getResref(), oChest, spawnItem.getQuantity(), "");
                 ItemGO itemGO = new ItemGO(foundItem);
                 itemGO.setDurability(NWScript.random(70) + 1);
             }

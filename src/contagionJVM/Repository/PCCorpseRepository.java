@@ -54,8 +54,6 @@ public class PCCorpseRepository {
     {
         try(DataContext context = new DataContext())
         {
-
-
             context.getSession().saveOrUpdate(entity);
         }
     }

@@ -1,12 +1,14 @@
 package contagionJVM.Entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "pc_search_sites")
-public class PCSearchSiteEntity {
+public class PCSearchSiteEntity implements Serializable {
 
     @Id
     @Column(name = "PCSearchSiteID")
@@ -14,7 +16,7 @@ public class PCSearchSiteEntity {
     private int pcSearchSiteID;
 
     @Column(name = "PlayerID")
-    private String pcID;
+    private String playerID;
 
     @Column(name = "SearchSiteID")
     private int searchSiteID;
@@ -22,13 +24,13 @@ public class PCSearchSiteEntity {
     @Column(name = "UnlockDateTime")
     private Timestamp unlockDateTime;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumns({
-        @JoinColumn(name="SearchSiteID", referencedColumnName = "SearchSiteID"),
-        @JoinColumn(name="PlayerID", referencedColumnName = "PlayerID")
-    })
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "searchSite", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<PCSearchSiteItemEntity> searchItems;
 
+    public PCSearchSiteEntity()
+    {
+        searchItems = new ArrayList<>();
+    }
 
     public int getPcSearchSiteID() {
         return pcSearchSiteID;
@@ -39,11 +41,11 @@ public class PCSearchSiteEntity {
     }
 
     public String getPcID() {
-        return pcID;
+        return playerID;
     }
 
-    public void setPcID(String pcID) {
-        this.pcID = pcID;
+    public void setPcID(String playerID) {
+        this.playerID = playerID;
     }
 
     public int getSearchSiteID() {

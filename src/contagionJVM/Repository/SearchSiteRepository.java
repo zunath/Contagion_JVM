@@ -35,6 +35,8 @@ public class SearchSiteRepository {
 
     public void Delete(PCSearchSiteEntity entity)
     {
+        if(entity == null) return;
+
         try(DataContext context = new DataContext())
         {
             context.getSession().delete(entity);

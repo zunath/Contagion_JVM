@@ -11,15 +11,16 @@ public class PCSearchSiteItemEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int searchItemID;
 
-    @Column(name="PlayerID")
-    private String pcID;
-
-    @Column(name = "SearchSiteID")
-    private int searchSiteID;
-
     @Lob
     @Column(name = "SearchItem")
     private byte[] searchItem;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumns({
+            @JoinColumn(name="SearchSiteID", referencedColumnName = "SearchSiteID"),
+            @JoinColumn(name="PlayerID", referencedColumnName = "PlayerID")
+    })
+    private PCSearchSiteEntity searchSite;
 
     public int getSearchItemID() {
         return searchItemID;
@@ -29,27 +30,19 @@ public class PCSearchSiteItemEntity {
         this.searchItemID = searchItemID;
     }
 
-    public String getPcID() {
-        return pcID;
-    }
-
-    public void setPcID(String pcID) {
-        this.pcID = pcID;
-    }
-
-    public int getSearchSiteID() {
-        return searchSiteID;
-    }
-
-    public void setSearchSiteID(int searchSiteID) {
-        this.searchSiteID = searchSiteID;
-    }
-
     public byte[] getSearchItem() {
         return searchItem;
     }
 
     public void setSearchItem(byte[] searchItem) {
         this.searchItem = searchItem;
+    }
+
+    public PCSearchSiteEntity getSearchSite() {
+        return searchSite;
+    }
+
+    public void setSearchSite(PCSearchSiteEntity searchSite) {
+        this.searchSite = searchSite;
     }
 }
