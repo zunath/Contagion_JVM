@@ -32,7 +32,7 @@ public class PCCorpseEntity {
     @Column(name="AreaTag")
     private String areaTag;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "corpse")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "corpse", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<PCCorpseItemEntity> corpseItems;
 
     public PCCorpseEntity()

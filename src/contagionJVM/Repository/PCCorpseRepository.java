@@ -19,7 +19,8 @@ public class PCCorpseRepository {
                     .createCriteria(PCCorpseEntity.class);
 
             entity = (PCCorpseEntity)criteria
-                    .add(Restrictions.eq("pcCorpseID", corpseID));
+                    .add(Restrictions.eq("pcCorpseID", corpseID))
+                    .uniqueResult();
         }
 
         return entity;
@@ -41,6 +42,8 @@ public class PCCorpseRepository {
 
     public void Delete(PCCorpseEntity entity)
     {
+        if(entity == null) return;
+
         try(DataContext context = new DataContext())
         {
             context.getSession().delete(entity);
@@ -51,6 +54,8 @@ public class PCCorpseRepository {
     {
         try(DataContext context = new DataContext())
         {
+
+
             context.getSession().saveOrUpdate(entity);
         }
     }

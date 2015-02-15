@@ -31,6 +31,7 @@ public class DeathSystem {
             NWObject corpse = NWScript.createObject(ObjectType.PLACEABLE, CorpsePlaceableResref, location, false, "");
             NWScript.setName(corpse, entity.getName());
             NWScript.setDescription(corpse, entity.getName(), true);
+            NWScript.setLocalInt(corpse, "CORPSE_ID", entity.getPcCorpseID());
 
             for(PCCorpseItemEntity item : entity.getCorpseItems())
             {
@@ -153,12 +154,12 @@ public class DeathSystem {
                 PCCorpseItemEntity corpseItemEntity = new PCCorpseItemEntity();
                 byte[] data = SCORCO.saveObject(corpseItem);
                 corpseItemEntity.setItem(data);
+                corpseItemEntity.setCorpse(entity);
                 entity.getCorpseItems().add(corpseItemEntity);
             }
 
             repo.Save(entity);
         }
-
 
         Scheduler.flushQueues();
     }
@@ -172,6 +173,7 @@ public class DeathSystem {
             PCCorpseRepository repo = new PCCorpseRepository();
             PCCorpseEntity entity = repo.GetByID(corpseID);
             repo.Delete(entity);
+            NWScript.destroyObject(corpse, 0.0f);
         }
     }
 }

@@ -15,7 +15,7 @@ public class PCCorpseItemEntity {
     @Column(name="NWItemObject")
     private byte[] item;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PCCorpseID")
     private PCCorpseEntity corpse;
 
