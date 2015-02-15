@@ -6,9 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Fix experience calculation and granting">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/Creature_OnDeath.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/Creature_OnDeath.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/SpawnSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/SpawnSystem.java" />
+    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Fix for duplicate corpses on mod load.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -34,93 +34,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DurabilitySystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DurabilitySystem.java">
+      <file leaf-file-name="DeathSystem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="1870">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="3162">
+              <caret line="23" column="49" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SpawnSystem.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/SpawnSystem.java">
+      <file leaf-file-name="PCCorpseRepository.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.60104984" vertical-offset="3486" max-vertical-offset="5933">
-              <caret line="232" column="16" selection-start-line="232" selection-start-column="16" selection-end-line="232" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Creature_OnDeath.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Creature_OnDeath.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.379311" vertical-offset="0" max-vertical-offset="9197">
-              <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
-              <folding>
-                <element signature="e#280#318#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DiseaseSystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="3706">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FoodSystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/FoodSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="71" max-vertical-offset="969">
-              <caret line="17" column="28" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InventorySystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/InventorySystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="860" max-vertical-offset="2958">
-              <caret line="65" column="8" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProgressionSystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1837" max-vertical-offset="4828">
-              <caret line="123" column="23" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QuestSystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/QuestSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-              <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RadioSystem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/RadioSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="884" max-vertical-offset="4046">
-              <caret line="177" column="43" selection-start-line="177" selection-start-column="43" selection-end-line="177" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.5703226" vertical-offset="204" max-vertical-offset="1156">
+              <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -171,9 +99,7 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseItemEntity.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseEntity.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Repository/SearchSiteRepository.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCSearchSiteItemEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java" />
@@ -185,6 +111,8 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/System/SpawnSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Creature/Default_OnDeath.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Creature_OnDeath.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java" />
       </list>
     </option>
   </component>
@@ -732,7 +660,13 @@
       <option name="project" value="LOCAL" />
       <updated>1423976090880</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fix experience calculation and granting">
+      <created>1423977687402</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1423977687402</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -742,7 +676,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13841201" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13841201" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13519314" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
@@ -795,7 +729,8 @@
     <MESSAGE value="Search site fixes" />
     <MESSAGE value="Fix food/thirst tracking" />
     <MESSAGE value="Fix experience calculation and granting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix experience calculation and granting" />
+    <MESSAGE value="Fix for duplicate corpses on mod load." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix for duplicate corpses on mod load." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1032,22 +967,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1092545" vertical-offset="0" max-vertical-offset="778">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4888889" vertical-offset="901" max-vertical-offset="1819">
-          <caret line="75" column="19" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/4.2.0.Final/hibernate-core-4.2.0.Final.jar!/org/hibernate/Session.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3439575" vertical-offset="1288" max-vertical-offset="3842">
@@ -1060,14 +979,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11111111" vertical-offset="0" max-vertical-offset="765">
           <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.827027" vertical-offset="0" max-vertical-offset="1139">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1168,14 +1079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.183727" vertical-offset="1869" max-vertical-offset="3145">
-          <caret line="163" column="32" selection-start-line="163" selection-start-column="32" selection-end-line="163" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DurabilitySystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="1870">
@@ -1192,9 +1095,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/SpawnSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.051181" vertical-offset="2466" max-vertical-offset="5933">
+          <caret line="237" column="0" selection-start-line="237" selection-start-column="0" selection-end-line="237" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Creature_OnDeath.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.379311" vertical-offset="0" max-vertical-offset="9197">
+        <state vertical-scroll-proportion="0.37107778" vertical-offset="0" max-vertical-offset="9197">
           <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
           <folding>
             <element signature="e#280#318#0" expanded="true" />
@@ -1202,10 +1113,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/SpawnSystem.java">
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60104984" vertical-offset="3486" max-vertical-offset="5933">
-          <caret line="232" column="16" selection-start-line="232" selection-start-column="16" selection-end-line="232" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.10967742" vertical-offset="0" max-vertical-offset="775">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35301837" vertical-offset="1006" max-vertical-offset="1819">
+          <caret line="75" column="19" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="3162">
+          <caret line="23" column="49" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PCCorpseRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5703226" vertical-offset="204" max-vertical-offset="1156">
+          <caret line="38" column="9" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
           <folding />
         </state>
       </provider>

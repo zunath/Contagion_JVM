@@ -22,6 +22,7 @@ public class DeathSystem {
     {
         PCCorpseRepository repo = new PCCorpseRepository();
         List<PCCorpseEntity> entities = repo.GetAll();
+        System.out.println("Corpse count = " + entities.size()); // DEBUG
 
         for(PCCorpseEntity entity : entities)
         {

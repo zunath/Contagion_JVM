@@ -33,7 +33,8 @@ public class PCCorpseRepository {
         try(DataContext context = new DataContext())
         {
             Criteria criteria = context.getSession()
-                    .createCriteria(PCCorpseEntity.class);
+                    .createCriteria(PCCorpseEntity.class)
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             entities = criteria.list();
         }
 
