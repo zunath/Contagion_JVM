@@ -2,6 +2,7 @@ package contagionJVM.Enumerations;
 
 public class CustomItemProperty {
 
+    public static final int SkillRequirement = 138;
     public static final int InventorySpaceBonus = 140;
     public static final int ItemDurability = 141;
     public static final int FirearmAdditionalAmmoClasses = 142;

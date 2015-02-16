@@ -5,6 +5,7 @@ import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.Entities.PlayerProgressionSkillEntity;
 import contagionJVM.Entities.ProgressionLevelEntity;
 import contagionJVM.Entities.ProgressionSkillEntity;
+import contagionJVM.Enumerations.CustomItemProperty;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -213,7 +214,7 @@ public class ProgressionSystem {
         NWItemProperty[] itemProperties = NWScript.getItemProperties(oItem);
         for(NWItemProperty ip : itemProperties)
         {
-            if(NWScript.getItemPropertyType(ip) == 138) // 138 == Skill Requirement
+            if(NWScript.getItemPropertyType(ip) == CustomItemProperty.SkillRequirement)
             {
                 int skillID = NWScript.getItemPropertySubType(ip);
                 int skillRequired = NWScript.getItemPropertyCostTableValue(ip);
