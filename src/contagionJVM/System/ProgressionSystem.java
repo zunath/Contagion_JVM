@@ -21,8 +21,8 @@ import org.nwnx.nwnx2.jvm.constants.Feat;
 import org.nwnx.nwnx2.jvm.constants.SavingThrow;
 
 import java.util.Objects;
-import java.util.logging.Level;
 
+@SuppressWarnings("UnusedDeclaration")
 public class ProgressionSystem {
 
     // Configuration
@@ -166,7 +166,7 @@ public class ProgressionSystem {
         PlayerProgressionSkillsRepository playerSkillRepo = new PlayerProgressionSkillsRepository();
         PlayerProgressionSkillEntity playerSkillEntity = playerSkillRepo.GetByUUIDAndSkillID(pcGO.getUUID(), skillID);
 
-        if(playerSkillEntity.equals(null))
+        if(playerSkillEntity == null)
         {
             playerSkillEntity = new PlayerProgressionSkillEntity();
             playerSkillEntity.setPcID(pcGO.getUUID());
@@ -220,7 +220,7 @@ public class ProgressionSystem {
                 PlayerProgressionSkillEntity playerSkillEntity = repo.GetByUUIDAndSkillID(pcGO.getUUID(), skillID);
                 ProgressionSkillEntity skillEntity = skillRepo.getByID(skillID);
 
-                if(playerSkillEntity.equals(null) || playerSkillEntity.getUpgradeLevel() < skillRequired)
+                if(playerSkillEntity == null || playerSkillEntity.getUpgradeLevel() < skillRequired)
                 {
                     canWear = false;
                     NWScript.sendMessageToPC(oPC, ColorToken.Red() + "You lack the required " + skillEntity.getName() + " skill to equip that item. (Required: " + skillRequired + ")" + ColorToken.End());

@@ -1,9 +1,6 @@
 package contagionJVM.Entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -64,8 +61,6 @@ public class PlayerEntity {
     private int regenerationTick;
     @Column(name="RegenerationRate")
     private int regenerationRate;
-
-
 
     public PlayerEntity()
     {

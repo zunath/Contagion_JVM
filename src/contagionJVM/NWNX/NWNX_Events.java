@@ -5,6 +5,9 @@ import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.NWVector;
 import org.nwnx.nwnx2.jvm.constants.Gender;
 
+import java.util.Objects;
+
+@SuppressWarnings("UnusedDeclaration")
 public class NWNX_Events {
     public static final int EVENT_TYPE_ALL                = 0;
     public static final int EVENT_TYPE_SAVE_CHAR          = 1;
@@ -22,32 +25,17 @@ public class NWNX_Events {
     public static final int EVENT_TYPE_VALIDATE_CHARACTER = 13;
     public static final int EVENT_TYPE_DESTROY_OBJECT     = 14;
 
-// DEPRECATED
-// For backwards compatibility only - use above constants instead
-    final int EVENT_SAVE_CHAR = 1;
-    final int EVENT_PICKPOCKET = 2;
-    final int EVENT_ATTACK = 3;
-    final int EVENT_USE_ITEM = 4;
-    final int EVENT_QUICKCHAT = 5;
-    final int EVENT_EXAMINE = 6;
-    final int EVENT_USE_SKILL = 7;
-    final int EVENT_USE_FEAT = 8;
-    final int EVENT_TOGGLE_MODE = 9;
 
-    final int NODE_TYPE_STARTING_NODE = 0;
-    final int NODE_TYPE_ENTRY_NODE    = 1;
-    final int NODE_TYPE_REPLY_NODE    = 2;
-
-    final int LANGUAGE_ENGLISH              = 0;
-    final int LANGUAGE_FRENCH               = 1;
-    final int LANGUAGE_GERMAN               = 2;
-    final int LANGUAGE_ITALIAN              = 3;
-    final int LANGUAGE_SPANISH              = 4;
-    final int LANGUAGE_POLISH               = 5;
-    final int LANGUAGE_KOREAN               = 128;
-    final int LANGUAGE_CHINESE_TRADITIONAL  = 129;
-    final int LANGUAGE_CHINESE_SIMPLIFIED   = 130;
-    final int LANGUAGE_JAPANESE             = 131;
+    public static final int LANGUAGE_ENGLISH              = 0;
+    public static final int LANGUAGE_FRENCH               = 1;
+    public static final int LANGUAGE_GERMAN               = 2;
+    public static final int LANGUAGE_ITALIAN              = 3;
+    public static final int LANGUAGE_SPANISH              = 4;
+    public static final int LANGUAGE_POLISH               = 5;
+    public static final int LANGUAGE_KOREAN               = 128;
+    public static final int LANGUAGE_CHINESE_TRADITIONAL  = 129;
+    public static final int LANGUAGE_CHINESE_SIMPLIFIED   = 130;
+    public static final int LANGUAGE_JAPANESE             = 131;
 
     public static int GetEventType()
     {   
@@ -118,7 +106,7 @@ public class NWNX_Events {
 
     public static void SetGlobalEventHandler(int nEventID, String sHandler)
     {
-        if (sHandler == "")
+        if (Objects.equals(sHandler, ""))
             sHandler = "-";
 
         String sKey = "NWNX!EVENTS!SET_EVENT_HANDLER_" + NWScript.intToString(nEventID);
