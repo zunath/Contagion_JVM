@@ -5,6 +5,7 @@ import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.Entities.PlayerProgressionSkillEntity;
 import contagionJVM.Entities.ProgressionLevelEntity;
 import contagionJVM.Entities.ProgressionSkillEntity;
+import contagionJVM.Enumerations.CustomFeat;
 import contagionJVM.Enumerations.CustomItemProperty;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
@@ -68,13 +69,15 @@ public class ProgressionSystem {
 
 
 
-    public void InitializePlayer(NWObject oPC, boolean resetFeats)
+    public static void InitializePlayer(NWObject oPC, boolean resetFeats)
     {
         if(!NWScript.getIsPC(oPC)) return;
         PlayerGO pcGO = new PlayerGO(oPC);
         PlayerRepository playerRepo = new PlayerRepository();
         PlayerProgressionSkillsRepository playerSkillRepo = new PlayerProgressionSkillsRepository();
         PlayerEntity entity = playerRepo.getByUUID(pcGO.getUUID());
+
+
 
         if(resetFeats)
         {
@@ -91,7 +94,7 @@ public class ProgressionSystem {
             NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_EXOTIC, -1);
             NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_MARTIAL, -1);
             NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_SIMPLE, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, 1116, -1); // Reload
+            NWNX_Funcs.AddKnownFeat(oPC, CustomFeat.Reload, -1);
 
             NWNX_Funcs.SetAbilityScore(oPC, Ability.STRENGTH, Constants.BaseStrength);
             NWNX_Funcs.SetAbilityScore(oPC, Ability.DEXTERITY, Constants.BaseDexterity);

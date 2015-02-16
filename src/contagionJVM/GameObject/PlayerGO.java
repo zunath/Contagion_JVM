@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.UUID;
 
 public class PlayerGO {
     private NWObject _pc;
@@ -29,18 +30,41 @@ public class PlayerGO {
 
     public String getUUID()
     {
-        NWObject oDatabase = NWScript.getItemPossessedBy(_pc, Constants.PCDatabaseTag);
-        return NWScript.getLocalString(oDatabase, Constants.PCIDNumberVariable);
+        String uuid = NWScript.getLocalString(_pc, Constants.PCIDNumberVariable);
+
+        if(NWScript.getIsDM(_pc))
+        {
+            if(uuid.equals(""))
+            {
+                uuid = UUID.randomUUID().toString();
+                NWScript.setLocalString(_pc, Constants.PCIDNumberVariable, uuid);
+            }
+        }
+        else
+        {
+            NWObject oDatabase = GetDatabaseItem();
+            if(uuid.equals(""))
+            {
+                uuid = NWScript.getLocalString(oDatabase, Constants.PCIDNumberVariable);
+            }
+            if(uuid.equals(""))
+            {
+                uuid = UUID.randomUUID().toString();
+            }
+
+            NWScript.setLocalString(oDatabase, Constants.PCIDNumberVariable, uuid);
+            NWScript.setLocalString(_pc, Constants.PCIDNumberVariable, uuid);
+        }
+
+        return uuid;
     }
 
     public PlayerEntity createEntity()
     {
-        NWObject database = NWScript.getItemPossessedBy(_pc, Constants.PCDatabaseTag);
-        String uuid = NWScript.getLocalString(database, Constants.PCIDNumberVariable);
         NWLocation location = NWScript.getLocation(_pc);
 
         PlayerEntity entity = new PlayerEntity();
-        entity.setPCID(uuid);
+        entity.setPCID(getUUID());
         entity.setCharacterName(NWScript.getName(_pc, false));
         entity.setHitPoints(NWScript.getCurrentHitPoints(_pc));
         entity.setLocationAreaTag(NWScript.getTag(NWScript.getArea(_pc)));

@@ -4,6 +4,6 @@ import org.nwnx.nwnx2.jvm.NWObject;
 
 public interface IDialogHandler {
     void Initialize(NWObject oPC);
-    void DoAction(int responseID);
+    void DoAction(NWObject oPC, int pageID, int responseID);
     void EndDialog();
 }

@@ -17,7 +17,7 @@ public class Constants {
 
 	public static final int BaseHPRegenAmount = 1;
 	public static final int BaseHPRegenRate = 20;
-	public static final int BaseHungerRate = 30;
+	public static final int BaseHungerRate = 60;
 
     public static final int NumberOfInventorySlots = 18;
 }

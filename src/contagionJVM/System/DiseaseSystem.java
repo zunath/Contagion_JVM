@@ -40,8 +40,6 @@ public class DiseaseSystem {
                 }
             });
 
-            // TODO: Give death token
-
             NWScript.floatingTextStringOnCreature("The infection has taken over your body!", oPC, false);
         }
 
@@ -55,8 +53,11 @@ public class DiseaseSystem {
 
         if(entity.getInfectionRemovalTick() <= 0)
         {
-            entity.setCurrentInfection(NWScript.random(10) + 5);
-            NWScript.sendMessageToPC(oPC, "Your body fights off some of the infection...");
+            if(entity.getCurrentInfection() > 0)
+            {
+                entity.setCurrentInfection(NWScript.random(10) + 5);
+                NWScript.sendMessageToPC(oPC, "Your body fights off some of the infection...");
+            }
 
             entity.setInfectionRemovalTick(600);
         }
@@ -84,8 +85,6 @@ public class DiseaseSystem {
 
     private void CreateZombieClone(final NWObject oPC)
     {
-        PlayerGO pcGO = new PlayerGO(oPC);
-
         NWLocation lLocation = NWScript.getLocation(oPC);
         String sClawResref = "reo_zombie_claw";
         final NWObject oClone = NWScript.copyObject(oPC, lLocation, NWObject.INVALID, "reo_zombie_000");

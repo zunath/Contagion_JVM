@@ -6,14 +6,22 @@ import org.nwnx.nwnx2.jvm.NWScript;
 
 public abstract class DialogBase {
 
-    protected NWObject getPC()
+    protected NWObject GetPC()
     {
         return NWScript.getPCSpeaker();
     }
 
+    protected void ChangePage(int pageID)
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        dialog.setCurrentPageID(pageID);
+        dialog.setPageOffset(0);
+    }
+
     protected void EndDialog()
     {
-        PlayerGO pcGO = new PlayerGO(getPC());
+        PlayerGO pcGO = new PlayerGO(GetPC());
         DialogManager.removePlayerDialog(pcGO.getUUID());
     }
 

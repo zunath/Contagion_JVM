@@ -15,7 +15,7 @@ import java.util.Objects;
 public class InventorySystem {
 
     private static final int BaseInventoryLimit = 15;
-    private static final int NumberOfSystemItems = 5;
+    private static final int NumberOfSystemItems = 4;
 
 
     public static void OnModuleAcquireItem()
@@ -56,6 +56,7 @@ public class InventorySystem {
         return NWScript.getItemsInInventory(oPC).length;
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     private static boolean IsItemExempt(NWObject oItem)
     {
         String sResref = NWScript.getResRef(oItem);

@@ -36,7 +36,7 @@ public class Dialog_ActionTaken implements IScriptEventHandler {
             try {
                 Class scriptClass = Class.forName("contagionJVM.Dialog." + className);
                 IDialogHandler script = (IDialogHandler) scriptClass.newInstance();
-                script.DoAction(responseID + 1);
+                script.DoAction(oPC, dialog.getCurrentPageID() + 1, responseID + 1);
             } catch (Exception ex) {
                 StringWriter sw = new StringWriter();
                 ex.printStackTrace(new PrintWriter(sw));

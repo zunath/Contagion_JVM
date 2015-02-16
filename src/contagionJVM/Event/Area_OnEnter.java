@@ -10,24 +10,45 @@ import org.nwnx.nwnx2.jvm.*;
 @SuppressWarnings("UnusedDeclaration")
 public class Area_OnEnter implements IScriptEventHandler {
     @Override
-    public void runScript(NWObject objSelf) {
+    public void runScript(NWObject oArea) {
         SpawnSystem spawnSystem = new SpawnSystem();
 
         NWObject oPC = NWScript.getEnteringObject();
 
         // Temporary Sanctuary Effects
-        NWScript.executeScript("sanctuary", objSelf);
-        LoadLocation(oPC, objSelf);
-        spawnSystem.ZSS_OnAreaEnter(objSelf);
+        NWScript.executeScript("sanctuary", oArea);
+        LoadLocation(oPC, oArea);
+        SaveLocation(oPC, oArea);
+        spawnSystem.ZSS_OnAreaEnter(oArea);
         // Show map in designated areas
-        NWScript.executeScript("show_map", objSelf);
+        NWScript.executeScript("show_map", oArea);
         // Initialize camera in designated areas.
-        NWScript.executeScript("initialize_camer", objSelf);
+        NWScript.executeScript("initialize_camer", oArea);
 
         // Save characters
         if(NWScript.getIsObjectValid(oPC) && NWScript.getIsPC(oPC) && !NWScript.getIsDM(oPC)) NWScript.exportSingleCharacter(oPC);
     }
 
+    private void SaveLocation(NWObject oPC, NWObject oArea)
+    {
+        if(!NWScript.getIsPC(oPC) || NWScript.getIsDM(oPC)) return;
+
+        String sTag = NWScript.getTag(oArea);
+        if(!sTag.equals("ooc_area"))
+        {
+            PlayerGO pcGO = new PlayerGO(oPC);
+            NWLocation location = NWScript.getLocation(oPC);
+            PlayerRepository repo = new PlayerRepository();
+            PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
+            entity.setLocationAreaTag(sTag);
+            entity.setLocationX(location.getX());
+            entity.setLocationY(location.getY());
+            entity.setLocationZ(location.getZ());
+            entity.setLocationOrientation(NWScript.getFacing(oPC));
+
+            repo.save(entity);
+        }
+    }
 
     private void LoadLocation(NWObject oPC, NWObject oArea)
     {
@@ -52,5 +73,4 @@ public class Area_OnEnter implements IScriptEventHandler {
 
         Scheduler.flushQueues();
     }
-
 }

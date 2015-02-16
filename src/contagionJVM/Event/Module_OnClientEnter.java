@@ -13,8 +13,6 @@ import org.nwnx.nwnx2.jvm.*;
 import org.nwnx.nwnx2.jvm.constants.Duration;
 import org.nwnx.nwnx2.jvm.constants.InventorySlot;
 
-import java.util.UUID;
-
 @SuppressWarnings("unused")
 public class Module_OnClientEnter implements IScriptEventHandler {
     @Override
@@ -40,8 +38,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         // Record Player Count
         NWScript.executeScript("record_pc_count", objSelf);
         ApplyGhostwalk();
-        // Housing System
-        NWScript.executeScript("rhs_mod_enter", objSelf);
 
         Scheduler.flushQueues();
     }
@@ -69,8 +65,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             pcGO.destroyAllEquippedItems();
             pcGO.destroyAllInventoryItems();
 
-            oDatabase = NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
-            NWScript.setLocalString(oDatabase, Constants.PCIDNumberVariable, UUID.randomUUID().toString());
+            NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
 
             Scheduler.assign(oPC, new Runnable() {
                 @Override
@@ -94,13 +89,10 @@ public class Module_OnClientEnter implements IScriptEventHandler {
                 }
             });
 
-            // TODO: Create personal journal
-
             for(int slot = 0; slot <= 10; slot++)
             {
                 NWNX_Funcs.SetRawQuickBarSlot(oPC, slot + " 0 0 0 0");
             }
-            NWNX_Funcs.SetRawQuickBarSlot(oPC, "1 4 0 1116 0");
 
             // Save to database
             PlayerRepository repo = new PlayerRepository();
@@ -109,7 +101,9 @@ public class Module_OnClientEnter implements IScriptEventHandler {
 
             pcGO.setCreateDate(entity.getCreateTimestamp());
 
-            new ProgressionSystem().InitializePlayer(oPC, true);
+            ProgressionSystem.InitializePlayer(oPC, true);
+
+            NWNX_Funcs.SetRawQuickBarSlot(oPC, "1 4 0 1116 0");
         }
 
         Scheduler.flushQueues();
