@@ -62,6 +62,7 @@ public class DialogManager {
             IDialogHandler script = (IDialogHandler)scriptClass.newInstance();
             PlayerDialog dialog = script.Initialize(oPC);
             dialog.setActiveDialogName(conversationName);
+            dialog.setDialogTarget(oTalkTo);
             DialogManager.storePlayerDialog(pcGO.getUUID(), dialog);
 
             Scheduler.assign(oPC, new Runnable() {

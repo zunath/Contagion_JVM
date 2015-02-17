@@ -20,14 +20,56 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                 "Modify Clothes",
                 "Character Management");
 
-        dialog.getDialogPages().add(mainPage);
+        DialogPage modifyClothesPage = new DialogPage(
+                "You may save, load, or modify outfits using this menu.",
+                "Save/Load Outfit",
+                "Change armor/clothing appearance",
+                "Change robe appearance"
+        );
+
+        DialogPage viewKeyItemsPage = new DialogPage(
+                "Select a key item category.",
+                "Maps",
+                "Quest Items",
+                "Documents"
+        );
+
+        DialogPage characterManagementPage = new DialogPage(
+                "Character Management & Information Page",
+                "Disable PVP Protection",
+                "Manage CD Keys",
+                "Change Portrait",
+                "Change Head"
+        );
+
+        dialog.addPage("MainPage", mainPage);
+        dialog.addPage("ModifyClothesPage", modifyClothesPage);
+        dialog.addPage("ViewKeyItemsPage", viewKeyItemsPage);
 
         return dialog;
     }
 
     @Override
-    public void DoAction(NWObject oPC, int pageID, int responseID) {
-
+    public void DoAction(NWObject oPC, String pageName, int responseID) {
+        if(pageName.equals("MainPage"))
+        {
+            switch(responseID)
+            {
+                // Allocate Skill Points
+                case 1:
+                    SwitchConversation("AllocateSkillPoints");
+                    break;
+                // View Key Items
+                case 2:
+                    break;
+                // Modify Clothes
+                case 3:
+                    break;
+                // Character Management
+                case 4:
+                    break;
+            }
+        }
     }
 
     @Override

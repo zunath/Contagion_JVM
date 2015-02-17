@@ -3,6 +3,7 @@ package contagionJVM.NWNX;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
+@SuppressWarnings("UnusedDeclaration")
 public class NWNX_Chat {
 
     private static String LIST_ITEM_NAME = "PC_";
@@ -102,7 +103,7 @@ public class NWNX_Chat {
         if (NWScript.findSubString(sMessage, "¬", 0)!=-1) return 0;
         if (nChannel == CHAT_CHANNEL_PRIVATE && !NWScript.getIsObjectValid(oRecipient)) return 0;
         NWScript.setLocalString(oSender, "NWNX!CHAT!SPEAK", oSender.getObjectId() + "¬" + oRecipient.getObjectId() + "¬" + nChannel + "¬" + sMessage);
-        if(NWScript.getLocalString(oSender, "NWNX!CHAT!SPEAK")=="1") return 1;
+        if(NWScript.getLocalString(oSender, "NWNX!CHAT!SPEAK").equals("1")) return 1;
         else return 0;
     }
 

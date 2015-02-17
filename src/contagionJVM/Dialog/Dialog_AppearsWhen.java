@@ -59,8 +59,11 @@ public class Dialog_AppearsWhen implements IScriptEventHandler {
         else if(nodeType == NodeType.StartingNode || nodeType == NodeType.EntryNode)
         {
             newNodeText = page.getHeader();
-            displayNode = true;
+            NWScript.setCustomToken(90001, newNodeText);
+            NWScript.setLocalInt(oNPC, "REO_CONVERSATION_SHOW_NODE", 1);
+            return;
         }
+
 
         NWNX_Events.SetCurrentNodeText(newNodeText, NWNX_Events.LANGUAGE_ENGLISH, gender);
         NWScript.setLocalInt(oNPC, "REO_CONVERSATION_SHOW_NODE", displayNode ? 1 : 0);

@@ -12,11 +12,19 @@ public abstract class DialogBase {
         return NWScript.getPCSpeaker();
     }
 
-    protected void ChangePage(int pageID)
+    protected void ChangePage(String pageName)
     {
         PlayerGO pcGO = new PlayerGO(GetPC());
         PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
-        dialog.setCurrentPageID(pageID);
+        dialog.setCurrentPageName(pageName);
         dialog.setPageOffset(0);
     }
+
+    protected void SwitchConversation(String conversationName)
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        DialogManager.startConversation(GetPC(), dialog.getDialogTarget(), conversationName);
+    }
+
 }

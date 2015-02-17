@@ -1,56 +1,44 @@
 package contagionJVM.Dialog;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.nwnx.nwnx2.jvm.NWObject;
+
+import java.util.HashMap;
 
 @SuppressWarnings("UnusedDeclaration")
 public class PlayerDialog {
-    private List<DialogPage> dialogPages;
-    private int currentPageID;
+    private HashMap<String, DialogPage> dialogPages;
+    private String currentPageName;
     private int pageOffset;
     private String activeDialogName;
+    private NWObject dialogTarget;
 
     public PlayerDialog()
     {
-        dialogPages = new ArrayList<>();
-        currentPageID = 0;
+        dialogPages = new HashMap<>();
+        currentPageName = "";
         pageOffset = 0;
     }
 
-    public PlayerDialog(DialogPage page)
+    public void addPage(String pageName, DialogPage page)
     {
-        dialogPages = new ArrayList<>();
-        dialogPages.add(page);
-        currentPageID = 0;
-        pageOffset = 0;
+        dialogPages.put(pageName, page);
+        if(dialogPages.size() == 1)
+        {
+            currentPageName = pageName;
+        }
     }
 
-    public PlayerDialog(ArrayList<DialogPage> pages)
-    {
-        dialogPages = pages;
-        currentPageID = 0;
-        pageOffset = 0;
+    public String getCurrentPageName() {
+        return currentPageName;
     }
 
-    public List<DialogPage> getDialogPages() {
-        return dialogPages;
-    }
-
-    public void setDialogPages(List<DialogPage> dialogPages) {
-        this.dialogPages = dialogPages;
-    }
-
-    public int getCurrentPageID() {
-        return currentPageID;
-    }
-
-    public void setCurrentPageID(int currentPageID) {
-        this.currentPageID = currentPageID;
+    public void setCurrentPageName(String currentPageName) {
+        this.currentPageName = currentPageName;
     }
 
     public DialogPage getCurrentPage()
     {
-        return dialogPages.get(currentPageID);
+        return dialogPages.get(currentPageName);
     }
 
     public int getPageOffset() {
@@ -71,4 +59,18 @@ public class PlayerDialog {
     public void setActiveDialogName(String activeDialogName) {
         this.activeDialogName = activeDialogName;
     }
+
+    public void resetPage()
+    {
+        currentPageName = (String)dialogPages.keySet().toArray()[0];
+    }
+
+    public NWObject getDialogTarget() {
+        return dialogTarget;
+    }
+
+    public void setDialogTarget(NWObject dialogTarget) {
+        this.dialogTarget = dialogTarget;
+    }
+
 }
