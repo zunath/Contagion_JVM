@@ -3,6 +3,7 @@ package contagionJVM.NWNX;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
+@SuppressWarnings("UnusedDeclaration")
 public class NWNX_Areas {
 
     public static NWObject LoadArea(String resref)
@@ -13,7 +14,7 @@ public class NWNX_Areas {
 
     public static void DestroyArea(NWObject oArea)
     {
-        NWScript.setLocalString(NWObject.MODULE, "NWNX!AREAS!DESTROY_AREA", Integer.toString(oArea.getObjectId()));
+        NWScript.setLocalString(NWObject.MODULE, "NWNX!AREAS!DESTROY_AREA", Integer.toHexString(oArea.getObjectId()) );
     }
 
     public static void SetAreaName(NWObject oArea, String sName)

@@ -3,6 +3,7 @@ package contagionJVM.NWNX;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
+@SuppressWarnings("UnusedDeclaration")
 public class NWNX_Names {
 
     // Call this function on ClientEnter event
@@ -19,18 +20,18 @@ public class NWNX_Names {
     }
 
     public static String GetDynamicName(NWObject oPlayer, NWObject oObject) {
-        NWScript.setLocalString(oPlayer, "NWNX!NAMES!GETDYNAMICNAME", Integer.toString(oObject.getObjectId()));
+        NWScript.setLocalString(oPlayer, "NWNX!NAMES!GETDYNAMICNAME", Integer.toHexString(oObject.getObjectId()));
         return NWScript.getLocalString(oPlayer, "NWNX!NAMES!GETDYNAMICNAME");
     }
 
     public static void SetDynamicName(NWObject oPlayer, NWObject oObject, String sName) {
-        NWScript.setLocalString(oPlayer, "NWNX!NAMES!SETDYNAMICNAME", Integer.toString(oObject.getObjectId()) + "¬" + sName);
+        NWScript.setLocalString(oPlayer, "NWNX!NAMES!SETDYNAMICNAME", Integer.toHexString(oObject.getObjectId()) + "¬" + sName);
     }
 
     //Force the name to update on the client
     public static void UpdateDynamicName(NWObject oPlayer, NWObject oObject) {
         if (!NWScript.getIsObjectValid(oPlayer) || !NWScript.getIsObjectValid(oObject)) return;
-        NWScript.setLocalString(oPlayer, "NWNX!NAMES!UPDATEDYNAMICNAME", Integer.toString(oObject.getObjectId()));
+        NWScript.setLocalString(oPlayer, "NWNX!NAMES!UPDATEDYNAMICNAME", Integer.toHexString(oObject.getObjectId()));
     }
 
     // Force the whole player list to update
@@ -41,7 +42,7 @@ public class NWNX_Names {
     }
 
     public static void DeleteDynamicName(NWObject oPlayer, NWObject oObject) {
-        NWScript.setLocalString(oPlayer, "NWNX!NAMES!DELETEDYNAMICNAME", Integer.toString(oObject.getObjectId()));
+        NWScript.setLocalString(oPlayer, "NWNX!NAMES!DELETEDYNAMICNAME", Integer.toHexString(oObject.getObjectId()));
     }
 
     // Do not use this

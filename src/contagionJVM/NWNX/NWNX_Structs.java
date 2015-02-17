@@ -279,12 +279,12 @@ public class NWNX_Structs {
     }
 
     public static void SetEffectCreator (NWEffect eNWEffect, NWObject oCreator) {
-        NWScript.setLocalString(NWObject.MODULE, "NWNX!STRUCTS!SETCREATOR", "" + oCreator.getObjectId());
+        NWScript.setLocalString(NWObject.MODULE, "NWNX!STRUCTS!SETCREATOR", "" + Integer.toHexString(oCreator.getObjectId()));
     }
 
 
     public static int GetHasMatchingEffect (NWObject oNWObject, NWObject oCreator, int nSpellId, int nTrueType, int nInt0) {
-        NWScript.setLocalString(oNWObject, "NWNX!STRUCTS!GETHASNWEffect", oCreator.getObjectId() + " " +
+        NWScript.setLocalString(oNWObject, "NWNX!STRUCTS!GETHASNWEffect", Integer.toHexString(oCreator.getObjectId()) + " " +
                 NWScript.intToString(nSpellId) + " " + NWScript.intToString(nTrueType) + " " + NWScript.intToString(nInt0));
         return NWScript.stringToInt(NWScript.getLocalString(oNWObject, "NWNX!STRUCTS!GETHASNWEffect"));
     }
@@ -336,7 +336,7 @@ public class NWNX_Structs {
     }
 
     public static void SetItemPropertyCreator (NWItemProperty ipProp, NWObject oCreator) {
-        NWScript.setLocalString(NWObject.MODULE, "NWNX!STRUCTS!SETCREATOR", "" + oCreator.getObjectId());
+        NWScript.setLocalString(NWObject.MODULE, "NWNX!STRUCTS!SETCREATOR", "" + Integer.toHexString(oCreator.getObjectId()));
     }
 
 

@@ -41,7 +41,7 @@ public class NWNX_Chat {
     {
         if (!NWScript.getIsObjectValid(oPC)) return;
         NWObject oMod = NWObject.MODULE;
-        NWScript.setLocalString(oPC, "NWNX!CHAT!GETID", oPC.getObjectId() + "        ");
+        NWScript.setLocalString(oPC, "NWNX!CHAT!GETID", Integer.toHexString(oPC.getObjectId()) + "        ");
         String sID = NWScript.getLocalString(oPC, "NWNX!CHAT!GETID");
         int nID = NWScript.stringToInt(sID);
         if (nID != -1)
@@ -102,7 +102,7 @@ public class NWNX_Chat {
         if (!NWScript.getIsObjectValid(oSender)) return 0;
         if (NWScript.findSubString(sMessage, "¬", 0)!=-1) return 0;
         if (nChannel == CHAT_CHANNEL_PRIVATE && !NWScript.getIsObjectValid(oRecipient)) return 0;
-        NWScript.setLocalString(oSender, "NWNX!CHAT!SPEAK", oSender.getObjectId() + "¬" + oRecipient.getObjectId() + "¬" + nChannel + "¬" + sMessage);
+        NWScript.setLocalString(oSender, "NWNX!CHAT!SPEAK", Integer.toHexString(oSender.getObjectId()) + "¬" + Integer.toHexString(oRecipient.getObjectId()) + "¬" + nChannel + "¬" + sMessage);
         if(NWScript.getLocalString(oSender, "NWNX!CHAT!SPEAK").equals("1")) return 1;
         else return 0;
     }

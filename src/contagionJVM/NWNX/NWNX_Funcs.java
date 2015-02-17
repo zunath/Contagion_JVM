@@ -2,6 +2,8 @@ package contagionJVM.NWNX;
 
 import org.nwnx.nwnx2.jvm.*;
 
+import java.util.Objects;
+
 @SuppressWarnings("UnusedDeclaration")
 public class NWNX_Funcs {
 
@@ -601,10 +603,10 @@ public class NWNX_Funcs {
                     oVar = NWScript.getLocalObject(oObject, lv.name);
                     if (NWScript.getIsPC(oVar))
                         sDump += lv.name + " (NWObject): " + NWScript.getName(oVar, false) + " (player: " +
-                                NWScript.getPCPlayerName(oVar) + ") [" + oVar.getObjectId() + "]\n";
+                                NWScript.getPCPlayerName(oVar) + ") [" + Integer.toHexString(oVar.getObjectId()) + "]\n";
                     else
                         sDump += lv.name + " (NWObject): " + NWScript.getName(oVar, false) + " (tag: " + NWScript.getTag(oVar) +
-                                " resref: " + NWScript.getResRef(oVar) + ") [" + oVar.getObjectId() + "]\n";
+                                " resref: " + NWScript.getResRef(oVar) + ") [" + Integer.toHexString(oVar.getObjectId()) + "]\n";
                     break;
 
                 case VariableType.LocationVar:
@@ -720,8 +722,8 @@ public class NWNX_Funcs {
             return;
 
         NWScript.setLocalString(objSelf, "NWNX!FUNCS!ACTIONUSEITEM",
-                oItem.getObjectId() + "¬" + oTarget.getObjectId() + "¬" +
-                        oArea.getObjectId() + "¬" + NWScript.floatToString(vVec.getX(), 18, 9) + "¬" +
+                Integer.toHexString(oItem.getObjectId()) + "¬" + Integer.toHexString(oTarget.getObjectId()) + "¬" +
+                        Integer.toHexString(oArea.getObjectId()) + "¬" + NWScript.floatToString(vVec.getX(), 18, 9) + "¬" +
                         NWScript.floatToString(vVec.getY(), 18, 9) + "¬" + NWScript.floatToString(vVec.getZ(), 18, 9) + "¬" +
                         NWScript.intToString(nProp));
     }
@@ -780,7 +782,7 @@ public class NWNX_Funcs {
     }
 
     public static void SetLastHostileActor (NWObject oObject, NWObject oActor) {
-        NWScript.setLocalString(oObject, "NWNX!FUNCS!SETLASTHOSTILEACTOR", "" + oActor.getObjectId());
+        NWScript.setLocalString(oObject, "NWNX!FUNCS!SETLASTHOSTILEACTOR", "" + Integer.toHexString(oActor.getObjectId()));
     }
 
 
@@ -839,7 +841,7 @@ public class NWNX_Funcs {
         }
 
         NWScript.setLocalString(oSource, "NWNX!FUNCS!BROADCASTPROJECTILE",
-                oTarget.getObjectId() + " " +
+                Integer.toHexString(oTarget.getObjectId()) + " " +
                         NWScript.floatToString(vTarget.getX(), 1, 4) + " " +
                         NWScript.floatToString(vTarget.getY(), 1, 4) + " " +
                         NWScript.floatToString(vTarget.getZ(), 1, 4) + " " +
@@ -916,7 +918,7 @@ public class NWNX_Funcs {
     public static void StopTimingBar(NWObject oCreature, String sScript) {
         NWScript.setLocalString(oCreature, "NWNX!FUNCSEXT!STOPTIMINGBAR", "    ");
         NWScript.deleteLocalString(oCreature, "NWNX!FUNCSEXT!STOPTIMINGBAR");
-        if(sScript != "") {
+        if(!Objects.equals(sScript, "")) {
             NWScript.executeScript(sScript, oCreature);
         }
     }
