@@ -4,6 +4,7 @@ import contagionJVM.GameObject.PlayerGO;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
+@SuppressWarnings("UnusedDeclaration")
 public abstract class DialogBase {
 
     protected NWObject GetPC()
@@ -18,11 +19,4 @@ public abstract class DialogBase {
         dialog.setCurrentPageID(pageID);
         dialog.setPageOffset(0);
     }
-
-    protected void EndDialog()
-    {
-        PlayerGO pcGO = new PlayerGO(GetPC());
-        DialogManager.removePlayerDialog(pcGO.getUUID());
-    }
-
 }

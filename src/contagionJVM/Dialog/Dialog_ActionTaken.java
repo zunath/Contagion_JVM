@@ -13,7 +13,6 @@ import java.io.StringWriter;
 public class Dialog_ActionTaken implements IScriptEventHandler {
     @Override
     public void runScript(NWObject oNPC) {
-        String className = NWScript.getLocalString(oNPC, "REO_CONVERSATION");
         NWObject oPC = NWScript.getPCSpeaker();
         PlayerGO pcGO = new PlayerGO(oPC);
         String uuid = pcGO.getUUID();
@@ -34,7 +33,7 @@ public class Dialog_ActionTaken implements IScriptEventHandler {
 
             // Try to locate a matching class name based on the event passed in from NWN JVM_EVENT call.
             try {
-                Class scriptClass = Class.forName("contagionJVM.Dialog." + className);
+                Class scriptClass = Class.forName("contagionJVM.Dialog.Conversation_" + dialog.getActiveDialogName());
                 IDialogHandler script = (IDialogHandler) scriptClass.newInstance();
                 script.DoAction(oPC, dialog.getCurrentPageID() + 1, responseID + 1);
             } catch (Exception ex) {
@@ -42,7 +41,7 @@ public class Dialog_ActionTaken implements IScriptEventHandler {
                 ex.printStackTrace(new PrintWriter(sw));
                 String exceptionAsString = sw.toString();
 
-                String message = "Dialog_ActionTaken was unable to execute class method: contagionJVM.Dialog." + className + ".DoAction()";
+                String message = "Dialog_ActionTaken was unable to execute class method: contagionJVM.Dialog.Conversation_" + dialog.getActiveDialogName() + ".DoAction()";
                 System.out.println(message);
                 System.out.println("Exception: ");
                 System.out.println(exceptionAsString);

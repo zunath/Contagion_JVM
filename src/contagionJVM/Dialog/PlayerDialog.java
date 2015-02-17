@@ -8,6 +8,7 @@ public class PlayerDialog {
     private List<DialogPage> dialogPages;
     private int currentPageID;
     private int pageOffset;
+    private String activeDialogName;
 
     public PlayerDialog()
     {
@@ -61,5 +62,13 @@ public class PlayerDialog {
         if(pageOffset < 0) pageOffset = 0;
 
         this.pageOffset = pageOffset;
+    }
+
+    public String getActiveDialogName() {
+        return activeDialogName;
+    }
+
+    public void setActiveDialogName(String activeDialogName) {
+        this.activeDialogName = activeDialogName;
     }
 }

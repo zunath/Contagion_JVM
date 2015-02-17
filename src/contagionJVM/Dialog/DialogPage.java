@@ -14,6 +14,17 @@ public class DialogPage {
         responses = new ArrayList<>();
     }
 
+    public DialogPage(String header, String... responseOptions)
+    {
+        responses = new ArrayList<>();
+        this.header = header;
+
+        for(String response : responseOptions)
+        {
+            this.responses.add(new DialogResponse(response));
+        }
+    }
+
     public String getHeader() {
         return header;
     }

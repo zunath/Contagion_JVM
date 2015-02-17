@@ -1,32 +1,61 @@
 package contagionJVM.Event;
 
 import contagionJVM.Bioware.XP2;
-import contagionJVM.Constants;
-import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.constants.IpConst;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+@SuppressWarnings("UnusedDeclaration")
 public class Module_OnUseItem implements IScriptEventHandler {
-
-    // NWNX Events for Linux allows us to bypass the animation that plays when you use an item.
-    // The trade off for this is that you have to rework the way items are used. This script
-    // handles all variations of item properties that may be used. If the item doesn't fall
-    // into one of these categories then the generic tag based scripting takes over.
-    //
-    // Created by Zunath on July 21, 2011
     @Override
-    public void runScript(NWObject objSelf) {
-        NWObject oPC = objSelf;
-        PlayerGO pcGO = new PlayerGO(oPC);
+    public void runScript(NWObject oPC) {
 
-        NWObject oTarget = NWNX_Events.GetEventTarget();
+        HandleGeneralItemUses(oPC);
+        HandleSpecificItemUses(oPC);
+
+    }
+
+    private void HandleGeneralItemUses(NWObject oPC)
+    {
         NWObject oItem = NWNX_Events.GetEventItem();
-        NWObject oDatabase = pcGO.GetDatabaseItem();
+
+        String className = NWScript.getLocalString(oItem, "JavaClass");
+        if(className.equals("")) return;
+
+        try
+        {
+            NWNX_Events.BypassEvent();
+            Class scriptClass = Class.forName("contagionJVM.Item." + className);
+            IScriptEventHandler script = (IScriptEventHandler)scriptClass.newInstance();
+            script.runScript(oPC);
+        }
+        catch (Exception ex)
+        {
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+
+            String message = "Module_OnActivateItem was unable to execute class method: contagionJVM.Item." + className + ".runScript()";
+            System.out.println(message);
+            System.out.println("Exception: ");
+            System.out.println(exceptionAsString);
+
+            NWScript.writeTimestampedLogEntry(message);
+            NWScript.writeTimestampedLogEntry("Exception:");
+            NWScript.writeTimestampedLogEntry(exceptionAsString);
+        }
+    }
+
+
+    private void HandleSpecificItemUses(NWObject oPC)
+    {
+        NWObject oItem = NWNX_Events.GetEventItem();
         String sTag = NWScript.getTag(oItem);
-        int iEvent   = NWNX_Events.GetEventType();
         int iSubtype = NWNX_Events.GetEventSubType();
 
         // Change Ammo Priority Property
@@ -148,13 +177,6 @@ public class Module_OnUseItem implements IScriptEventHandler {
             bBypassEvent = true;
             NWScript.executeScript(sUseLockpickScript, oPC);
         }
-
-        // All of the updated items. These will all bypass the Use Item animation.
-        else if(sTag == Constants.PCDatabaseTag)
-        {
-            NWScript.executeScript(sTag, objSelf);
-            bBypassEvent = true;
-        }
         // Fire tag based scripting in all other cases (I.E: Don't bypass this event)
         // Allows for backwards compatibility until we convert other systems over to Linux
         else
@@ -168,4 +190,5 @@ public class Module_OnUseItem implements IScriptEventHandler {
             NWNX_Events.BypassEvent();
         }
     }
+
 }
