@@ -344,7 +344,7 @@ public class CombatSystem {
 
         if(bUsingFirearm)
         {
-            NWNX_Events.BypassEvent(); // LINUX
+            NWNX_Events.BypassEvent();
 
             // Mode is determined by the right hand weapon. Figure out how many shots to fire based on mode
             if(NWScript.getLocalInt(oRightHand, "GUN_CUR_RATE_OF_FIRE") == 1)

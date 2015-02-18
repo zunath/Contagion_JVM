@@ -149,7 +149,8 @@ public class ProgressionSystem {
             entity.setExperience(entity.getExperience() - levelEntity.getExperience());
             entity.setUnallocatedSP(entity.getUnallocatedSP() + SPEarnedOnLevelUp);
             entity.setLevel(entity.getLevel() + 1);
-            NWScript.sendMessageToPC(oPC, "You have attained level " + entity.getLevel() + "!");
+            NWScript.floatingTextStringOnCreature("You have attained level " + entity.getLevel() + "!", oPC, false);
+
 
             levelEntity = levelRepo.getByLevel(entity.getLevel());
         }

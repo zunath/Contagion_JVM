@@ -82,7 +82,7 @@ public class SpawnSystem {
     {
         NWObject oPC = NWScript.getEnteringObject();
 
-        if(!NWScript.getIsPC(oPC) || NWScript.getIsDM(oPC)) return;
+        if(!NWScript.getIsPC(oPC)) return;
 
 
 
@@ -154,14 +154,14 @@ public class SpawnSystem {
     {
         NWObject oPC = NWScript.getExitingObject();
 
-        if(!NWScript.getIsPC(oPC) || NWScript.getIsDM(oPC)) return;
+        if(!NWScript.getIsPC(oPC)) return;
 
         int iPCCount = 0;
         NWObject[] players = NWScript.getPCs();
 
         for(NWObject pc : players)
         {
-            if(oArea == NWScript.getArea(pc))
+            if(oArea.equals(NWScript.getArea(pc)))
             {
                 iPCCount++;
             }
