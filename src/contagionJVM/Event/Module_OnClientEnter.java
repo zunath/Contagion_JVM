@@ -31,7 +31,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         // Radio System - Also used for NWNX chat (different from SimTools)
         radioSystem.OnModuleEnter();
         // DM Validation
-        NWScript.executeScript("dm_validation", objSelf);
+        NWScript.executeScript("dm_authorization", objSelf);
         // PC Validation
         NWScript.executeScript("auth_mod_enter", objSelf);
         ShowMOTD();
@@ -56,6 +56,9 @@ public class Module_OnClientEnter implements IScriptEventHandler {
     private void InitializeNewCharacter()
     {
         final NWObject oPC = NWScript.getEnteringObject();
+
+        if(NWScript.getIsDM(oPC)) return;
+
         PlayerGO pcGO = new PlayerGO(oPC);
         NWObject oDatabase = pcGO.GetDatabaseItem();
 
