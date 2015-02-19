@@ -2,6 +2,7 @@ package contagionJVM.Authorization;
 
 import contagionJVM.Entities.AuthorizedDMEntity;
 import contagionJVM.IScriptEventHandler;
+import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.Repository.AuthorizedDMRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -33,7 +34,7 @@ public class ValidateCDKey implements IScriptEventHandler {
             else
             {
                 NWScript.sendMessageToAllDMs("<WARNING, UNAUTHORIZED DM JOIN ATTEMPT BY " + sCDKey + ", " + sPlayerName + ", " + sIP + ">" );
-                NWScript.bootPC(pc);
+                NWNX_Funcs.BootPCWithMessage(pc, 16782504);
             }
         }
     }
