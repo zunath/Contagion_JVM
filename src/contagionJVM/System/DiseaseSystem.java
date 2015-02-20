@@ -3,6 +3,8 @@ package contagionJVM.System;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.NWNX.CreatureEvent;
+import contagionJVM.NWNX.MovementRate;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.NWLocation;
@@ -17,7 +19,7 @@ public class DiseaseSystem {
     public static int DCCheck = 10;
 
 
-    public void IncreaseDiseaseLevel(final NWObject oPC, int iIncreaseBy)
+    public static void IncreaseDiseaseLevel(final NWObject oPC, int iIncreaseBy)
     {
         PlayerGO pcGO = new PlayerGO(oPC);
         PlayerRepository repo = new PlayerRepository();
@@ -65,26 +67,9 @@ public class DiseaseSystem {
         return entity;
     }
 
-
-    private void CloneFight(final NWObject objSelf)
+    private static void CreateZombieClone(final NWObject oPC)
     {
-        if ((NWScript.getCurrentAction(objSelf) == Action.INVALID) && (NWScript.getLocalInt(objSelf, "feeding") == 0))
-        {
-            NWScript.clearAllActions(false);
-            NWScript.actionRandomWalk();
-        }
-
-        Scheduler.delay(objSelf, 6000, new Runnable() {
-            @Override
-            public void run() {
-                CloneFight(objSelf);
-            }
-        });
-        Scheduler.flushQueues();
-    }
-
-    private void CreateZombieClone(final NWObject oPC)
-    {
+        PlayerGO pcGO = new PlayerGO(oPC);
         NWLocation lLocation = NWScript.getLocation(oPC);
         String sClawResref = "reo_zombie_claw";
         final NWObject oClone = NWScript.copyObject(oPC, lLocation, NWObject.INVALID, "reo_zombie_000");
@@ -184,28 +169,40 @@ public class DiseaseSystem {
         NWScript.applyEffectToObject(DurationType.PERMANENT, NWScript.supernaturalEffect(NWScript.effectMovementSpeedDecrease(15)), oClone, 0.0f);
         NWScript.levelUpHenchman(oClone, ClassType.UNDEAD, false, Package.UNDEAD);
 
-        // Change faction to hostile and fire a recursive call
         NWScript.changeToStandardFaction(oClone, StandardFaction.HOSTILE);
 
         Scheduler.assign(oClone, new Runnable() {
             @Override
             public void run() {
                 NWScript.clearAllActions(false);
+                NWScript.actionUnequipItem(NWScript.getItemInSlot(InventorySlot.LEFTHAND, oClone));
+                NWScript.actionUnequipItem(NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oClone));
             }
         });
-        Scheduler.delay(oClone, 2000, new Runnable() {
-            @Override
-            public void run() {
-                Scheduler.assign(oClone, new Runnable() {
-                    @Override
-                    public void run() {
-                        CloneFight(oClone);
-                    }
-                });
-            }
-        });
-
         Scheduler.flushQueues();
+
+        NWScript.setName(oClone, "(Zombie) " + NWScript.getName(oPC, false));
+
+        NWNX_Funcs.SetMovementRate(oClone, MovementRate.Slow);
+        NWScript.setColor(oClone, ColorChannel.SKIN, 12);
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Attacked, "zom_on_attacked");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Blocked, "zom_on_blocked");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Conversation, "zom_on_convo");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Damaged, "zom_on_damaged");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Death, "zom_on_death");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Disturbed, "zom_on_disturbed");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.EndCombat, "zom_on_roundend");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Heartbeat, "zom_on_heartbeat");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Perception, "zom_on_percep");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Rested, "zom_on_rested");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Spawn, "zom_on_spawn");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.Spellcast, "zom_on_spellcast");
+        NWNX_Funcs.SetCreatureEventHandler(oClone, CreatureEvent.UserDefined, "zom_on_userdef");
+
+        pcGO.destroyAllInventoryItems(false);
+        pcGO.destroyAllEquippedItems();
+
+        NWScript.executeScript("zom_clonefight", oClone);
     }
 
 }

@@ -88,11 +88,21 @@ public class PlayerGO {
         return entity;
     }
 
-    public void destroyAllInventoryItems()
+    public void destroyAllInventoryItems(boolean destroyDatabaseItem)
     {
         for(NWObject item : NWScript.getItemsInInventory(_pc))
         {
-            NWScript.destroyObject(item, 0.0f);
+            if(NWScript.getResRef(item).equals(Constants.PCDatabaseTag))
+            {
+                if(destroyDatabaseItem)
+                {
+                    NWScript.destroyObject(item, 0.0f);
+                }
+            }
+            else
+            {
+                NWScript.destroyObject(item, 0.0f);
+            }
         }
     }
 

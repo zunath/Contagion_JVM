@@ -66,7 +66,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
                 NWScript.getLocalString(oDatabase, Constants.PCIDNumberVariable).equals(""))
         {
             pcGO.destroyAllEquippedItems();
-            pcGO.destroyAllInventoryItems();
+            pcGO.destroyAllInventoryItems(true);
 
             NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
 

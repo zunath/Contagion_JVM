@@ -10,6 +10,7 @@ import org.nwnx.nwnx2.jvm.constants.Spell;
 
 import java.util.Objects;
 
+@SuppressWarnings("UnusedDeclaration")
 public class ZombieClaw_OnHit implements IScriptEventHandler {
     @Override
     public void runScript(final NWObject oZombie) {
@@ -37,8 +38,7 @@ public class ZombieClaw_OnHit implements IScriptEventHandler {
             // Player failed the DC, give them 1% - 12% infection increase
             if (iDiseaseCheck < iDiseaseDC)
             {
-                DiseaseSystem system = new DiseaseSystem();
-                system.IncreaseDiseaseLevel(oPC, NWScript.random(12) + 1);
+                DiseaseSystem.IncreaseDiseaseLevel(oPC, NWScript.random(12) + 1);
             }
         }
     }

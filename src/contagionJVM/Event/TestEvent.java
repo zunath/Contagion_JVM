@@ -1,6 +1,7 @@
 package contagionJVM.Event;
 
 import contagionJVM.IScriptEventHandler;
+import contagionJVM.System.DiseaseSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -10,7 +11,6 @@ public class TestEvent implements IScriptEventHandler {
     public void runScript(NWObject objSelf) {
         NWObject oPC = NWScript.getLastUsedBy();
 
-        NWScript.sendMessageToPC(oPC, "Java objectID = " + Integer.toHexString(oPC.getObjectId()));
-
+        DiseaseSystem.IncreaseDiseaseLevel(oPC, 5);
     }
 }
