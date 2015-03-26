@@ -5,6 +5,7 @@ import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
+import org.nwnx.nwnx2.jvm.NWScript;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Conversation_AllocateSkillPoints extends DialogBase implements IDialogHandler {

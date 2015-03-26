@@ -52,6 +52,5 @@ public class Dialog_ActionTaken implements IScriptEventHandler {
             }
         }
 
-        DialogManager.storePlayerDialog(uuid, dialog);
     }
 }

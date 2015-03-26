@@ -4,6 +4,9 @@ import contagionJVM.GameObject.PlayerGO;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 @SuppressWarnings("UnusedDeclaration")
 public abstract class DialogBase {
 
@@ -24,7 +27,31 @@ public abstract class DialogBase {
     {
         PlayerGO pcGO = new PlayerGO(GetPC());
         PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
-        DialogManager.startConversation(GetPC(), dialog.getDialogTarget(), conversationName);
+
+        try
+        {
+            DialogManager.loadConversation(GetPC(), dialog.getDialogTarget(), conversationName);
+        }
+        catch (Exception ex)
+        {
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+
+            String message = "Error running DialogBase.SwitchConversation();";
+            System.out.println(message);
+            System.out.println("Exception: ");
+            System.out.println(exceptionAsString);
+
+            NWScript.writeTimestampedLogEntry(message);
+            NWScript.writeTimestampedLogEntry("Exception:");
+            NWScript.writeTimestampedLogEntry(exceptionAsString);
+        }
+        dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        dialog.resetPage();
+        ChangePage(dialog.getCurrentPageName());
+
+
     }
 
 }

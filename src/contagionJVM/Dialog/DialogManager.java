@@ -52,18 +52,23 @@ public class DialogManager {
         playerDialogs.remove(uuid);
     }
 
+    public static void loadConversation(NWObject oPC, NWObject oTalkTo, String conversationName)
+            throws ClassNotFoundException, IllegalAccessException, InstantiationException
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        Class scriptClass = Class.forName("contagionJVM.Dialog.Conversation_" + conversationName);
+        IDialogHandler script = (IDialogHandler)scriptClass.newInstance();
+        PlayerDialog dialog = script.Initialize(oPC);
+        dialog.setActiveDialogName(conversationName);
+        dialog.setDialogTarget(oTalkTo);
+        DialogManager.storePlayerDialog(pcGO.getUUID(), dialog);
+
+    }
+
     public static void startConversation(NWObject oPC, final NWObject oTalkTo, String conversationName)
     {
-
-        PlayerGO pcGO = new PlayerGO(oPC);
-
         try {
-            Class scriptClass = Class.forName("contagionJVM.Dialog.Conversation_" + conversationName);
-            IDialogHandler script = (IDialogHandler)scriptClass.newInstance();
-            PlayerDialog dialog = script.Initialize(oPC);
-            dialog.setActiveDialogName(conversationName);
-            dialog.setDialogTarget(oTalkTo);
-            DialogManager.storePlayerDialog(pcGO.getUUID(), dialog);
+            loadConversation(oPC, oTalkTo, conversationName);
 
             Scheduler.assign(oPC, new Runnable() {
                 @Override
