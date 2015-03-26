@@ -6,6 +6,7 @@ import contagionJVM.Helper.ColorToken;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
+import org.nwnx.nwnx2.jvm.Scheduler;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Conversation_RestMenu extends DialogBase implements IDialogHandler {
@@ -45,31 +46,66 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
         dialog.addPage("MainPage", mainPage);
         dialog.addPage("ModifyClothesPage", modifyClothesPage);
         dialog.addPage("ViewKeyItemsPage", viewKeyItemsPage);
+        dialog.addPage("CharacterManagementPage", characterManagementPage);
 
         return dialog;
     }
 
     @Override
-    public void DoAction(NWObject oPC, String pageName, int responseID) {
-        if(pageName.equals("MainPage"))
-        {
-            switch(responseID)
-            {
-                // Allocate Skill Points
-                case 1:
-                    SwitchConversation("AllocateSkillPoints");
-                    break;
-                // View Key Items
-                case 2:
-                    break;
-                // Modify Clothes
-                case 3:
-                    break;
-                // Character Management
-                case 4:
-                    break;
-            }
+    public void DoAction(final NWObject oPC, String pageName, int responseID) {
+        switch (pageName) {
+            case "MainPage":
+                switch (responseID) {
+                    // Allocate Skill Points
+                    case 1:
+                        SwitchConversation("AllocateSkillPoints");
+                        break;
+                    // View Key Items
+                    case 2:
+                        ChangePage("ViewKeyItemsPage");
+                        break;
+                    // Modify Clothes
+                    case 3:
+                        Scheduler.assign(oPC, new Runnable() {
+                            @Override
+                            public void run() {
+                                NWScript.actionStartConversation(oPC, "x0_skill_ctrap", false, false);
+                            }
+                        });
+                        break;
+                    // Character Management
+                    case 4:
+                        ChangePage("CharacterManagementPage");
+                        break;
+                }
+                break;
+            case "ViewKeyItemsPage":
+                switch (responseID) {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
+                break;
+            case "CharacterManagementPage":
+                switch (responseID) {
+                    // Disable PVP Protection
+                    case 1:
+                        break;
+                    // Manage CD Keys
+                    case 2:
+                        break;
+                    // Change Portrait
+                    case 3:
+                        break;
+                    // Change Head
+                    case 4:
+                        break;
+                }
+                break;
         }
+
+        Scheduler.flushQueues();
     }
 
     @Override

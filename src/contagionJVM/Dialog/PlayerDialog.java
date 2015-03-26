@@ -11,6 +11,7 @@ public class PlayerDialog {
     private int pageOffset;
     private String activeDialogName;
     private NWObject dialogTarget;
+    private Object dialogCustomData;
 
     public PlayerDialog()
     {
@@ -71,6 +72,14 @@ public class PlayerDialog {
 
     public void setDialogTarget(NWObject dialogTarget) {
         this.dialogTarget = dialogTarget;
+    }
+
+    public Object getDialogCustomData() {
+        return dialogCustomData;
+    }
+
+    public void setDialogCustomData(Object dialogData) {
+        this.dialogCustomData = dialogData;
     }
 
 }
