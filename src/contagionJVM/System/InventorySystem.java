@@ -2,9 +2,11 @@ package contagionJVM.System;
 
 import contagionJVM.Constants;
 import contagionJVM.Entities.PlayerEntity;
+import contagionJVM.Entities.PlayerProgressionSkillEntity;
 import contagionJVM.Enumerations.CustomItemProperty;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
+import contagionJVM.Repository.PlayerProgressionSkillsRepository;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.*;
 import org.nwnx.nwnx2.jvm.constants.DurationType;
@@ -87,8 +89,11 @@ public class InventorySystem {
     private static int GetPlayerInventoryLimit(NWObject oPC)
     {
         PlayerGO pcGO = new PlayerGO(oPC);
-        PlayerEntity entity = new PlayerRepository().getByUUID(pcGO.getUUID());
-        int slots = BaseInventoryLimit;
+        String uuid = pcGO.getUUID();
+
+        PlayerEntity entity = new PlayerRepository().getByUUID(uuid);
+        PlayerProgressionSkillEntity skillEntity = new PlayerProgressionSkillsRepository().GetByUUIDAndSkillID(uuid, ProgressionSystem.SkillType_INVENTORY_SPACE);
+        int slots = BaseInventoryLimit + (skillEntity == null ? 0 : skillEntity.getUpgradeLevel());
 
         if(entity != null)
         {

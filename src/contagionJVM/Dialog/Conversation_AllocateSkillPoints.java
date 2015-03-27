@@ -28,6 +28,12 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         DialogPage statsPage = new DialogPage(
                 "Please select an upgrade.",
                 "Hit Points",
+                "Strength",
+                "Dexterity",
+                "Constitution",
+                "Wisdom",
+                "Intelligence",
+                "Charisma",
                 "Inventory"
         );
 
@@ -101,89 +107,89 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 break;
             case "StatsPage":
                 switch (responseID) {
-                    // Hit Points
                     case 1:
-                        LoadSkillUpgradePage(1);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_HP);
                         break;
-                    // Inventory
                     case 2:
-                        LoadSkillUpgradePage(2);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_STRENGTH);
+                        break;
+                    case 3:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_DEXTERITY);
+                        break;
+                    case 4:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_CONSTITUTION);
+                        break;
+                    case 5:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_WISDOM);
+                        break;
+                    case 6:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_INTELLIGENCE);
+                        break;
+                    case 7:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_CHARISMA);
+                        break;
+                    case 8:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_INVENTORY_SPACE);
                         break;
                 }
                 break;
             case "ProficienciesPage":
                 switch (responseID) {
-                    // Armor Proficiency
                     case 1:
-                        LoadSkillUpgradePage(3);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_ARMOR);
                         break;
-                    // Handgun Proficiency
                     case 2:
-                        LoadSkillUpgradePage(4);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_HANDGUN_PROFICIENCY);
                         break;
-                    // Shotgun Proficiency
                     case 3:
-                        LoadSkillUpgradePage(5);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_SHOTGUN_PROFICIENCY);
                         break;
-                    // Rifle Proficiency
                     case 4:
-                        LoadSkillUpgradePage(6);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_RIFLE_PROFICIENCY);
                         break;
-                    // SMG Proficiency
                     case 5:
-                        LoadSkillUpgradePage(7);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_SMG_PROFICIENCY);
                         break;
-                    // Magnum Proficiency
                     case 6:
-                        LoadSkillUpgradePage(8);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_MAGNUM_PROFICIENCY);
                         break;
                 }
                 break;
             case "UtilityPage":
                 switch (responseID) {
-                    // Search
                     case 1:
-                        LoadSkillUpgradePage(10);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_SEARCH);
                         break;
-                    // Hide
                     case 2:
-                        LoadSkillUpgradePage(11);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_HIDE);
                         break;
-                    // Move Silently
                     case 3:
-                        LoadSkillUpgradePage(12);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_MOVE_SILENTLY);
                         break;
-                    // First Aid
                     case 4:
-                        LoadSkillUpgradePage(13);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_FIRST_AID);
                         break;
-                    // Lockpicking
                     case 5:
-                        LoadSkillUpgradePage(14);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_LOCKPICKING);
                         break;
-                    // Mixing
                     case 6:
-                        LoadSkillUpgradePage(15);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_MIXING);
                         break;
-                    // Item Repair
                     case 7:
-                        LoadSkillUpgradePage(20);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_ITEM_REPAIR);
                         break;
                 }
                 break;
             case "AbilitiesPage":
                 switch (responseID) {
-                    // Power Attack
                     case 1:
-                        LoadSkillUpgradePage(17);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_POWER_ATTACK);
                         break;
-                    // Ambidexterity
                     case 2:
-                        LoadSkillUpgradePage(18);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_AMBIDEXTERITY);
                         break;
-                    // Two-Weapon Fighting
                     case 3:
-                        LoadSkillUpgradePage(19);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_TWO_WEAPON_FIGHTING);
                         break;
                 }
                 break;

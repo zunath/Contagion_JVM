@@ -21,6 +21,7 @@ import org.nwnx.nwnx2.jvm.Scheduler;
 import org.nwnx.nwnx2.jvm.constants.Ability;
 import org.nwnx.nwnx2.jvm.constants.Feat;
 import org.nwnx.nwnx2.jvm.constants.SavingThrow;
+import org.nwnx.nwnx2.jvm.constants.Skill;
 
 import java.util.Objects;
 
@@ -66,6 +67,12 @@ public class ProgressionSystem {
     public static final int SkillType_NATURAL_REGENERATION       = 27;
     public static final int SkillType_COMPUTER_LITERACY          = 28;
     public static final int SkillType_SPEECH                     = 29;
+    public static final int SkillType_STRENGTH                   = 30;
+    public static final int SkillType_CONSTITUTION               = 31;
+    public static final int SkillType_DEXTERITY                  = 32;
+    public static final int SkillType_WISDOM                     = 33;
+    public static final int SkillType_INTELLIGENCE               = 34;
+    public static final int SkillType_CHARISMA                   = 35;
 
 
 
@@ -195,16 +202,61 @@ public class ProgressionSystem {
 
         playerEntity.setUnallocatedSP(playerEntity.getUnallocatedSP() - requiredSP);
         playerSkillEntity.setUpgradeLevel(playerSkillEntity.getUpgradeLevel() + 1);
-        ApplyCustomUpgradeEffects(skillID);
+        ApplyCustomUpgradeEffects(oPC, skillID);
 
         playerRepo.save(playerEntity);
         playerSkillRepo.save(playerSkillEntity);
     }
 
 
-    private static  void ApplyCustomUpgradeEffects(int skillID)
+    private static  void ApplyCustomUpgradeEffects(NWObject oPC, int skillID)
     {
-        // TODO: Case statement for custom stat upgrades
+        switch (skillID)
+        {
+            case SkillType_HP:
+                NWNX_Funcs.SetMaxHitPointsByLevel(oPC, 1, NWScript.getMaxHitPoints(oPC) + 1);
+                break;
+            case SkillType_STRENGTH:
+                NWNX_Funcs.SetAbilityScore(oPC, Ability.STRENGTH, NWScript.getAbilityScore(oPC, Ability.STRENGTH, false) + 1);
+                break;
+            case SkillType_CONSTITUTION:
+                NWNX_Funcs.SetAbilityScore(oPC, Ability.CONSTITUTION, NWScript.getAbilityScore(oPC, Ability.CONSTITUTION, false) + 1);
+                break;
+            case SkillType_DEXTERITY:
+                NWNX_Funcs.SetAbilityScore(oPC, Ability.DEXTERITY, NWScript.getAbilityScore(oPC, Ability.DEXTERITY, false) + 1);
+                break;
+            case SkillType_WISDOM:
+                NWNX_Funcs.SetAbilityScore(oPC, Ability.WISDOM, NWScript.getAbilityScore(oPC, Ability.WISDOM, false) + 1);
+                break;
+            case SkillType_INTELLIGENCE:
+                NWNX_Funcs.SetAbilityScore(oPC, Ability.INTELLIGENCE, NWScript.getAbilityScore(oPC, Ability.INTELLIGENCE, false) + 1);
+                break;
+            case SkillType_CHARISMA:
+                NWNX_Funcs.SetAbilityScore(oPC, Ability.CHARISMA, NWScript.getAbilityScore(oPC, Ability.CHARISMA, false) + 1);
+                break;
+            case SkillType_SEARCH:
+                NWNX_Funcs.SetSkillRank(oPC, Skill.SEARCH, NWScript.getSkillRank(Skill.SEARCH, oPC, false) + 1);
+                break;
+            case SkillType_HIDE:
+                NWNX_Funcs.SetSkillRank(oPC, Skill.HIDE, NWScript.getSkillRank(Skill.HIDE, oPC, false) + 1);
+                break;
+            case SkillType_MOVE_SILENTLY:
+                NWNX_Funcs.SetSkillRank(oPC, Skill.MOVE_SILENTLY, NWScript.getSkillRank(Skill.MOVE_SILENTLY, oPC, false) + 1);
+                break;
+            case SkillType_SPRING_ATTACK:
+                NWNX_Funcs.AddKnownFeat(oPC, Feat.SPRING_ATTACK, 0);
+                break;
+            case SkillType_POWER_ATTACK:
+                NWNX_Funcs.AddKnownFeat(oPC, Feat.POWER_ATTACK, 0);
+                break;
+            case SkillType_AMBIDEXTERITY:
+                NWNX_Funcs.AddKnownFeat(oPC, Feat.AMBIDEXTERITY, 0);
+                break;
+            case SkillType_TWO_WEAPON_FIGHTING:
+                NWNX_Funcs.AddKnownFeat(oPC, Feat.TWO_WEAPON_FIGHTING, 0);
+                break;
+
+        }
     }
 
     public static boolean DoesPlayerMeetItemSkillRequirements(NWObject oPC, NWObject oItem)
