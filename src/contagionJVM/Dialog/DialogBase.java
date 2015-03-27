@@ -31,6 +31,22 @@ public abstract class DialogBase {
         page.setHeader(header);
     }
 
+    protected void SetResponseText(String pageName, int responseID, String responseText)
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        DialogPage page = dialog.getPageByName(pageName);
+        page.getResponses().get(responseID - 1).setText(responseText);
+    }
+
+    protected void SetResponseVisible(String pageName, int responseID, boolean isVisible)
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        DialogPage page = dialog.getPageByName(pageName);
+        page.getResponses().get(responseID - 1).setActive(isVisible);
+    }
+
     protected void SwitchConversation(String conversationName)
     {
         PlayerGO pcGO = new PlayerGO(GetPC());

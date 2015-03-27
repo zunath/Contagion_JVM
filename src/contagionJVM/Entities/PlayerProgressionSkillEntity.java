@@ -21,6 +21,9 @@ public class PlayerProgressionSkillEntity {
     @Column(name = "UpgradeLevel")
     private int upgradeLevel;
 
+    @Column(name = "IsSoftCapUnlocked")
+    private boolean isSoftCapUnlocked;
+
     public int getPlayerProgressionSkillID() {
         return playerProgressionSkillID;
     }
@@ -51,5 +54,13 @@ public class PlayerProgressionSkillEntity {
 
     public void setUpgradeLevel(int upgradeLevel) {
         this.upgradeLevel = upgradeLevel;
+    }
+
+    public boolean isSoftCapUnlocked() {
+        return isSoftCapUnlocked;
+    }
+
+    public void setIsSoftCapUnlocked(boolean isSoftCapUnlocked) {
+        this.isSoftCapUnlocked = isSoftCapUnlocked;
     }
 }

@@ -8,6 +8,7 @@ import contagionJVM.Helper.ColorToken;
 import contagionJVM.Repository.PlayerProgressionSkillsRepository;
 import contagionJVM.Repository.PlayerRepository;
 import contagionJVM.Repository.ProgressionSkillRepository;
+import contagionJVM.System.ProgressionSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -190,12 +191,14 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 switch (responseID) {
                     // Upgrade
                     case 1:
+                        HandleUpgrade(responseID);
                         break;
                     // Back
                     case 2:
                         break;
                     // Return to Category List
                     case 3:
+                        ChangePage("MainPage");
                         break;
                 }
                 break;
@@ -204,6 +207,28 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
 
     @Override
     public void EndDialog() {
+        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_SKILL_ID");
+        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_CONFIRM_PURCHASE");
+    }
+
+    private void HandleUpgrade(int responseID)
+    {
+        NWObject oPC = GetPC();
+        int skillID = NWScript.getLocalInt(oPC, "TEMP_MENU_SKILL_ID");
+        boolean isConfirmation = NWScript.getLocalInt(oPC, "TEMP_MENU_CONFIRM_PURCHASE") == 1;
+
+        if(isConfirmation)
+        {
+            ProgressionSystem.PurchaseSkillUpgrade(oPC, skillID);
+            SetPageHeader("UpgradePage", BuildUpgradeHeader());
+            SetResponseText("UpgradePage", responseID, "Upgrade");
+            NWScript.deleteLocalInt(oPC, "TEMP_MENU_CONFIRM_PURCHASE");
+        }
+        else
+        {
+            NWScript.setLocalInt(oPC, "TEMP_MENU_CONFIRM_PURCHASE", 1);
+            SetResponseText("UpgradePage", responseID, "CONFIRM PURCHASE");
+        }
 
     }
 
@@ -229,12 +254,18 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         String upgradeName = skill.getName();
         String description = skill.getDescription();
         int upgradeLevel = pcSkill == null ? 0 : pcSkill.getUpgradeLevel();
-        int upgradeCap = skill.getMaxUpgrades();
+        int upgradeCap = pcSkill == null || !pcSkill.isSoftCapUnlocked() ? skill.getSoftCap() : skill.getMaxUpgrades();
         int availableSP = pcEntity.getUnallocatedSP();
         int nextUpgradeCost = skill.getInitialPrice() + (pcSkill == null ? 0 : pcSkill.getUpgradeLevel());
 
+        String upgradeCapText = ColorToken.Yellow() + upgradeCap + ColorToken.End();
+        if(pcSkill != null && pcSkill.isSoftCapUnlocked())
+        {
+            upgradeCapText = ColorToken.White() + upgradeCap + ColorToken.End();
+        }
+
         String header = ColorToken.Green() + "Upgrade Name: " + ColorToken.End() + upgradeName + "\n";
-        header += ColorToken.Green() + "Upgrade Level: " + ColorToken.End() + upgradeLevel + " / " + upgradeCap + "\n\n";
+        header += ColorToken.Green() + "Upgrade Level: " + ColorToken.End() + upgradeLevel + " / " + upgradeCapText + "\n\n";
         header += ColorToken.Green() + "Available SP: " + ColorToken.End() + availableSP + "\n";
         header += ColorToken.Green() + "Next Upgrade: " + ColorToken.End() + nextUpgradeCost + "\n\n";
         header += ColorToken.Green() + "Description: " + ColorToken.End() + description;

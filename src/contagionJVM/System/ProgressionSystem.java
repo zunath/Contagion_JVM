@@ -159,7 +159,7 @@ public class ProgressionSystem {
     }
 
 
-    public void PurchaseSkillUpgrade(NWObject oPC, int skillID)
+    public static void PurchaseSkillUpgrade(NWObject oPC, int skillID)
     {
         PlayerGO pcGO = new PlayerGO(oPC);
         PlayerRepository playerRepo = new PlayerRepository();
@@ -178,11 +178,10 @@ public class ProgressionSystem {
             playerSkillEntity.setProgressionSkillID(skillID);
         }
 
-        playerSkillEntity.setUpgradeLevel(playerSkillEntity.getUpgradeLevel() + 1);
-
         int requiredSP = skillEntity.getInitialPrice() + playerSkillEntity.getUpgradeLevel() + 1;
+        int upgradeCap = playerSkillEntity.isSoftCapUnlocked() ? skillEntity.getMaxUpgrades() : skillEntity.getSoftCap();
 
-        if(playerSkillEntity.getUpgradeLevel() > skillEntity.getMaxUpgrades())
+        if(playerSkillEntity.getUpgradeLevel() >= upgradeCap)
         {
             NWScript.sendMessageToPC(oPC, ColorToken.Red() + "You cannot increase that skill any further." + ColorToken.End());
             return;
@@ -203,12 +202,12 @@ public class ProgressionSystem {
     }
 
 
-    private void ApplyCustomUpgradeEffects(int skillID)
+    private static  void ApplyCustomUpgradeEffects(int skillID)
     {
         // TODO: Case statement for custom stat upgrades
     }
 
-    public boolean DoesPlayerMeetItemSkillRequirements(NWObject oPC, NWObject oItem)
+    public static boolean DoesPlayerMeetItemSkillRequirements(NWObject oPC, NWObject oItem)
     {
         boolean canWear = true;
         PlayerGO pcGO = new PlayerGO(oPC);
@@ -254,7 +253,7 @@ public class ProgressionSystem {
         return entity == null ? 0 : entity.getUpgradeLevel();
     }
 
-    public void OnModuleEquip()
+    public static void OnModuleEquip()
     {
         NWObject oPC = NWScript.getPCItemLastEquippedBy();
 
