@@ -82,4 +82,8 @@ public class PlayerDialog {
         this.dialogCustomData = dialogData;
     }
 
+    public DialogPage getPageByName(String pageName)
+    {
+        return dialogPages.get(pageName);
+    }
 }

@@ -23,6 +23,14 @@ public abstract class DialogBase {
         dialog.setPageOffset(0);
     }
 
+    protected void SetPageHeader(String pageName, String header)
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        DialogPage page = dialog.getPageByName(pageName);
+        page.setHeader(header);
+    }
+
     protected void SwitchConversation(String conversationName)
     {
         PlayerGO pcGO = new PlayerGO(GetPC());

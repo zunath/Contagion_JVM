@@ -1,9 +1,13 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.Entities.PlayerEntity;
+import contagionJVM.Entities.PlayerProgressionSkillEntity;
+import contagionJVM.Entities.ProgressionSkillEntity;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
+import contagionJVM.Repository.PlayerProgressionSkillsRepository;
 import contagionJVM.Repository.PlayerRepository;
+import contagionJVM.Repository.ProgressionSkillRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -55,7 +59,7 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         );
 
         DialogPage upgradePage = new DialogPage(
-                BuildUpgradeHeader(),
+                "<REPLACED LATER>",
                 "Upgrade",
                 "Back",
                 "Return to Category List"
@@ -78,15 +82,19 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 switch (responseID) {
                     // Statistics
                     case 1:
+                        ChangePage("StatsPage");
                         break;
                     // Proficiencies
                     case 2:
+                        ChangePage("ProficienciesPage");
                         break;
                     // Utility
                     case 3:
+                        ChangePage("UtilityPage");
                         break;
                     // Abilities
                     case 4:
+                        ChangePage("AbilitiesPage");
                         break;
                 }
                 break;
@@ -94,9 +102,11 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 switch (responseID) {
                     // Hit Points
                     case 1:
+                        LoadSkillUpgradePage(1);
                         break;
                     // Inventory
                     case 2:
+                        LoadSkillUpgradePage(2);
                         break;
                 }
                 break;
@@ -104,21 +114,27 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 switch (responseID) {
                     // Armor Proficiency
                     case 1:
+                        LoadSkillUpgradePage(3);
                         break;
                     // Handgun Proficiency
                     case 2:
+                        LoadSkillUpgradePage(4);
                         break;
                     // Shotgun Proficiency
                     case 3:
+                        LoadSkillUpgradePage(5);
                         break;
                     // Rifle Proficiency
                     case 4:
+                        LoadSkillUpgradePage(6);
                         break;
                     // SMG Proficiency
                     case 5:
+                        LoadSkillUpgradePage(7);
                         break;
                     // Magnum Proficiency
                     case 6:
+                        LoadSkillUpgradePage(8);
                         break;
                 }
                 break;
@@ -126,24 +142,31 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 switch (responseID) {
                     // Search
                     case 1:
+                        LoadSkillUpgradePage(10);
                         break;
                     // Hide
                     case 2:
+                        LoadSkillUpgradePage(11);
                         break;
                     // Move Silently
                     case 3:
+                        LoadSkillUpgradePage(12);
                         break;
                     // First Aid
                     case 4:
+                        LoadSkillUpgradePage(13);
                         break;
                     // Lockpicking
                     case 5:
+                        LoadSkillUpgradePage(14);
                         break;
                     // Mixing
                     case 6:
+                        LoadSkillUpgradePage(15);
                         break;
                     // Item Repair
                     case 7:
+                        LoadSkillUpgradePage(20);
                         break;
                 }
                 break;
@@ -151,12 +174,15 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 switch (responseID) {
                     // Power Attack
                     case 1:
+                        LoadSkillUpgradePage(17);
                         break;
                     // Ambidexterity
                     case 2:
+                        LoadSkillUpgradePage(18);
                         break;
                     // Two-Weapon Fighting
                     case 3:
+                        LoadSkillUpgradePage(19);
                         break;
                 }
                 break;
@@ -181,17 +207,31 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
 
     }
 
+    private void LoadSkillUpgradePage(int skillID)
+    {
+        NWScript.setLocalInt(GetPC(), "TEMP_MENU_SKILL_ID", skillID);
+        SetPageHeader("UpgradePage", BuildUpgradeHeader());
+        ChangePage("UpgradePage");
+    }
+
     private String BuildUpgradeHeader()
     {
+        int skillID = NWScript.getLocalInt(GetPC(), "TEMP_MENU_SKILL_ID");
         PlayerGO pcGO = new PlayerGO(GetPC());
-        PlayerRepository repo = new PlayerRepository();
-        PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
-        String upgradeName = "";
-        int upgradeLevel = 0;
-        int upgradeCap = 0;
-        int availableSP = 0;
-        String nextUpgradeCost = "";
-        String description = "";
+        PlayerRepository pcRepo = new PlayerRepository();
+        PlayerProgressionSkillsRepository pcSkillRepo = new PlayerProgressionSkillsRepository();
+        ProgressionSkillRepository skillRepo = new ProgressionSkillRepository();
+
+        PlayerEntity pcEntity = pcRepo.getByUUID(pcGO.getUUID());
+        PlayerProgressionSkillEntity pcSkill = pcSkillRepo.GetByUUIDAndSkillID(pcGO.getUUID(), skillID);
+        ProgressionSkillEntity skill = skillRepo.getByID(skillID);
+
+        String upgradeName = skill.getName();
+        String description = skill.getDescription();
+        int upgradeLevel = pcSkill == null ? 0 : pcSkill.getUpgradeLevel();
+        int upgradeCap = skill.getMaxUpgrades();
+        int availableSP = pcEntity.getUnallocatedSP();
+        int nextUpgradeCost = skill.getInitialPrice() + (pcSkill == null ? 0 : pcSkill.getUpgradeLevel());
 
         String header = ColorToken.Green() + "Upgrade Name: " + ColorToken.End() + upgradeName + "\n";
         header += ColorToken.Green() + "Upgrade Level: " + ColorToken.End() + upgradeLevel + " / " + upgradeCap + "\n\n";

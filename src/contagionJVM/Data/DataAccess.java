@@ -76,6 +76,8 @@ public class DataAccess {
         _configuration.addAnnotatedClass(AuthorizedDMEntity.class);
         _configuration.addAnnotatedClass(DMRoleEntity.class);
         _configuration.addAnnotatedClass(ItemCombinationEntity.class);
+        _configuration.addAnnotatedClass(KeyItemCategoryEntity.class);
+        _configuration.addAnnotatedClass(KeyItemEntity.class);
         _configuration.addAnnotatedClass(PCCorpseEntity.class);
         _configuration.addAnnotatedClass(PCCorpseItemEntity.class);
         _configuration.addAnnotatedClass(PCSearchSiteEntity.class);
