@@ -22,7 +22,8 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Statistics",
                 "Proficiencies",
                 "Utility",
-                "Abilities"
+                "Abilities",
+                "Back to Main Menu"
         );
 
         DialogPage statsPage = new DialogPage(
@@ -34,7 +35,8 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Wisdom",
                 "Intelligence",
                 "Charisma",
-                "Inventory"
+                "Inventory",
+                "Back"
         );
 
         DialogPage proficienciesPage = new DialogPage(
@@ -44,7 +46,8 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Shotgun Proficiency",
                 "Rifle Proficiency",
                 "SMG Proficiency",
-                "Magnum Proficiency"
+                "Magnum Proficiency",
+                "Back"
         );
 
         DialogPage utilityPage = new DialogPage(
@@ -55,14 +58,16 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "First Aid",
                 "Lockpicking",
                 "Mixing",
-                "Item Repair"
+                "Item Repair",
+                "Back"
         );
 
         DialogPage abilitiesPage = new DialogPage(
                 "Please select an upgrade.",
                 "Power Attack",
                 "Ambidexterity",
-                "Two-Weapon Fighting"
+                "Two-Weapon Fighting",
+                "Back"
         );
 
         DialogPage upgradePage = new DialogPage(
@@ -89,19 +94,27 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 switch (responseID) {
                     // Statistics
                     case 1:
+                        NWScript.setLocalString(oPC, "TEMP_MENU_CATEGORY_PAGE", "StatsPage");
                         ChangePage("StatsPage");
                         break;
                     // Proficiencies
                     case 2:
+                        NWScript.setLocalString(oPC, "TEMP_MENU_CATEGORY_PAGE", "ProficienciesPage");
                         ChangePage("ProficienciesPage");
                         break;
                     // Utility
                     case 3:
+                        NWScript.setLocalString(oPC, "TEMP_MENU_CATEGORY_PAGE", "UtilityPage");
                         ChangePage("UtilityPage");
                         break;
                     // Abilities
                     case 4:
+                        NWScript.setLocalString(oPC, "TEMP_MENU_CATEGORY_PAGE", "AbilitiesPage");
                         ChangePage("AbilitiesPage");
+                        break;
+                    case 5: // "Back to Main Menu"
+                        ClearTempVariables();
+                        SwitchConversation("RestMenu");
                         break;
                 }
                 break;
@@ -131,6 +144,10 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                     case 8:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_INVENTORY_SPACE);
                         break;
+                    case 9: // "Back"
+                        ClearTempVariables();
+                        ChangePage("MainPage");
+                        break;
                 }
                 break;
             case "ProficienciesPage":
@@ -152,6 +169,10 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                         break;
                     case 6:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_MAGNUM_PROFICIENCY);
+                        break;
+                    case 7: // "Back"
+                        ClearTempVariables();
+                        ChangePage("MainPage");
                         break;
                 }
                 break;
@@ -178,6 +199,10 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                     case 7:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_ITEM_REPAIR);
                         break;
+                    case 8: // "Back"
+                        ClearTempVariables();
+                        ChangePage("MainPage");
+                        break;
                 }
                 break;
             case "AbilitiesPage":
@@ -191,19 +216,27 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                     case 3:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_TWO_WEAPON_FIGHTING);
                         break;
+                    case 4: // "Back"
+                        ClearTempVariables();
+                        ChangePage("MainPage");
+                        break;
                 }
                 break;
             case "UpgradePage":
                 switch (responseID) {
                     // Upgrade
                     case 1:
-                        HandleUpgrade(responseID);
+                        HandleUpgrade();
                         break;
                     // Back
                     case 2:
+                        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_SKILL_ID");
+                        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_CONFIRM_PURCHASE");
+                        ChangePage(NWScript.getLocalString(GetPC(), "TEMP_MENU_CATEGORY_PAGE"));
                         break;
                     // Return to Category List
                     case 3:
+                        ClearTempVariables();
                         ChangePage("MainPage");
                         break;
                 }
@@ -213,11 +246,18 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
 
     @Override
     public void EndDialog() {
-        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_SKILL_ID");
-        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_CONFIRM_PURCHASE");
+        ClearTempVariables();
     }
 
-    private void HandleUpgrade(int responseID)
+    private void ClearTempVariables()
+    {
+        NWScript.deleteLocalString(GetPC(), "TEMP_MENU_CATEGORY_PAGE");
+        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_SKILL_ID");
+        NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_CONFIRM_PURCHASE");
+        SetResponseText("UpgradePage", 1, "Upgrade");
+    }
+
+    private void HandleUpgrade()
     {
         NWObject oPC = GetPC();
         int skillID = NWScript.getLocalInt(oPC, "TEMP_MENU_SKILL_ID");
@@ -227,13 +267,13 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         {
             ProgressionSystem.PurchaseSkillUpgrade(oPC, skillID);
             SetPageHeader("UpgradePage", BuildUpgradeHeader());
-            SetResponseText("UpgradePage", responseID, "Upgrade");
+            SetResponseText("UpgradePage", 1, "Upgrade");
             NWScript.deleteLocalInt(oPC, "TEMP_MENU_CONFIRM_PURCHASE");
         }
         else
         {
             NWScript.setLocalInt(oPC, "TEMP_MENU_CONFIRM_PURCHASE", 1);
-            SetResponseText("UpgradePage", responseID, "CONFIRM PURCHASE");
+            SetResponseText("UpgradePage", 1, "CONFIRM PURCHASE");
         }
 
     }
