@@ -11,8 +11,8 @@ public class KeyItemEntity {
     @Column(name="KeyItemID")
     private int keyItemID;
 
-    @Column(name="KeyItemCategory")
-    private int keyItemCategory;
+    @Column(name="KeyItemCategoryID")
+    private int keyItemCategoryID;
 
     @Column(name="Name")
     private String Name;
@@ -29,12 +29,12 @@ public class KeyItemEntity {
         this.keyItemID = keyItemID;
     }
 
-    public int getKeyItemCategory() {
-        return keyItemCategory;
+    public int getKeyItemCategoryID() {
+        return keyItemCategoryID;
     }
 
-    public void setKeyItemCategory(int keyItemCategory) {
-        this.keyItemCategory = keyItemCategory;
+    public void setKeyItemCategoryID(int keyItemCategoryID) {
+        this.keyItemCategoryID = keyItemCategoryID;
     }
 
     public String getName() {

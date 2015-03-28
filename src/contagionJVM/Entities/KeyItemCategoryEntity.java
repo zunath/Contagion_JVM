@@ -14,6 +14,9 @@ public class KeyItemCategoryEntity {
     @Column(name="Name")
     private String name;
 
+    @Column(name="IsActive")
+    private int isActive;
+
     public int getKeyItemCategoryID() {
         return keyItemCategoryID;
     }
@@ -29,4 +32,12 @@ public class KeyItemCategoryEntity {
     public void setName(String name) {
         this.name = name;
     }
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
 }

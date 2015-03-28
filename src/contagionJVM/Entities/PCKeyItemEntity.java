@@ -1,6 +1,7 @@
 package contagionJVM.Entities;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
@@ -18,6 +19,12 @@ public class PCKeyItemEntity {
     @Column(name="KeyItemID")
     private int keyitemID;
 
+    @Column(name="AcquiredDate")
+    private Timestamp acquiredDate;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "KeyItemID", updatable = false, insertable = false)
+    private KeyItemEntity keyItem;
 
     public int getPcKeyItemID() {
         return pcKeyItemID;
@@ -35,11 +42,23 @@ public class PCKeyItemEntity {
         this.playerID = playerID;
     }
 
-    public int getKeyitemID() {
+    public int getKeyItemID() {
         return keyitemID;
     }
 
-    public void setKeyitemID(int keyitemID) {
+    public void setKeyItemID(int keyitemID) {
         this.keyitemID = keyitemID;
+    }
+
+    public KeyItemEntity getKeyItem() {
+        return keyItem;
+    }
+
+    public Timestamp getAcquiredDate() {
+        return acquiredDate;
+    }
+
+    public void setAcquiredDate(Timestamp acquiredDate) {
+        this.acquiredDate = acquiredDate;
     }
 }

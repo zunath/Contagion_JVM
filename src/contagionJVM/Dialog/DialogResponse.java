@@ -4,6 +4,7 @@ package contagionJVM.Dialog;
 public class DialogResponse {
     private String text;
     private boolean isActive;
+    private Object customData;
 
     public DialogResponse(String text)
     {
@@ -26,4 +27,15 @@ public class DialogResponse {
     public void setText(String text) {
         this.text = text;
     }
+
+    public Object getCustomData()
+    {
+        return customData;
+    }
+
+    public void setCustomData(Object customData)
+    {
+        this.customData = customData;
+    }
+
 }

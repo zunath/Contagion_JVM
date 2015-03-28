@@ -1,12 +1,18 @@
 package contagionJVM.Dialog;
 
+import contagionJVM.Entities.KeyItemEntity;
+import contagionJVM.Entities.PCKeyItemEntity;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
+import contagionJVM.Repository.KeyItemRepository;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.Scheduler;
+
+import java.util.List;
+
 
 @SuppressWarnings("UnusedDeclaration")
 public class Conversation_RestMenu extends DialogBase implements IDialogHandler {
@@ -28,11 +34,16 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                 "Change robe appearance"
         );
 
-        DialogPage viewKeyItemsPage = new DialogPage(
+        DialogPage keyItemCategoriesPage = new DialogPage(
                 "Select a key item category.",
                 "Maps",
                 "Quest Items",
-                "Documents"
+                "Documents",
+                "Back"
+        );
+
+        DialogPage keyItemListPage = new DialogPage(
+                "Select a key item."
         );
 
         DialogPage characterManagementPage = new DialogPage(
@@ -45,7 +56,8 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
 
         dialog.addPage("MainPage", mainPage);
         dialog.addPage("ModifyClothesPage", modifyClothesPage);
-        dialog.addPage("ViewKeyItemsPage", viewKeyItemsPage);
+        dialog.addPage("KeyItemCategoriesPage", keyItemCategoriesPage);
+        dialog.addPage("KeyItemsListPage", keyItemListPage);
         dialog.addPage("CharacterManagementPage", characterManagementPage);
 
         return dialog;
@@ -60,9 +72,9 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                     case 1:
                         SwitchConversation("AllocateSkillPoints");
                         break;
-                    // View Key Items
+                    // Key Item Categories Page
                     case 2:
-                        ChangePage("ViewKeyItemsPage");
+                        ChangePage("KeyItemCategoriesPage");
                         break;
                     // Modify Clothes
                     case 3:
@@ -79,13 +91,21 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                         break;
                 }
                 break;
-            case "ViewKeyItemsPage":
+            case "KeyItemCategoriesPage":
                 switch (responseID) {
-                    case 1:
+                    case 1: // "Maps"
+                    case 2: // "Quest Items"
+                    case 3: // "Documents"
+                        NWScript.setLocalInt(GetPC(), "TEMP_MENU_KEY_ITEM_CATEGORY_ID", responseID);
+                        LoadKeyItemsOptions(responseID);
                         break;
-                    case 2:
+                    case 4: // "Back"
+                        ChangePage("MainPage");
                         break;
                 }
+                break;
+            case "KeyItemsListPage":
+                HandleKeyItemSelectionr(responseID);
                 break;
             case "CharacterManagementPage":
                 switch (responseID) {
@@ -111,8 +131,48 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
     @Override
     public void EndDialog()
     {
+        ClearTempVariables();
     }
 
+    private void ClearTempVariables()
+    {
+        NWScript.deleteLocalString(GetPC(), "TEMP_MENU_KEY_ITEM_CATEGORY_ID");
+        SetPageHeader("KeyItemsListPage", "Select a key item.");
+    }
+
+    private void LoadKeyItemsOptions(int categoryID)
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        DialogPage page = dialog.getPageByName("KeyItemsListPage");
+        page.getResponses().clear();
+        KeyItemRepository repo = new KeyItemRepository();
+        List<PCKeyItemEntity> items = repo.GetPlayerKeyItemsByCategory(pcGO.getUUID(), categoryID);
+
+        for(PCKeyItemEntity item : items)
+        {
+            DialogResponse response = new DialogResponse(item.getKeyItem().getName());
+            response.setCustomData(item.getKeyItemID());
+            page.getResponses().add(response);
+        }
+
+        page.getResponses().add(new DialogResponse("Back"));
+        ChangePage("KeyItemsListPage");
+    }
+
+    private void HandleKeyItemSelectionr(int responseID)
+    {
+        DialogResponse response = GetResponseByID(GetCurrentPage(), responseID);
+        if(response.getCustomData() == null)
+        {
+            ClearTempVariables();
+            ChangePage("KeyItemCategoriesPage");
+        }
+        else
+        {
+            SetPageHeader("KeyItemsListPage", BuildKeyItemHeader(responseID));
+        }
+    }
 
     private String BuildMainPageHeader(NWObject oPC)
     {
@@ -127,6 +187,19 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
         header += ColorToken.Green() + "Hunger: " + ColorToken.End() + entity.getCurrentHunger() + "%\n";
         header += ColorToken.Green() + "Thirst: " + ColorToken.End() + entity.getCurrentThirst() + "%\n";
         header += ColorToken.Green() + "Infection: " + ColorToken.End() + entity.getCurrentInfection() + "%\n";
+
+        return header;
+    }
+
+    private String BuildKeyItemHeader(int responseID)
+    {
+        KeyItemRepository repo = new KeyItemRepository();
+        DialogResponse response = GetResponseByID(GetCurrentPage(), responseID);
+        int keyItemID = (int)response.getCustomData();
+        KeyItemEntity entity = repo.GetKeyItemByID(keyItemID);
+
+        String header = ColorToken.Green() + "Key Item: " + ColorToken.End() + entity.getName() + "\n\n";
+        header += ColorToken.Green() + "Description: " + ColorToken.End() + entity.getDescription() + "\n";
 
         return header;
     }
