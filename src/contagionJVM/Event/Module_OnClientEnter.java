@@ -36,8 +36,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         // PC Validation
         NWScript.executeScript("auth_mod_enter", objSelf);
         ShowMOTD();
-        // Record Player Count
-        NWScript.executeScript("record_pc_count", objSelf);
         ApplyGhostwalk();
         // Validate CD Key
         PlayerAuthorizationSystem.OnModuleEnter();
