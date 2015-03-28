@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class DialogManager {
 
-    public static final int NumberOfResponsesPerPage = 10;
+    public static final int NumberOfResponsesPerPage = 12;
     private static HashMap<String, PlayerDialog> playerDialogs;
 
     public static void storePlayerDialog(String uuid, PlayerDialog dialog)
