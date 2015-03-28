@@ -227,12 +227,14 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                     // Upgrade
                     case 1:
                         HandleUpgrade();
+                        ToggleUpgradeResponseOption();
                         break;
                     // Back
                     case 2:
                         NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_SKILL_ID");
                         NWScript.deleteLocalInt(GetPC(), "TEMP_MENU_CONFIRM_PURCHASE");
                         ChangePage(NWScript.getLocalString(GetPC(), "TEMP_MENU_CATEGORY_PAGE"));
+                        SetResponseText("UpgradePage", 1, "Upgrade");
                         break;
                     // Return to Category List
                     case 3:
@@ -282,7 +284,32 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
     {
         NWScript.setLocalInt(GetPC(), "TEMP_MENU_SKILL_ID", skillID);
         SetPageHeader("UpgradePage", BuildUpgradeHeader());
+        ToggleUpgradeResponseOption();
         ChangePage("UpgradePage");
+    }
+
+    private void ToggleUpgradeResponseOption()
+    {
+        int skillID = NWScript.getLocalInt(GetPC(), "TEMP_MENU_SKILL_ID");
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerProgressionSkillsRepository pcSkillRepo = new PlayerProgressionSkillsRepository();
+        ProgressionSkillRepository skillRepo = new ProgressionSkillRepository();
+
+        PlayerProgressionSkillEntity pcSkill = pcSkillRepo.GetByUUIDAndSkillID(pcGO.getUUID(), skillID);
+        ProgressionSkillEntity skill = skillRepo.getByID(skillID);
+
+        DialogResponse response = GetResponseByID("UpgradePage", 1);
+        int upgradeLevel = pcSkill == null ? 0 : pcSkill.getUpgradeLevel();
+        int upgradeCap = pcSkill == null || !pcSkill.isSoftCapUnlocked() ? skill.getSoftCap() : skill.getMaxUpgrades();
+
+        if(upgradeLevel >= upgradeCap)
+        {
+            response.setActive(false);
+        }
+        else
+        {
+            response.setActive(true);
+        }
     }
 
     private String BuildUpgradeHeader()
@@ -315,7 +342,6 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         header += ColorToken.Green() + "Available SP: " + ColorToken.End() + availableSP + "\n";
         header += ColorToken.Green() + "Next Upgrade: " + ColorToken.End() + nextUpgradeCost + "\n\n";
         header += ColorToken.Green() + "Description: " + ColorToken.End() + description;
-
 
         return header;
     }
