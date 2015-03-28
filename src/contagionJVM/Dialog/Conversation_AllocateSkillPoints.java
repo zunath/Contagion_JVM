@@ -23,7 +23,7 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Proficiencies",
                 "Utility",
                 "Abilities",
-                "Back to Main Menu"
+                "Back"
         );
 
         DialogPage statsPage = new DialogPage(
