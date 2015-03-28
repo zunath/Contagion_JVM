@@ -91,6 +91,7 @@ public class DataAccess {
         _configuration.addAnnotatedClass(ProgressionLevelEntity.class);
         _configuration.addAnnotatedClass(ProgressionSkillEntity.class);
         _configuration.addAnnotatedClass(StorageEntity.class);
+        _configuration.addAnnotatedClass(ZombieClothesEntity.class);
 
 
         ServiceRegistry _serviceRegistry = new ServiceRegistryBuilder().applySettings(
