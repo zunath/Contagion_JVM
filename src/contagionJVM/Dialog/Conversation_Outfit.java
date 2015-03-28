@@ -156,31 +156,67 @@ public class Conversation_Outfit extends DialogBase implements IDialogHandler {
             else if(outfitID == 9) storedClothes = SCORCO.loadObject(entity.getOutfit9(), lLocation, oTempStorage);
             else if(outfitID == 10) storedClothes = SCORCO.loadObject(entity.getOutfit10(), lLocation, oTempStorage);
 
-            NWObject oCopy1 = NWScript.copyItem(oClothes, oTempStorage, true);
-            NWObject oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LBICEP), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOOT), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOREARM), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LHAND), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHIN), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHOULDER), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LTHIGH), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.NECK, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.NECK), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.PELVIS, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.PELVIS), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RBICEP), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOOT), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOREARM), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RHAND), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.ROBE, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.ROBE), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHIN), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHOULDER), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RTHIGH), true);
-            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.TORSO, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.TORSO), true);
-            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT), true);
+            NWObject oCopy = NWScript.copyItem(oClothes, oTempStorage, true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LBICEP), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LBICEP), true);
 
-            final NWObject oFinal = NWScript.copyItem(oCopy1, oPC, true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.BELT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.BELT), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOOT), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LFOOT), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOREARM), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LFOREARM), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LHAND), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LHAND), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHIN), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LSHIN), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHOULDER), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LSHOULDER), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LTHIGH), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.LTHIGH), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.NECK, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.NECK), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.NECK, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.NECK), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.PELVIS, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.PELVIS), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.PELVIS, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.PELVIS), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RBICEP), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RBICEP), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOOT), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RFOOT), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOREARM), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RFOREARM), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RHAND), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RHAND), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.ROBE, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.ROBE), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.ROBE, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.ROBE), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHIN), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RSHIN), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHOULDER), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RSHOULDER), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RTHIGH), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.RTHIGH), true);
+
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.TORSO, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.TORSO), true);
+            oCopy = NWScript.copyItemAndModify(oCopy, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.TORSO, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_COLOR, ItemApprArmorModel.TORSO), true);
+
+            final NWObject oFinal = NWScript.copyItem(oCopy, oPC, true);
             NWScript.deleteLocalString(oFinal, "TEMP_OUTFIT_UUID");
-            NWScript.destroyObject(oCopy2, 0.0f);
+            NWScript.destroyObject(oCopy, 0.0f);
             NWScript.destroyObject(oClothes, 0.0f);
             NWScript.destroyObject(storedClothes, 0.0f);
 
