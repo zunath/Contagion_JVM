@@ -25,8 +25,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         // Bioware Default
         NWScript.executeScript("x3_mod_def_enter", objSelf);
         InitializeNewCharacter();
-        // Persistent Journal Entries
-        NWScript.executeScript("pqj_mod_enter", objSelf);
         // Persistent Hit Points
         NWScript.executeScript("php_mod_enter", objSelf);
         // SimTools

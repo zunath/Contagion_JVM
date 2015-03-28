@@ -67,6 +67,7 @@ public class Conversation_Outfit extends DialogBase implements IDialogHandler {
                                 NWScript.actionStartConversation(oPC, "x0_skill_ctrap", false, false);
                             }
                         });
+                        Scheduler.flushQueues();
                         break;
                 }
                 break;

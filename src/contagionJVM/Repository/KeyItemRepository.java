@@ -38,4 +38,24 @@ public class KeyItemRepository {
             return (KeyItemEntity)criteria.uniqueResult();
         }
     }
+
+    public PCKeyItemEntity GetPCKeyItemByKeyItemID(String uuid, int keyItemID)
+    {
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PCKeyItemEntity.class)
+                    .add(Restrictions.eq("keyItemID", keyItemID))
+                    .add(Restrictions.eq("playerID", uuid));
+            return (PCKeyItemEntity)criteria.uniqueResult();
+        }
+    }
+
+    public void Save(PCKeyItemEntity entity)
+    {
+        try(DataContext context = new DataContext())
+        {
+            context.getSession().saveOrUpdate(entity);
+        }
+    }
 }

@@ -4,6 +4,7 @@ import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.Repository.PlayerRepository;
+import contagionJVM.System.KeyItemSystem;
 import contagionJVM.System.SpawnSystem;
 import org.nwnx.nwnx2.jvm.*;
 
@@ -20,8 +21,6 @@ public class Area_OnEnter implements IScriptEventHandler {
         LoadLocation(oPC, oArea);
         SaveLocation(oPC, oArea);
         spawnSystem.ZSS_OnAreaEnter(oArea);
-        // Show map in designated areas
-        NWScript.executeScript("show_map", oArea);
         // Initialize camera in designated areas.
         NWScript.executeScript("initialize_camer", oArea);
 
@@ -73,4 +72,17 @@ public class Area_OnEnter implements IScriptEventHandler {
 
         Scheduler.flushQueues();
     }
+
+    private void ShowMap(NWObject oPC, NWObject oArea)
+    {
+        int keyItemID = NWScript.getLocalInt(oArea, "MAP_ID");
+        boolean areaShowsMap = NWScript.getLocalInt(oArea, "SHOW_MAP") == 1;
+        boolean hasKeyItem = KeyItemSystem.PlayerHasKeyItem(oPC, keyItemID);
+
+        if(areaShowsMap || hasKeyItem)
+        {
+            NWScript.exploreAreaForPlayer(oArea, oPC, true);
+        }
+    }
+
 }

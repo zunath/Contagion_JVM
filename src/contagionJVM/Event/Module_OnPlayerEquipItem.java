@@ -10,13 +10,11 @@ import org.nwnx.nwnx2.jvm.*;
 public class Module_OnPlayerEquipItem implements IScriptEventHandler {
 	@Override
 	public void runScript(final NWObject objSelf) {
-		ProgressionSystem progressionSystem = new ProgressionSystem();
         CombatSystem combatSystem = new CombatSystem();
 
 		// Bioware Default
 		NWScript.executeScript("x2_mod_def_equ", objSelf);
-
-		progressionSystem.OnModuleEquip();
+		ProgressionSystem.OnModuleEquip();
 		// Combat System
         combatSystem.OnModuleEquip();
 		// Item Durability System
