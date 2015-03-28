@@ -111,10 +111,10 @@ public class Conversation_ManageCDKeys extends DialogBase implements  IDialogHan
 
     private void LoadRemoveCDKeyOptions()
     {
-        PlayerGO pcGO = new PlayerGO(GetPC());
+        String account = NWScript.getPCPlayerName(GetPC());
         List<DialogResponse> responses = new ArrayList<>();
         PCAuthorizedCDKeysRepository repo = new PCAuthorizedCDKeysRepository();
-        PCAuthorizedCDKeyEntity entity = repo.GetByUUID(pcGO.getUUID());
+        PCAuthorizedCDKeyEntity entity = repo.GetByAccountName(account);
         String cdKey = NWScript.getPCPublicCDKey(GetPC(), false);
 
         if(entity == null)
@@ -191,10 +191,10 @@ public class Conversation_ManageCDKeys extends DialogBase implements  IDialogHan
 
     private void HandleRemoveCDKeyOption(int responseID)
     {
-        PlayerGO pcGO = new PlayerGO(GetPC());
+        String account = NWScript.getPCPlayerName(GetPC());
         List<DialogResponse> responses = new ArrayList<>();
         PCAuthorizedCDKeysRepository repo = new PCAuthorizedCDKeysRepository();
-        PCAuthorizedCDKeyEntity entity = repo.GetByUUID(pcGO.getUUID());
+        PCAuthorizedCDKeyEntity entity = repo.GetByAccountName(account);
         String cdKey = NWScript.getPCPublicCDKey(GetPC(), false);
         String errorMessage = "Cannot remove the CD key you are currently logged into.";
 

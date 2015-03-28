@@ -1,12 +1,15 @@
 package contagionJVM.Event;
 
+import contagionJVM.Entities.PCAuthorizedCDKeyEntity;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Constants;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Funcs;
+import contagionJVM.Repository.PCAuthorizedCDKeysRepository;
 import contagionJVM.Repository.PlayerRepository;
+import contagionJVM.System.PlayerAuthorizationSystem;
 import contagionJVM.System.ProgressionSystem;
 import contagionJVM.System.RadioSystem;
 import org.nwnx.nwnx2.jvm.*;
@@ -38,6 +41,9 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         // Record Player Count
         NWScript.executeScript("record_pc_count", objSelf);
         ApplyGhostwalk();
+        // Validate CD Key
+        PlayerAuthorizationSystem.OnModuleEnter();
+
 
         Scheduler.flushQueues();
     }
@@ -125,5 +131,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             }
         });
     }
+
 
 }

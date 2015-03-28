@@ -8,8 +8,8 @@ import javax.persistence.*;
 public class PCAuthorizedCDKeyEntity {
 
     @Id
-    @Column(name = "PlayerID")
-    private String playerID;
+    @Column(name = "AccountID")
+    private String accountID;
     @Column(name = "CDKey1")
     private String cdKey1;
     @Column(name = "CDKey2")
@@ -31,13 +31,29 @@ public class PCAuthorizedCDKeyEntity {
     @Column(name = "CDKey10")
     private String cdKey10;
 
+    public PCAuthorizedCDKeyEntity()
+    {
+        this.accountID = "";
+        this.cdKey1 = "";
+        this.cdKey2 = "";
+        this.cdKey3 = "";
+        this.cdKey4 = "";
+        this.cdKey5 = "";
+        this.cdKey6 = "";
+        this.cdKey7 = "";
+        this.cdKey8 = "";
+        this.cdKey9 = "";
+        this.cdKey10 = "";
 
-    public String getPlayerID() {
-        return playerID;
     }
 
-    public void setPlayerID(String playerID) {
-        this.playerID = playerID;
+
+    public String getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(String accountID) {
+        this.accountID = accountID;
     }
 
     public String getCdKey1() {

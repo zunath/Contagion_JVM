@@ -7,7 +7,7 @@ import org.hibernate.criterion.Restrictions;
 
 public class PCAuthorizedCDKeysRepository {
 
-    public PCAuthorizedCDKeyEntity GetByUUID(String uuid)
+    public PCAuthorizedCDKeyEntity GetByAccountName(String accountName)
     {
         PCAuthorizedCDKeyEntity entity;
 
@@ -17,7 +17,7 @@ public class PCAuthorizedCDKeysRepository {
                     .createCriteria(PCAuthorizedCDKeyEntity.class);
 
             entity = (PCAuthorizedCDKeyEntity)criteria
-                    .add(Restrictions.eq("playerID", uuid))
+                    .add(Restrictions.eq("accountID", accountName))
                     .uniqueResult();
         }
 
