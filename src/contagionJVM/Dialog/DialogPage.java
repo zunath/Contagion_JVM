@@ -54,4 +54,9 @@ public class DialogPage {
     public void setCustomData(Object customData) {
         this.customData = customData;
     }
+
+    public DialogResponse getDialogResponseByID(int responseID)
+    {
+        return responses.get(responseID - 1);
+    }
 }

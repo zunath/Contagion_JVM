@@ -10,7 +10,7 @@ import org.nwnx.nwnx2.jvm.NWScript;
 @SuppressWarnings("unused")
 public class Conversation_ChangePortrait extends DialogBase implements IDialogHandler {
     @Override
-    public PlayerDialog Initialize(NWObject oPC) {
+    public PlayerDialog SetUp(NWObject oPC) {
         PlayerDialog dialog = new PlayerDialog();
         DialogPage mainPage = new DialogPage(
                 "<SET LATER>",
@@ -25,12 +25,19 @@ public class Conversation_ChangePortrait extends DialogBase implements IDialogHa
                 "Back"
          );
 
-        mainPage.setCustomData(new PortraitDTO(NWScript.getPortraitId(oPC)));
-        mainPage.setHeader(BuildHeader());
-
         dialog.addPage("MainPage", mainPage);
 
         return dialog;
+    }
+
+    @Override
+    public void Initialize()
+    {
+        PortraitRepository repo = new PortraitRepository();
+        PortraitEntity entity = repo.GetBy2DAID(NWScript.getPortraitId(GetPC()));
+
+        SetDialogCustomData(new PortraitDTO(entity.getPortraitID()));
+        SetPageHeader("MainPage", BuildHeader());
     }
 
     @Override
@@ -84,10 +91,17 @@ public class Conversation_ChangePortrait extends DialogBase implements IDialogHa
     private void ChangePortraitID(int adjustBy)
     {
         NWObject oPC = GetPC();
-        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
-        dto.setCurrentPortraitID(dto.getCurrentPortraitID() + adjustBy);
+        PortraitDTO dto = (PortraitDTO)GetDialogCustomData();
         PortraitRepository repo = new PortraitRepository();
         int numberOfPortraits = repo.GetNumberOfPortraits();
+
+        if(dto.getCurrentPortraitID() > numberOfPortraits)
+            dto.setCurrentPortraitID(numberOfPortraits);
+        if(dto.getOriginalPortraitID() > numberOfPortraits)
+            dto.setOriginalPortraitID(numberOfPortraits);
+
+        dto.setCurrentPortraitID(dto.getCurrentPortraitID() + adjustBy);
+
 
         if(dto.getCurrentPortraitID() > numberOfPortraits)
         {
@@ -102,29 +116,31 @@ public class Conversation_ChangePortrait extends DialogBase implements IDialogHa
         PortraitEntity entity = repo.GetByPortraitID(dto.getCurrentPortraitID());
         NWScript.setPortraitId(oPC, entity.get2DAID());
 
-        GetCurrentPage().setCustomData(dto);
+        SetDialogCustomData(dto);
         SetPageHeader("MainPage", BuildHeader());
     }
 
     private void ResetPortraitID()
     {
         NWObject oPC = GetPC();
-        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
+        PortraitDTO dto = (PortraitDTO)GetDialogCustomData();
+        PortraitRepository repo = new PortraitRepository();
         dto.setCurrentPortraitID(dto.getOriginalPortraitID());
 
-        NWScript.setPortraitId(oPC, dto.getOriginalPortraitID());
+        PortraitEntity entity = repo.GetByPortraitID(dto.getOriginalPortraitID());
+        NWScript.setPortraitId(oPC, entity.get2DAID());
 
-        GetCurrentPage().setCustomData(dto);
+        SetDialogCustomData(dto);
         SetPageHeader("MainPage", BuildHeader());
     }
 
     private void SetPortraitID()
     {
         NWObject oPC = GetPC();
-        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
+        PortraitDTO dto = (PortraitDTO)GetDialogCustomData();
         dto.setOriginalPortraitID(dto.getCurrentPortraitID());
 
-        GetCurrentPage().setCustomData(dto);
+        SetDialogCustomData(dto);
         SetPageHeader("MainPage", BuildHeader());
     }
 
@@ -132,7 +148,7 @@ public class Conversation_ChangePortrait extends DialogBase implements IDialogHa
     {
         NWObject oPC = GetPC();
 
-        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
+        PortraitDTO dto = (PortraitDTO)GetDialogCustomData();
         String header = "You may adjust your character's portrait here. Open your character sheet to view your current portrait ('C' by default)." + "\n\n";
         header += ColorToken.Green() + "Current Set Portrait ID: " + ColorToken.End() + "%originalID% " + "\n";
         header += ColorToken.Green() + "Viewing Portrait ID: " + ColorToken.End() + "%currentID% " + "\n";

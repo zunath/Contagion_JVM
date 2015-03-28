@@ -13,7 +13,7 @@ import java.util.List;
 public class Conversation_KeyItems extends DialogBase implements IDialogHandler {
 
     @Override
-    public PlayerDialog Initialize(NWObject oPC) {
+    public PlayerDialog SetUp(NWObject oPC) {
 
         PlayerDialog dialog = new PlayerDialog();
         DialogPage mainPage = new DialogPage(
@@ -33,6 +33,12 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
         dialog.addPage("KeyItemsListPage", keyItemListPage);
 
         return dialog;
+    }
+
+    @Override
+    public void Initialize()
+    {
+
     }
 
     @Override

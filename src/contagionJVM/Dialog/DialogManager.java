@@ -58,11 +58,12 @@ public class DialogManager {
         PlayerGO pcGO = new PlayerGO(oPC);
         Class scriptClass = Class.forName("contagionJVM.Dialog.Conversation_" + conversationName);
         IDialogHandler script = (IDialogHandler)scriptClass.newInstance();
-        PlayerDialog dialog = script.Initialize(oPC);
+        PlayerDialog dialog = script.SetUp(oPC);
         dialog.setActiveDialogName(conversationName);
         dialog.setDialogTarget(oTalkTo);
         DialogManager.storePlayerDialog(pcGO.getUUID(), dialog);
 
+        script.Initialize();
     }
 
     public static void startConversation(NWObject oPC, final NWObject oTalkTo, String conversationName)

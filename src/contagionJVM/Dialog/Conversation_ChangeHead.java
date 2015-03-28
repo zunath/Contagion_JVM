@@ -10,7 +10,7 @@ import org.nwnx.nwnx2.jvm.constants.CreaturePart;
 @SuppressWarnings("UnusedDeclaration")
 public class Conversation_ChangeHead extends DialogBase implements IDialogHandler {
     @Override
-    public PlayerDialog Initialize(NWObject oPC) {
+    public PlayerDialog SetUp(NWObject oPC) {
         PlayerDialog dialog = new PlayerDialog();
         DialogPage mainPage = new DialogPage(
                 "<SET LATER>",
@@ -31,6 +31,12 @@ public class Conversation_ChangeHead extends DialogBase implements IDialogHandle
         dialog.addPage("MainPage", mainPage);
 
         return dialog;
+    }
+
+    @Override
+    public void Initialize()
+    {
+
     }
 
     @Override

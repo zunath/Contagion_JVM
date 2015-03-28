@@ -23,6 +23,21 @@ public class PortraitRepository {
         return entity;
     }
 
+    public PortraitEntity GetBy2DAID(int _2daID)
+    {
+        PortraitEntity entity;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PortraitEntity.class);
+
+            entity = (PortraitEntity)criteria.add(Restrictions.eq("_2daID", _2daID)).uniqueResult();
+        }
+
+        return entity;
+    }
+
     public int GetNumberOfPortraits()
     {
         try(DataContext context = new DataContext())

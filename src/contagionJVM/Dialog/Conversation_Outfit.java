@@ -13,7 +13,7 @@ import org.nwnx.nwnx2.jvm.constants.ItemApprType;
 public class Conversation_Outfit extends DialogBase implements IDialogHandler {
 
     @Override
-    public PlayerDialog Initialize(NWObject oPC) {
+    public PlayerDialog SetUp(NWObject oPC) {
         PlayerDialog dialog = new PlayerDialog();
 
         DialogPage mainPage = new DialogPage(
@@ -35,6 +35,12 @@ public class Conversation_Outfit extends DialogBase implements IDialogHandler {
         dialog.addPage("SaveOutfitPage", saveOutfitPage);
         dialog.addPage("LoadOutfitPage", loadOutfitPage);
         return dialog;
+    }
+
+    @Override
+    public void Initialize()
+    {
+
     }
 
     @Override

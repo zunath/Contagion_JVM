@@ -11,7 +11,7 @@ import org.nwnx.nwnx2.jvm.Scheduler;
 @SuppressWarnings("UnusedDeclaration")
 public class Conversation_RestMenu extends DialogBase implements IDialogHandler {
     @Override
-    public PlayerDialog Initialize(NWObject oPC) {
+    public PlayerDialog SetUp(NWObject oPC) {
 
         PlayerDialog dialog = new PlayerDialog();
         DialogPage mainPage = new DialogPage(
@@ -24,6 +24,12 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
         dialog.addPage("MainPage", mainPage);
 
         return dialog;
+    }
+
+    @Override
+    public void Initialize()
+    {
+
     }
 
     @Override

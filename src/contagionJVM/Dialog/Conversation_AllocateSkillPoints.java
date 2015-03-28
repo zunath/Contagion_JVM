@@ -15,7 +15,7 @@ import org.nwnx.nwnx2.jvm.NWScript;
 @SuppressWarnings("UnusedDeclaration")
 public class Conversation_AllocateSkillPoints extends DialogBase implements IDialogHandler {
     @Override
-    public PlayerDialog Initialize(NWObject oPC) {
+    public PlayerDialog SetUp(NWObject oPC) {
         PlayerDialog dialog = new PlayerDialog();
         DialogPage mainPage = new DialogPage(
                 "Please select a category.",
@@ -85,6 +85,12 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         dialog.addPage("UpgradePage", upgradePage);
 
         return dialog;
+    }
+
+    @Override
+    public void Initialize()
+    {
+
     }
 
     @Override
