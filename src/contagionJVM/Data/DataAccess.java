@@ -90,7 +90,8 @@ public class DataAccess {
         _configuration.addAnnotatedClass(PortraitEntity.class);
         _configuration.addAnnotatedClass(ProgressionLevelEntity.class);
         _configuration.addAnnotatedClass(ProgressionSkillEntity.class);
-        _configuration.addAnnotatedClass(StorageEntity.class);
+        _configuration.addAnnotatedClass(StorageContainerEntity.class);
+        _configuration.addAnnotatedClass(StorageItemEntity.class);
         _configuration.addAnnotatedClass(ZombieClothesEntity.class);
 
 

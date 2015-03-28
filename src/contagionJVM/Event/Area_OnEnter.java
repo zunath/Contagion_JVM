@@ -51,6 +51,8 @@ public class Area_OnEnter implements IScriptEventHandler {
 
     private void LoadLocation(NWObject oPC, NWObject oArea)
     {
+        if(!NWScript.getIsPC(oPC) || NWScript.getIsDM(oPC)) return;
+
         if(NWScript.getTag(oArea).equals("ooc_area"))
         {
             PlayerGO pcGO = new PlayerGO(oPC);
