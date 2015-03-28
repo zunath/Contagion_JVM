@@ -1,6 +1,13 @@
 package contagionJVM.Dialog;
 
-import org.nwnx.nwnx2.jvm.NWObject;
+import contagionJVM.Entities.PCOutfitEntity;
+import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ColorToken;
+import contagionJVM.Repository.PCOutfitRepository;
+import org.nwnx.nwnx2.jvm.*;
+import org.nwnx.nwnx2.jvm.constants.InventorySlot;
+import org.nwnx.nwnx2.jvm.constants.ItemApprArmorModel;
+import org.nwnx.nwnx2.jvm.constants.ItemApprType;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Conversation_Outfit extends DialogBase implements IDialogHandler {
@@ -16,12 +23,22 @@ public class Conversation_Outfit extends DialogBase implements IDialogHandler {
                 "Back"
         );
 
+        DialogPage saveOutfitPage = new DialogPage(
+                "Please select a slot to save the outfit in.\n\nRed slots are unused. Green slots contain stored data. Selecting a green slot will overwrite whatever is in that slot."
+        );
+
+        DialogPage loadOutfitPage = new DialogPage(
+                "Please select an outfit to load."
+        );
+
         dialog.addPage("MainPage", mainPage);
+        dialog.addPage("SaveOutfitPage", saveOutfitPage);
+        dialog.addPage("LoadOutfitPage", loadOutfitPage);
         return dialog;
     }
 
     @Override
-    public void DoAction(NWObject oPC, String pageName, int responseID) {
+    public void DoAction(final NWObject oPC, String pageName, int responseID) {
 
         switch(pageName)
         {
@@ -30,16 +47,263 @@ public class Conversation_Outfit extends DialogBase implements IDialogHandler {
                 switch (responseID)
                 {
                     case 1: // Save Outfit
+                        ShowSaveOutfitOptions();
+                        ChangePage("SaveOutfitPage");
                         break;
                     case 2: // Load Outfit
+                        ShowLoadOutfitOptions();
+                        ChangePage("LoadOutfitPage");
                         break;
                     case 3: // Back
+                        Scheduler.assign(oPC, new Runnable() {
+                            @Override
+                            public void run() {
+                                NWScript.actionStartConversation(oPC, "x0_skill_ctrap", false, false);
+                            }
+                        });
                         break;
                 }
                 break;
             }
+            case "SaveOutfitPage":
+            {
+                HandleSaveOutfit(responseID);
+                break;
+            }
+            case "LoadOutfitPage":
+            {
+                HandleLoadOutfit(responseID);
+                break;
+            }
         }
     }
+
+    private void HandleSaveOutfit(int responseID)
+    {
+        DialogResponse response = GetResponseByID("SaveOutfitPage", responseID);
+        if(response.getText().equals("Back"))
+        {
+            ChangePage("MainPage");
+            return;
+        }
+
+
+        NWObject oPC = GetPC();
+        NWObject oClothes = NWScript.getItemInSlot(InventorySlot.CHEST, oPC);
+        PlayerGO pcGO = new PlayerGO(oPC);
+        PCOutfitRepository repo = new PCOutfitRepository();
+        PCOutfitEntity entity = repo.GetByUUID(pcGO.getUUID());
+
+        if(entity == null)
+        {
+            entity = new PCOutfitEntity();
+            entity.setPlayerID(pcGO.getUUID());
+        }
+
+        if(oClothes == NWObject.INVALID)
+        {
+            NWScript.floatingTextStringOnCreature(ColorToken.Red() + "You do not have clothes equipped." + ColorToken.End(), oPC, false);
+            return;
+        }
+
+        byte[] clothesData = SCORCO.saveObject(oClothes);
+        if(responseID == 1) entity.setOutfit1(clothesData);
+        else if(responseID == 2) entity.setOutfit2(clothesData);
+        else if(responseID == 3) entity.setOutfit3(clothesData);
+        else if(responseID == 4) entity.setOutfit4(clothesData);
+        else if(responseID == 5) entity.setOutfit5(clothesData);
+        else if(responseID == 6) entity.setOutfit6(clothesData);
+        else if(responseID == 7) entity.setOutfit7(clothesData);
+        else if(responseID == 8) entity.setOutfit8(clothesData);
+        else if(responseID == 9) entity.setOutfit9(clothesData);
+        else if(responseID == 10) entity.setOutfit10(clothesData);
+
+        repo.Save(entity);
+
+        ShowSaveOutfitOptions();
+    }
+
+    private void HandleLoadOutfit(int responseID)
+    {
+        DialogResponse response = GetResponseByID("LoadOutfitPage", responseID);
+
+        if(response.getCustomData() == null)
+        {
+            ChangePage("MainPage");
+        }
+        else
+        {
+            NWObject oPC = GetPC();
+            PlayerGO pcGO = new PlayerGO(oPC);
+            int outfitID = (int)response.getCustomData();
+            PCOutfitRepository repo = new PCOutfitRepository();
+            PCOutfitEntity entity = repo.GetByUUID(pcGO.getUUID());
+
+            NWObject oTempStorage = NWScript.getObjectByTag("OUTFIT_BARREL", 0);
+            NWLocation lLocation = NWScript.getLocation(oTempStorage);
+            NWObject oClothes = NWScript.getItemInSlot(InventorySlot.CHEST, oPC);
+            NWObject storedClothes = NWObject.INVALID;
+            NWScript.setLocalString(oClothes, "TEMP_OUTFIT_UUID", pcGO.getUUID());
+
+            if(outfitID == 1) storedClothes = SCORCO.loadObject(entity.getOutfit1(), lLocation, oTempStorage);
+            else if(outfitID == 2) storedClothes = SCORCO.loadObject(entity.getOutfit2(), lLocation, oTempStorage);
+            else if(outfitID == 3) storedClothes = SCORCO.loadObject(entity.getOutfit3(), lLocation, oTempStorage);
+            else if(outfitID == 4) storedClothes = SCORCO.loadObject(entity.getOutfit4(), lLocation, oTempStorage);
+            else if(outfitID == 5) storedClothes = SCORCO.loadObject(entity.getOutfit5(), lLocation, oTempStorage);
+            else if(outfitID == 6) storedClothes = SCORCO.loadObject(entity.getOutfit6(), lLocation, oTempStorage);
+            else if(outfitID == 7) storedClothes = SCORCO.loadObject(entity.getOutfit7(), lLocation, oTempStorage);
+            else if(outfitID == 8) storedClothes = SCORCO.loadObject(entity.getOutfit8(), lLocation, oTempStorage);
+            else if(outfitID == 9) storedClothes = SCORCO.loadObject(entity.getOutfit9(), lLocation, oTempStorage);
+            else if(outfitID == 10) storedClothes = SCORCO.loadObject(entity.getOutfit10(), lLocation, oTempStorage);
+
+            NWObject oCopy1 = NWScript.copyItem(oClothes, oTempStorage, true);
+            NWObject oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LBICEP), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOOT), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LFOREARM), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LHAND), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHIN), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LSHOULDER), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.LTHIGH), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.NECK, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.NECK), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.PELVIS, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.PELVIS), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RBICEP, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RBICEP), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOOT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOOT), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOREARM, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RFOREARM), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RHAND, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RHAND), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.ROBE, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.ROBE), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHIN, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHIN), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHOULDER, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RSHOULDER), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RTHIGH, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.RTHIGH), true);
+            oCopy2 = NWScript.copyItemAndModify(oCopy1, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.TORSO, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.TORSO), true);
+            oCopy1 = NWScript.copyItemAndModify(oCopy2, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT, NWScript.getItemAppearance(storedClothes, ItemApprType.ARMOR_MODEL, ItemApprArmorModel.BELT), true);
+
+            final NWObject oFinal = NWScript.copyItem(oCopy1, oPC, true);
+            NWScript.deleteLocalString(oFinal, "TEMP_OUTFIT_UUID");
+            NWScript.destroyObject(oCopy2, 0.0f);
+            NWScript.destroyObject(oClothes, 0.0f);
+            NWScript.destroyObject(storedClothes, 0.0f);
+
+            Scheduler.assign(oPC, new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.actionEquipItem(oFinal, InventorySlot.CHEST);
+                }
+            });
+            Scheduler.flushQueues();
+
+            for(NWObject item : NWScript.getItemsInInventory(oTempStorage))
+            {
+                if(NWScript.getLocalString(item, "TEMP_OUTFIT_UUID").equals(pcGO.getUUID()))
+                {
+                    NWScript.destroyObject(item, 0.0f);
+                }
+            }
+
+            ShowLoadOutfitOptions();
+        }
+
+
+    }
+
+    private void ShowSaveOutfitOptions()
+    {
+        DialogPage page = GetPageByName("SaveOutfitPage");
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PCOutfitRepository repo = new PCOutfitRepository();
+        PCOutfitEntity entity = repo.GetByUUID(pcGO.getUUID());
+        if(entity == null) entity = new PCOutfitEntity();
+
+        page.getResponses().clear();
+
+        String responseText = (entity.getOutfit1() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 1" + ColorToken.End();
+        NWScript.setCustomToken(9001, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9001>"));
+
+        responseText = (entity.getOutfit2() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 2" + ColorToken.End();
+        NWScript.setCustomToken(9002, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9002>"));
+
+        responseText = (entity.getOutfit3() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 3" + ColorToken.End();
+        NWScript.setCustomToken(9003, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9003>"));
+
+        responseText = (entity.getOutfit4() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 4" + ColorToken.End();
+        NWScript.setCustomToken(9004, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9004>"));
+
+        responseText = (entity.getOutfit5() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 5" + ColorToken.End();
+        NWScript.setCustomToken(9005, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9005>"));
+
+        responseText = (entity.getOutfit6() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 6" + ColorToken.End();
+        NWScript.setCustomToken(9006, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9006>"));
+
+        responseText = (entity.getOutfit7() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 7" + ColorToken.End();
+        NWScript.setCustomToken(9007, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9007>"));
+
+        responseText = (entity.getOutfit8() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 8" + ColorToken.End();
+        NWScript.setCustomToken(9008, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9008>"));
+
+        responseText = (entity.getOutfit9() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 9" + ColorToken.End();
+        NWScript.setCustomToken(9009, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9009>"));
+
+        responseText = (entity.getOutfit10() == null ? ColorToken.Red() :
+                ColorToken.Green()) + "Save in Slot 10" + ColorToken.End();
+        NWScript.setCustomToken(9010, responseText);
+        page.getResponses().add(new DialogResponse("<CUSTOM9010>"));
+
+        page.getResponses().add(new DialogResponse("Back"));
+
+    }
+
+    private void ShowLoadOutfitOptions()
+    {
+        DialogPage page = GetPageByName("LoadOutfitPage");
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PCOutfitRepository repo = new PCOutfitRepository();
+        PCOutfitEntity entity = repo.GetByUUID(pcGO.getUUID());
+        if(entity == null) entity = new PCOutfitEntity();
+
+        page.getResponses().clear();
+
+        if(entity.getOutfit1() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 1", 1));
+        if(entity.getOutfit2() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 2", 2));
+        if(entity.getOutfit3() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 3", 3));
+        if(entity.getOutfit4() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 4", 4));
+        if(entity.getOutfit5() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 5", 5));
+        if(entity.getOutfit6() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 6", 6));
+        if(entity.getOutfit7() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 7", 7));
+        if(entity.getOutfit8() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 8", 8));
+        if(entity.getOutfit9() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 9", 9));
+        if(entity.getOutfit10() != null)
+            page.getResponses().add(new DialogResponse("Load from Slot 10", 10));
+
+        page.getResponses().add(new DialogResponse("Back"));
+    }
+
 
     @Override
     public void EndDialog() {

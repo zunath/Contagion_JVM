@@ -12,6 +12,13 @@ public class DialogResponse {
         this.isActive = true;
     }
 
+    public DialogResponse(String text, Object customData)
+    {
+        this.text = text;
+        this.isActive = true;
+        this.customData = customData;
+    }
+
     public boolean isActive() {
         return isActive;
     }
