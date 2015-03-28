@@ -8,6 +8,7 @@ public class DialogPage {
 
     private String header;
     private List<DialogResponse> responses;
+    private Object customData;
 
     public DialogPage()
     {
@@ -46,4 +47,11 @@ public class DialogPage {
         return responses.size();
     }
 
+    public Object getCustomData() {
+        return customData;
+    }
+
+    public void setCustomData(Object customData) {
+        this.customData = customData;
+    }
 }

@@ -1,0 +1,154 @@
+package contagionJVM.Dialog;
+
+import contagionJVM.Data.PortraitDTO;
+import contagionJVM.Entities.PortraitEntity;
+import contagionJVM.Helper.ColorToken;
+import contagionJVM.Repository.PortraitRepository;
+import org.nwnx.nwnx2.jvm.NWObject;
+import org.nwnx.nwnx2.jvm.NWScript;
+
+@SuppressWarnings("unused")
+public class Conversation_ChangePortrait extends DialogBase implements IDialogHandler {
+    @Override
+    public PlayerDialog Initialize(NWObject oPC) {
+        PlayerDialog dialog = new PlayerDialog();
+        DialogPage mainPage = new DialogPage(
+                "<SET LATER>",
+                "Advance Portrait ID by 1",
+                "Advance Portrait ID by 10",
+                "Advance Portrait ID by 100",
+                "Decrease Portrait ID by 1",
+                "Decrease Portrait ID by 10",
+                "Decrease Portrait ID by 100",
+                "Set Portrait",
+                "Reset Portrait",
+                "Back"
+         );
+
+        mainPage.setCustomData(new PortraitDTO(NWScript.getPortraitId(oPC)));
+        mainPage.setHeader(BuildHeader());
+
+        dialog.addPage("MainPage", mainPage);
+
+        return dialog;
+    }
+
+    @Override
+    public void DoAction(NWObject oPC, String pageName, int responseID) {
+        switch(pageName)
+        {
+            case "MainPage":
+            {
+                switch (responseID)
+                {
+                    case 1: // Advance by 1
+                        ChangePortraitID(1);
+                        break;
+                    case 2: // Advance by 10
+                        ChangePortraitID(10);
+                        break;
+                    case 3: // Advance by 100
+                        ChangePortraitID(100);
+                        break;
+                    case 4: // Decrease by 1
+                        ChangePortraitID(-1);
+                        break;
+                    case 5: // Decrease by 10
+                        ChangePortraitID(-10);
+                        break;
+                    case 6: // Decrease by 100
+                        ChangePortraitID(-100);
+                        break;
+                    case 7: // Set Portrait
+                        SetPortraitID();
+                        break;
+                    case 8: // Reset Portrait
+                        ResetPortraitID();
+                        break;
+                    case 9: // Back
+                        ResetPortraitID();
+                        SwitchConversation("CharacterManagement");
+                        break;
+                }
+
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void EndDialog() {
+        ResetPortraitID();
+    }
+
+    private void ChangePortraitID(int adjustBy)
+    {
+        NWObject oPC = GetPC();
+        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
+        dto.setCurrentPortraitID(dto.getCurrentPortraitID() + adjustBy);
+        PortraitRepository repo = new PortraitRepository();
+        int numberOfPortraits = repo.GetNumberOfPortraits();
+
+        if(dto.getCurrentPortraitID() > numberOfPortraits)
+        {
+            dto.setCurrentPortraitID(dto.getCurrentPortraitID() - numberOfPortraits);
+        }
+
+        if(dto.getCurrentPortraitID() < 1)
+        {
+            dto.setCurrentPortraitID(numberOfPortraits + adjustBy);
+        }
+
+        PortraitEntity entity = repo.GetByPortraitID(dto.getCurrentPortraitID());
+        NWScript.setPortraitId(oPC, entity.get2DAID());
+
+        GetCurrentPage().setCustomData(dto);
+        SetPageHeader("MainPage", BuildHeader());
+    }
+
+    private void ResetPortraitID()
+    {
+        NWObject oPC = GetPC();
+        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
+        dto.setCurrentPortraitID(dto.getOriginalPortraitID());
+
+        NWScript.setPortraitId(oPC, dto.getOriginalPortraitID());
+
+        GetCurrentPage().setCustomData(dto);
+        SetPageHeader("MainPage", BuildHeader());
+    }
+
+    private void SetPortraitID()
+    {
+        NWObject oPC = GetPC();
+        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
+        dto.setOriginalPortraitID(dto.getCurrentPortraitID());
+
+        GetCurrentPage().setCustomData(dto);
+        SetPageHeader("MainPage", BuildHeader());
+    }
+
+    private String BuildHeader()
+    {
+        NWObject oPC = GetPC();
+
+        PortraitDTO dto = (PortraitDTO)GetCurrentPage().getCustomData();
+        String header = "You may adjust your character's portrait here. Open your character sheet to view your current portrait ('C' by default)." + "\n\n";
+        header += ColorToken.Green() + "Current Set Portrait ID: " + ColorToken.End() + "%originalID% " + "\n";
+        header += ColorToken.Green() + "Viewing Portrait ID: " + ColorToken.End() + "%currentID% " + "\n";
+
+        if(dto == null)
+        {
+            header = header.replace("%originalID%", "" + NWScript.getPortraitId(oPC));
+            header = header.replace("%currentID%", "" + NWScript.getPortraitId(oPC));
+        }
+        else
+        {
+
+            header = header.replace("%originalID%", "" + dto.getOriginalPortraitID());
+            header = header.replace("%currentID%", "" + dto.getCurrentPortraitID());
+        }
+
+        return header;
+    }
+}

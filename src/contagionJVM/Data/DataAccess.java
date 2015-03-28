@@ -86,6 +86,7 @@ public class DataAccess {
         _configuration.addAnnotatedClass(PCSearchSiteItemEntity.class);
         _configuration.addAnnotatedClass(PlayerEntity.class);
         _configuration.addAnnotatedClass(PlayerProgressionSkillEntity.class);
+        _configuration.addAnnotatedClass(PortraitEntity.class);
         _configuration.addAnnotatedClass(ProgressionLevelEntity.class);
         _configuration.addAnnotatedClass(ProgressionSkillEntity.class);
         _configuration.addAnnotatedClass(StorageEntity.class);

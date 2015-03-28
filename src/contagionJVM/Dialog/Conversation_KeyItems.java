@@ -93,7 +93,7 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
 
     private void HandleKeyItemSelectionr(int responseID)
     {
-        DialogResponse response = GetResponseByID(GetCurrentPage(), responseID);
+        DialogResponse response = GetResponseByID(GetCurrentPageName(), responseID);
         if(response.getCustomData() == null)
         {
             ClearTempVariables();
@@ -108,7 +108,7 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
     private String BuildKeyItemHeader(int responseID)
     {
         KeyItemRepository repo = new KeyItemRepository();
-        DialogResponse response = GetResponseByID(GetCurrentPage(), responseID);
+        DialogResponse response = GetResponseByID(GetCurrentPageName(), responseID);
         int keyItemID = (int)response.getCustomData();
         KeyItemEntity entity = repo.GetKeyItemByID(keyItemID);
 

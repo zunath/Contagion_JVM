@@ -32,10 +32,13 @@ public class Conversation_CharacterManagement extends DialogBase implements IDia
                     case 1: // Disable PVP Protection
                         break;
                     case 2: // Manage CD Keys
+                        SwitchConversation("ManageCDKeys");
                         break;
                     case 3: // Change Portrait
+                        SwitchConversation("ChangePortrait");
                         break;
                     case 4: // Change Head
+                        SwitchConversation("ChangeHead");
                         break;
                     case 5: // Back
                         SwitchConversation("RestMenu");

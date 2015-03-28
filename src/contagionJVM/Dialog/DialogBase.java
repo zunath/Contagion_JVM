@@ -38,7 +38,12 @@ public abstract class DialogBase {
         return dialog.getPageByName(pageName);
     }
 
-    protected String GetCurrentPage()
+    protected DialogPage GetCurrentPage()
+    {
+        return GetPageByName(GetCurrentPageName());
+    }
+
+    protected String GetCurrentPageName()
     {
         PlayerGO pcGO = new PlayerGO(GetPC());
         PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
