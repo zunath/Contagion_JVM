@@ -233,7 +233,7 @@ public class CombatSystem {
         if(NWScript.getLocalInt(oAttacker, "RELOADING_GUN") == 1 || NWScript.getCurrentAction(oAttacker) == Action.SIT || NWScript.getLocalInt(oAttacker, "LOCKPICK_TEMPORARY_CURRENTLY_PICKING_LOCK") == 1)
         {
             NWScript.floatingTextStringOnCreature(ColorToken.Red() + "You are too busy to attack right now.", oAttacker, false);
-            Scheduler.assign(oAttacker, new Runnable() {
+            Scheduler.delay(oAttacker, 1, new Runnable() {
                 @Override
                 public void run() {
                     NWScript.clearAllActions(false);
@@ -246,7 +246,7 @@ public class CombatSystem {
         // PC is dead or dying
         if(NWScript.getCurrentHitPoints(oAttacker) <= 0)
         {
-            Scheduler.assign(oAttacker, new Runnable() {
+            Scheduler.delay(oAttacker, 1, new Runnable() {
                 @Override
                 public void run() {
                     NWScript.clearAllActions(false);
@@ -262,7 +262,7 @@ public class CombatSystem {
         // Area is designated as "No PVP"
         if(NWScript.getIsPC(oTarget) && NWScript.getLocalInt(oArea, "NO_PVP") == 1 && NWScript.getIsPC(oAttacker))
         {
-            Scheduler.assign(oAttacker, new Runnable() {
+            Scheduler.delay(oAttacker, 1, new Runnable() {
                 @Override
                 public void run() {
                     NWScript.clearAllActions(false);
@@ -277,7 +277,7 @@ public class CombatSystem {
         // Stop trying to attack a DM, dumbass
         if(NWScript.getIsDM(oTarget))
         {
-            Scheduler.assign(oAttacker, new Runnable() {
+            Scheduler.delay(oAttacker, 1, new Runnable() {
                 @Override
                 public void run() {
                     NWScript.clearAllActions(false);
@@ -322,7 +322,7 @@ public class CombatSystem {
             // Prevent from continuing.
             if(!bLineOfSight || NWScript.getLocalInt(oAttacker, "TEMP_DISABLE_FIRING") == 1)
             {
-                Scheduler.assign(oAttacker, new Runnable() {
+                Scheduler.delay(oAttacker, 1, new Runnable() {
                     @Override
                     public void run() {
                         NWScript.clearAllActions(false);
@@ -363,7 +363,7 @@ public class CombatSystem {
                 {
                     if (NWScript.getCommandable(oAttacker) && NWScript.getIsObjectValid(oTarget))
                     {
-                        Scheduler.assign(oAttacker, new Runnable() {
+                        Scheduler.delay(oAttacker, 1, new Runnable() {
                             @Override
                             public void run() {
                                 NWScript.clearAllActions(true);
