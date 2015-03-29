@@ -1,4 +1,4 @@
-package contagionJVM.Placeable;
+package contagionJVM.Placeable.SearchContainer;
 
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.System.SearchSystem;

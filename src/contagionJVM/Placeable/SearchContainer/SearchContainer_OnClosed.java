@@ -1,13 +1,13 @@
-package contagionJVM.Placeable;
+package contagionJVM.Placeable.SearchContainer;
 
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.System.SearchSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 
 @SuppressWarnings("UnusedDeclaration")
-public class SearchContainer_OnOpened implements IScriptEventHandler {
+public class SearchContainer_OnClosed implements IScriptEventHandler {
     @Override
     public void runScript(NWObject objSelf) {
-        SearchSystem.OnChestOpen(objSelf);
+        SearchSystem.OnChestClose(objSelf);
     }
 }

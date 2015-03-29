@@ -1,13 +1,13 @@
-package contagionJVM.Placeable;
+package contagionJVM.Placeable.DeathCorpse;
 
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.System.DeathSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 
 @SuppressWarnings("UnusedDeclaration")
-public class DeathCorpseClosed implements IScriptEventHandler {
+public class DeathCorpse_OnDisturbed implements IScriptEventHandler {
     @Override
     public void runScript(NWObject objSelf) {
-        DeathSystem.OnCorpseClose(objSelf);
+        DeathSystem.OnCorpseDisturb(objSelf);
     }
 }
