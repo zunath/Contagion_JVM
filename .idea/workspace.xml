@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -30,14 +30,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CombatSystem.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CombatSystem.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36647174">
-              <caret line="505" column="11" selection-start-line="505" selection-start-column="11" selection-end-line="505" selection-end-column="11" />
+            <state vertical-scroll-proportion="-10.586206">
+              <caret line="512" column="11" selection-start-line="512" selection-start-column="11" selection-end-line="512" selection-end-column="11" />
               <folding>
                 <element signature="method#OnModuleEquip#0;class#CombatSystem#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Conversation_AllocateSkillPoints.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_AllocateSkillPoints.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="354" column="96" selection-start-line="354" selection-start-column="96" selection-end-line="354" selection-end-column="96" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProgressionSystem.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.34501845">
+              <caret line="216" column="93" selection-start-line="216" selection-start-column="93" selection-end-line="216" selection-end-column="93" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -106,13 +126,13 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/LootTableItemEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_AllocateSkillPoints.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Bioware/Position.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Helper/LocalArray.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/SpawnSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java" />
       </list>
     </option>
   </component>
@@ -285,6 +305,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Contagion_JVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Contagion_JVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contagionJVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dialog" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -538,12 +580,6 @@
       <created>1423272595571</created>
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Gun mode switching, reloading, ammo priority switching, etc">
-      <created>1423883392537</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1423883392537</updated>
     </task>
     <task id="LOCAL-00006" summary="Fixed to gun reloading">
       <created>1423889378555</created>
@@ -833,7 +869,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427667585768</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Combat system: replace &quot;assign&quot; clear all action calls with &quot;delay&quot; calls.">
+      <created>1427668491177</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1427668491177</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -878,7 +920,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Allocate SP Conversation: Skill upgrade purchasing" />
     <MESSAGE value="Added STR, DEX, CON, INT, WIS, CHA upgrade categories. Added skill checks to inventory system item limit method" />
     <MESSAGE value="Navigation options for allocate SP conversation" />
     <MESSAGE value="Key item menu" />
@@ -903,7 +944,8 @@
     <MESSAGE value="Display &quot;MAX&quot; when no more skill upgrades can be purchased. Fix bug where default combat system would be used if PVP protection was on" />
     <MESSAGE value="Fix shotgun targeting issues." />
     <MESSAGE value="Fix zombie respawn issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix zombie respawn issue" />
+    <MESSAGE value="Combat system: replace &quot;assign&quot; clear all action calls with &quot;delay&quot; calls." />
+    <option name="LAST_COMMIT_MESSAGE" value="Combat system: replace &quot;assign&quot; clear all action calls with &quot;delay&quot; calls." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1192,22 +1234,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_AllocateSkillPoints.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="354" column="96" selection-start-line="354" selection-start-column="96" selection-end-line="354" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="228" column="34" selection-start-line="228" selection-start-column="34" selection-end-line="228" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/NWNX/NWNX_Funcs.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1282,11 +1308,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36647174">
-          <caret line="505" column="11" selection-start-line="505" selection-start-column="11" selection-end-line="505" selection-end-column="11" />
+        <state vertical-scroll-proportion="-10.586206">
+          <caret line="512" column="11" selection-start-line="512" selection-start-column="11" selection-end-line="512" selection-end-column="11" />
           <folding>
             <element signature="method#OnModuleEquip#0;class#CombatSystem#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_AllocateSkillPoints.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="354" column="96" selection-start-line="354" selection-start-column="96" selection-end-line="354" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.34501845">
+          <caret line="216" column="93" selection-start-line="216" selection-start-column="93" selection-end-line="216" selection-end-column="93" />
+          <folding />
         </state>
       </provider>
     </entry>

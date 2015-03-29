@@ -217,31 +217,31 @@ public class ProgressionSystem {
                 NWNX_Funcs.SetMaxHitPointsByLevel(oPC, 1, NWScript.getMaxHitPoints(oPC) + 1);
                 break;
             case SkillType_STRENGTH:
-                NWNX_Funcs.SetAbilityScore(oPC, Ability.STRENGTH, NWScript.getAbilityScore(oPC, Ability.STRENGTH, false) + 1);
+                NWNX_Funcs.ModifyAbilityScore(oPC, Ability.STRENGTH, 1);
                 break;
             case SkillType_CONSTITUTION:
-                NWNX_Funcs.SetAbilityScore(oPC, Ability.CONSTITUTION, NWScript.getAbilityScore(oPC, Ability.CONSTITUTION, false) + 1);
+                NWNX_Funcs.ModifyAbilityScore(oPC, Ability.CONSTITUTION, 1);
                 break;
             case SkillType_DEXTERITY:
-                NWNX_Funcs.SetAbilityScore(oPC, Ability.DEXTERITY, NWScript.getAbilityScore(oPC, Ability.DEXTERITY, false) + 1);
+                NWNX_Funcs.ModifyAbilityScore(oPC, Ability.DEXTERITY, 1);
                 break;
             case SkillType_WISDOM:
-                NWNX_Funcs.SetAbilityScore(oPC, Ability.WISDOM, NWScript.getAbilityScore(oPC, Ability.WISDOM, false) + 1);
+                NWNX_Funcs.ModifyAbilityScore(oPC, Ability.WISDOM, 1);
                 break;
             case SkillType_INTELLIGENCE:
-                NWNX_Funcs.SetAbilityScore(oPC, Ability.INTELLIGENCE, NWScript.getAbilityScore(oPC, Ability.INTELLIGENCE, false) + 1);
+                NWNX_Funcs.ModifyAbilityScore(oPC, Ability.INTELLIGENCE, 1);
                 break;
             case SkillType_CHARISMA:
-                NWNX_Funcs.SetAbilityScore(oPC, Ability.CHARISMA, NWScript.getAbilityScore(oPC, Ability.CHARISMA, false) + 1);
+                NWNX_Funcs.ModifyAbilityScore(oPC, Ability.CHARISMA, 1);
                 break;
             case SkillType_SEARCH:
-                NWNX_Funcs.SetSkillRank(oPC, Skill.SEARCH, NWScript.getSkillRank(Skill.SEARCH, oPC, false) + 1);
+                NWNX_Funcs.ModifySkillRank(oPC, Skill.SEARCH, 1);
                 break;
             case SkillType_HIDE:
-                NWNX_Funcs.SetSkillRank(oPC, Skill.HIDE, NWScript.getSkillRank(Skill.HIDE, oPC, false) + 1);
+                NWNX_Funcs.ModifySkillRank(oPC, Skill.HIDE, 1);
                 break;
             case SkillType_MOVE_SILENTLY:
-                NWNX_Funcs.SetSkillRank(oPC, Skill.MOVE_SILENTLY, NWScript.getSkillRank(Skill.MOVE_SILENTLY, oPC, false) + 1);
+                NWNX_Funcs.ModifySkillRank(oPC, Skill.MOVE_SILENTLY, 1);
                 break;
             case SkillType_SPRING_ATTACK:
                 NWNX_Funcs.AddKnownFeat(oPC, Feat.SPRING_ATTACK, 0);
