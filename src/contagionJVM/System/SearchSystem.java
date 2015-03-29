@@ -1,18 +1,22 @@
 package contagionJVM.System;
 
 import contagionJVM.Data.ItemDTO;
+import contagionJVM.Entities.LootTableEntity;
+import contagionJVM.Entities.LootTableItemEntity;
 import contagionJVM.Entities.PCSearchSiteEntity;
 import contagionJVM.Entities.PCSearchSiteItemEntity;
 import contagionJVM.GameObject.ItemGO;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Helper.LocalVariableHelper;
+import contagionJVM.Repository.LootTableRepository;
 import contagionJVM.Repository.SearchSiteRepository;
 import org.joda.time.DateTime;
 import org.nwnx.nwnx2.jvm.*;
 import org.nwnx.nwnx2.jvm.constants.*;
 
 import java.sql.Timestamp;
+import java.util.Random;
 
 public class SearchSystem {
 
@@ -89,7 +93,7 @@ public class SearchSystem {
         String resref = NWScript.getResRef(oChest);
         int chestID = NWScript.getLocalInt(oChest, SearchSiteIDVariableName);
         int skillRank = NWScript.getSkillRank(Skill.SEARCH, oPC, false);
-        int numberOfSearches = skillRank / ExtraSearchPerNumberLevels;
+        int numberOfSearches = (skillRank / ExtraSearchPerNumberLevels) + 1;
         PCSearchSiteEntity searchEntity = repo.GetSearchSiteByID(chestID, pcGO.getUUID());
         DateTime timeLock = new DateTime();
 
@@ -225,18 +229,34 @@ public class SearchSystem {
 
     private static ItemDTO PickResultItem(int lootTable)
     {
-        ItemDTO result = new ItemDTO();
+        LootTableRepository repo = new LootTableRepository();
+        LootTableEntity entity = repo.GetByLootTableID(lootTable);
 
-        switch(lootTable)
+        int totalWeight = 0;
+        for(LootTableItemEntity item : entity.getLootTableItems())
         {
-            // Sample
-            case 1:
+            totalWeight += item.getWeight();
+        }
+
+        int randomIndex = -1;
+        double random = Math.random() * totalWeight;
+        for(int i = 0; i < entity.getLootTableItems().size(); ++i)
+        {
+            random -= entity.getLootTableItems().get(i).getWeight();
+            if(random <= 0.0d)
             {
-                result.setResref(GoldResref);
-                result.setQuantity(10);
+                randomIndex = i;
                 break;
             }
         }
+
+        LootTableItemEntity itemEntity = entity.getLootTableItems().get(randomIndex);
+        Random rand = new Random();
+        int quantity = rand.nextInt(itemEntity.getMaxQuantity()) + 1;
+
+        ItemDTO result = new ItemDTO();
+        result.setQuantity(quantity);
+        result.setResref(itemEntity.getResref());
 
         return result;
     }

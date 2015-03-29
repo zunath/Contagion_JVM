@@ -7,12 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Placeable\DeathCorpseClosed.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpse/DeathCorpse_OnClosed.java" />
-      <change type="MOVED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Placeable\DeathCorpseDisturbed.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpse/DeathCorpse_OnDisturbed.java" />
-      <change type="MOVED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Placeable\SearchContainer_OnClosed.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Placeable/SearchContainer/SearchContainer_OnClosed.java" />
-      <change type="MOVED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Placeable\SearchContainer_OnDisturbed.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Placeable/SearchContainer/SearchContainer_OnDisturbed.java" />
-      <change type="MOVED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Placeable\SearchContainer_OnOpened.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Placeable/SearchContainer/SearchContainer_OnOpened.java" />
-      <change type="MOVED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Placeable\SearchContainer_OnUsed.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Placeable/SearchContainer/SearchContainer_OnUsed.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Transitions/AFKTransition.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/LootTableEntity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/LootTableItemEntity.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Repository/LootTableRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -35,11 +35,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DeathCorpse_OnClosed.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpse/DeathCorpse_OnClosed.java">
+      <file leaf-file-name="SearchSystem.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41541353">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.32894737">
+              <caret line="248" column="22" selection-start-line="248" selection-start-column="22" selection-end-line="248" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventReceiver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/EventReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -65,11 +75,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/contagionJVM/Data/PortraitDTO.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Data/HeadDTO.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Data/CharacterManagementDTO.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogPage.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogBase.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/IDialogHandler.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ChangeHead.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogManager.java" />
@@ -108,7 +113,6 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Creature/Zombie/Zombie_OnPerception.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseEntity.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/StorageItemEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/StorageContainerEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Placeable/StorageContainer/StorageContainer_OnOpened.java" />
@@ -116,6 +120,12 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Repository/StorageRepository.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Area_OnEnter.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/StorageSystem.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Transitions/AFKTransition.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/LootTableEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Repository/LootTableRepository.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/LootTableItemEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java" />
       </list>
     </option>
   </component>
@@ -286,7 +296,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Repository" />
+              <option name="myItemId" value="Entities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -308,7 +318,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Placeable" />
+              <option name="myItemId" value="Data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -828,7 +838,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427587195421</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Reorganize location of placeable scripts">
+      <created>1427587555421</created>
+      <option name="number" value="00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1427587555421</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -873,7 +889,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Call different script which handles DM authorization checks" />
     <MESSAGE value="Fixes to disease zombification" />
     <MESSAGE value="Menu system framework" />
     <MESSAGE value="Change conversation method" />
@@ -898,14 +913,15 @@
     <MESSAGE value="Migrate zombie AI scripts to java" />
     <MESSAGE value="Remove call to record PC counts" />
     <MESSAGE value="Public persistent storage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Public persistent storage" />
+    <MESSAGE value="Reorganize location of placeable scripts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reorganize location of placeable scripts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="43" />
+      <option name="time" value="46" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -914,54 +930,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PortraitRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ChangePortrait.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49304175">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PortraitEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31954888">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/DialogPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/DialogResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_CharacterManagement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Authorization/ValidateCDKey.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2603369">
@@ -1146,14 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/SearchSiteRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12864865">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Creature/Zombie/Zombie_OnSpellCast.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26275116">
@@ -1202,14 +1162,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66460586">
-          <caret line="93" column="66" selection-start-line="93" selection-start-column="66" selection-end-line="93" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/ZombieClothesRepository.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1246,22 +1198,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.60902256">
           <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseItemEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2236842">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1316,8 +1252,88 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Placeable/DeathCorpse/DeathCorpse_OnClosed.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41541353">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Transitions/AFKTransition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseItemEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.03195489">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/LootTableRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5432331">
+          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/LootTableEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58458644">
+          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/SearchSiteRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2236842">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/LootTableItemEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67105263">
+          <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/EventReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28195488">
+          <caret line="81" column="68" selection-start-line="81" selection-start-column="68" selection-end-line="81" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32894737">
+          <caret line="248" column="22" selection-start-line="248" selection-start-column="22" selection-end-line="248" selection-end-column="22" />
           <folding />
         </state>
       </provider>
