@@ -202,7 +202,7 @@ public class CombatSystem {
             if(attackerGO.hasPVPSanctuary())
             {
                 NWScript.floatingTextStringOnCreature(ColorToken.Red() + "You are under the NWEffects of PVP sanctuary and cannot engage in PVP. To disable this feature permanently refer to the 'Disable PVP Sanctuary' option in your rest menu." + ColorToken.End(), oAttacker, false);
-                Scheduler.assign(oAttacker, new Runnable() {
+                Scheduler.delay(oAttacker, 1, new Runnable() {
                     @Override
                     public void run() {
                         NWScript.clearAllActions(false);
@@ -215,7 +215,8 @@ public class CombatSystem {
             else if(targetGO.hasPVPSanctuary())
             {
                 NWScript.floatingTextStringOnCreature(ColorToken.Red() + "Your target is under the effects of PVP sanctuary and cannot engage in PVP combat." + ColorToken.End(), oAttacker, false);
-                Scheduler.assign(oAttacker, new Runnable() {
+
+                Scheduler.delay(oAttacker, 1, new Runnable() {
                     @Override
                     public void run() {
                         NWScript.clearAllActions(false);

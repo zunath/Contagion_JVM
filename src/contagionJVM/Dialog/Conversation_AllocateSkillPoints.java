@@ -343,10 +343,16 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
             upgradeCapText = ColorToken.White() + upgradeCap + ColorToken.End();
         }
 
+        String nextUpgradeCostText = "" + nextUpgradeCost;
+        if(upgradeLevel >= upgradeCap)
+        {
+            nextUpgradeCostText = ColorToken.Red() + "MAX" + ColorToken.End();
+        }
+
         String header = ColorToken.Green() + "Upgrade Name: " + ColorToken.End() + upgradeName + "\n";
         header += ColorToken.Green() + "Upgrade Level: " + ColorToken.End() + upgradeLevel + " / " + upgradeCapText + "\n\n";
         header += ColorToken.Green() + "Available SP: " + ColorToken.End() + availableSP + "\n";
-        header += ColorToken.Green() + "Next Upgrade: " + ColorToken.End() + nextUpgradeCost + "\n\n";
+        header += ColorToken.Green() + "Next Upgrade: " + ColorToken.End() + nextUpgradeCostText + "\n\n";
         header += ColorToken.Green() + "Description: " + ColorToken.End() + description;
 
         return header;
