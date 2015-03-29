@@ -14,33 +14,33 @@ import java.util.Objects;
 public class SpawnSystem {
 
     // The amount of time between spawns, in seconds
-    // Default: 120.0 (2 minutes)
+    // Default: 120 (2 minutes)
     final int ZSS_SPAWN_DELAY = 120;
 
     // The name of the variable which determines the name of the spawn points in an area
-    // This variable is stored on the area NWObject
+    // This variable is stored on the area object
     final String ZSS_WAYPOINT_NAME = "ZSS_WAYPOINT_NAME";
 
     // The name of the variable which determines which group to pull spawn resrefs from.
-    // This variable is stored on the area NWObject
+    // This variable is stored on the area object
     final String ZSS_GROUP_ID = "ZSS_GROUP_ID";
 
     // The name of the variable which determines how many spawn points there are in an area
-    // This variable is stored on the area NWObject
+    // This variable is stored on the area object
     final String ZSS_SPAWN_WAYPOINT_COUNT = "ZSS_SPAWN";
 
     // The name of the variable which determines how many respawn points there are in an area
-    // This variable is stored on the area NWObject
+    // This variable is stored on the area object
     final String ZSS_RESPAWN_WAYPOINT_COUNT = "ZSS_RESPAWN";
 
-    // The name of the array which stores spawn waypoint NWObjects
-    final String ZSS_SPAWN_WAYPOINT_OBJECT_ARRAY = "ZSS_SPAWN_WAYPOINT_OBJECT_ARRAY";
+    // The name of the array which stores spawn waypoint locations
+    final String ZSS_SPAWN_WAYPOINT_LOCATION_ARRAY = "ZSS_SPAWN_WAYPOINT_LOCATION_ARRAY";
 
-    // The name of the array which stores respawn waypoint NWObjects
-    final String ZSS_RESPAWN_WAYPOINT_OBJECT_ARRAY = "ZSS_RESPAWN_WAYPOINT_OBJECT_ARRAY";
+    // The name of the array which stores respawn waypoint locations
+    final String ZSS_RESPAWN_WAYPOINT_LOCATION_ARRAY = "ZSS_RESPAWN_WAYPOINT_LOCATION_ARRAY";
 
     // The name of the variable which stores the number of zombies to spawn in an area
-    // This variable is stored on the area NWObject
+    // This variable is stored on the area object
     final String ZSS_ZOMBIE_COUNT = "ZSS_COUNT";
 
     // Name of the variable which tells the system whether or not a zombie was spawned by the system
@@ -72,6 +72,7 @@ public class SpawnSystem {
                 @Override
                 public void run() {
                     NWScript.setFacing(0.01f * NWScript.random(3600));
+                    NWScript.actionRandomWalk();
                 }
             });
             Scheduler.flushQueues();
@@ -83,8 +84,6 @@ public class SpawnSystem {
         NWObject oPC = NWScript.getEnteringObject();
 
         if(!NWScript.getIsPC(oPC)) return;
-
-
 
         int iZombieCount = NWScript.getLocalInt(oArea, ZSS_ZOMBIE_COUNT);
         int iWaypointCount = NWScript.getLocalInt(oArea, ZSS_SPAWN_WAYPOINT_COUNT);
@@ -124,8 +123,7 @@ public class SpawnSystem {
                 }
 
                 String sResref = ZSS_GetZombieToSpawn(iGroupID, bUnique);
-                NWObject oWaypoint = LocalArray.GetLocalArrayObject(oArea, ZSS_SPAWN_WAYPOINT_OBJECT_ARRAY, iWaypoint);
-                NWLocation lLocation = NWScript.getLocation(oWaypoint);
+                NWLocation lLocation = LocalArray.GetLocalArrayLocation(oArea, ZSS_SPAWN_WAYPOINT_LOCATION_ARRAY, iWaypoint);
 
                 final NWObject oZombie = NWScript.createObject(ObjectType.CREATURE, sResref, lLocation, false, "");
 
@@ -187,6 +185,7 @@ public class SpawnSystem {
 
     public void ZSS_OnModuleLoad()
     {
+        int tmiLimit = NWNX_TMI.GetTMILimit();
         NWNX_TMI.SetTMILimit(7000000);
 
         NWObject oArea = NWNX_Funcs.GetFirstArea();
@@ -205,15 +204,13 @@ public class SpawnSystem {
                 if(Objects.equals(sResref, ZSS_SPAWN_WAYPOINT_RESREF))
                 {
                     iSpawnCount++;
-                    //SetTag(oWaypoint, sSpawnPrefix + IntToString(iSpawnCount));
-                    LocalArray.SetLocalArrayObject(oArea, ZSS_SPAWN_WAYPOINT_OBJECT_ARRAY, iSpawnCount, obj);
+                    LocalArray.SetLocalArrayLocation(oArea, ZSS_SPAWN_WAYPOINT_LOCATION_ARRAY, iSpawnCount, NWScript.getLocation(obj));
                 }
                 // Respawn waypoint
                 else if(Objects.equals(sResref, ZSS_RESPAWN_WAYPOINT_RESREF))
                 {
                     iRespawnCount++;
-                    //SetTag(oWaypoint, sRespawnPrefix + IntToString(iRespawnCount));
-                    LocalArray.SetLocalArrayObject(oArea, ZSS_RESPAWN_WAYPOINT_OBJECT_ARRAY, iRespawnCount, obj);
+                    LocalArray.SetLocalArrayLocation(oArea, ZSS_RESPAWN_WAYPOINT_LOCATION_ARRAY, iRespawnCount, NWScript.getLocation(obj));
                 }
             }
 
@@ -227,25 +224,24 @@ public class SpawnSystem {
         }
 
         // Set the TMI limit back to normal
-        NWNX_TMI.SetTMILimit(131071);
+        NWNX_TMI.SetTMILimit(tmiLimit);
     }
 
     public void ZSS_OnZombieDeath(NWObject oZombie)
     {
-        if(NWScript.getLocalInt(oZombie, ZSS_ZOMBIE_SPAWNED) != 1) return;
-
         final NWObject oArea = NWScript.getArea(oZombie);
+        int iWaypointCount = NWScript.getLocalInt(oArea, ZSS_RESPAWN_WAYPOINT_COUNT);
+        if(NWScript.getLocalInt(oZombie, ZSS_ZOMBIE_SPAWNED) != 1 || iWaypointCount <= 0) return;
 
         int iPCCount = NWScript.getLocalInt(oArea, ZSS_PLAYER_COUNT);
-        int iWaypointCount = NWScript.getLocalInt(oArea, ZSS_RESPAWN_WAYPOINT_COUNT);
         int iGroupID = NWScript.getLocalInt(oArea, ZSS_GROUP_ID);
+        if(iGroupID <= 0) iGroupID = 1;
 
         if(iPCCount > 0)
         {
             int iWaypoint = NWScript.random(iWaypointCount) + 1;
             final String sResref = ZSS_GetZombieToSpawn(iGroupID, false);
-            NWObject oWaypoint = LocalArray.GetLocalArrayObject(oArea, ZSS_RESPAWN_WAYPOINT_OBJECT_ARRAY, iWaypoint);
-            final NWLocation lLocation = NWScript.getLocation(oWaypoint);
+            final NWLocation lLocation = LocalArray.GetLocalArrayLocation(oArea, ZSS_RESPAWN_WAYPOINT_LOCATION_ARRAY, iWaypoint);
 
             Scheduler.delay(oZombie, ZSS_SPAWN_DELAY * 1000, new Runnable() {
                 @Override

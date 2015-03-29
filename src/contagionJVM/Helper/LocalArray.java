@@ -1,5 +1,6 @@
 package contagionJVM.Helper;
 
+import org.nwnx.nwnx2.jvm.NWLocation;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -13,6 +14,16 @@ public class LocalArray {
     public static void SetLocalArrayObject(NWObject obj, String arrayVariableName, int index, NWObject value)
     {
         NWScript.setLocalObject(obj, arrayVariableName + index, value);
+    }
+
+    public static NWLocation GetLocalArrayLocation(NWObject obj, String arrayVariableName, int index)
+    {
+        return NWScript.getLocalLocation(obj, arrayVariableName + index);
+    }
+
+    public static void SetLocalArrayLocation(NWObject obj, String arrayVariableName, int index, NWLocation lLocation)
+    {
+        NWScript.setLocalLocation(obj, arrayVariableName + index, lLocation);
     }
 
     public static int GetLocalArrayInt(NWObject oObject, String sVarName, int iIndex)
