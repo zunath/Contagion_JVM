@@ -7,11 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Transitions/AFKTransition.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/LootTableEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/LootTableItemEntity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Repository/LootTableRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -38,8 +33,8 @@
       <file leaf-file-name="SearchSystem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32894737">
-              <caret line="248" column="22" selection-start-line="248" selection-start-column="22" selection-end-line="248" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.87218046">
+              <caret line="243" column="26" selection-start-line="243" selection-start-column="26" selection-end-line="243" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -550,12 +545,6 @@
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
     </task>
-    <task id="LOCAL-00001" summary="Combat system initial checkin">
-      <created>1423440397149</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1423440397149</updated>
-    </task>
     <task id="LOCAL-00002" summary="Combat system fixes and additional work. Stubbing out some classes for future systems.">
       <created>1423447410760</created>
       <option name="number" value="00002" />
@@ -844,7 +833,13 @@
       <option name="project" value="LOCAL" />
       <updated>1427587555421</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Pull loot tables from database and distribute them to search sites randomly based on weight.">
+      <created>1427591942124</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1427591942125</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -889,7 +884,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixes to disease zombification" />
     <MESSAGE value="Menu system framework" />
     <MESSAGE value="Change conversation method" />
     <MESSAGE value="Allocate SP Conversation: Upgrade selection + header display" />
@@ -914,7 +908,8 @@
     <MESSAGE value="Remove call to record PC counts" />
     <MESSAGE value="Public persistent storage" />
     <MESSAGE value="Reorganize location of placeable scripts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reorganize location of placeable scripts" />
+    <MESSAGE value="Pull loot tables from database and distribute them to search sites randomly based on weight." />
+    <option name="LAST_COMMIT_MESSAGE" value="Pull loot tables from database and distribute them to search sites randomly based on weight." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1332,8 +1327,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/SearchSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32894737">
-          <caret line="248" column="22" selection-start-line="248" selection-start-column="22" selection-end-line="248" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.87218046">
+          <caret line="243" column="26" selection-start-line="243" selection-start-column="26" selection-end-line="243" selection-end-column="26" />
           <folding />
         </state>
       </provider>

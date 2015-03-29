@@ -26,7 +26,6 @@ public class SearchSystem {
     private static final String SearchSiteLootTableVariableName = "SearchLootTable";
     private static final int ExtraSearchPerNumberLevels = 5;
     private static final int SearchLockTimeHours = 2;
-    private static final String GoldResref = "nw_it_gold001";
 
     public static void OnChestClose(NWObject oChest)
     {
