@@ -31,8 +31,8 @@ public class Position {
 
     public static NWVector GetChangedPosition(NWVector vOriginal, float fDistance, float fAngle)
     {
-        float changedX = vOriginal.getX();
-        float changedY = vOriginal.getY();
+        float changedX;
+        float changedY;
         float changedZ = vOriginal.getZ();
 
         changedX = vOriginal.getX() + GetChangeInX(fDistance, fAngle);
@@ -42,8 +42,7 @@ public class Position {
         if (changedY < 0.0)
             changedY = - changedY;
 
-        NWVector vChanged = new NWVector(changedX, changedY, changedZ);
-        return vChanged;
+        return NWScript.vector(changedX, changedY, changedZ);
     }
     
 

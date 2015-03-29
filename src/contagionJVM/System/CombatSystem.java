@@ -391,7 +391,7 @@ public class CombatSystem {
                         Scheduler.delay(oAttacker, (int) (fDelay * 1000.0f), new Runnable() {
                             @Override
                             public void run() {
-                                MainAttack(oAttacker, oTarget, oAttacker);
+                                MainAttack(oAttacker, oTarget);
                                 NWScript.deleteLocalInt(oAttacker, "TEMP_DISABLE_FIRING");
                             }
                         });
@@ -855,7 +855,7 @@ public class CombatSystem {
         NWScript.setLocalInt(oAttacker, CBT_OVR_SVAR_ATTACK_ALLOWED, bAttackAllowed);
     }
 
-    private void MainAttack(final NWObject oAttacker, final NWObject oTarget, final NWObject objSelf)
+    private void MainAttack(final NWObject oAttacker, final NWObject oTarget)
     {
 
         NWObject oWeapon1 = NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oAttacker);
@@ -1073,7 +1073,7 @@ public class CombatSystem {
             Scheduler.delay(oAttacker, (int) (fShotDelay * 1000), new Runnable() {
                 @Override
                 public void run() {
-                    FireShot(oAttacker, oTarget, weapon1, animation, objSelf);
+                    FireShot(oAttacker, oTarget, weapon1, animation);
                 }
             });
             Scheduler.flushQueues();
@@ -1113,7 +1113,7 @@ public class CombatSystem {
                 Scheduler.delay(oAttacker, (int)((fDualDelay + fShotDelay) * 1000), new Runnable() {
                     @Override
                     public void run() {
-                        FireShot(oAttacker, oTarget, weapon2, animation, objSelf);
+                        FireShot(oAttacker, oTarget, weapon2, animation);
                     }
                 });
 
@@ -1144,7 +1144,7 @@ public class CombatSystem {
         DurabilitySystem.RunItemDecay(oAttacker, oWeapon1, 0, 0, true);
     }
 
-    void FireShot(NWObject oAttacker, NWObject oTarget, NWObject oWeapon, int iAnimation, NWObject objSelf)
+    void FireShot(NWObject oAttacker, NWObject oTarget, NWObject oWeapon, int iAnimation)
     {
         NWLocation lLocation = NWScript.getLocation(oAttacker);
         NWEffect eSound;
@@ -1198,12 +1198,12 @@ public class CombatSystem {
         // Fire shotgun blast
         if (iAnimation == CustomAnimationType.Shotgun)
         {
-            FireShotgun(oAttacker, stGunInfo, objSelf);
+            FireShotgun(oAttacker, oTarget, stGunInfo);
         }
         // Otherwise, fire normal bullet
         else
         {
-            FireBullet(oAttacker, oTarget, oWeapon, stGunInfo, objSelf);
+            FireBullet(oAttacker, oTarget, oWeapon, stGunInfo);
         }
     }
 
@@ -1348,111 +1348,57 @@ public class CombatSystem {
         
     }
 
-    // Formula found at: http://paulbourke.net/geometry/insidepoly/
-    float CalcPosition(NWVector vP1, NWVector vP2, NWVector vPoint)
+    void FireShotgun(NWObject oAttacker, NWObject oTarget, GunGO stGunInfo)
     {
-        float x = vPoint.getX();
-        float y = vPoint.getY();
-        float x0 = vP1.getX();
-        float y0 = vP1.getY();
-        float x1 = vP2.getX();
-        float y1 = vP2.getY();
-
-        return (y - y0) * (x1 - x0) - (x - x0) * (y1 - y0);
-    }
-
-    int IsPointInShape(NWVector vOrigin, NWVector vStraightPosition, NWVector vRightPosition, NWVector vLeftPosition, NWVector vPoint)
-    {
-        // P1 = Origin
-        // P2 = Left
-        // P3 = Straight
-        // P4 = Right
-
-        // If < 0.0, right of line segment
-        // If > 0.0, left of line segment
-        // If = 0.0, on line segment
-        float fResult = CalcPosition(vOrigin, vLeftPosition, vPoint);
-        if(fResult < 0.0) return 0;
-        fResult = CalcPosition(vLeftPosition, vStraightPosition, vPoint);
-        if(fResult < 0.0) return 0;
-        fResult = CalcPosition(vStraightPosition, vRightPosition, vPoint);
-        if(fResult < 0.0) return 0;
-        fResult = CalcPosition(vRightPosition, vOrigin, vPoint);
-        if(fResult < 0.0) return 0;
-
-        return 1;
-    }
-
-    void FireShotgun(NWObject oAttacker, GunGO stGunInfo, NWObject objSelf)
-    {
+        float fRangeDistance = 7.5f;
         NWVector vOrigin = NWScript.getPosition(oAttacker);
-        NWLocation lOrigin = NWScript.getLocation(oAttacker);
-        float fFacing = NWScript.getFacing(oAttacker);
-        
+        NWLocation lTarget = NWScript.getLocation(oTarget);
+
+        boolean isMiss = true;
+
         int iShotgunSkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_SHOTGUN_PROFICIENCY);
         int iShotgunAccuracy = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_SHOTGUN_ACCURACY);
-        float fRangeDistance = 7.5f;
-        //NWLocation lTargetLocation = NWScript.getLocation(oTarget);
-        int bMiss = 1;
-        NWEffect eSparkEffect = NWScript.effectVisualEffect(VfxComBloodSpark.LARGE , false);
-        NWEffect eBloodEffect = NWScript.effectVisualEffect(VfxComChunkRed.SMALL, false);
-
-        NWVector vStraightPosition = Position.GetChangedPosition(vOrigin, fRangeDistance, fFacing);
-        NWVector vRightPosition = Position.GetChangedPosition(vOrigin, fRangeDistance * 0.9f, fFacing + 45);
-        NWVector vLeftPosition = Position.GetChangedPosition(vOrigin, fRangeDistance * 0.9f, fFacing - 45);
-
-
-        NWObject[] sphereTargets = NWScript.getObjectsInShape(Shape.SPHERE, fRangeDistance, lOrigin, true, ObjectType.CREATURE, vOrigin);
-        for(NWObject oSphereTarget : sphereTargets)
+        NWObject[] shapeTargets = NWScript.getObjectsInShape(Shape.SPELLCYLINDER, fRangeDistance, lTarget, true, ObjectType.CREATURE, vOrigin);
+        for(NWObject oShapeTarget : shapeTargets)
         {
             // PCs hit whatever is in range.
             // NPCs hit only enemies in range
-            if(NWScript.getIsPC(oAttacker) || (!NWScript.getIsPC(oAttacker) && NWScript.getIsEnemy(oSphereTarget, objSelf)))
+            if(NWScript.getIsPC(oAttacker) || (!NWScript.getIsPC(oAttacker) && NWScript.getIsEnemy(oShapeTarget, oAttacker)))
             {
-                if(oSphereTarget != oAttacker && !NWScript.getIsDead(oSphereTarget) && !NWScript.getIsDead(oAttacker))
+                if(oShapeTarget != oAttacker && !NWScript.getIsDead(oShapeTarget) && !NWScript.getIsDead(oAttacker))
                 {
-                    if(IsPointInShape(vOrigin, vStraightPosition, vRightPosition, vLeftPosition, NWScript.getPosition(oSphereTarget)) == 1)
+                    if(NWScript.random(30) + 3 > NWScript.getAC(oShapeTarget) - iShotgunAccuracy)
                     {
-                        int iSphereTargetAC = NWScript.getAC(oSphereTarget) - iShotgunAccuracy;
+                        int iDamage = CalculateDamage(oAttacker, oShapeTarget, stGunInfo, iShotgunSkill);
 
-                        if(NWScript.random(30) + 3 > iSphereTargetAC)
+                        if(iDamage > 0)
                         {
-                            int iDamage = CalculateDamage(oAttacker, oSphereTarget, stGunInfo, iShotgunSkill);
-
-                            if(iDamage > 0)
-                            {
-                                NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectDamage(iDamage, DamageType.PIERCING, DamagePower.NORMAL), oSphereTarget, 0.0f);
-                                NWScript.applyEffectToObject(DurationType.INSTANT, eSparkEffect, oSphereTarget, 0.0f);
-                                NWScript.applyEffectToObject(DurationType.INSTANT, eBloodEffect, oSphereTarget, 0.0f);
-                                bMiss = 0;
-                            }
+                            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectDamage(iDamage, DamageType.PIERCING, DamagePower.NORMAL), oShapeTarget, 0.0f);
+                            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectVisualEffect(VfxComBloodSpark.LARGE, false), oShapeTarget, 0.0f);
+                            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectVisualEffect(VfxComChunkRed.SMALL, false), oShapeTarget, 0.0f);
+                            isMiss = false;
                         }
-                        else
-                        {
-                            bMiss = 1;
-                        }
+                    }
+                    else
+                    {
+                        isMiss = true;
                     }
                 }
             }
         }
 
-        // Enemies were out of range - display sparks randomly across the cone
-        if(bMiss == 1)
+        if(isMiss)
         {
-            NWObject oArea = NWScript.getArea(oAttacker);
             int iNumberOfSparks = NWScript.random(4) + 1;
-            int iLoop;
 
-            for(iLoop = 1; iLoop <= iNumberOfSparks; iLoop++)
+            for(int s = 1; s <= iNumberOfSparks; s++)
             {
-                fRangeDistance = NWScript.random(75) * 0.1f;
-                NWVector vSparkPosition = Position.GetChangedPosition(vOrigin, fRangeDistance, NWScript.getFacing(oAttacker));
-                NWScript.applyEffectAtLocation(DurationType.INSTANT, eSparkEffect, NWScript.location(oArea, vSparkPosition, 0.0f), 0.0f);
+                NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectVisualEffect(VfxComBloodSpark.LARGE, true), oTarget, 0.0f);
             }
         }
     }
 
-    void FireBullet(NWObject oAttacker, NWObject oTarget, NWObject oWeapon, GunGO stGunInfo, NWObject objSelf)
+    void FireBullet(NWObject oAttacker, NWObject oTarget, NWObject oWeapon, GunGO stGunInfo)
     {
         NWVector vPosition = NWScript.getPosition(oAttacker);
         NWLocation lTargetLocation = NWScript.getLocation(oTarget);
@@ -1504,7 +1450,7 @@ public class CombatSystem {
             {
                 // PCs hit whatever is in range.
                 // NPCs hit only enemies in range
-                if(NWScript.getIsPC(oAttacker) || (!NWScript.getIsPC(oAttacker) && NWScript.getIsEnemy(oCylinderTarget, objSelf)))
+                if(NWScript.getIsPC(oAttacker) || (!NWScript.getIsPC(oAttacker) && NWScript.getIsEnemy(oCylinderTarget, oAttacker)))
                 {
                     // Found a valid target. See if it's closest to attacker
                     if(!NWScript.getIsDead(oCylinderTarget) && oAttacker != oCylinderTarget && !NWScript.getIsDead(oAttacker))
