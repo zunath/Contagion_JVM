@@ -214,7 +214,7 @@ public class ProgressionSystem {
         switch (skillID)
         {
             case SkillType_HP:
-                NWNX_Funcs.SetMaxHitPointsByLevel(oPC, 1, NWScript.getMaxHitPoints(oPC) + 1);
+                NWNX_Funcs.SetMaxHitPointsByLevel(oPC, 1, NWNX_Funcs.GetMaxHitPointsByLevel(oPC, 1) + 1);
                 break;
             case SkillType_STRENGTH:
                 NWNX_Funcs.ModifyAbilityScore(oPC, Ability.STRENGTH, 1);
