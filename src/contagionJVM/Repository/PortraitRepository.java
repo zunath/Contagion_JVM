@@ -38,6 +38,20 @@ public class PortraitRepository {
         return entity;
     }
 
+    public PortraitEntity GetByResref(String portraitResref)
+    {
+        PortraitEntity entity;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PortraitEntity.class);
+
+            entity = (PortraitEntity)criteria.add(Restrictions.eq("resref", portraitResref)).uniqueResult();
+        }
+
+        return entity;
+    }
     public int GetNumberOfPortraits()
     {
         try(DataContext context = new DataContext())

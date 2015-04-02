@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@SuppressWarnings("UnusedDeclaration")
 @Entity
 @Table(name="portraits")
 public class PortraitEntity {

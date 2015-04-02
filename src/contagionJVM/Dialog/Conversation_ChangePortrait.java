@@ -34,9 +34,25 @@ public class Conversation_ChangePortrait extends DialogBase implements IDialogHa
     public void Initialize()
     {
         NWObject oPC = GetPC();
+        PortraitEntity entity;
         PortraitRepository repo = new PortraitRepository();
-        int portraitID = NWScript.getPortraitId(GetPC());
-        PortraitEntity entity = repo.GetBy2DAID(portraitID);
+
+        int portraitID = NWScript.getPortraitId(oPC);
+        if(portraitID == 65535) // Invalid portrait
+        {
+            String portraitResref = NWScript.getPortraitResRef(oPC).substring(3);
+            entity = repo.GetByResref(portraitResref);
+            if(entity == null)
+            {
+                portraitID = 0;
+            }
+            else
+            {
+                portraitID = entity.getPortraitID();
+            }
+        }
+
+        entity = repo.GetBy2DAID(portraitID);
 
         SetDialogCustomData(new PortraitDTO(entity.getPortraitID()));
         SetPageHeader("MainPage", BuildHeader());
