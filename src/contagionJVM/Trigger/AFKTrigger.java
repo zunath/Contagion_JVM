@@ -1,10 +1,10 @@
-package contagionJVM.Transitions;
+package contagionJVM.Trigger;
 
 import contagionJVM.IScriptEventHandler;
 import org.nwnx.nwnx2.jvm.NWObject;
 
 @SuppressWarnings("unused")
-public class AFKTransition implements IScriptEventHandler {
+public class AFKTrigger implements IScriptEventHandler {
     @Override
     public void runScript(NWObject objSelf) {
 

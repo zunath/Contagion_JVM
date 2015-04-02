@@ -74,6 +74,7 @@ public class DataAccess {
 
         // Link all DB entities to the configuration here.
         _configuration.addAnnotatedClass(AuthorizedDMEntity.class);
+        _configuration.addAnnotatedClass(BadgeEntity.class);
         _configuration.addAnnotatedClass(BaseItemTypeEntity.class);
         _configuration.addAnnotatedClass(DMRoleEntity.class);
         _configuration.addAnnotatedClass(ItemCombinationEntity.class);
@@ -82,6 +83,7 @@ public class DataAccess {
         _configuration.addAnnotatedClass(LootTableEntity.class);
         _configuration.addAnnotatedClass(LootTableItemEntity.class);
         _configuration.addAnnotatedClass(PCAuthorizedCDKeyEntity.class);
+        _configuration.addAnnotatedClass(PCBadgeEntity.class);
         _configuration.addAnnotatedClass(PCKeyItemEntity.class);
         _configuration.addAnnotatedClass(PCMigrationEntity.class);
         _configuration.addAnnotatedClass(PCMigrationItemEntity.class);
