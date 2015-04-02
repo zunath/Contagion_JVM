@@ -17,6 +17,7 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
         DialogPage mainPage = new DialogPage(
                 BuildMainPageHeader(oPC),
                 "Allocate Skill Points",
+                "View Badges",
                 "View Key Items",
                 "Modify Clothes",
                 "Character Management");
@@ -41,12 +42,16 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                     case 1:
                         SwitchConversation("AllocateSkillPoints");
                         break;
-                    // Key Item Categories Page
+                    // View Badges
                     case 2:
+                        SwitchConversation("ViewBadges");
+                        break;
+                    // Key Item Categories Page
+                    case 3:
                         SwitchConversation("KeyItems");
                         break;
                     // Modify Clothes
-                    case 3:
+                    case 4:
                         Scheduler.assign(oPC, new Runnable() {
                             @Override
                             public void run() {
@@ -55,7 +60,7 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                         });
                         break;
                     // Character Management
-                    case 4:
+                    case 5:
                         SwitchConversation("CharacterManagement");
                         break;
                 }

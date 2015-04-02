@@ -30,6 +30,10 @@ public class PCBadgeEntity {
     @Column(name = "AcquiredAreaResref")
     private String acquiredAreaResref;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BadgeID", updatable = false, insertable = false)
+    private BadgeEntity badge;
+
     public String getPcBadgeID() {
         return pcBadgeID;
     }
@@ -84,5 +88,13 @@ public class PCBadgeEntity {
 
     public void setAcquiredAreaResref(String acquiredAreaResref) {
         this.acquiredAreaResref = acquiredAreaResref;
+    }
+
+    public BadgeEntity getBadge() {
+        return badge;
+    }
+
+    public void setBadge(BadgeEntity badge) {
+        this.badge = badge;
     }
 }

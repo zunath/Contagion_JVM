@@ -33,8 +33,10 @@ public class Conversation_ChangePortrait extends DialogBase implements IDialogHa
     @Override
     public void Initialize()
     {
+        NWObject oPC = GetPC();
         PortraitRepository repo = new PortraitRepository();
-        PortraitEntity entity = repo.GetBy2DAID(NWScript.getPortraitId(GetPC()));
+        int portraitID = NWScript.getPortraitId(GetPC());
+        PortraitEntity entity = repo.GetBy2DAID(portraitID);
 
         SetDialogCustomData(new PortraitDTO(entity.getPortraitID()));
         SetPageHeader("MainPage", BuildHeader());
