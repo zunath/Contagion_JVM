@@ -2,7 +2,6 @@ package contagionJVM.Event;
 
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
-import contagionJVM.NWNX.NWNX_Funcs;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -14,6 +13,5 @@ public class TestEvent implements IScriptEventHandler {
         PlayerGO pcGO = new PlayerGO(oPC);
 
 
-        pcGO.setHasPVPSanctuaryOverride(false);
     }
 }

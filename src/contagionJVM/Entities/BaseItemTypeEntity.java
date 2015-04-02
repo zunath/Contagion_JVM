@@ -1,0 +1,34 @@
+package contagionJVM.Entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "base_item_types")
+public class BaseItemTypeEntity {
+
+    @Id
+    @Column(name = "BaseItemTypeID")
+    private int baseItemTypeID;
+
+    @Column(name = "Name")
+    private String name;
+
+    public int getBaseItemTypeID() {
+        return baseItemTypeID;
+    }
+
+    public void setBaseItemTypeID(int baseItemTypeID) {
+        this.baseItemTypeID = baseItemTypeID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}

@@ -1,13 +1,11 @@
 package contagionJVM.Event;
 
-import contagionJVM.Entities.PCAuthorizedCDKeyEntity;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Constants;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Funcs;
-import contagionJVM.Repository.PCAuthorizedCDKeysRepository;
 import contagionJVM.Repository.PlayerRepository;
 import contagionJVM.System.PlayerAuthorizationSystem;
 import contagionJVM.System.ProgressionSystem;

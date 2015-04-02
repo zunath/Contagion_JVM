@@ -16,7 +16,7 @@ import java.util.Objects;
 
 public class InventorySystem {
 
-    private static final int BaseInventoryLimit = 15;
+    private static final int BaseInventoryLimit = 1500;
     private static final int NumberOfSystemItems = 4;
 
 
@@ -136,8 +136,8 @@ public class InventorySystem {
         NWEffect[] effects = NWScript.getEffects(oPC);
         for(NWEffect effect : effects)
         {
-            if(effect.getEffectId() == EffectType.MOVEMENT_SPEED_DECREASE ||
-                    effect.getEffectId() == EffectType.CUTSCENEIMMOBILIZE)
+            if(NWScript.getEffectType(effect) == EffectType.MOVEMENT_SPEED_DECREASE ||
+                    NWScript.getEffectType(effect) == EffectType.CUTSCENEIMMOBILIZE)
             {
                 NWScript.removeEffect(oPC, effect);
             }

@@ -84,10 +84,9 @@ public class ProgressionSystem {
         PlayerProgressionSkillsRepository playerSkillRepo = new PlayerProgressionSkillsRepository();
         PlayerEntity entity = playerRepo.getByUUID(pcGO.getUUID());
 
-
-
         if(resetFeats)
         {
+            NWScript.setXP(oPC, 0);
             int numberOfFeats = NWNX_Funcs.GetTotalKnownFeats(oPC);
             for(int currentFeat = 1; currentFeat <= numberOfFeats; currentFeat++)
             {
@@ -156,7 +155,7 @@ public class ProgressionSystem {
             entity.setExperience(entity.getExperience() - levelEntity.getExperience());
             entity.setUnallocatedSP(entity.getUnallocatedSP() + SPEarnedOnLevelUp);
             entity.setLevel(entity.getLevel() + 1);
-            NWScript.floatingTextStringOnCreature("You have attained level " + entity.getLevel() + "!", oPC, false);
+            NWScript.floatingTextStringOnCreature("You attained level " + entity.getLevel() + "!", oPC, false);
 
 
             levelEntity = levelRepo.getByLevel(entity.getLevel());

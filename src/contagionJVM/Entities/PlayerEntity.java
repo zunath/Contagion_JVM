@@ -63,6 +63,8 @@ public class PlayerEntity {
     private int regenerationRate;
     @Column(name="ZombieKillCount")
     private int zombieKillCount;
+    @Column(name = "VersionNumber")
+    private int versionNumber;
 
 
     public PlayerEntity()
@@ -294,5 +296,13 @@ public class PlayerEntity {
 
     public void setZombieKillCount(int zombieKillCount) {
         this.zombieKillCount = zombieKillCount;
+    }
+
+    public int getVersionNumber() {
+        return versionNumber;
+    }
+
+    public void setVersionNumber(int versionNumber) {
+        this.versionNumber = versionNumber;
     }
 }

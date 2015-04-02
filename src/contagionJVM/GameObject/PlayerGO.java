@@ -84,6 +84,7 @@ public class PlayerGO {
         entity.setExperience(0);
         entity.setLastSPResetDate(null);
         entity.setNumberOfSPResets(0);
+        entity.setVersionNumber(Constants.PlayerVersionNumber);
 
         return entity;
     }

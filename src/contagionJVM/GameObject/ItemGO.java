@@ -87,4 +87,13 @@ public class ItemGO {
     }
 
 
+    public void StripAllItemProperties()
+    {
+        for(NWItemProperty prop : NWScript.getItemProperties(item))
+        {
+            NWScript.removeItemProperty(item, prop);
+        }
+    }
+
+
 }

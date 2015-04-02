@@ -20,4 +20,7 @@ public class Constants {
 	public static final int BaseHungerRate = 60;
 
     public static final int NumberOfInventorySlots = 18;
+
+	// Update this to run players through the migration process on entry
+	public static final int PlayerVersionNumber = 1;
 }
