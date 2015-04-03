@@ -59,4 +59,16 @@ public class DialogPage {
     {
         return responses.get(responseID - 1);
     }
+
+    public void addResponse(String text, boolean isVisible)
+    {
+        responses.add(new DialogResponse(text, isVisible));
+    }
+
+    public void addResponse(String text, boolean isVisible, Object customData)
+    {
+        responses.add(new DialogResponse(text, isVisible, customData));
+    }
+
+
 }

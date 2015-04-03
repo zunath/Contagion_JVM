@@ -76,6 +76,7 @@ public class DataAccess {
         _configuration.addAnnotatedClass(AuthorizedDMEntity.class);
         _configuration.addAnnotatedClass(BadgeEntity.class);
         _configuration.addAnnotatedClass(BaseItemTypeEntity.class);
+        _configuration.addAnnotatedClass(ConstructionSiteEntity.class);
         _configuration.addAnnotatedClass(DMRoleEntity.class);
         _configuration.addAnnotatedClass(ItemCombinationEntity.class);
         _configuration.addAnnotatedClass(KeyItemCategoryEntity.class);
@@ -92,6 +93,10 @@ public class DataAccess {
         _configuration.addAnnotatedClass(PCOutfitEntity.class);
         _configuration.addAnnotatedClass(PCSearchSiteEntity.class);
         _configuration.addAnnotatedClass(PCSearchSiteItemEntity.class);
+        _configuration.addAnnotatedClass(PCTerritoryFlagEntity.class);
+        _configuration.addAnnotatedClass(PCTerritoryFlagPermissionEntity.class);
+        _configuration.addAnnotatedClass(PCTerritoryFlagStructureEntity.class);
+        _configuration.addAnnotatedClass(PCTerritoryFlagStructureItemEntity.class);
         _configuration.addAnnotatedClass(PlayerEntity.class);
         _configuration.addAnnotatedClass(PlayerProgressionSkillEntity.class);
         _configuration.addAnnotatedClass(PortraitEntity.class);
@@ -99,6 +104,10 @@ public class DataAccess {
         _configuration.addAnnotatedClass(ProgressionSkillEntity.class);
         _configuration.addAnnotatedClass(StorageContainerEntity.class);
         _configuration.addAnnotatedClass(StorageItemEntity.class);
+        _configuration.addAnnotatedClass(StructureCategoryEntity.class);
+        _configuration.addAnnotatedClass(StructureEntity.class);
+        _configuration.addAnnotatedClass(TerritoryFlagEntity.class);
+        _configuration.addAnnotatedClass(TerritoryFlagPermissionEntity.class);
         _configuration.addAnnotatedClass(ZombieClothesEntity.class);
 
 

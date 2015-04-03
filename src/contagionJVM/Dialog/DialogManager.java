@@ -1,6 +1,7 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ErrorHelper;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.Scheduler;
@@ -63,10 +64,9 @@ public class DialogManager {
         dialog.setDialogTarget(oTalkTo);
         DialogManager.storePlayerDialog(pcGO.getUUID(), dialog);
 
-        script.Initialize();
     }
 
-    public static void startConversation(NWObject oPC, final NWObject oTalkTo, String conversationName)
+    public static void startConversation(NWObject oPC, final NWObject oTalkTo, final String conversationName)
     {
         try {
             loadConversation(oPC, oTalkTo, conversationName);
@@ -80,18 +80,7 @@ public class DialogManager {
             Scheduler.flushQueues();
         }
         catch(Exception ex) {
-            StringWriter sw = new StringWriter();
-            ex.printStackTrace(new PrintWriter(sw));
-            String exceptionAsString = sw.toString();
-
-            String message = "Dialog_Start was unable to execute class method: contagionJVM.Dialog.Conversation_" + conversationName + ".Initialize()";
-            System.out.println(message);
-            System.out.println("Exception: ");
-            System.out.println(exceptionAsString);
-
-            NWScript.writeTimestampedLogEntry(message);
-            NWScript.writeTimestampedLogEntry("Exception:");
-            NWScript.writeTimestampedLogEntry(exceptionAsString);
+            ErrorHelper.HandleException(ex, "Dialog_Start was unable to execute class method: contagionJVM.Dialog.Conversation_" + conversationName + ".Initialize()");
         }
     }
 

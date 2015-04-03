@@ -1,6 +1,7 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ErrorHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NodeType;
@@ -58,15 +59,28 @@ public class Dialog_AppearsWhen implements IScriptEventHandler {
         }
         else if(nodeType == NodeType.StartingNode || nodeType == NodeType.EntryNode)
         {
+            if(NWScript.getLocalInt(oPC, "DIALOG_SYSTEM_INITIALIZE_RAN") != 1)
+            {
+                try
+                {
+                    Class scriptClass = Class.forName("contagionJVM.Dialog.Conversation_" + dialog.getActiveDialogName());
+                    IDialogHandler script = (IDialogHandler)scriptClass.newInstance();
+                    script.Initialize();
+                    NWScript.setLocalInt(oPC, "DIALOG_SYSTEM_INITIALIZE_RAN", 1);
+                }
+                catch (Exception ex)
+                {
+                    ErrorHelper.HandleException(ex, "Unable to initialize conversation: " + dialog.getActiveDialogName());
+                }
+            }
+
             newNodeText = page.getHeader();
             NWScript.setCustomToken(90000, newNodeText);
             NWScript.setLocalInt(oNPC, "REO_CONVERSATION_SHOW_NODE", 1);
             return;
         }
 
-
         NWScript.setCustomToken(90001 + nodeID, newNodeText);
-        //NWNX_Events.SetCurrentNodeText(newNodeText, NWNX_Events.LANGUAGE_ENGLISH, gender);
         NWScript.setLocalInt(oNPC, "REO_CONVERSATION_SHOW_NODE", displayNode ? 1 : 0);
 
     }

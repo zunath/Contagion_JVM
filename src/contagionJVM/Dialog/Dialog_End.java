@@ -13,6 +13,8 @@ public class Dialog_End implements IScriptEventHandler {
     @Override
     public void runScript(NWObject oNPC) {
         NWObject oPC = NWScript.getPCSpeaker();
+        NWScript.deleteLocalInt(oPC, "DIALOG_SYSTEM_INITIALIZE_RAN");
+
         PlayerGO pcGO = new PlayerGO(oPC);
         PlayerDialog playerDialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
 

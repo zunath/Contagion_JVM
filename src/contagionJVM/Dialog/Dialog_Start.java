@@ -11,7 +11,7 @@ public class Dialog_Start implements IScriptEventHandler {
         String className = NWScript.getLocalString(oPC, "REO_CONVERSATION");
         NWObject oTalkToTarget = NWScript.getLocalObject(oPC, "REO_CONVERSATION_TARGET");
         NWScript.deleteLocalString(oPC, "REO_CONVERSATION");
-        NWScript.deleteLocalString(oPC, "REO_CONVERSATION_TARGET");
+        NWScript.deleteLocalObject(oPC, "REO_CONVERSATION_TARGET");
 
         DialogManager.startConversation(oPC, oTalkToTarget, className);
     }

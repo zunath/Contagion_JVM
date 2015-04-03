@@ -6,6 +6,7 @@ import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.System.DeathSystem;
 import contagionJVM.System.SpawnSystem;
+import contagionJVM.System.StructureSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -36,8 +37,10 @@ public class Module_OnLoad implements IScriptEventHandler {
 		NWScript.executeScript("portrait_modload", objSelf);
 		// Craft System
 		NWScript.executeScript("craft_mod_load", objSelf);
+		StructureSystem.OnModuleLoad();
 		// Spawn System
 		spawnSystem.ZSS_OnModuleLoad();
+
 
 	}
 

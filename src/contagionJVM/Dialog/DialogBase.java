@@ -15,6 +15,13 @@ public abstract class DialogBase {
         return NWScript.getPCSpeaker();
     }
 
+    protected NWObject GetDialogTarget()
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        return dialog.getDialogTarget();
+    }
+
     protected Object GetDialogCustomData()
     {
         PlayerGO pcGO = new PlayerGO(GetPC());
