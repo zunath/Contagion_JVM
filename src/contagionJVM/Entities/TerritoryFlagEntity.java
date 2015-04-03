@@ -25,6 +25,9 @@ public class TerritoryFlagEntity {
     @Column(name = "WoodRequired")
     private int woodRequired;
 
+    @Column(name = "MetalRequired")
+    private int metalRequired;
+
     @Column(name = "NailsRequired")
     private int nailsRequired;
 
@@ -126,5 +129,13 @@ public class TerritoryFlagEntity {
 
     public void setMaxBuildDistance(double maxBuildDistance) {
         this.maxBuildDistance = maxBuildDistance;
+    }
+
+    public int getMetalRequired() {
+        return metalRequired;
+    }
+
+    public void setMetalRequired(int metalRequired) {
+        this.metalRequired = metalRequired;
     }
 }

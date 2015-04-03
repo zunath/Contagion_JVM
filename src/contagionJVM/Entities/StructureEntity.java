@@ -28,6 +28,9 @@ public class StructureEntity {
     @Column(name = "WoodRequired")
     private int woodRequired;
 
+    @Column(name = "MetalRequired")
+    private int metalRequired;
+
     @Column(name = "NailsRequired")
     private int nailsRequired;
 
@@ -118,5 +121,13 @@ public class StructureEntity {
 
     public void setResref(String resref) {
         this.resref = resref;
+    }
+
+    public int getMetalRequired() {
+        return metalRequired;
+    }
+
+    public void setMetalRequired(int metalRequired) {
+        this.metalRequired = metalRequired;
     }
 }

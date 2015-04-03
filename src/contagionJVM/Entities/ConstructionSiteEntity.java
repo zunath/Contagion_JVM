@@ -17,6 +17,9 @@ public class ConstructionSiteEntity {
     @Column(name = "WoodRequired")
     private int woodRequired;
 
+    @Column(name = "MetalRequired")
+    private int metalRequired;
+
     @Column(name = "NailsRequired")
     private int nailsRequired;
 
@@ -151,5 +154,13 @@ public class ConstructionSiteEntity {
 
     public void setStructure(StructureEntity structure) {
         this.structure = structure;
+    }
+
+    public int getMetalRequired() {
+        return metalRequired;
+    }
+
+    public void setMetalRequired(int metalRequired) {
+        this.metalRequired = metalRequired;
     }
 }
