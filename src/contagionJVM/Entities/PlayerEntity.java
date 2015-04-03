@@ -49,10 +49,14 @@ public class PlayerEntity {
     private int level;
     @Column(name = "Experience")
     private int experience;
-    @Column(name ="LastSPResetDate")
-    private Date lastSPResetDate;
+    @Column(name ="NextSPResetDate")
+    private Date nextSPResetDate;
     @Column(name="NumberOfSPResets")
     private int numberOfSPResets;
+    @Column(name = "ResetTokens")
+    private int resetTokens;
+    @Column(name = "NextResetTokenReceiveDate")
+    private Date nextResetTokenReceiveDate;
     @Column(name="HPRegenerationAmount")
     private int hpRegenerationAmount;
     @Column(name="InventorySpaceBonus")
@@ -234,12 +238,12 @@ public class PlayerEntity {
         this.experience = experience;
     }
 
-    public Date getLastSPResetDate() {
-        return lastSPResetDate;
+    public Date getNextSPResetDate() {
+        return nextSPResetDate;
     }
 
-    public void setLastSPResetDate(Date lastSPResetDate) {
-        this.lastSPResetDate = lastSPResetDate;
+    public void setNextSPResetDate(Date nextSPResetDate) {
+        this.nextSPResetDate = nextSPResetDate;
     }
 
     public int getNumberOfSPResets() {
@@ -304,5 +308,21 @@ public class PlayerEntity {
 
     public void setVersionNumber(int versionNumber) {
         this.versionNumber = versionNumber;
+    }
+
+    public int getResetTokens() {
+        return resetTokens;
+    }
+
+    public void setResetTokens(int resetTokens) {
+        this.resetTokens = resetTokens;
+    }
+
+    public Date getNextResetTokenReceiveDate() {
+        return nextResetTokenReceiveDate;
+    }
+
+    public void setNextResetTokenReceiveDate(Date nextResetTokenReceiveDate) {
+        this.nextResetTokenReceiveDate = nextResetTokenReceiveDate;
     }
 }

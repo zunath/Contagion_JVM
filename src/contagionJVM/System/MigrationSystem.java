@@ -132,7 +132,7 @@ public class MigrationSystem {
                 NWScript.getLevelByPosition(2, oPC) +
                 NWScript.getLevelByPosition(3, oPC);
         int nwnEXP = NWScript.getXP(oPC);
-        ProgressionSystem.InitializePlayer(oPC, true);
+        ProgressionSystem.InitializePlayer(oPC);
         int migrationEXP = 0;
 
         switch(level)

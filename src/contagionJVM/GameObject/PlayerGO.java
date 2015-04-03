@@ -5,6 +5,7 @@ import contagionJVM.Entities.PlayerEntity;
 import org.nwnx.nwnx2.jvm.NWLocation;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
+import org.nwnx.nwnx2.jvm.Scheduler;
 import org.nwnx.nwnx2.jvm.constants.Inventory;
 
 import java.text.DateFormat;
@@ -82,9 +83,10 @@ public class PlayerGO {
         entity.setUnallocatedSP(10);
         entity.setLevel(1);
         entity.setExperience(0);
-        entity.setLastSPResetDate(null);
+        entity.setNextSPResetDate(null);
         entity.setNumberOfSPResets(0);
         entity.setVersionNumber(Constants.PlayerVersionNumber);
+        entity.setResetTokens(3);
 
         return entity;
     }
@@ -145,6 +147,20 @@ public class PlayerGO {
         NWScript.destroyObject(oInventory, 0.0f);
         oInventory = NWScript.getItemInSlot(Inventory.SLOT_RIGHTRING, _pc);
         NWScript.destroyObject(oInventory, 0.0f);
+    }
+
+    public void UnequipAllItems()
+    {
+        Scheduler.assign(_pc, new Runnable() {
+            @Override
+            public void run() {
+                for(int slot = 0; slot < 14; slot++)
+                {
+                    NWScript.actionUnequipItem(NWScript.getItemInSlot(slot, _pc));
+                }
+            }
+        });
+        Scheduler.flushQueues();
     }
 
     public Date getCreateDate()

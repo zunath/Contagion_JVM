@@ -104,7 +104,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
 
             pcGO.setCreateDate(entity.getCreateTimestamp());
 
-            ProgressionSystem.InitializePlayer(oPC, true);
+            ProgressionSystem.InitializePlayer(oPC);
 
             NWNX_Funcs.SetRawQuickBarSlot(oPC, "1 4 0 1116 0");
         }

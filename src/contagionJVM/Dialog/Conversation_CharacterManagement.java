@@ -15,6 +15,7 @@ public class Conversation_CharacterManagement extends DialogBase implements IDia
         DialogPage characterManagementPage = new DialogPage(
                 "Character Management & Information Page",
                 "Disable PVP Protection",
+                "Reset Skill Purchases",
                 "Manage CD Keys",
                 "Change Portrait",
                 "Change Head",
@@ -44,16 +45,19 @@ public class Conversation_CharacterManagement extends DialogBase implements IDia
                     case 1: // Disable PVP Protection
                         HandleDisablePVPProtection();
                         break;
-                    case 2: // Manage CD Keys
+                    case 2: // Reset Skill Purchases
+                        SwitchConversation("ResetSkillPoints");
+                        break;
+                    case 3: // Manage CD Keys
                         SwitchConversation("ManageCDKeys");
                         break;
-                    case 3: // Change Portrait
+                    case 4: // Change Portrait
                         SwitchConversation("ChangePortrait");
                         break;
-                    case 4: // Change Head
+                    case 5: // Change Head
                         SwitchConversation("ChangeHead");
                         break;
-                    case 5: // Back
+                    case 6: // Back
                         SwitchConversation("RestMenu");
                         break;
                 }

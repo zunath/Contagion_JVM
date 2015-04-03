@@ -14,6 +14,7 @@ import contagionJVM.Repository.PlayerProgressionSkillsRepository;
 import contagionJVM.Repository.PlayerRepository;
 import contagionJVM.Repository.ProgressionLevelRepository;
 import contagionJVM.Repository.ProgressionSkillRepository;
+import org.joda.time.DateTime;
 import org.nwnx.nwnx2.jvm.NWItemProperty;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -31,10 +32,8 @@ public class ProgressionSystem {
     // Configuration
     private static final int LevelCap = 50;
     private static final int SPEarnedOnLevelUp = 10;
-    private static final int ResetInitialCost = 2000;
-    private static final int ResetAdditionalCost = 500;
     private static final int ResetCooldownDays = 3;
-    private static final boolean IsResetFirstTimeFree = true;
+    public static final int ResetTokensMaxStock = 3;
 
 
     public static final int SkillType_INVALID                    = 0;
@@ -76,50 +75,48 @@ public class ProgressionSystem {
 
 
 
-    public static void InitializePlayer(NWObject oPC, boolean resetFeats)
+    public static PlayerEntity InitializePlayer(NWObject oPC)
     {
-        if(!NWScript.getIsPC(oPC)) return;
+        if(!NWScript.getIsPC(oPC)) return null;
         PlayerGO pcGO = new PlayerGO(oPC);
         PlayerRepository playerRepo = new PlayerRepository();
         PlayerProgressionSkillsRepository playerSkillRepo = new PlayerProgressionSkillsRepository();
         PlayerEntity entity = playerRepo.getByUUID(pcGO.getUUID());
 
-        if(resetFeats)
+        NWScript.setXP(oPC, 0);
+        int numberOfFeats = NWNX_Funcs.GetTotalKnownFeats(oPC);
+        for(int currentFeat = 1; currentFeat <= numberOfFeats; currentFeat++)
         {
-            NWScript.setXP(oPC, 0);
-            int numberOfFeats = NWNX_Funcs.GetTotalKnownFeats(oPC);
-            for(int currentFeat = 1; currentFeat <= numberOfFeats; currentFeat++)
-            {
-                NWNX_Funcs.SetKnownFeat(oPC, currentFeat, -1);
-            }
-
-            NWNX_Funcs.AddKnownFeat(oPC, Feat.ARMOR_PROFICIENCY_LIGHT, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, Feat.ARMOR_PROFICIENCY_MEDIUM, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, Feat.ARMOR_PROFICIENCY_HEAVY, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, Feat.SHIELD_PROFICIENCY, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_EXOTIC, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_MARTIAL, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_SIMPLE, -1);
-            NWNX_Funcs.AddKnownFeat(oPC, CustomFeat.Reload, -1);
-
-            NWNX_Funcs.SetAbilityScore(oPC, Ability.STRENGTH, Constants.BaseStrength);
-            NWNX_Funcs.SetAbilityScore(oPC, Ability.DEXTERITY, Constants.BaseDexterity);
-            NWNX_Funcs.SetAbilityScore(oPC, Ability.CONSTITUTION, Constants.BaseConstitution);
-            NWNX_Funcs.SetAbilityScore(oPC, Ability.WISDOM, Constants.BaseWisdom);
-            NWNX_Funcs.SetAbilityScore(oPC, Ability.CHARISMA, Constants.BaseCharisma);
-            NWNX_Funcs.SetAbilityScore(oPC, Ability.INTELLIGENCE, Constants.BaseIntelligence);
-
-            NWNX_Funcs.SetMaxHitPointsByLevel(oPC, 1, Constants.BaseHitPoints);
-            NWNX_Funcs.SetCurrentHitPoints(oPC, NWScript.getMaxHitPoints(oPC));
-
-            for(int iCurSkill = 1; iCurSkill <= 27; iCurSkill++)
-            {
-                NWNX_Funcs.SetSkillRank(oPC, iCurSkill, 0);
-            }
-            NWNX_Funcs.SetSavingThrowBonus(oPC, SavingThrow.FORT, 0);
-            NWNX_Funcs.SetSavingThrowBonus(oPC, SavingThrow.REFLEX, 0);
-            NWNX_Funcs.SetSavingThrowBonus(oPC, SavingThrow.WILL, 0);
+            NWNX_Funcs.SetKnownFeat(oPC, currentFeat, -1);
         }
+
+        NWNX_Funcs.AddKnownFeat(oPC, Feat.ARMOR_PROFICIENCY_LIGHT, -1);
+        NWNX_Funcs.AddKnownFeat(oPC, Feat.ARMOR_PROFICIENCY_MEDIUM, -1);
+        NWNX_Funcs.AddKnownFeat(oPC, Feat.ARMOR_PROFICIENCY_HEAVY, -1);
+        NWNX_Funcs.AddKnownFeat(oPC, Feat.SHIELD_PROFICIENCY, -1);
+        NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_EXOTIC, -1);
+        NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_MARTIAL, -1);
+        NWNX_Funcs.AddKnownFeat(oPC, Feat.WEAPON_PROFICIENCY_SIMPLE, -1);
+        NWNX_Funcs.AddKnownFeat(oPC, CustomFeat.Reload, -1);
+
+        NWNX_Funcs.SetAbilityScore(oPC, Ability.STRENGTH, Constants.BaseStrength);
+        NWNX_Funcs.SetAbilityScore(oPC, Ability.DEXTERITY, Constants.BaseDexterity);
+        NWNX_Funcs.SetAbilityScore(oPC, Ability.CONSTITUTION, Constants.BaseConstitution);
+        NWNX_Funcs.SetAbilityScore(oPC, Ability.WISDOM, Constants.BaseWisdom);
+        NWNX_Funcs.SetAbilityScore(oPC, Ability.CHARISMA, Constants.BaseCharisma);
+        NWNX_Funcs.SetAbilityScore(oPC, Ability.INTELLIGENCE, Constants.BaseIntelligence);
+
+        NWNX_Funcs.SetMaxHitPointsByLevel(oPC, 1, Constants.BaseHitPoints);
+        NWNX_Funcs.SetCurrentHitPoints(oPC, NWScript.getMaxHitPoints(oPC));
+
+        for(int iCurSkill = 1; iCurSkill <= 27; iCurSkill++)
+        {
+            NWNX_Funcs.SetSkillRank(oPC, iCurSkill, 0);
+        }
+        NWNX_Funcs.SetSavingThrowBonus(oPC, SavingThrow.FORT, 0);
+        NWNX_Funcs.SetSavingThrowBonus(oPC, SavingThrow.REFLEX, 0);
+        NWNX_Funcs.SetSavingThrowBonus(oPC, SavingThrow.WILL, 0);
+
 
         playerSkillRepo.deleteAllByPlayerUUID(pcGO.getUUID());
         entity.setUnallocatedSP(SPEarnedOnLevelUp * entity.getLevel());
@@ -128,6 +125,8 @@ public class ProgressionSystem {
         entity.setInventorySpaceBonus(0);
 
         playerRepo.save(entity);
+
+        return entity;
     }
 
 
@@ -327,6 +326,43 @@ public class ProgressionSystem {
             });
         }
 
+    }
+
+    public static boolean CanResetSkills(NWObject oPC)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        PlayerRepository repo = new PlayerRepository();
+        PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
+        DateTime resetDate = entity.getNextSPResetDate() == null ?
+                DateTime.now().minusSeconds(1) :
+                new DateTime(entity.getNextSPResetDate());
+
+        return DateTime.now().isAfter(resetDate) &&
+                entity.getResetTokens() > 0;
+
+    }
+
+    public static void PerformSkillReset(NWObject oPC)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+
+        if(!CanResetSkills(oPC))
+        {
+            NWScript.sendMessageToPC(oPC, "You cannot reset your skills yet.");
+            return;
+        }
+
+        pcGO.UnequipAllItems();
+        PlayerRepository repo = new PlayerRepository();
+        PlayerEntity entity = InitializePlayer(oPC);
+        DateTime nextReset = DateTime.now().plusDays(ResetCooldownDays);
+        entity.setResetTokens(entity.getResetTokens() - 1);
+        entity.setNextSPResetDate(nextReset.toDate());
+        entity.setNumberOfSPResets(entity.getNumberOfSPResets() + 1);
+
+        repo.save(entity);
+
+        NWScript.floatingTextStringOnCreature(ColorToken.Green() + "Skill reset completed successfully." + ColorToken.End(), oPC, false);
     }
 
 
