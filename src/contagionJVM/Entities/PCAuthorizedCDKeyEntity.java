@@ -10,6 +10,8 @@ public class PCAuthorizedCDKeyEntity {
     @Id
     @Column(name = "AccountID")
     private String accountID;
+    @Column(name = "IsAddingKey")
+    private boolean isAddingKey;
     @Column(name = "CDKey1")
     private String cdKey1;
     @Column(name = "CDKey2")
@@ -134,5 +136,13 @@ public class PCAuthorizedCDKeyEntity {
 
     public void setCdKey10(String cdKey10) {
         this.cdKey10 = cdKey10;
+    }
+
+    public boolean isAddingKey() {
+        return isAddingKey;
+    }
+
+    public void setIsAddingKey(boolean isAddingKey) {
+        this.isAddingKey = isAddingKey;
     }
 }

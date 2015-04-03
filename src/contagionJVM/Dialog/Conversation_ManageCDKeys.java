@@ -1,7 +1,6 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.Entities.PCAuthorizedCDKeyEntity;
-import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Repository.PCAuthorizedCDKeysRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -48,11 +47,12 @@ public class Conversation_ManageCDKeys extends DialogBase implements  IDialogHan
     @Override
     public void Initialize() {
         NWObject oPC = GetPC();
+        String account = NWScript.getPCPlayerName(oPC);
         LoadRemoveCDKeyOptions();
+        PCAuthorizedCDKeysRepository repo = new PCAuthorizedCDKeysRepository();
+        PCAuthorizedCDKeyEntity entity = repo.GetByAccountName(account);
 
-        boolean isAdding = NWScript.getLocalInt(oPC, "TEMP_ADDING_CD_KEY_TO_ACCOUNT") == 1;
-
-        if(isAdding)
+        if(entity.isAddingKey())
         {
             SetResponseText("MainPage", 1, "CANCEL ADDING CD KEY TO ACCOUNT");
         }
@@ -260,19 +260,22 @@ public class Conversation_ManageCDKeys extends DialogBase implements  IDialogHan
     private void HandleAddCDKey()
     {
         NWObject oPC = GetPC();
-        boolean isAdding = NWScript.getLocalInt(oPC, "TEMP_ADDING_CD_KEY_TO_ACCOUNT") == 1;
+        String account = NWScript.getPCPlayerName(oPC);
+        PCAuthorizedCDKeysRepository repo = new PCAuthorizedCDKeysRepository();
+        PCAuthorizedCDKeyEntity entity = repo.GetByAccountName(account);
 
-        if(isAdding)
+        if(entity.isAddingKey())
         {
             SetResponseText("MainPage", 1, "Add a CD Key");
-            NWScript.deleteLocalInt(oPC, "TEMP_ADDING_CD_KEY_TO_ACCOUNT");
+            entity.setIsAddingKey(false);
         }
         else
         {
-            NWScript.setLocalInt(oPC, "TEMP_ADDING_CD_KEY_TO_ACCOUNT", 1);
+            entity.setIsAddingKey(true);
             SetResponseText("MainPage", 1, "CANCEL ADDING CD KEY TO ACCOUNT");
             NWScript.floatingTextStringOnCreature("Please log in to the server under the new CD key to store it to your account.", oPC, false);
         }
 
+        repo.Save(entity);
     }
 }

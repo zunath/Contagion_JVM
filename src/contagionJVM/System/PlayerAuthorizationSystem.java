@@ -15,10 +15,11 @@ public class PlayerAuthorizationSystem {
     {
         NWObject oPC = NWScript.getEnteringObject();
         if(!NWScript.getIsPC(oPC) || NWScript.getIsDM(oPC)) return;
-        boolean isAddingKey = NWScript.getLocalInt(oPC, "TEMP_ADDING_CD_KEY_TO_ACCOUNT") == 1;
-        NWScript.deleteLocalInt(oPC, "TEMP_ADDING_CD_KEY_TO_ACCOUNT");
+        String account = NWScript.getPCPlayerName(oPC);
+        PCAuthorizedCDKeysRepository repo = new PCAuthorizedCDKeysRepository();
+        PCAuthorizedCDKeyEntity entity = repo.GetByAccountName(account);
 
-        if(isAddingKey)
+        if(entity.isAddingKey())
         {
             AddNewKey(oPC);
         }
@@ -51,6 +52,7 @@ public class PlayerAuthorizationSystem {
         String account = NWScript.getPCPlayerName(oPC);
         PCAuthorizedCDKeyEntity entity = repo.GetByAccountName(account);
         final String cdKey = NWScript.getPCPublicCDKey(oPC, false);
+        entity.setIsAddingKey(false);
 
         if(CDKeyExistsForAccount(entity, cdKey))
         {
@@ -80,8 +82,6 @@ public class PlayerAuthorizationSystem {
                 return;
             }
 
-            repo.Save(entity);
-
             Scheduler.delay(oPC, 8000, new Runnable() {
                 @Override
                 public void run() {
@@ -90,6 +90,7 @@ public class PlayerAuthorizationSystem {
             });
         }
 
+        repo.Save(entity);
     }
 
     private static void ValidatePlayerCDKey(NWObject oPC)
