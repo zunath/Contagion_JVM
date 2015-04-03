@@ -102,7 +102,7 @@ public class Conversation_ChangeHead extends DialogBase implements IDialogHandle
 
         if(dto.getCurrentHeadID() < 1)
         {
-            dto.setCurrentHeadID(numberOfHeads + adjustBy);
+            dto.setCurrentHeadID(numberOfHeads + dto.getCurrentHeadID());
         }
 
         NWScript.setCreatureBodyPart(CreaturePart.HEAD, dto.getCurrentHeadID(), oPC);
