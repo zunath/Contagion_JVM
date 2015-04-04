@@ -1,11 +1,9 @@
 package contagionJVM;
 
+import contagionJVM.Helper.ErrorHelper;
 import org.nwnx.nwnx2.jvm.NWObject;
-import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.SchedulerListener;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 public class EventReceiver implements SchedulerListener {
     public void postFlushQueues(int remainingTokens) {}
@@ -21,18 +19,7 @@ public class EventReceiver implements SchedulerListener {
             script.runScript(objSelf);
         }
         catch(Exception ex) {
-            StringWriter sw = new StringWriter();
-            ex.printStackTrace(new PrintWriter(sw));
-            String exceptionAsString = sw.toString();
-
-            String message = "EventReceiver was unable to execute class method: contagionJVM." + event + ".runScript()";
-            System.out.println(message);
-            System.out.println("Exception: ");
-            System.out.println(exceptionAsString);
-
-            NWScript.writeTimestampedLogEntry(message);
-            NWScript.writeTimestampedLogEntry("Exception:");
-            NWScript.writeTimestampedLogEntry(exceptionAsString);
+            ErrorHelper.HandleException(ex, "EventReceiver was unable to execute class method: contagionJVM." + event + ".runScript()");
         }
     }
 }

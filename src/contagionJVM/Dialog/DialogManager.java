@@ -6,8 +6,6 @@ import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.Scheduler;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.HashMap;
 
 public class DialogManager {
@@ -82,6 +80,14 @@ public class DialogManager {
         catch(Exception ex) {
             ErrorHelper.HandleException(ex, "Dialog_Start was unable to execute class method: contagionJVM.Dialog.Conversation_" + conversationName + ".Initialize()");
         }
+    }
+
+    public static void endConversation(NWObject oPC)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        PlayerDialog playerDialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
+        playerDialog.setIsEnding(true);
+        DialogManager.storePlayerDialog(pcGO.getUUID(), playerDialog);
     }
 
 }

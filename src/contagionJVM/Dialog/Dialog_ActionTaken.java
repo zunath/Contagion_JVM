@@ -1,13 +1,11 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ErrorHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Dialog_ActionTaken implements IScriptEventHandler {
@@ -37,18 +35,7 @@ public class Dialog_ActionTaken implements IScriptEventHandler {
                 IDialogHandler script = (IDialogHandler) scriptClass.newInstance();
                 script.DoAction(oPC, dialog.getCurrentPageName(), responseID + 1);
             } catch (Exception ex) {
-                StringWriter sw = new StringWriter();
-                ex.printStackTrace(new PrintWriter(sw));
-                String exceptionAsString = sw.toString();
-
-                String message = "Dialog_ActionTaken was unable to execute class method: contagionJVM.Dialog.Conversation_" + dialog.getActiveDialogName() + ".DoAction()";
-                System.out.println(message);
-                System.out.println("Exception: ");
-                System.out.println(exceptionAsString);
-
-                NWScript.writeTimestampedLogEntry(message);
-                NWScript.writeTimestampedLogEntry("Exception:");
-                NWScript.writeTimestampedLogEntry(exceptionAsString);
+                ErrorHelper.HandleException(ex, "Dialog_ActionTaken was unable to execute class method: contagionJVM.Dialog.Conversation_\" + dialog.getActiveDialogName() + \".DoAction()");
             }
         }
 

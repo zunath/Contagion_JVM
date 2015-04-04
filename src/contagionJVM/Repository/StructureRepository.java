@@ -99,7 +99,9 @@ public class StructureRepository {
         try(DataContext context = new DataContext())
         {
             Criteria criteria = context.getSession()
-                    .createCriteria(StructureCategoryEntity.class);
+                    .createCriteria(StructureCategoryEntity.class)
+                    .add(Restrictions.eq("isActive", true));
+
             categories = criteria.list();
         }
 

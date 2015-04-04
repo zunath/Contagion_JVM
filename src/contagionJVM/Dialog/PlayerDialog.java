@@ -12,6 +12,7 @@ public class PlayerDialog {
     private String activeDialogName;
     private NWObject dialogTarget;
     private Object dialogCustomData;
+    private boolean isEnding;
 
     public PlayerDialog()
     {
@@ -85,5 +86,13 @@ public class PlayerDialog {
     public DialogPage getPageByName(String pageName)
     {
         return dialogPages.get(pageName);
+    }
+
+    public boolean isEnding() {
+        return isEnding;
+    }
+
+    public void setIsEnding(boolean isEnding) {
+        this.isEnding = isEnding;
     }
 }

@@ -24,6 +24,8 @@ public class Dialog_AppearsWhen implements IScriptEventHandler {
         String nodeText = NWNX_Events.GetCurrentNodeText(NWNX_Events.LANGUAGE_ENGLISH, gender);
         String newNodeText = nodeText;
 
+
+
         if(nodeText.equals("Next"))
         {
             int displayCount = page.getNumberOfResponses() - (DialogManager.NumberOfResponsesPerPage * dialog.getPageOffset());
@@ -73,6 +75,24 @@ public class Dialog_AppearsWhen implements IScriptEventHandler {
                     ErrorHelper.HandleException(ex, "Unable to initialize conversation: " + dialog.getActiveDialogName());
                 }
             }
+
+            if(dialog.isEnding())
+            {
+                try {
+                    Class scriptClass = Class.forName("contagionJVM.Dialog.Conversation_" + dialog.getActiveDialogName());
+                    IDialogHandler script = (IDialogHandler)scriptClass.newInstance();
+                    script.EndDialog();
+                    DialogManager.removePlayerDialog(pcGO.getUUID());
+                }
+                catch(Exception ex) {
+                    ErrorHelper.HandleException(ex, "Dialog_End was unable to execute class method.");
+                }
+
+                NWScript.deleteLocalInt(oPC, "DIALOG_SYSTEM_INITIALIZE_RAN");
+                NWScript.setLocalInt(oNPC, "REO_CONVERSATION_SHOW_NODE", 0);
+                return;
+            }
+
 
             newNodeText = page.getHeader();
             NWScript.setCustomToken(90000, newNodeText);

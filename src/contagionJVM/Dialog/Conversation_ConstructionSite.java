@@ -103,10 +103,11 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             header = ColorToken.Green() + "Blueprint: " + ColorToken.End() + entity.getStructure().getName() + "\n\n";
             header += ColorToken.Green() + "Resources Required: " + ColorToken.End() + "\n\n";
 
-            header += entity.getWoodRequired() > 0 ? entity.getWoodRequired() : "";
-            header += entity.getClothRequired() > 0 ? entity.getClothRequired() : "";
-            header += entity.getNailsRequired() > 0 ? entity.getNailsRequired() : "";
-            header += entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() : "";
+            header += entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" : "";
+            header += entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" : "";
+            header += entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" : "";
+            header += entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" : "";
+            header += entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" : "";
 
         }
 

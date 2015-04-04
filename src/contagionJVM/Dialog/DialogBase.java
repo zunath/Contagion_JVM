@@ -77,7 +77,7 @@ public abstract class DialogBase {
         PlayerGO pcGO = new PlayerGO(GetPC());
         PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
         DialogPage page = dialog.getPageByName(pageName);
-        return page.getResponses().get(responseID-1);
+        return page.getResponses().get(responseID - 1);
     }
 
     protected void SetResponseText(String pageName, int responseID, String responseText)
@@ -123,8 +123,11 @@ public abstract class DialogBase {
         dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
         dialog.resetPage();
         ChangePage(dialog.getCurrentPageName());
+    }
 
-
+    protected void EndConversation()
+    {
+        DialogManager.endConversation(GetPC());
     }
 
 }

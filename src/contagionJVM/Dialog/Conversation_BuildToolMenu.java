@@ -3,6 +3,7 @@ package contagionJVM.Dialog;
 import contagionJVM.Entities.PCTerritoryFlagStructureEntity;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Models.BuildToolConversationModel;
+import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.Repository.StructureRepository;
 import contagionJVM.System.StructureSystem;
 import org.nwnx.nwnx2.jvm.NWLocation;
@@ -208,7 +209,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         if(responseID == 1)
         {
             StructureSystem.CreateConstructionSite(GetPC(), model.getTargetLocation());
-            EndDialog();
+            EndConversation();
         }
         else if(structure != null)
         {
@@ -222,7 +223,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         BuildToolConversationModel model = GetModel();
         NWScript.floatingTextStringOnCreature("Please use your build tool to select a new location for this structure.", GetPC(), false);
         StructureSystem.SetIsPCMovingStructure(GetPC(), model.getActiveStructure(), true);
-        EndDialog();
+
     }
 
     private void HandleRotateStructure(float rotation, boolean isSet)
