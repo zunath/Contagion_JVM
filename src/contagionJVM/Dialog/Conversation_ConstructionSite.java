@@ -173,11 +173,11 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             header = ColorToken.Green() + "Blueprint: " + ColorToken.End() + entity.getBlueprint().getName() + "\n\n";
             header += ColorToken.Green() + "Resources Required: " + ColorToken.End() + "\n\n";
 
-            header += (entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" : "") + "\n";
-            header += (entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" : "") + "\n";
-            header += (entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" : "") + "\n";
-            header += (entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" : "") + "\n";
-            header += (entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" : "") + "\n";
+            header += entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" + "\n" : "";
+            header += entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" + "\n" : "";
+            header += entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" + "\n" : "";
+            header += entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" + "\n" : "";
+            header += entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" + "\n" : "";
 
             page.addResponse("Quick Build", PlayerAuthorizationSystem.IsPCRegisteredAsDM(GetPC()));
             page.addResponse("Preview", true);
@@ -248,11 +248,11 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             header += ColorToken.Green() + "Description: " + ColorToken.End() + entity.getDescription() + "\n\n";
         }
         header += (ColorToken.Green() + "Resources Required: " + ColorToken.End() + "\n") + "\n";
-        header += (entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" : "") + "\n";
-        header += (entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" : "") + "\n";
-        header += (entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" : "") + "\n";
-        header += (entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" : "") + "\n";
-        header += (entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" : "") + "\n";
+        header += entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" + "\n" : "";
+        header += entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" + "\n" : "";
+        header += entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" + "\n" : "";
+        header += entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" + "\n" : "";
+        header += entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" + "\n" : "";
 
         SetPageHeader("BlueprintDetailsPage", header);
 

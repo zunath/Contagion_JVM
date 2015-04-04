@@ -1,14 +1,12 @@
 package contagionJVM.Event;
 
 import contagionJVM.Bioware.XP2;
+import contagionJVM.Helper.ErrorHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.constants.IpConst;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 @SuppressWarnings("UnusedDeclaration")
 public class Module_OnUseItem implements IScriptEventHandler {
@@ -24,8 +22,8 @@ public class Module_OnUseItem implements IScriptEventHandler {
     {
         NWObject oItem = NWNX_Events.GetEventItem();
 
-        String className = NWScript.getLocalString(oItem, "JavaClass");
-        if(className.equals("")) return;
+        String className = NWScript.getLocalString(oItem, "JAVA_SCRIPT");
+        if(className.equals("") || NWScript.getLocalInt(oItem, "SKIP_ANIMATION") == 0) return;
 
         try
         {
@@ -36,18 +34,7 @@ public class Module_OnUseItem implements IScriptEventHandler {
         }
         catch (Exception ex)
         {
-            StringWriter sw = new StringWriter();
-            ex.printStackTrace(new PrintWriter(sw));
-            String exceptionAsString = sw.toString();
-
-            String message = "Module_OnActivateItem was unable to execute class method: contagionJVM.Item." + className + ".runScript()";
-            System.out.println(message);
-            System.out.println("Exception: ");
-            System.out.println(exceptionAsString);
-
-            NWScript.writeTimestampedLogEntry(message);
-            NWScript.writeTimestampedLogEntry("Exception:");
-            NWScript.writeTimestampedLogEntry(exceptionAsString);
+            ErrorHelper.HandleException(ex, "Module_OnActivateItem was unable to execute class method: contagionJVM.Item." + className + ".runScript()");
         }
     }
 

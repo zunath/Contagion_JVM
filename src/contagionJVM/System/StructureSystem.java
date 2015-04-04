@@ -251,6 +251,7 @@ public class StructureSystem {
             return;
         }
 
+        // Moving construction site, no blueprint set
         if(constructionSiteID <= 0 && NWScript.getResRef(target).equals(ConstructionSiteResref))
         {
             if(!CanPCBuildInLocation(oPC, location))
@@ -259,11 +260,23 @@ public class StructureSystem {
             }
         }
 
+        // Moving construction site, blueprint is set.
         if(constructionSiteID > 0)
         {
             ConstructionSiteEntity entity = repo.GetConstructionSiteByID(constructionSiteID);
+            boolean isTerritoryMarkerConstructionSite = entity.getPcTerritoryFlag() == null;
 
-            if(entity.getPcTerritoryFlag().getPcTerritoryFlagID() != nearestFlagID ||
+            // Territory marker - Ensure not in radius of another territory
+            if(isTerritoryMarkerConstructionSite )
+            {
+                PCTerritoryFlagEntity nearestFlagEntity = repo.GetPCTerritoryFlagByID(nearestFlagID);
+                if(nearestFlagEntity != null && NWScript.getDistanceBetweenLocations(location, nearestFlagLocation) <= nearestFlagEntity.getBlueprint().getMaxBuildDistance())
+                {
+                    NWScript.floatingTextStringOnCreature("Cannot move territory markers within the building range of another territory marker.", oPC, false);
+                    return;
+                }
+            }
+            else if(entity.getPcTerritoryFlag().getPcTerritoryFlagID() != nearestFlagID ||
                     NWScript.getDistanceBetweenLocations(nearestFlagLocation, location) > entity.getPcTerritoryFlag().getBlueprint().getMaxBuildDistance())
             {
                 outsideOwnFlagRadius = true;
