@@ -53,7 +53,7 @@ public class StructureSystem {
             NWVector position = NWScript.vector((float) flag.getLocationX(), (float) flag.getLocationY(), (float) flag.getLocationZ());
             NWLocation location = NWScript.location(oArea, position, (float) flag.getLocationOrientation());
 
-            NWObject territoryFlag = NWScript.createObject(ObjectType.PLACEABLE, flag.getTerritoryFlag().getResref(), location, false, "");
+            NWObject territoryFlag = NWScript.createObject(ObjectType.PLACEABLE, flag.getBlueprint().getResref(), location, false, "");
             NWScript.setLocalInt(territoryFlag, TerritoryFlagIDVariableName, flag.getPcTerritoryFlagID());
 
             for(PCTerritoryFlagStructureEntity structure : flag.getStructures())
@@ -62,7 +62,7 @@ public class StructureSystem {
                 position = NWScript.vector((float) structure.getLocationX(), (float) structure.getLocationY(), (float) structure.getLocationZ());
                 location = NWScript.location(oArea, position, (float) structure.getLocationOrientation());
 
-                NWObject structurePlaceable = NWScript.createObject(ObjectType.PLACEABLE, flag.getTerritoryFlag().getResref(), location, false, "");
+                NWObject structurePlaceable = NWScript.createObject(ObjectType.PLACEABLE, flag.getBlueprint().getResref(), location, false, "");
                 NWScript.setLocalInt(structurePlaceable, StructureIDVariableName, structure.getPcTerritoryFlagStructureID());
             }
 
@@ -156,6 +156,11 @@ public class StructureSystem {
     public static void SetConstructionSiteID(NWObject site, int constructionSiteID)
     {
         NWScript.setLocalInt(site, ConstructionSiteIDVariableName, constructionSiteID);
+    }
+
+    public static int GetTerritoryFlagID(NWObject flag)
+    {
+        return NWScript.getLocalInt(flag, TerritoryFlagIDVariableName);
     }
 
 }

@@ -45,12 +45,8 @@ public class ConstructionSiteEntity {
     private double locationOrientation;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TerritoryFlagID")
-    private TerritoryFlagEntity territoryFlag;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "StructureID")
-    private StructureEntity structure;
+    @JoinColumn(name = "StructureBlueprintID")
+    private StructureBlueprintEntity blueprint;
 
     public int getConstructionSiteID() {
         return constructionSiteID;
@@ -140,20 +136,12 @@ public class ConstructionSiteEntity {
         this.locationOrientation = locationOrientation;
     }
 
-    public TerritoryFlagEntity getTerritoryFlag() {
-        return territoryFlag;
+    public StructureBlueprintEntity getBlueprint() {
+        return blueprint;
     }
 
-    public void setTerritoryFlag(TerritoryFlagEntity territoryFlag) {
-        this.territoryFlag = territoryFlag;
-    }
-
-    public StructureEntity getStructure() {
-        return structure;
-    }
-
-    public void setStructure(StructureEntity structure) {
-        this.structure = structure;
+    public void setBlueprint(StructureBlueprintEntity blueprint) {
+        this.blueprint = blueprint;
     }
 
     public int getMetalRequired() {

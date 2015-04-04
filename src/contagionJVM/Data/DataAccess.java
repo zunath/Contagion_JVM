@@ -105,8 +105,7 @@ public class DataAccess {
         _configuration.addAnnotatedClass(StorageContainerEntity.class);
         _configuration.addAnnotatedClass(StorageItemEntity.class);
         _configuration.addAnnotatedClass(StructureCategoryEntity.class);
-        _configuration.addAnnotatedClass(StructureEntity.class);
-        _configuration.addAnnotatedClass(TerritoryFlagEntity.class);
+        _configuration.addAnnotatedClass(StructureBlueprintEntity.class);
         _configuration.addAnnotatedClass(TerritoryFlagPermissionEntity.class);
         _configuration.addAnnotatedClass(ZombieClothesEntity.class);
 

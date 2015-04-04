@@ -34,8 +34,8 @@ public class PCTerritoryFlagEntity {
     private double locationOrientation;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TerritoryFlagID")
-    private TerritoryFlagEntity territoryFlag;
+    @JoinColumn(name = "StructureBlueprintID")
+    private StructureBlueprintEntity blueprint;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pcTerritoryFlag", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<PCTerritoryFlagStructureEntity> structures;
@@ -100,14 +100,6 @@ public class PCTerritoryFlagEntity {
         this.locationOrientation = locationOrientation;
     }
 
-    public TerritoryFlagEntity getTerritoryFlag() {
-        return territoryFlag;
-    }
-
-    public void setTerritoryFlag(TerritoryFlagEntity territoryFlag) {
-        this.territoryFlag = territoryFlag;
-    }
-
     public List<PCTerritoryFlagStructureEntity> getStructures() {
         return structures;
     }
@@ -122,5 +114,13 @@ public class PCTerritoryFlagEntity {
 
     public void setPermissions(List<PCTerritoryFlagPermissionEntity> permissions) {
         this.permissions = permissions;
+    }
+
+    public StructureBlueprintEntity getBlueprint() {
+        return blueprint;
+    }
+
+    public void setBlueprint(StructureBlueprintEntity blueprint) {
+        this.blueprint = blueprint;
     }
 }

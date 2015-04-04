@@ -92,7 +92,32 @@ public class StructureRepository {
         }
     }
 
-    public List<StructureCategoryEntity> GetAllStructureCategories()
+    public void Delete(ConstructionSiteEntity entity)
+    {
+        try(DataContext context = new DataContext())
+        {
+            context.getSession().delete(entity);
+        }
+    }
+
+
+    public StructureBlueprintEntity GetStructureBlueprintByID(int structureID)
+    {
+        StructureBlueprintEntity entity;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(StructureBlueprintEntity.class)
+                    .add(Restrictions.eq("structureBlueprintID", structureID));
+
+            entity = (StructureBlueprintEntity)criteria.uniqueResult();
+        }
+
+        return entity;
+    }
+
+    public List<StructureCategoryEntity> GetStructureCategoriesByType(boolean isTerritoryFlagCategory)
     {
         List<StructureCategoryEntity> categories;
 
@@ -100,7 +125,8 @@ public class StructureRepository {
         {
             Criteria criteria = context.getSession()
                     .createCriteria(StructureCategoryEntity.class)
-                    .add(Restrictions.eq("isActive", true));
+                    .add(Restrictions.eq("isActive", true))
+                    .add(Restrictions.eq("isTerritoryFlagCategory", isTerritoryFlagCategory));
 
             categories = criteria.list();
         }
@@ -108,4 +134,20 @@ public class StructureRepository {
         return categories;
     }
 
+    public List<StructureBlueprintEntity> GetStructuresByCategoryID(int categoryID)
+    {
+        List<StructureBlueprintEntity> entities;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(StructureBlueprintEntity.class)
+                    .add(Restrictions.eq("isActive", true))
+                    .add(Restrictions.eq("structureCategoryID", categoryID));
+
+            entities = criteria.list();
+        }
+
+        return entities;
+    }
 }

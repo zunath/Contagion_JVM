@@ -20,6 +20,9 @@ public class StructureCategoryEntity {
     @Column(name = "IsActive")
     private boolean isActive;
 
+    @Column(name = "IsTerritoryFlagCategory")
+    private boolean isTerritoryFlagCategory;
+
     public int getStructureCategoryID() {
         return structureCategoryID;
     }
@@ -50,5 +53,13 @@ public class StructureCategoryEntity {
 
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public boolean isTerritoryFlagCategory() {
+        return isTerritoryFlagCategory;
+    }
+
+    public void setIsTerritoryFlagCategory(boolean isTerritoryFlagCategory) {
+        this.isTerritoryFlagCategory = isTerritoryFlagCategory;
     }
 }

@@ -6,17 +6,18 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Dialog end conversation functionality.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_BuildToolMenu.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_BuildToolMenu.java" />
+    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Lots of work on the construction site menu">
+      <change type="DELETED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Entities\TerritoryFlagEntity.java" afterPath="" />
+      <change type="MOVED" beforePath="C:\Users\Tyler\IdeaProjects\Contagion_JVM\src\contagionJVM\Entities\StructureEntity.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/StructureBlueprintEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Models/ConstructionSiteConversationModel.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Models/ConstructionSiteConversationModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Entities/ConstructionSiteEntity.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/ConstructionSiteEntity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ConstructionSite.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ConstructionSite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogBase.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogManager.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_ActionTaken.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_ActionTaken.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_AppearsWhen.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_AppearsWhen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_End.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_End.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/EventReceiver.java" afterPath="$PROJECT_DIR$/src/contagionJVM/EventReceiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/PlayerDialog.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/PlayerDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagEntity.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureEntity.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Entities/StructureCategoryEntity.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Entities/StructureCategoryEntity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Repository/StructureRepository.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Repository/StructureRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/StructureSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/StructureSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -39,31 +40,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Conversation_ConstructionSite.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Conversation_ConstructionSite.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ConstructionSite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.67526555">
+              <caret line="325" column="22" selection-start-line="325" selection-start-column="22" selection-end-line="325" selection-end-column="22" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dialog_End.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_End.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41274658">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StructureRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/StructureRepository.java">
+      <file leaf-file-name="StructureSystem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/StructureSystem.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="55" selection-start-line="94" selection-start-column="55" selection-end-line="94" selection-end-column="55" />
+              <caret line="163" column="5" selection-start-line="163" selection-start-column="5" selection-end-line="163" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -89,7 +80,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/BadgeEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCBadgeEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Repository/BadgeRepository.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_RestMenu.java" />
@@ -108,31 +98,20 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureItemEntity.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/StructureCategoryEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/TerritoryFlagPermissionEntity.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnLoad.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Placeable/StructureSystem/ConstructionSite_OnAttacked.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_BuildMenu.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Models/BuildToolConversationModel.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagPermissionEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnActivateItem.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_Start.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Helper/ErrorHelper.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Item/StructureBuildTool.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/System/StructureSystem.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Models/ConstructionSiteConversationModel.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogPage.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogResponse.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/ConstructionSiteEntity.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/StructureEntity.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/TerritoryFlagEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ChangeHead.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Repository/StructureRepository.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_ActionTaken.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ConstructionSite.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/PlayerDialog.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogBase.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_BuildToolMenu.java" />
@@ -140,6 +119,18 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_AppearsWhen.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/DialogManager.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_End.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/StructureCategoryEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Models/ConstructionSiteConversationModel.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/TerritoryFlagEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/StructureEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/ConstructionSiteEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Repository/StructureRepository.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/StructureBlueprintEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureEntity.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/System/StructureSystem.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ConstructionSite.java" />
       </list>
     </option>
   </component>
@@ -418,6 +409,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="structureID&#9;PSI&#9;JAVA://contagionJVM.Entities.PCTerritoryFlagStructureEntity#structureID&#10;blueprintstructure&#9;PSI&#9;JAVA://contagionJVM.Entities.StructureBlueprintEntity#blueprintStructureID" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -609,12 +601,6 @@
       <created>1423272595571</created>
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Dialog system">
-      <created>1424057479202</created>
-      <option name="number" value="00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1424057479202</updated>
     </task>
     <task id="LOCAL-00018" summary="Remove hard coded value for Skill requirement item property">
       <created>1424057668235</created>
@@ -904,7 +890,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428099673771</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Dialog end conversation functionality.">
+      <created>1428106462762</created>
+      <option name="number" value="00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1428106462762</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -913,9 +905,9 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27531645" sideWeight="0.4568493" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27531645" sideWeight="0.51979166" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4055794" sideWeight="0.41525424" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27531645" sideWeight="0.48020834" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -928,7 +920,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38185653" sideWeight="0.58474576" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38185653" sideWeight="0.58229166" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -949,7 +941,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Player CD key validation checks" />
     <MESSAGE value="Key item checks for displaying area maps, odds and ends" />
     <MESSAGE value="Migrate armor system to java" />
     <MESSAGE value="Migrate zombie AI scripts to java" />
@@ -974,14 +965,15 @@
     <MESSAGE value="Add metal fields to construction site, structure, and territory marker entities" />
     <MESSAGE value="Correct off-by-one error when reducing head ID past 1" />
     <MESSAGE value="Dialog end conversation functionality." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dialog end conversation functionality." />
+    <MESSAGE value="Lots of work on the construction site menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lots of work on the construction site menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="106" />
+      <option name="time" value="107" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1052,42 +1044,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PlayerEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.94246864">
-          <caret line="53" column="36" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureItemEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21338913">
-          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/StructureCategoryEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/TerritoryFlagPermissionEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5690377">
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8650628">
-          <caret line="109" column="78" selection-start-line="109" selection-start-column="78" selection-end-line="109" selection-end-column="78" />
           <folding />
         </state>
       </provider>
@@ -1128,14 +1088,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1880531">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12934783">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1204,30 +1156,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Models/ConstructionSiteConversationModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1218638">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagPermissionEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81182796">
-          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/StructureSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="150" column="17" selection-start-line="150" selection-start-column="17" selection-end-line="150" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/DialogResponse.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7311828">
@@ -1236,58 +1164,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseItemEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2956989">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="19" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6111111">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/ConstructionSiteEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36115327">
-          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.814871">
-          <caret line="32" column="41" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/TerritoryFlagEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38239756">
-          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/StructureEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6130501">
-          <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/DialogPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78494626">
-          <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -1332,14 +1212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ConstructionSite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/EventReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1380,18 +1252,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/StructureRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="55" selection-start-line="94" selection-start-column="55" selection-end-line="94" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Dialog_End.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41274658">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/DialogPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/StructureCategoryEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.69650984">
+          <caret line="45" column="52" selection-start-line="45" selection-start-column="52" selection-end-line="45" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Models/ConstructionSiteConversationModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38694993">
+          <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagPermissionEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7667185">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureItemEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PlayerEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="36" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/ConstructionSiteEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/StructureRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.8634295">
+          <caret line="111" column="62" selection-start-line="111" selection-start-column="62" selection-end-line="111" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCorpseItemEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29590288">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="19" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="42" selection-start-line="37" selection-start-column="42" selection-end-line="37" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Data/DataAccess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.60546285">
+          <caret line="113" column="29" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/StructureBlueprintEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.4704098">
+          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagStructureEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2640364">
+          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/StructureSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="163" column="5" selection-start-line="163" selection-start-column="5" selection-end-line="163" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_ConstructionSite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.67526555">
+          <caret line="325" column="22" selection-start-line="325" selection-start-column="22" selection-end-line="325" selection-end-column="22" />
           <folding />
         </state>
       </provider>

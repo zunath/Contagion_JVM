@@ -3,12 +3,15 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "territory_flags")
-public class TerritoryFlagEntity {
+@Table(name = "structure_blueprints")
+public class StructureBlueprintEntity {
 
     @Id
-    @Column(name = "TerritoryFlagID")
-    private int territoryFlagID;
+    @Column(name = "StructureBlueprintID")
+    private int structureBlueprintID;
+
+    @Column(name = "StructureCategoryID")
+    private int structureCategoryID;
 
     @Column(name = "Name")
     private String name;
@@ -37,18 +40,21 @@ public class TerritoryFlagEntity {
     @Column(name = "LeatherRequired")
     private int leatherRequired;
 
+    @Column(name = "ItemStorageCount")
+    private int itemStorageCount;
+
     @Column(name = "MaxStructuresCount")
     private int maxStructuresCount;
 
     @Column(name = "MaxBuildDistance")
     private double maxBuildDistance;
 
-    public int getTerritoryFlagID() {
-        return territoryFlagID;
+    public int getStructureBlueprintID() {
+        return structureBlueprintID;
     }
 
-    public void setTerritoryFlagID(int territoryFlagID) {
-        this.territoryFlagID = territoryFlagID;
+    public void setStructureBlueprintID(int blueprintStructureID) {
+        this.structureBlueprintID = blueprintStructureID;
     }
 
     public String getName() {
@@ -107,12 +113,12 @@ public class TerritoryFlagEntity {
         this.leatherRequired = leatherRequired;
     }
 
-    public int getMaxStructuresCount() {
-        return maxStructuresCount;
+    public int getItemStorageCount() {
+        return itemStorageCount;
     }
 
-    public void setMaxStructuresCount(int maxStructuresCount) {
-        this.maxStructuresCount = maxStructuresCount;
+    public void setItemStorageCount(int itemStorageCount) {
+        this.itemStorageCount = itemStorageCount;
     }
 
     public String getResref() {
@@ -123,19 +129,35 @@ public class TerritoryFlagEntity {
         this.resref = resref;
     }
 
-    public double getMaxBuildDistance() {
-        return maxBuildDistance;
-    }
-
-    public void setMaxBuildDistance(double maxBuildDistance) {
-        this.maxBuildDistance = maxBuildDistance;
-    }
-
     public int getMetalRequired() {
         return metalRequired;
     }
 
     public void setMetalRequired(int metalRequired) {
         this.metalRequired = metalRequired;
+    }
+
+    public int getStructureCategoryID() {
+        return structureCategoryID;
+    }
+
+    public void setStructureCategoryID(int structureCategoryID) {
+        this.structureCategoryID = structureCategoryID;
+    }
+
+    public int getMaxStructuresCount() {
+        return maxStructuresCount;
+    }
+
+    public void setMaxStructuresCount(int maxStructuresCount) {
+        this.maxStructuresCount = maxStructuresCount;
+    }
+
+    public double getMaxBuildDistance() {
+        return maxBuildDistance;
+    }
+
+    public void setMaxBuildDistance(double maxBuildDistance) {
+        this.maxBuildDistance = maxBuildDistance;
     }
 }

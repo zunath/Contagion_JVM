@@ -12,8 +12,8 @@ public class PCTerritoryFlagStructureEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int pcTerritoryFlagStructureID;
 
-    @Column(name = "StructureID")
-    private int structureID;
+    @Column(name = "StructureBlueprintID")
+    private int structureBlueprintID;
 
     @Column(name = "LocationAreaTag")
     private String locationAreaTag;
@@ -35,7 +35,7 @@ public class PCTerritoryFlagStructureEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PCTerritoryFlagID")
-    private PCCorpseEntity pcTerritoryFlag;
+    private PCTerritoryFlagEntity pcTerritoryFlag;
 
     public int getPcTerritoryFlagStructureID() {
         return pcTerritoryFlagStructureID;
@@ -45,12 +45,12 @@ public class PCTerritoryFlagStructureEntity {
         this.pcTerritoryFlagStructureID = pcTerritoryFlagStructureID;
     }
 
-    public int getStructureID() {
-        return structureID;
+    public int getStructureBlueprintID() {
+        return structureBlueprintID;
     }
 
-    public void setStructureID(int structureID) {
-        this.structureID = structureID;
+    public void setStructureBlueprintID(int structureBlueprintID) {
+        this.structureBlueprintID = structureBlueprintID;
     }
 
     public Date getCreateDate() {
@@ -61,11 +61,11 @@ public class PCTerritoryFlagStructureEntity {
         this.createDate = createDate;
     }
 
-    public PCCorpseEntity getPcTerritoryFlag() {
+    public PCTerritoryFlagEntity getPcTerritoryFlag() {
         return pcTerritoryFlag;
     }
 
-    public void setPcTerritoryFlag(PCCorpseEntity pcTerritoryFlag) {
+    public void setPcTerritoryFlag(PCTerritoryFlagEntity pcTerritoryFlag) {
         this.pcTerritoryFlag = pcTerritoryFlag;
     }
 
