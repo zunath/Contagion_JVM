@@ -1,8 +1,10 @@
 package contagionJVM.System;
 
+import contagionJVM.Entities.AuthorizedDMEntity;
 import contagionJVM.Entities.PCAuthorizedCDKeyEntity;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.NWNX.NWNX_Funcs;
+import contagionJVM.Repository.AuthorizedDMRepository;
 import contagionJVM.Repository.PCAuthorizedCDKeysRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -112,5 +114,18 @@ public class PlayerAuthorizationSystem {
         {
             NWNX_Funcs.BootPCWithMessage(oPC, 16782506);
         }
+    }
+
+    public static boolean IsPCRegisteredAsDM(NWObject oPC)
+    {
+        if(NWScript.getIsDM(oPC)) return true;
+        if(!NWScript.getIsPC(oPC)) return false;
+
+        String cdKey = NWScript.getPCPublicCDKey(oPC, false);
+        AuthorizedDMRepository repo = new AuthorizedDMRepository();
+
+        AuthorizedDMEntity entity = repo.getByCDKey(cdKey);
+        return entity != null;
+
     }
 }

@@ -3,7 +3,6 @@ package contagionJVM.Dialog;
 import contagionJVM.Entities.PCTerritoryFlagStructureEntity;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Models.BuildToolConversationModel;
-import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.Repository.StructureRepository;
 import contagionJVM.System.StructureSystem;
 import org.nwnx.nwnx2.jvm.NWLocation;
@@ -26,7 +25,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
                 "What would you like to do with this structure?",
                 "Rotate",
                 "Move",
-                "Raze",
+                ColorToken.Red() + "Raze" + ColorToken.End(),
                 "Back"
         );
 
@@ -36,13 +35,13 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
                 "Set Facing: North",
                 "Set Facing: South",
                 "Set Facing: West",
-                "Rotate 20°",
-                "Rotate 30°",
-                "Rotate 45°",
-                "Rotate 60°",
-                "Rotate 75°",
-                "Rotate 90°",
-                "Rotate 180°",
+                "Rotate 20\u00b0",
+                "Rotate 30\u00b0",
+                "Rotate 45\u00b0",
+                "Rotate 60\u00b0",
+                "Rotate 75\u00b0",
+                "Rotate 90\u00b0",
+                "Rotate 180\u00b0",
                 "Back"
         );
 
@@ -50,7 +49,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
                 ColorToken.Red() + "WARNING: " + ColorToken.End() +
                         "You are about to destroy a structure. All items inside of this structure will be permanently destroyed.\n\n" +
                         "Are you sure you want to raze this structure?\n",
-                "Raze Structure",
+                ColorToken.Red() + "Confirm Raze" + ColorToken.End(),
                 "Back"
         );
 
@@ -70,7 +69,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         NWScript.deleteLocalLocation(oPC, "BUILD_TOOL_LOCATION_TARGET");
         SetDialogCustomData(model);
 
-        BuildMainMenuResponses();
+        BuildMainMenuResponses(null);
     }
 
     @Override
@@ -93,7 +92,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
                         ChangePage("RazeStructurePage");
                         break;
                     case 4: // Back
-                        BuildMainMenuResponses();
+                        BuildMainMenuResponses(null);
                         ChangePage("MainPage");
                         break;
                 }
@@ -163,7 +162,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         return (BuildToolConversationModel)GetDialogCustomData();
     }
 
-    private void BuildMainMenuResponses()
+    private void BuildMainMenuResponses(NWObject excludeObject)
     {
         DialogPage page = GetPageByName("MainPage");
         page.getResponses().clear();
@@ -172,7 +171,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         model.setActiveStructure(null);
 
         DialogResponse constructionSiteResponse = new DialogResponse(ColorToken.Green() + "Create Construction Site" + ColorToken.End());
-        if(!StructureSystem.CanPCBuildConstructionSite(GetPC(), model.getTargetLocation()))
+        if(!StructureSystem.CanPCBuildInLocation(GetPC(), model.getTargetLocation()))
         {
             constructionSiteResponse.setActive(false);
         }
@@ -195,8 +194,11 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
         for(NWObject structure : model.getNearbyStructures())
         {
-            DialogResponse response = new DialogResponse(NWScript.getName(structure, false), structure);
-            page.getResponses().add(response);
+            if(excludeObject == null || !excludeObject.equals(structure))
+            {
+                DialogResponse response = new DialogResponse(NWScript.getName(structure, false), structure);
+                page.getResponses().add(response);
+            }
         }
     }
 
@@ -210,6 +212,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         {
             StructureSystem.CreateConstructionSite(GetPC(), model.getTargetLocation());
             EndConversation();
+            NWScript.floatingTextStringOnCreature("Construction site created! Use the construction site to select a blueprint.", GetPC(), false);
         }
         else if(structure != null)
         {
@@ -223,7 +226,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         BuildToolConversationModel model = GetModel();
         NWScript.floatingTextStringOnCreature("Please use your build tool to select a new location for this structure.", GetPC(), false);
         StructureSystem.SetIsPCMovingStructure(GetPC(), model.getActiveStructure(), true);
-
+        EndConversation();
     }
 
     private void HandleRotateStructure(float rotation, boolean isSet)
@@ -241,6 +244,8 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         {
             entity.setLocationOrientation(entity.getLocationOrientation() + rotation);
         }
+
+        repo.Save(entity);
 
         Scheduler.assign(model.getActiveStructure(), new Runnable() {
             @Override
@@ -260,13 +265,13 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         if(model.isConfirmingRaze())
         {
             model.setIsConfirmingRaze(false);
-            SetResponseText("RazeStructurePage", 1, "Raze Structure");
+            SetResponseText("RazeStructurePage", 1, ColorToken.Red() + "Raze Structure" + ColorToken.End());
             StructureRepository repo = new StructureRepository();
             PCTerritoryFlagStructureEntity entity = repo.GetPCStructureByID(structureID);
             repo.Delete(entity);
             NWScript.destroyObject(model.getActiveStructure(), 0.0f);
 
-            BuildMainMenuResponses();
+            BuildMainMenuResponses(model.getActiveStructure());
             ChangePage("MainPage");
         }
         else

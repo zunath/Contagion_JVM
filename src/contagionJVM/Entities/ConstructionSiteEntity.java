@@ -11,8 +11,8 @@ public class ConstructionSiteEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int constructionSiteID;
 
-    @Column(name = "PCTerritoryFlagID")
-    private int pcTerritoryFlagID;
+    @Column(name = "PlayerID")
+    private String playerID;
 
     @Column(name = "WoodRequired")
     private int woodRequired;
@@ -48,20 +48,16 @@ public class ConstructionSiteEntity {
     @JoinColumn(name = "StructureBlueprintID")
     private StructureBlueprintEntity blueprint;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PCTerritoryFlagID")
+    private PCTerritoryFlagEntity pcTerritoryFlag;
+
     public int getConstructionSiteID() {
         return constructionSiteID;
     }
 
     public void setConstructionSiteID(int constructionSiteID) {
         this.constructionSiteID = constructionSiteID;
-    }
-
-    public int getPcTerritoryFlagID() {
-        return pcTerritoryFlagID;
-    }
-
-    public void setPcTerritoryFlagID(int pcTerritoryFlagID) {
-        this.pcTerritoryFlagID = pcTerritoryFlagID;
     }
 
     public int getWoodRequired() {
@@ -150,5 +146,21 @@ public class ConstructionSiteEntity {
 
     public void setMetalRequired(int metalRequired) {
         this.metalRequired = metalRequired;
+    }
+
+    public String getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(String playerID) {
+        this.playerID = playerID;
+    }
+
+    public PCTerritoryFlagEntity getPcTerritoryFlag() {
+        return pcTerritoryFlag;
+    }
+
+    public void setPcTerritoryFlag(PCTerritoryFlagEntity pcTerritoryFlag) {
+        this.pcTerritoryFlag = pcTerritoryFlag;
     }
 }

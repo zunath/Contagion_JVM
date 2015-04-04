@@ -30,7 +30,10 @@ public class PCTerritoryFlagStructureEntity {
     @Column(name = "LocationOrientation")
     private double locationOrientation;
 
-    @Column(name = "CreateDate")
+    @Column(name = "IsUseable")
+    private boolean isUseable;
+
+    @Column(name = "CreateDate", insertable = false)
     private Date createDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -107,5 +110,13 @@ public class PCTerritoryFlagStructureEntity {
 
     public void setLocationOrientation(double locationOrientation) {
         this.locationOrientation = locationOrientation;
+    }
+
+    public boolean isUseable() {
+        return isUseable;
+    }
+
+    public void setIsUseable(boolean isUseable) {
+        this.isUseable = isUseable;
     }
 }

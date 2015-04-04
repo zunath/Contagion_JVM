@@ -5,6 +5,7 @@ import contagionJVM.Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
+import javax.persistence.Entity;
 import java.util.List;
 
 public class StructureRepository {
@@ -82,6 +83,14 @@ public class StructureRepository {
         }
 
         return entity;
+    }
+
+    public void Save(Object entity)
+    {
+        try(DataContext context = new DataContext())
+        {
+            context.getSession().saveOrUpdate(entity);
+        }
     }
 
     public void Delete(PCTerritoryFlagStructureEntity entity)

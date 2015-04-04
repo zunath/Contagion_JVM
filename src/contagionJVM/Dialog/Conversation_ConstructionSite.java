@@ -1,12 +1,11 @@
 package contagionJVM.Dialog;
 
-import contagionJVM.Entities.ConstructionSiteEntity;
-import contagionJVM.Entities.PCTerritoryFlagEntity;
-import contagionJVM.Entities.StructureCategoryEntity;
-import contagionJVM.Entities.StructureBlueprintEntity;
+import contagionJVM.Entities.*;
 import contagionJVM.Helper.ColorToken;
+import contagionJVM.Models.BuildToolConversationModel;
 import contagionJVM.Models.ConstructionSiteConversationModel;
 import contagionJVM.Repository.StructureRepository;
+import contagionJVM.System.PlayerAuthorizationSystem;
 import contagionJVM.System.StructureSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -49,11 +48,28 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
                 "Please select a blueprint."
         );
 
+        DialogPage rotatePage = new DialogPage(
+                "Please select a rotation.",
+                "Set Facing: East",
+                "Set Facing: North",
+                "Set Facing: South",
+                "Set Facing: West",
+                "Rotate 20\u00b0",
+                "Rotate 30\u00b0",
+                "Rotate 45\u00b0",
+                "Rotate 60\u00b0",
+                "Rotate 75\u00b0",
+                "Rotate 90\u00b0",
+                "Rotate 180\u00b0",
+                "Back"
+        );
+
         dialog.addPage("MainPage", mainPage);
         dialog.addPage("BlueprintCategoryPage", blueprintCategoryPage);
         dialog.addPage("BlueprintListPage", blueprintListPage);
         dialog.addPage("BlueprintDetailsPage", blueprintDetailsPage);
         dialog.addPage("QuickBuildPage", quickBuildPage);
+        dialog.addPage("RotatePage", rotatePage);
         dialog.addPage("RazePage", razePage);
         return dialog;
     }
@@ -70,35 +86,26 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         switch(pageName)
         {
             case "MainPage":
-            {
                 HandleMainPageResponse(responseID);
                 break;
-            }
             case "BlueprintCategoryPage":
-            {
                 HandleCategoryResponse(responseID);
                 break;
-            }
             case "BlueprintListPage":
-            {
                 HandleBlueprintListResponse(responseID);
                 break;
-            }
             case "BlueprintDetailsPage":
-            {
                 HandleBlueprintDetailsResponse(responseID);
                 break;
-            }
             case "RazePage":
-            {
                 HandleRazeResponse(responseID);
                 break;
-            }
             case "QuickBuildPage":
-            {
                 HandleQuickBuildResponse(responseID);
                 break;
-            }
+            case "RotatePage":
+                HandleRotatePageResponse(responseID);
+                break;
         }
     }
 
@@ -155,6 +162,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         {
             header = "Please select an option.";
             page.addResponse("Select Blueprint", true);
+            page.addResponse("Move", true);
             page.addResponse(ColorToken.Red() + "Raze" + ColorToken.End(), true);
 
         }
@@ -165,14 +173,16 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             header = ColorToken.Green() + "Blueprint: " + ColorToken.End() + entity.getBlueprint().getName() + "\n\n";
             header += ColorToken.Green() + "Resources Required: " + ColorToken.End() + "\n\n";
 
-            header += entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" : "";
-            header += entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" : "";
-            header += entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" : "";
-            header += entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" : "";
-            header += entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" : "";
+            header += (entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" : "") + "\n";
+            header += (entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" : "") + "\n";
+            header += (entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" : "") + "\n";
+            header += (entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" : "") + "\n";
+            header += (entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" : "") + "\n";
 
-            page.addResponse("Quick Build", NWScript.getIsDM(GetPC()));
+            page.addResponse("Quick Build", PlayerAuthorizationSystem.IsPCRegisteredAsDM(GetPC()));
             page.addResponse("Preview", true);
+            page.addResponse("Rotate", true);
+            page.addResponse("Move", true);
             page.addResponse(ColorToken.Red() + "Raze" + ColorToken.End(), true);
         }
 
@@ -191,7 +201,12 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
                     LoadCategoryPageResponses();
                     ChangePage("BlueprintCategoryPage");
                     break;
-                case 2: // Raze
+                case 2: // Move
+                    StructureSystem.SetIsPCMovingStructure(GetPC(), GetDialogTarget(), true);
+                    NWScript.floatingTextStringOnCreature("Please use your build tool to select a new location for this structure.", GetPC(), false);
+                    EndConversation();
+                    break;
+                case 3: // Raze
                     ChangePage("RazePage");
                     break;
             }
@@ -206,7 +221,15 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
                 case 2: // Preview
                     DoConstructionSitePreview();
                     break;
-                case 3: // Raze
+                case 3: // Rotate
+                    ChangePage("RotatePage");
+                    break;
+                case 4: // Move
+                    StructureSystem.SetIsPCMovingStructure(GetPC(), GetDialogTarget(), true);
+                    NWScript.floatingTextStringOnCreature("Please use your build tool to select a new location for this structure.", GetPC(), false);
+                    EndConversation();
+                    break;
+                case 5: // Raze
                     ChangePage("RazePage");
                     break;
             }
@@ -224,12 +247,12 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         {
             header += ColorToken.Green() + "Description: " + ColorToken.End() + entity.getDescription() + "\n\n";
         }
-        header += ColorToken.Green() + "Resources Required: " + ColorToken.End() + "\n\n";
-        header += entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" : "";
-        header += entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" : "";
-        header += entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" : "";
-        header += entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" : "";
-        header += entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" : "";
+        header += (ColorToken.Green() + "Resources Required: " + ColorToken.End() + "\n") + "\n";
+        header += (entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" : "") + "\n";
+        header += (entity.getNailsRequired() > 0 ? entity.getNailsRequired() + "x Nails" : "") + "\n";
+        header += (entity.getMetalRequired() > 0 ? entity.getMetalRequired() + "x Metal" : "") + "\n";
+        header += (entity.getClothRequired() > 0 ? entity.getClothRequired() + "x Cloth" : "") + "\n";
+        header += (entity.getLeatherRequired() > 0 ? entity.getLeatherRequired() + "x Leather" : "") + "\n";
 
         SetPageHeader("BlueprintDetailsPage", header);
 
@@ -304,12 +327,56 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         switch (responseID)
         {
             case 1: // Select Blueprint
+                DoSelectBlueprint();
                 break;
             case 2: // Preview
                 DoBlueprintPreview(GetModel().getBlueprintID());
                 break;
             case 3: // Back
                 ChangePage("BlueprintListPage");
+                break;
+        }
+    }
+
+    private void HandleRotatePageResponse(int responseID)
+    {
+        switch(responseID)
+        {
+            case 1: // East
+                DoRotateConstructionSite(0.0f, true);
+                break;
+            case 2: // North
+                DoRotateConstructionSite(90.0f, true);
+                break;
+            case 3: // South
+                DoRotateConstructionSite(180.0f, true);
+                break;
+            case 4: // West
+                DoRotateConstructionSite(270.0f, true);
+                break;
+            case 5: // Rotate 20
+                DoRotateConstructionSite(20.0f, false);
+                break;
+            case 6: // Rotate 30
+                DoRotateConstructionSite(30.0f, false);
+                break;
+            case 7: // Rotate 45
+                DoRotateConstructionSite(45.0f, false);
+                break;
+            case 8: // Rotate 60
+                DoRotateConstructionSite(60.0f, false);
+                break;
+            case 9: // Rotate 75
+                DoRotateConstructionSite(75.0f, false);
+                break;
+            case 10: // Rotate 90
+                DoRotateConstructionSite(90.0f, false);
+                break;
+            case 11: // Rotate 180
+                DoRotateConstructionSite(180.0f, false);
+                break;
+            case 12: // Back
+                ChangePage("MainPage");
                 break;
         }
     }
@@ -400,7 +467,45 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoQuickBuild()
     {
+        StructureSystem.CompleteStructure(GetDialogTarget());
+        EndConversation();
+    }
 
+    private void DoSelectBlueprint()
+    {
+        ConstructionSiteConversationModel model = GetModel();
+        StructureSystem.SelectBlueprint(GetPC(), GetDialogTarget(), model.getBlueprintID());
+        NWScript.floatingTextStringOnCreature("Blueprint set. Equip a hammer and 'bash' the construction site to build.", GetPC(), false);
+        EndConversation();
+    }
+
+
+    private void DoRotateConstructionSite(float rotation, boolean isSet)
+    {
+        ConstructionSiteConversationModel model = GetModel();
+        StructureRepository repo = new StructureRepository();
+        int constructionSiteID = StructureSystem.GetConstructionSiteID(GetDialogTarget());
+        final ConstructionSiteEntity entity = repo.GetConstructionSiteByID(constructionSiteID);
+
+        if(isSet)
+        {
+            entity.setLocationOrientation(rotation);
+        }
+        else
+        {
+            entity.setLocationOrientation(entity.getLocationOrientation() + rotation);
+        }
+
+        repo.Save(entity);
+
+        Scheduler.assign(GetDialogTarget(), new Runnable() {
+            @Override
+            public void run() {
+                NWScript.setFacing((float) entity.getLocationOrientation());
+            }
+        });
+
+        Scheduler.flushQueues();
     }
 
 }

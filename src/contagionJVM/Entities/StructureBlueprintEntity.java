@@ -25,6 +25,12 @@ public class StructureBlueprintEntity {
     @Column(name = "IsActive")
     private boolean isActive;
 
+    @Column(name = "IsTerritoryFlag")
+    private boolean isTerritoryFlag;
+
+    @Column(name = "IsUseable")
+    private boolean isUseable;
+
     @Column(name = "WoodRequired")
     private int woodRequired;
 
@@ -159,5 +165,21 @@ public class StructureBlueprintEntity {
 
     public void setMaxBuildDistance(double maxBuildDistance) {
         this.maxBuildDistance = maxBuildDistance;
+    }
+
+    public boolean isTerritoryFlag() {
+        return isTerritoryFlag;
+    }
+
+    public void setIsTerritoryFlag(boolean isTerritoryFlag) {
+        this.isTerritoryFlag = isTerritoryFlag;
+    }
+
+    public boolean isUseable() {
+        return isUseable;
+    }
+
+    public void setIsUseable(boolean isUseable) {
+        this.isUseable = isUseable;
     }
 }

@@ -1,6 +1,7 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ErrorHelper;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -98,6 +99,9 @@ public abstract class DialogBase {
 
     protected void SwitchConversation(String conversationName)
     {
+        NWObject oPC = GetPC();
+        NWObject oTarget = GetDialogTarget();
+
         PlayerGO pcGO = new PlayerGO(GetPC());
         PlayerDialog dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
 
@@ -123,6 +127,18 @@ public abstract class DialogBase {
         dialog = DialogManager.loadPlayerDialog(pcGO.getUUID());
         dialog.resetPage();
         ChangePage(dialog.getCurrentPageName());
+
+        try
+        {
+            Class scriptClass = Class.forName("contagionJVM.Dialog.Conversation_" + dialog.getActiveDialogName());
+            IDialogHandler script = (IDialogHandler)scriptClass.newInstance();
+            script.Initialize();
+            NWScript.setLocalInt(oPC, "DIALOG_SYSTEM_INITIALIZE_RAN", 1);
+        }
+        catch (Exception ex)
+        {
+            ErrorHelper.HandleException(ex, "Unable to initialize conversation: " + dialog.getActiveDialogName());
+        }
     }
 
     protected void EndConversation()
