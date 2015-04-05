@@ -192,6 +192,23 @@ public class StructureRepository {
         return entities;
     }
 
+    public PCTerritoryFlagPermissionEntity GetPermissionByID(String playerID, int permissionID, int flagID)
+    {
+        PCTerritoryFlagPermissionEntity entity;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PCTerritoryFlagPermissionEntity.class)
+                    .add(Restrictions.eq("player.pcID", playerID))
+                    .add(Restrictions.eq("permission.territoryFlagPermissionID", permissionID))
+                    .add(Restrictions.eq("pcTerritoryFlag.pcTerritoryFlagID", flagID));
+            entity = (PCTerritoryFlagPermissionEntity)criteria.uniqueResult();
+        }
+
+        return entity;
+    }
+
     public List<TerritoryFlagPermissionEntity> GetAllTerritorySelectablePermissions()
     {
         List<TerritoryFlagPermissionEntity> entities;

@@ -12,6 +12,7 @@ public class BuildToolMenuModel {
     private NWObject activeStructure;
     private boolean isConfirmingRaze;
     private NWLocation targetLocation;
+    private NWObject flag;
 
     public BuildToolMenuModel()
     {
@@ -49,5 +50,13 @@ public class BuildToolMenuModel {
 
     public void setTargetLocation(NWLocation targetLocation) {
         this.targetLocation = targetLocation;
+    }
+
+    public NWObject getFlag() {
+        return flag;
+    }
+
+    public void setFlag(NWObject flag) {
+        this.flag = flag;
     }
 }

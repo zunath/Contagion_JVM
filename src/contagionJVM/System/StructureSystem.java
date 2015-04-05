@@ -1,6 +1,7 @@
 package contagionJVM.System;
 
 import contagionJVM.Entities.*;
+import contagionJVM.Enumerations.StructurePermission;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Models.ConstructionSiteMenuModel;
@@ -152,7 +153,7 @@ public class StructureSystem {
         return placeable;
     }
 
-    public static int CanPCBuildInLocation(NWObject oPC, NWLocation targetLocation)
+    public static int CanPCBuildInLocation(NWObject oPC, NWLocation targetLocation, int permissionCheck)
     {
         StructureRepository repo = new StructureRepository();
         NWObject flag = GetTerritoryFlagOwnerOfLocation(targetLocation);
@@ -174,23 +175,19 @@ public class StructureSystem {
             return 2;
         }
 
-
         if(entity.getPlayerID().equals(pcGO.getUUID()))
         {
             return 1;
         }
 
-        for(PCTerritoryFlagPermissionEntity permission : entity.getPermissions())
+        if(PlayerHasPermission(oPC, permissionCheck, pcTerritoryFlagID))
         {
-            if(permission.getPlayer().getPCID().equals(pcGO.getUUID()) &&
-                    permission.getPermission().getTerritoryFlagPermissionID() == 2) // 2 = Can Build Structures
-            {
-                return 1;
-            }
+            return 1;
         }
 
         return 0;
     }
+
 
     public static boolean IsWithinRangeOfTerritoryFlag(NWObject oCheck)
     {
@@ -209,7 +206,7 @@ public class StructureSystem {
 
     public static void CreateConstructionSite(NWObject oPC, NWLocation location)
     {
-        int buildStatus = CanPCBuildInLocation(oPC, location);
+        int buildStatus = CanPCBuildInLocation(oPC, location, StructurePermission.CanBuildStructures);
 
         if(buildStatus == 0) // 0 = Can't do it in that location
         {
@@ -293,10 +290,16 @@ public class StructureSystem {
             return;
         }
 
+        if(!PlayerHasPermission(oPC, StructurePermission.CanMoveStructures, nearestFlagID))
+        {
+            NWScript.floatingTextStringOnCreature("You do not have permission to move this structure.", oPC, false);
+            return;
+        }
+
         // Moving construction site, no blueprint set
         if(constructionSiteID <= 0 && NWScript.getResRef(target).equals(ConstructionSiteResref))
         {
-            if(CanPCBuildInLocation(oPC, location) == 0) // 0 = Can't build in this location
+            if(CanPCBuildInLocation(oPC, location, StructurePermission.CanMoveStructures) == 0)
             {
                 outsideOwnFlagRadius = true;
             }
@@ -570,14 +573,22 @@ public class StructureSystem {
         // Scenario #2: Construction site is a territory flag blueprint.
         // Construction site is within the flag's area of influence OR
         // the blueprint selected would bring the flag inside of its area of influence.
-        if(constructionSiteEntity != null &&
+        return !(constructionSiteEntity != null &&
                 constructionSiteEntity.getBlueprint().isTerritoryFlag() &&
-                (distance <= (flagEntity.getBlueprint().getMaxBuildDistance() + constructionSiteEntity.getBlueprint().getMaxBuildDistance())))
-        {
-            return false;
-        }
+                (distance <= (flagEntity.getBlueprint().getMaxBuildDistance() + constructionSiteEntity.getBlueprint().getMaxBuildDistance())));
 
-        return true;
     }
+
+
+    public static boolean PlayerHasPermission(NWObject oPC, int permissionID, int flagID)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        StructureRepository repo = new StructureRepository();
+        PCTerritoryFlagPermissionEntity permission = repo.GetPermissionByID(pcGO.getUUID(), permissionID, flagID);
+        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
+
+        return permission != null || entity.getPlayerID().equals(pcGO.getUUID());
+    }
+
 
 }

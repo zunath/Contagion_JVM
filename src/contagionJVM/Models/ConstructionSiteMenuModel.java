@@ -8,6 +8,7 @@ public class ConstructionSiteMenuModel {
     private int blueprintID;
     private boolean isTerritoryFlag;
     private String recoverResourcesHeader;
+    private int flagID;
 
     public int getConstructionSiteID() {
         return constructionSiteID;
@@ -55,5 +56,13 @@ public class ConstructionSiteMenuModel {
 
     public void setRecoverResourcesHeader(String recoverResourcesHeader) {
         this.recoverResourcesHeader = recoverResourcesHeader;
+    }
+
+    public int getFlagID() {
+        return flagID;
+    }
+
+    public void setFlagID(int flagID) {
+        this.flagID = flagID;
     }
 }

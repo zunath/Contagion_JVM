@@ -1,7 +1,6 @@
 package contagionJVM.Item;
 
 import contagionJVM.Dialog.DialogManager;
-import contagionJVM.Helper.ColorToken;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.System.StructureSystem;
@@ -14,8 +13,14 @@ public class StructureBuildTool implements IScriptEventHandler {
     @Override
     public void runScript(NWObject oPC) {
         NWObject oItem = NWNX_Events.GetEventItem();
+        NWObject oTarget = NWNX_Events.GetEventTarget();
         NWLocation lTargetLocation = NWScript.location(NWScript.getArea(oPC), NWNX_Events.GetEventPosition(), 0.0f);
         boolean isMovingStructure = StructureSystem.IsPCMovingStructure(oPC);
+
+        if(!oTarget.equals(NWObject.INVALID))
+        {
+            lTargetLocation = NWScript.getLocation(oTarget);
+        }
 
         if(isMovingStructure)
         {
@@ -24,16 +29,7 @@ public class StructureBuildTool implements IScriptEventHandler {
         else
         {
             NWScript.setLocalLocation(oPC, "BUILD_TOOL_LOCATION_TARGET", lTargetLocation);
-            int buildStatus = StructureSystem.CanPCBuildInLocation(oPC, lTargetLocation);
-
-            if(buildStatus == 0)
-            {
-                NWScript.floatingTextStringOnCreature("You cannot perform any actions in this territory.", oPC, false);
-            }
-            else
-            {
-                DialogManager.startConversation(oPC, oPC, "BuildToolMenu");
-            }
+            DialogManager.startConversation(oPC, oPC, "BuildToolMenu");
         }
 
     }

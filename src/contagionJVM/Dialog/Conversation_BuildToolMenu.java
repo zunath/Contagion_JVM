@@ -1,6 +1,8 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.Entities.PCTerritoryFlagStructureEntity;
+import contagionJVM.Enumerations.StructurePermission;
+import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Models.BuildToolMenuModel;
 import contagionJVM.Repository.StructureRepository;
@@ -67,8 +69,8 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         BuildToolMenuModel model = new BuildToolMenuModel();
         model.setTargetLocation(NWScript.getLocalLocation(oPC, "BUILD_TOOL_LOCATION_TARGET"));
         NWScript.deleteLocalLocation(oPC, "BUILD_TOOL_LOCATION_TARGET");
+        model.setFlag(StructureSystem.GetTerritoryFlagOwnerOfLocation(model.getTargetLocation()));
         SetDialogCustomData(model);
-
         BuildMainMenuResponses(null);
     }
 
@@ -164,6 +166,8 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void BuildMainMenuResponses(NWObject excludeObject)
     {
+        NWObject oPC = GetPC();
+        PlayerGO pcGO = new PlayerGO(oPC);
         DialogPage page = GetPageByName("MainPage");
         page.getResponses().clear();
         BuildToolMenuModel model = GetModel();
@@ -171,12 +175,18 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         model.setActiveStructure(null);
 
         DialogResponse constructionSiteResponse = new DialogResponse(ColorToken.Green() + "Create Construction Site" + ColorToken.End());
-        if(StructureSystem.CanPCBuildInLocation(GetPC(), model.getTargetLocation()) == 0) // 0 = Can't build in this location
+        if(StructureSystem.CanPCBuildInLocation(GetPC(), model.getTargetLocation(), StructurePermission.CanBuildStructures) != 1)
         {
             constructionSiteResponse.setActive(false);
         }
 
         page.getResponses().add(constructionSiteResponse);
+
+        int flagID = StructureSystem.GetTerritoryFlagID(model.getFlag());
+        if(!StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanMoveStructures, flagID) &&
+                !StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRazeStructures, flagID) &&
+                !StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRotateStructures, flagID))
+            return;
 
         for(int current = 1; current <= 30; current++)
         {
@@ -204,9 +214,11 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void HandleMainMenuResponse(int responseID)
     {
+        NWObject oPC = GetPC();
         BuildToolMenuModel model = GetModel();
         DialogResponse response = GetResponseByID("MainPage", responseID);
         NWObject structure = (NWObject)response.getCustomData();
+        int flagID = StructureSystem.GetTerritoryFlagID(model.getFlag());
 
         if(responseID == 1)
         {
@@ -216,13 +228,26 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         else if(structure != null)
         {
             model.setActiveStructure(structure);
+
+            SetResponseVisible("ManipulateStructurePage", 1, StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRotateStructures, flagID));
+            SetResponseVisible("ManipulateStructurePage", 2, StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanMoveStructures, flagID));
+            SetResponseVisible("ManipulateStructurePage", 3, StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRazeStructures, flagID));
+
             ChangePage("ManipulateStructurePage");
         }
     }
 
     private void HandleMoveStructure()
     {
+        NWObject oPC = GetPC();
         BuildToolMenuModel model = GetModel();
+        int flagID = StructureSystem.GetTerritoryFlagID(model.getFlag());
+        if(!StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanMoveStructures, flagID))
+        {
+            ChangePage("MainPage");
+            return;
+        }
+
         NWScript.floatingTextStringOnCreature("Please use your build tool to select a new location for this structure.", GetPC(), false);
         StructureSystem.SetIsPCMovingStructure(GetPC(), model.getActiveStructure(), true);
         EndConversation();
@@ -230,7 +255,17 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void HandleRotateStructure(float rotation, boolean isSet)
     {
+        NWObject oPC = GetPC();
         BuildToolMenuModel model = GetModel();
+        int flagID = StructureSystem.GetTerritoryFlagID(model.getFlag());
+        if(!StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRotateStructures, flagID))
+        {
+            NWScript.floatingTextStringOnCreature("You do not have permission to rotate this structure.", oPC, false);
+            BuildMainMenuResponses(null);
+            ChangePage("MainPage");
+            return;
+        }
+
         StructureRepository repo = new StructureRepository();
         int structureID = StructureSystem.GetPlaceableStructureID(model.getActiveStructure());
         final PCTerritoryFlagStructureEntity entity = repo.GetPCStructureByID(structureID);
@@ -258,7 +293,18 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void HandleRazeStructure()
     {
+        NWObject oPC = GetPC();
         BuildToolMenuModel model = GetModel();
+        int flagID = StructureSystem.GetTerritoryFlagID(model.getFlag());
+
+        if(!StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRazeStructures, flagID))
+        {
+            NWScript.floatingTextStringOnCreature("You do not have permission to raze this structure.", oPC, false);
+            BuildMainMenuResponses(null);
+            ChangePage("MainPage");
+            return;
+        }
+
         int structureID = StructureSystem.GetPlaceableStructureID(model.getActiveStructure());
 
         if(model.isConfirmingRaze())

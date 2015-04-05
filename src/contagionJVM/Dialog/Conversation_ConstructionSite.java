@@ -1,6 +1,7 @@
 package contagionJVM.Dialog;
 
 import contagionJVM.Entities.*;
+import contagionJVM.Enumerations.StructurePermission;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Models.ConstructionSiteMenuModel;
 import contagionJVM.Repository.StructureRepository;
@@ -150,6 +151,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         else
         {
             int flagID = StructureSystem.GetTerritoryFlagID(existingFlag);
+            model.setFlagID(flagID);
             PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
             if(distance <= entity.getBlueprint().getMaxBuildDistance())
             {
@@ -172,6 +174,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void BuildMainPage()
     {
+        NWObject oPC = GetPC();
         DialogPage page = GetPageByName("MainPage");
         String header;
         ConstructionSiteMenuModel model = GetModel();
@@ -182,9 +185,19 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         if(model.getConstructionSiteID() <= 0)
         {
             header = "Please select an option.";
-            page.addResponse("Select Blueprint", true);
-            page.addResponse("Move", true);
-            page.addResponse(ColorToken.Red() + "Raze" + ColorToken.End(), true);
+
+            if(model.isTerritoryFlag())
+            {
+                page.addResponse("Select Blueprint", true);
+                page.addResponse("Move", true);
+                page.addResponse(ColorToken.Red() + "Raze" + ColorToken.End(), true);
+            }
+            else
+            {
+                page.addResponse("Select Blueprint", StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanBuildStructures, model.getFlagID()));
+                page.addResponse("Move", StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanMoveStructures, model.getFlagID()));
+                page.addResponse(ColorToken.Red() + "Raze" + ColorToken.End(), StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRazeStructures, model.getFlagID()));
+            }
 
         }
         else
@@ -216,9 +229,9 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
             page.addResponse("Quick Build", PlayerAuthorizationSystem.IsPCRegisteredAsDM(GetPC()));
             page.addResponse("Preview", true);
-            page.addResponse("Rotate", true);
-            page.addResponse("Move", true);
-            page.addResponse(ColorToken.Red() + "Raze" + ColorToken.End(), true);
+            page.addResponse("Rotate", StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRotateStructures, model.getFlagID()));
+            page.addResponse("Move", StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanMoveStructures, model.getFlagID()));
+            page.addResponse(ColorToken.Red() + "Raze" + ColorToken.End(), StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRazeStructures, model.getFlagID()));
         }
 
         SetPageHeader("MainPage", header);
@@ -512,6 +525,17 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoRaze()
     {
+        ConstructionSiteMenuModel model = GetModel();
+        NWObject oPC = GetPC();
+
+        if(!StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRazeStructures, model.getFlagID()))
+        {
+            NWScript.floatingTextStringOnCreature("You do not have permission to raze structures.", oPC, false);
+            BuildMainPage();
+            ChangePage("MainPage");
+            return;
+        }
+
         StructureSystem.RazeConstructionSite(GetPC(), GetDialogTarget(), false);
         EndConversation();
     }
@@ -524,7 +548,16 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoSelectBlueprint()
     {
+        NWObject oPC = GetPC();
         ConstructionSiteMenuModel model = GetModel();
+
+        if(!StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanBuildStructures, model.getFlagID()))
+        {
+            NWScript.floatingTextStringOnCreature("You do not have permission to build structures.", oPC, false);
+            BuildMainPage();
+            ChangePage("MainPage");
+            return;
+        }
 
         if(model.isTerritoryFlag() &&
                 StructureSystem.WillBlueprintOverlapWithExistingFlags(NWScript.getLocation(GetDialogTarget()), model.getBlueprintID()))
@@ -542,7 +575,17 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoRotateConstructionSite(float rotation, boolean isSet)
     {
+        NWObject oPC = GetPC();
         ConstructionSiteMenuModel model = GetModel();
+
+        if(!StructureSystem.PlayerHasPermission(oPC, StructurePermission.CanRotateStructures, model.getFlagID()))
+        {
+            NWScript.floatingTextStringOnCreature("You do not have permission to rotate structures.", oPC, false);
+            BuildMainPage();
+            ChangePage("MainPage");
+            return;
+        }
+
         StructureRepository repo = new StructureRepository();
         int constructionSiteID = StructureSystem.GetConstructionSiteID(GetDialogTarget());
         final ConstructionSiteEntity entity = repo.GetConstructionSiteByID(constructionSiteID);
