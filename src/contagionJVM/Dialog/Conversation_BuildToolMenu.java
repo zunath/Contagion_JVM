@@ -171,7 +171,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         model.setActiveStructure(null);
 
         DialogResponse constructionSiteResponse = new DialogResponse(ColorToken.Green() + "Create Construction Site" + ColorToken.End());
-        if(!StructureSystem.CanPCBuildInLocation(GetPC(), model.getTargetLocation()))
+        if(StructureSystem.CanPCBuildInLocation(GetPC(), model.getTargetLocation()) == 0) // 0 = Can't build in this location
         {
             constructionSiteResponse.setActive(false);
         }
@@ -212,7 +212,6 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
         {
             StructureSystem.CreateConstructionSite(GetPC(), model.getTargetLocation());
             EndConversation();
-            NWScript.floatingTextStringOnCreature("Construction site created! Use the construction site to select a blueprint.", GetPC(), false);
         }
         else if(structure != null)
         {

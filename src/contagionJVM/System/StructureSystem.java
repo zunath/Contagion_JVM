@@ -127,7 +127,7 @@ public class StructureSystem {
         return flag;
     }
 
-    public static boolean CanPCBuildInLocation(NWObject oPC, NWLocation targetLocation)
+    public static int CanPCBuildInLocation(NWObject oPC, NWLocation targetLocation)
     {
         StructureRepository repo = new StructureRepository();
         NWObject flag = GetNearestTerritoryFlag(targetLocation);
@@ -140,13 +140,19 @@ public class StructureSystem {
         if(flag.equals(NWObject.INVALID) ||
                 distance > entity.getBlueprint().getMaxBuildDistance())
         {
-            return true;
+            return 1;
+        }
+
+        if(repo.GetNumberOfStructuresInTerritory(pcTerritoryFlagID) >=
+                entity.getBlueprint().getMaxStructuresCount())
+        {
+            return 2;
         }
 
 
         if(entity.getPlayerID().equals(pcGO.getUUID()))
         {
-            return true;
+            return 1;
         }
 
         for(PCTerritoryFlagPermissionEntity permission : entity.getPermissions())
@@ -154,11 +160,11 @@ public class StructureSystem {
             if(permission.getPlayer().getPCID().equals(pcGO.getUUID()) &&
                     permission.getPermission().getTerritoryFlagPermissionID() == 2) // 2 = Can Build Structures
             {
-                return true;
+                return 1;
             }
         }
 
-        return false;
+        return 0;
     }
 
     public static boolean IsWithinRangeOfTerritoryFlag(NWObject oCheck)
@@ -178,14 +184,21 @@ public class StructureSystem {
 
     public static void CreateConstructionSite(NWObject oPC, NWLocation location)
     {
-        if(!CanPCBuildInLocation(oPC, location))
+        int buildStatus = CanPCBuildInLocation(oPC, location);
+
+        if(buildStatus == 0) // 0 = Can't do it in that location
         {
             NWScript.floatingTextStringOnCreature(ColorToken.Red() + "You can't build a construction site there." + ColorToken.End(), oPC, false);
-            return;
         }
-
-        NWScript.createObject(ObjectType.PLACEABLE, ConstructionSiteResref, location, false, "");
-
+        else if(buildStatus == 1) // 1 = Success
+        {
+            NWScript.createObject(ObjectType.PLACEABLE, ConstructionSiteResref, location, false, "");
+            NWScript.floatingTextStringOnCreature("Construction site created! Use the construction site to select a blueprint.", oPC, false);
+        }
+        else if(buildStatus == 2) // 2 = Territory can't hold any more structures.
+        {
+            NWScript.floatingTextStringOnCreature(ColorToken.Red() + "The maximum number of structures this territory can manage has been reached. Raze a structure or upgrade your territory to create a new structure." + ColorToken.End(), oPC, false);
+        }
     }
 
     public static int GetConstructionSiteID(NWObject site)
@@ -258,7 +271,7 @@ public class StructureSystem {
         // Moving construction site, no blueprint set
         if(constructionSiteID <= 0 && NWScript.getResRef(target).equals(ConstructionSiteResref))
         {
-            if(!CanPCBuildInLocation(oPC, location))
+            if(CanPCBuildInLocation(oPC, location) == 0) // 0 = Can't build in this location
             {
                 outsideOwnFlagRadius = true;
             }

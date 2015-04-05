@@ -3,6 +3,7 @@ package contagionJVM.Repository;
 import contagionJVM.Data.DataContext;
 import contagionJVM.Entities.*;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -148,7 +149,7 @@ public class StructureRepository {
                     .createCriteria(StructureBlueprintEntity.class)
                     .add(Restrictions.eq("isActive", true))
                     .add(Restrictions.eq("structureCategoryID", categoryID))
-                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);;
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
             entities = criteria.list();
         }
@@ -224,5 +225,24 @@ public class StructureRepository {
 
         return entity;
     }
+
+    public long GetNumberOfStructuresInTerritory(int flagID)
+    {
+        try(DataContext context = new DataContext())
+        {
+            long count =  (long)context.getSession()
+                    .createCriteria(PCTerritoryFlagStructureEntity.class)
+                    .add(Restrictions.eq("pcTerritoryFlag.pcTerritoryFlagID", flagID))
+                    .setProjection(Projections.rowCount()).uniqueResult();
+
+            count += (long)context.getSession()
+                    .createCriteria(ConstructionSiteEntity.class)
+                    .add(Restrictions.eq("pcTerritoryFlag.pcTerritoryFlagID", flagID))
+                    .setProjection(Projections.rowCount()).uniqueResult();
+
+            return count;
+        }
+    }
+
 
 }
