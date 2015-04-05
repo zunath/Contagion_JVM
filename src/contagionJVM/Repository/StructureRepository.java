@@ -5,7 +5,6 @@ import contagionJVM.Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
-import javax.persistence.Entity;
 import java.util.List;
 
 public class StructureRepository {
@@ -17,7 +16,9 @@ public class StructureRepository {
         try(DataContext context = new DataContext())
         {
             Criteria criteria = context.getSession()
-                    .createCriteria(ConstructionSiteEntity.class);
+                    .createCriteria(ConstructionSiteEntity.class)
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
             entities = criteria.list();
         }
 
@@ -31,7 +32,8 @@ public class StructureRepository {
         try(DataContext context = new DataContext())
         {
             Criteria criteria = context.getSession()
-                    .createCriteria(PCTerritoryFlagEntity.class);
+                    .createCriteria(PCTerritoryFlagEntity.class)
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
             flags = criteria.list();
         }
 
@@ -127,7 +129,8 @@ public class StructureRepository {
             Criteria criteria = context.getSession()
                     .createCriteria(StructureCategoryEntity.class)
                     .add(Restrictions.eq("isActive", true))
-                    .add(Restrictions.eq("isTerritoryFlagCategory", isTerritoryFlagCategory));
+                    .add(Restrictions.eq("isTerritoryFlagCategory", isTerritoryFlagCategory))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
             categories = criteria.list();
         }
@@ -144,7 +147,8 @@ public class StructureRepository {
             Criteria criteria = context.getSession()
                     .createCriteria(StructureBlueprintEntity.class)
                     .add(Restrictions.eq("isActive", true))
-                    .add(Restrictions.eq("structureCategoryID", categoryID));
+                    .add(Restrictions.eq("structureCategoryID", categoryID))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);;
 
             entities = criteria.list();
         }
@@ -160,7 +164,8 @@ public class StructureRepository {
         {
             Criteria criteria = context.getSession()
                     .createCriteria(PCTerritoryFlagPermissionEntity.class)
-                    .add(Restrictions.eq("pcTerritoryFlag.pcTerritoryFlagID", flagID));
+                    .add(Restrictions.eq("pcTerritoryFlag.pcTerritoryFlagID", flagID))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
             entities = criteria.list();
         }
@@ -176,7 +181,8 @@ public class StructureRepository {
         {
             Criteria criteria = context.getSession()
                     .createCriteria(PCTerritoryFlagPermissionEntity.class)
-                    .add(Restrictions.eq("player.pcID", playerID));
+                    .add(Restrictions.eq("player.pcID", playerID))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
             entities = criteria.list();
         }
@@ -193,7 +199,8 @@ public class StructureRepository {
             Criteria criteria = context.getSession()
                     .createCriteria(TerritoryFlagPermissionEntity.class)
                     .add(Restrictions.eq("isActive", true))
-                    .add(Restrictions.eq("isSelectable", true));
+                    .add(Restrictions.eq("isSelectable", true))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
             entities = criteria.list();
         }
@@ -209,7 +216,8 @@ public class StructureRepository {
         {
             Criteria criteria = context.getSession()
                     .createCriteria(TerritoryFlagPermissionEntity.class)
-                    .add(Restrictions.eq("territoryFlagPermissionID", territoryPermissionID));
+                    .add(Restrictions.eq("territoryFlagPermissionID", territoryPermissionID))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
             entity = (TerritoryFlagPermissionEntity)criteria.uniqueResult();
         }

@@ -11,6 +11,7 @@ import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.NWVector;
 import org.nwnx.nwnx2.jvm.constants.ObjectType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StructureSystem {
@@ -62,7 +63,7 @@ public class StructureSystem {
                 position = NWScript.vector((float) structure.getLocationX(), (float) structure.getLocationY(), (float) structure.getLocationZ());
                 location = NWScript.location(oArea, position, (float) structure.getLocationOrientation());
 
-                NWObject structurePlaceable = NWScript.createObject(ObjectType.PLACEABLE, flag.getBlueprint().getResref(), location, false, "");
+                NWObject structurePlaceable = NWScript.createObject(ObjectType.PLACEABLE, structure.getBlueprint().getResref(), location, false, "");
                 NWScript.setLocalInt(structurePlaceable, StructureIDVariableName, structure.getPcTerritoryFlagStructureID());
                 NWScript.setPlotFlag(structurePlaceable, true);
                 NWScript.setUseableFlag(structurePlaceable, structure.isUseable());
@@ -361,7 +362,7 @@ public class StructureSystem {
         else
         {
             PCTerritoryFlagStructureEntity pcStructure = new PCTerritoryFlagStructureEntity();
-            pcStructure.setStructureBlueprintID(blueprint.getStructureBlueprintID());
+            pcStructure.setBlueprint(blueprint);
             pcStructure.setLocationAreaTag(entity.getLocationAreaTag());
             pcStructure.setLocationOrientation(entity.getLocationOrientation());
             pcStructure.setLocationX(entity.getLocationX());
@@ -377,15 +378,73 @@ public class StructureSystem {
     }
 
 
-    public static void RazeTerritory(int pcFlagID)
+    public static void RazeTerritory(NWObject flag)
     {
+        int flagID = GetTerritoryFlagID(flag);
         StructureRepository repo = new StructureRepository();
-        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(pcFlagID);
+        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
+        ArrayList<Integer> constructionSiteIDs = new ArrayList<>();
+        ArrayList<Integer> structureSiteIDs = new ArrayList<>();
 
+        for(PCTerritoryFlagStructureEntity structure : entity.getStructures())
+        {
+            if(!structureSiteIDs.contains(structure.getPcTerritoryFlagStructureID()))
+            {
+                structureSiteIDs.add(structure.getPcTerritoryFlagStructureID());
+            }
+        }
+
+        for(ConstructionSiteEntity constructionSite : entity.getConstructionSites())
+        {
+            if(!constructionSiteIDs.contains(constructionSite.getConstructionSiteID()))
+            {
+                constructionSiteIDs.add(constructionSite.getConstructionSiteID());
+            }
+        }
+
+
+        int currentPlaceable = 1;
+        NWObject placeable = NWScript.getNearestObject(ObjectType.PLACEABLE, flag, currentPlaceable);
+        while(!placeable.equals(NWObject.INVALID))
+        {
+            if(NWScript.getDistanceBetween(placeable, flag) > entity.getBlueprint().getMaxBuildDistance()) break;
+
+            if(constructionSiteIDs.contains(GetConstructionSiteID(placeable)) ||
+                    structureSiteIDs.contains(GetPlaceableStructureID(placeable)))
+            {
+                NWScript.destroyObject(placeable, 0.0f);
+            }
+
+            currentPlaceable++;
+            placeable = NWScript.getNearestObject(ObjectType.PLACEABLE, flag, currentPlaceable);
+        }
+
+        NWScript.destroyObject(flag, 0.0f);
+        repo.Delete(entity);
     }
 
-    public static void TransferTerritoryOwnership(int pcFlagID, String newOwnerUUID)
+    public static void TransferTerritoryOwnership(NWObject oFlag, String newOwnerUUID)
     {
+        PlayerRepository playerRepo = new PlayerRepository();
+        StructureRepository repo = new StructureRepository();
+        int pcFlagID = GetTerritoryFlagID(oFlag);
+        PlayerEntity playerEntity = playerRepo.getByUUID(newOwnerUUID);
+        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(pcFlagID);
+        entity.getPermissions().clear();
+        entity.setPlayerID(newOwnerUUID);
+        repo.Save(entity);
+
+        NWScript.setName(oFlag, playerEntity.getCharacterName() + "'s Territory");
+
+        for(NWObject oPC : NWScript.getPCs())
+        {
+            PlayerGO pcGO = new PlayerGO(oPC);
+            if(pcGO.getUUID().equals(newOwnerUUID))
+            {
+                NWScript.floatingTextStringOnCreature("Ownership of a territory in " + NWScript.getName(NWScript.getArea(oFlag), false)  + " has been transferred to you.", oPC, false);
+                break;
+            }
+        }
 
     }
 

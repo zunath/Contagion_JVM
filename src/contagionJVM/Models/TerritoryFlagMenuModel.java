@@ -7,6 +7,7 @@ public class TerritoryFlagMenuModel {
     private String transferUUID;
     private boolean isConfirmingTransferTerritory;
     private String activePermissionsUUID;
+    private boolean isAddingPermission;
 
     public int getFlagID() {
         return flagID;
@@ -46,5 +47,13 @@ public class TerritoryFlagMenuModel {
 
     public void setActivePermissionsUUID(String activePermissionsUUID) {
         this.activePermissionsUUID = activePermissionsUUID;
+    }
+
+    public boolean isAddingPermission() {
+        return isAddingPermission;
+    }
+
+    public void setIsAddingPermission(boolean isAddingPermission) {
+        this.isAddingPermission = isAddingPermission;
     }
 }

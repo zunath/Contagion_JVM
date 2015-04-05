@@ -12,9 +12,6 @@ public class PCTerritoryFlagStructureEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int pcTerritoryFlagStructureID;
 
-    @Column(name = "StructureBlueprintID")
-    private int structureBlueprintID;
-
     @Column(name = "LocationAreaTag")
     private String locationAreaTag;
 
@@ -37,6 +34,10 @@ public class PCTerritoryFlagStructureEntity {
     private Date createDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "StructureBlueprintID")
+    private StructureBlueprintEntity blueprint;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PCTerritoryFlagID")
     private PCTerritoryFlagEntity pcTerritoryFlag;
 
@@ -46,14 +47,6 @@ public class PCTerritoryFlagStructureEntity {
 
     public void setPcTerritoryFlagStructureID(int pcTerritoryFlagStructureID) {
         this.pcTerritoryFlagStructureID = pcTerritoryFlagStructureID;
-    }
-
-    public int getStructureBlueprintID() {
-        return structureBlueprintID;
-    }
-
-    public void setStructureBlueprintID(int structureBlueprintID) {
-        this.structureBlueprintID = structureBlueprintID;
     }
 
     public Date getCreateDate() {
@@ -118,5 +111,13 @@ public class PCTerritoryFlagStructureEntity {
 
     public void setIsUseable(boolean isUseable) {
         this.isUseable = isUseable;
+    }
+
+    public StructureBlueprintEntity getBlueprint() {
+        return blueprint;
+    }
+
+    public void setBlueprint(StructureBlueprintEntity blueprint) {
+        this.blueprint = blueprint;
     }
 }

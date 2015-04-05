@@ -48,6 +48,10 @@ public class PCTerritoryFlagEntity {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<PCTerritoryFlagPermissionEntity> permissions;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pcTerritoryFlag", fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<ConstructionSiteEntity> constructionSites;
+
     public int getPcTerritoryFlagID() {
         return pcTerritoryFlagID;
     }
@@ -134,5 +138,13 @@ public class PCTerritoryFlagEntity {
 
     public void setBuildPrivacy(BuildPrivacyEntity buildPrivacy) {
         this.buildPrivacy = buildPrivacy;
+    }
+
+    public List<ConstructionSiteEntity> getConstructionSites() {
+        return constructionSites;
+    }
+
+    public void setConstructionSites(List<ConstructionSiteEntity> constructionSites) {
+        this.constructionSites = constructionSites;
     }
 }

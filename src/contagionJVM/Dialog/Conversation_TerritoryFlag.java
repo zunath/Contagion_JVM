@@ -215,10 +215,12 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
     private void HandlePlayerPermissionsResponse(int responseID)
     {
         DialogResponse response = GetResponseByID("PlayerPermissionsPage", responseID);
+        TerritoryFlagMenuModel model = GetModel();
 
         switch (responseID)
         {
             case 1: // Add Player
+                model.setIsAddingPermission(true);
                 BuildAddPlayerPermissionsListResponses();
                 ChangePage("AddPlayerPermissionsListPage");
                 break;
@@ -229,7 +231,11 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
                 }
                 else
                 {
-
+                    model.setIsAddingPermission(false);
+                    model.setActivePermissionsUUID((String) response.getCustomData());
+                    BuildManagePlayerPermissionsHeader();
+                    BuildManagePlayerPermissionsResponses();
+                    ChangePage("ManagePlayerPermissionsPage");
                 }
 
                 break;
@@ -238,13 +244,32 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
 
     private void BuildAddPlayerPermissionsListResponses()
     {
+        TerritoryFlagMenuModel model = GetModel();
+        StructureRepository repo = new StructureRepository();
         DialogPage page = GetPageByName("AddPlayerPermissionsListPage");
         page.getResponses().clear();
+        List<PCTerritoryFlagPermissionEntity> existingPermissions = repo.GetPermissionsByFlagID(model.getFlagID());
+        ArrayList<String> existingUUIDs = new ArrayList<>();
+
+        for(PCTerritoryFlagPermissionEntity perm : existingPermissions)
+        {
+            if(!existingUUIDs.contains(perm.getPlayer().getPCID()))
+            {
+                existingUUIDs.add(perm.getPlayer().getPCID());
+            }
+        }
 
         for(NWObject oPC : NWScript.getPCs())
         {
-            PlayerGO pcGO = new PlayerGO(oPC);
-            page.addResponse("Add Permissions: " + NWScript.getName(oPC, false), true, pcGO.getUUID());
+            if(!oPC.equals(GetPC())) {
+                PlayerGO pcGO = new PlayerGO(oPC);
+                String message = "Add Permissions: ";
+                if (existingUUIDs.contains(pcGO.getUUID())) {
+                    message = "Manage Permissions: ";
+                }
+
+                page.addResponse(message + NWScript.getName(oPC, false), true, pcGO.getUUID());
+            }
         }
 
         page.addResponse("Back", true);
@@ -253,6 +278,7 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
     private void HandleAddPlayerPermissionsListResponse(int responseID)
     {
         DialogResponse response = GetResponseByID("AddPlayerPermissionsListPage", responseID);
+        TerritoryFlagMenuModel model = GetModel();
 
         if(response.getCustomData() == null)
         {
@@ -261,7 +287,6 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
         }
         else
         {
-            TerritoryFlagMenuModel model = GetModel();
             model.setActivePermissionsUUID((String)response.getCustomData());
             BuildManagePlayerPermissionsHeader();
             BuildManagePlayerPermissionsResponses();
@@ -277,7 +302,7 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
         PlayerEntity playerEntity = playerRepo.getByUUID(model.getActivePermissionsUUID());
         List<PCTerritoryFlagPermissionEntity> permissions = structureRepo.GetPermissionsByPlayerID(model.getActivePermissionsUUID());
 
-        String header = ColorToken.Green() + "Manage User Permissions" + ColorToken.End() + "\n\n";
+        String header = ColorToken.Green() + "Manage Player Permissions" + ColorToken.End() + "\n\n";
         header += ColorToken.Green() + "Player: " + ColorToken.End() + playerEntity.getCharacterName() + "\n\n";
         header += ColorToken.Green() + "Current Permissions:\n\n" + ColorToken.End();
 
@@ -340,17 +365,25 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
 
     private void HandleManageUserPermissionsResponse(int responseID)
     {
+        TerritoryFlagMenuModel model = GetModel();
         DialogResponse response = GetResponseByID("ManagePlayerPermissionsPage", responseID);
 
         if(response.getCustomData() == null)
         {
-            ChangePage("AddPlayerPermissionsListPage");
+            if(model.isAddingPermission())
+            {
+                ChangePage("AddPlayerPermissionsListPage");
+            }
+            else
+            {
+                BuildChangePlayerPermissionsResponses();
+                ChangePage("PlayerPermissionsPage");
+            }
             return;
         }
 
         int permissionID = (int)response.getCustomData();
         StructureRepository repo = new StructureRepository();
-        TerritoryFlagMenuModel model = GetModel();
         List<PCTerritoryFlagPermissionEntity> pcPermissions = repo.GetPermissionsByPlayerID(model.getActivePermissionsUUID());
         PCTerritoryFlagPermissionEntity foundPerm = null;
 
@@ -409,7 +442,8 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
             case 1: // Confirm / REALLY CONFIRM
                 if(model.isConfirmingTerritoryRaze())
                 {
-                    StructureSystem.RazeTerritory(model.getFlagID());
+                    StructureSystem.RazeTerritory(GetDialogTarget());
+                    NWScript.floatingTextStringOnCreature(ColorToken.Red() + "Territory razed!" + ColorToken.End(), GetPC(), false);
                     EndConversation();
                 }
                 else
@@ -482,7 +516,7 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
             case 1: // Confirm / REALLY CONFIRM
                 if(model.isConfirmingTransferTerritory())
                 {
-                    StructureSystem.TransferTerritoryOwnership(model.getFlagID(), model.getTransferUUID());
+                    StructureSystem.TransferTerritoryOwnership(GetDialogTarget(), model.getTransferUUID());
                     EndConversation();
                 }
                 else
