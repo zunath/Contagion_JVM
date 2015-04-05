@@ -3,6 +3,7 @@ package contagionJVM.Repository;
 import contagionJVM.Data.DataContext;
 import contagionJVM.Entities.*;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -244,5 +245,22 @@ public class StructureRepository {
         }
     }
 
+    public List<PCTerritoryFlagEntity> GetAllFlagsInArea(String areaTag)
+    {
+        List<PCTerritoryFlagEntity> entities;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PCTerritoryFlagEntity.class)
+                    .add(Restrictions.eq("locationAreaTag", areaTag))
+                    .createAlias("blueprint", "bp")
+                    .addOrder(Order.desc("bp.maxBuildDistance"))
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+            entities = criteria.list();
+        }
+
+        return entities;
+    }
 
 }

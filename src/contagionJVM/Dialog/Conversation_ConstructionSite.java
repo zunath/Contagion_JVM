@@ -6,6 +6,7 @@ import contagionJVM.Models.ConstructionSiteMenuModel;
 import contagionJVM.Repository.StructureRepository;
 import contagionJVM.System.PlayerAuthorizationSystem;
 import contagionJVM.System.StructureSystem;
+import org.nwnx.nwnx2.jvm.NWLocation;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.Scheduler;
@@ -137,7 +138,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
     private void InitializeConstructionSite()
     {
         NWObject site = GetDialogTarget();
-        NWObject existingFlag = StructureSystem.GetNearestTerritoryFlag(NWScript.getLocation(GetDialogTarget()));
+        NWObject existingFlag = StructureSystem.GetTerritoryFlagOwnerOfLocation(NWScript.getLocation(GetDialogTarget()));
         StructureRepository repo = new StructureRepository();
         ConstructionSiteMenuModel model = new ConstructionSiteMenuModel();
 
@@ -232,6 +233,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             switch (responseID)
             {
                 case 1: // Select Blueprint
+
                     LoadCategoryPageResponses();
                     ChangePage("BlueprintCategoryPage");
                     break;
@@ -329,12 +331,22 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         StructureRepository repo = new StructureRepository();
         DialogPage page = GetPageByName("BlueprintListPage");
         page.getResponses().clear();
+        NWLocation location = NWScript.getLocation(GetDialogTarget());
 
         List<StructureBlueprintEntity> entities = repo.GetStructuresByCategoryID(model.getCategoryID());
 
         for(StructureBlueprintEntity entity : entities)
         {
-            page.addResponse(entity.getName(), entity.isActive(), entity.getStructureBlueprintID());
+            String entityName = entity.getName();
+            if(model.isTerritoryFlag())
+            {
+                if(StructureSystem.WillBlueprintOverlapWithExistingFlags(location, entity.getStructureBlueprintID()))
+                {
+                   entityName = ColorToken.Red() + entityName + " [OVERLAPS]" + ColorToken.End();
+                }
+
+            }
+            page.addResponse(entityName, entity.isActive(), entity.getStructureBlueprintID());
         }
 
         page.addResponse("Back", true);
@@ -513,9 +525,18 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
     private void DoSelectBlueprint()
     {
         ConstructionSiteMenuModel model = GetModel();
-        StructureSystem.SelectBlueprint(GetPC(), GetDialogTarget(), model.getBlueprintID());
-        NWScript.floatingTextStringOnCreature("Blueprint set. Equip a hammer and 'bash' the construction site to build.", GetPC(), false);
-        EndConversation();
+
+        if(model.isTerritoryFlag() &&
+                StructureSystem.WillBlueprintOverlapWithExistingFlags(NWScript.getLocation(GetDialogTarget()), model.getBlueprintID()))
+        {
+            NWScript.floatingTextStringOnCreature("Unable to select blueprint. Area of influence would overlap with another territory.", GetPC(), false);
+        }
+        else
+        {
+            StructureSystem.SelectBlueprint(GetPC(), GetDialogTarget(), model.getBlueprintID());
+            NWScript.floatingTextStringOnCreature("Blueprint set. Equip a hammer and 'bash' the construction site to build.", GetPC(), false);
+            EndConversation();
+        }
     }
 
 

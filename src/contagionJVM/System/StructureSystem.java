@@ -105,33 +105,57 @@ public class StructureSystem {
                 NWScript.getLocalInt(structure, StructureIDVariableName);
     }
 
-    public static NWObject GetNearestTerritoryFlag(NWLocation location)
+    // Assumption: There will never be an overlap of two or more territory flags' areas of influence.
+    // If no territory flags own the location, NWObject.INVALID is returned.
+    public static NWObject GetTerritoryFlagOwnerOfLocation(NWLocation location)
     {
-        NWObject flag;
-        int currentPlaceable = 1;
-        NWObject checker = NWScript.createObject(ObjectType.PLACEABLE, TemporaryLocationCheckerObjectResref, location, false, "");
+        StructureRepository repo = new StructureRepository();
+        String areaTag = NWScript.getTag(location.getArea());
+        List<PCTerritoryFlagEntity> areaFlags = repo.GetAllFlagsInArea(areaTag);
+        NWObject placeable = NWObject.INVALID;
 
-        do
+        for(PCTerritoryFlagEntity flag : areaFlags)
         {
-            flag = NWScript.getNearestObject(ObjectType.PLACEABLE, checker, currentPlaceable);
+            NWLocation flagLocation = new NWLocation(
+                    location.getArea(),
+                    (float)flag.getLocationX(),
+                    (float)flag.getLocationY(),
+                    (float)flag.getLocationZ(),
+                    (float)flag.getLocationOrientation()
+            );
+            float distance = NWScript.getDistanceBetweenLocations(flagLocation, location);
 
-            if(GetTerritoryFlagID(flag) > 0)
+            if(distance <= flag.getBlueprint().getMaxBuildDistance())
             {
-                break;
+                // Found the territory which "owns" this location. Look for the flag placeable with a matching ID.
+                int currentPlaceable = 1;
+                NWObject checker = NWScript.createObject(ObjectType.PLACEABLE, TemporaryLocationCheckerObjectResref, location, false, "");
+
+                do
+                {
+                    placeable = NWScript.getNearestObject(ObjectType.PLACEABLE, checker, currentPlaceable);
+
+                    if(GetTerritoryFlagID(placeable) == flag.getPcTerritoryFlagID())
+                    {
+                        break;
+                    }
+
+                    currentPlaceable++;
+                } while(!placeable.equals(NWObject.INVALID));
+
+
+                NWScript.destroyObject(checker, 0.0f);
+
             }
 
-            currentPlaceable++;
-        } while(!flag.equals(NWObject.INVALID));
-
-
-        NWScript.destroyObject(checker, 0.0f);
-        return flag;
+        }
+        return placeable;
     }
 
     public static int CanPCBuildInLocation(NWObject oPC, NWLocation targetLocation)
     {
         StructureRepository repo = new StructureRepository();
-        NWObject flag = GetNearestTerritoryFlag(targetLocation);
+        NWObject flag = GetTerritoryFlagOwnerOfLocation(targetLocation);
         NWLocation flagLocation = NWScript.getLocation(flag);
         int pcTerritoryFlagID = GetTerritoryFlagID(flag);
         PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(pcTerritoryFlagID);
@@ -171,7 +195,7 @@ public class StructureSystem {
     public static boolean IsWithinRangeOfTerritoryFlag(NWObject oCheck)
     {
         NWLocation location = NWScript.getLocation(oCheck);
-        NWObject flag = GetNearestTerritoryFlag(location);
+        NWObject flag = GetTerritoryFlagOwnerOfLocation(location);
 
         if(flag.equals(NWObject.INVALID)) return false;
 
@@ -242,7 +266,7 @@ public class StructureSystem {
 
         if(IsWithinRangeOfTerritoryFlag(constructionSite))
         {
-            NWObject flag = GetNearestTerritoryFlag(location);
+            NWObject flag = GetTerritoryFlagOwnerOfLocation(location);
             PCTerritoryFlagEntity flagEntity = repo.GetPCTerritoryFlagByID(GetTerritoryFlagID(flag));
             entity.setPcTerritoryFlag(flagEntity);
         }
@@ -255,7 +279,7 @@ public class StructureSystem {
     {
         StructureRepository repo = new StructureRepository();
         NWObject target = NWScript.getLocalObject(oPC, MovingStructureVariableName);
-        NWObject nearestFlag = GetNearestTerritoryFlag(location);
+        NWObject nearestFlag = GetTerritoryFlagOwnerOfLocation(location);
         NWLocation nearestFlagLocation = NWScript.getLocation(nearestFlag);
         int nearestFlagID = GetTerritoryFlagID(nearestFlag);
         boolean outsideOwnFlagRadius = false;
@@ -490,11 +514,39 @@ public class StructureSystem {
         NWScript.destroyObject(site, 0.0f);
     }
 
+    public static boolean WillBlueprintOverlapWithExistingFlags(NWLocation location, int blueprintID)
+    {
+        StructureRepository repo = new StructureRepository();
+        NWObject area = NWScript.getAreaFromLocation(location);
+        List<PCTerritoryFlagEntity> flags = repo.GetAllFlagsInArea(NWScript.getTag(area));
+        StructureBlueprintEntity blueprint = repo.GetStructureBlueprintByID(blueprintID);
+
+        for(PCTerritoryFlagEntity flag : flags)
+        {
+            NWLocation flagLocation = new NWLocation(
+                    location.getArea(),
+                    (float)flag.getLocationX(),
+                    (float)flag.getLocationY(),
+                    (float)flag.getLocationZ(),
+                    (float)flag.getLocationOrientation()
+            );
+
+            float distance = NWScript.getDistanceBetweenLocations(location, flagLocation);
+            float overlapDistance = (float)flag.getBlueprint().getMaxBuildDistance() + (float)blueprint.getMaxBuildDistance();
+
+            if(distance <= overlapDistance)
+                return true;
+
+        }
+
+        return false;
+    }
+
     public static boolean IsConstructionSiteValid(NWObject site)
     {
         StructureRepository repo = new StructureRepository();
         NWLocation siteLocation = NWScript.getLocation(site);
-        NWObject flag = StructureSystem.GetNearestTerritoryFlag(siteLocation);
+        NWObject flag = GetTerritoryFlagOwnerOfLocation(siteLocation);
         NWLocation flaglocation = NWScript.getLocation(flag);
         int flagID = StructureSystem.GetTerritoryFlagID(flag);
         int constructionSiteID = StructureSystem.GetConstructionSiteID(site);
@@ -520,8 +572,7 @@ public class StructureSystem {
         // the blueprint selected would bring the flag inside of its area of influence.
         if(constructionSiteEntity != null &&
                 constructionSiteEntity.getBlueprint().isTerritoryFlag() &&
-                (distance <= flagEntity.getBlueprint().getMaxBuildDistance() ||
-                        distance <= constructionSiteEntity.getBlueprint().getMaxBuildDistance()))
+                (distance <= (flagEntity.getBlueprint().getMaxBuildDistance() + constructionSiteEntity.getBlueprint().getMaxBuildDistance())))
         {
             return false;
         }
