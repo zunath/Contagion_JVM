@@ -19,7 +19,19 @@ public class ConstructionSite_OnAttacked implements IScriptEventHandler {
         final NWObject oPC = NWScript.getLastAttacker(oSite);
         int constructionSiteID = StructureSystem.GetConstructionSiteID(oSite);
 
-        if(constructionSiteID <= 0) return;
+        if(constructionSiteID <= 0)
+        {
+            NWScript.floatingTextStringOnCreature("You must select a blueprint before you can build.", oPC, false);
+            Scheduler.assign(oPC, new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.clearAllActions(false);
+                }
+            });
+
+            Scheduler.flushQueues();
+            return;
+        }
 
         NWObject weapon = NWScript.getLastWeaponUsed(oPC);
         int weaponType = NWScript.getBaseItemType(weapon);
@@ -40,6 +52,19 @@ public class ConstructionSite_OnAttacked implements IScriptEventHandler {
         // Offhand weapons don't contribute to building.
         if(NWScript.getItemInSlot(InventorySlot.LEFTHAND, oPC).equals(weapon))
         {
+            return;
+        }
+
+        if(!StructureSystem.IsConstructionSiteValid(oSite))
+        {
+            NWScript.floatingTextStringOnCreature("Construction site is invalid. Please click the construction site to find out more.", oPC, false);
+            Scheduler.assign(oPC, new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.clearAllActions(false);
+                }
+            });
+            Scheduler.flushQueues();
             return;
         }
 

@@ -18,7 +18,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
     @Override
     public PlayerDialog SetUp(NWObject oPC) {
         PlayerDialog dialog = new PlayerDialog();
-        DialogPage mainPage = new DialogPage();
+        DialogPage mainPage = new DialogPage("<SET LATER>");
         DialogPage blueprintCategoryPage = new DialogPage(
                 "Please select a blueprint category."
         );
@@ -63,6 +63,15 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
                 "Back"
         );
 
+        DialogPage recoverResourcesPage = new DialogPage(
+                "This construction site is in an invalid state or location.\n\n" +
+                "Possible reasons:\n" +
+                "1.) The territory cannot manage any more structures.\n" +
+                "2.) The area of influence of this construction site's territory flag blueprint overlaps with another territory's.\n\n" +
+                "You may raze this construction site to recover all spent resources.",
+                "Raze & Recover Resources"
+        );
+
         dialog.addPage("MainPage", mainPage);
         dialog.addPage("BlueprintCategoryPage", blueprintCategoryPage);
         dialog.addPage("BlueprintListPage", blueprintListPage);
@@ -70,6 +79,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         dialog.addPage("QuickBuildPage", quickBuildPage);
         dialog.addPage("RotatePage", rotatePage);
         dialog.addPage("RazePage", razePage);
+        dialog.addPage("RecoverResourcesPage", recoverResourcesPage);
         return dialog;
     }
 
@@ -77,7 +87,15 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
     public void Initialize() {
 
         InitializeConstructionSite();
-        BuildMainPage();
+
+        if(!StructureSystem.IsConstructionSiteValid(GetDialogTarget()))
+        {
+            ChangePage("RecoverResourcesPage");
+        }
+        else
+        {
+            BuildMainPage();
+        }
     }
 
     @Override
@@ -104,6 +122,9 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
                 break;
             case "RotatePage":
                 HandleRotatePageResponse(responseID);
+                break;
+            case "RecoverResourcesPage":
+                HandleRecoverResourcesPage(responseID);
                 break;
         }
     }
@@ -329,7 +350,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         }
 
         ConstructionSiteMenuModel model = GetModel();
-        model.setCategoryID((int)response.getCustomData());
+        model.setCategoryID((int) response.getCustomData());
         LoadBlueprintListPageResponses();
         ChangePage("BlueprintListPage");
     }
@@ -479,16 +500,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoRaze()
     {
-        ConstructionSiteMenuModel model = GetModel();
-
-        if(model.getConstructionSiteID() > 0)
-        {
-            StructureRepository repo = new StructureRepository();
-            ConstructionSiteEntity entity = repo.GetConstructionSiteByID(model.getConstructionSiteID());
-            repo.Delete(entity);
-        }
-        NWScript.destroyObject(GetDialogTarget(), 0.0f);
-
+        StructureSystem.RazeConstructionSite(GetPC(), GetDialogTarget(), false);
         EndConversation();
     }
 
@@ -535,4 +547,14 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         Scheduler.flushQueues();
     }
 
+    private void HandleRecoverResourcesPage(int responseID)
+    {
+        switch(responseID)
+        {
+            case 1: // Raze & Recover Resources
+                StructureSystem.RazeConstructionSite(GetPC(), GetDialogTarget(), true);
+                EndConversation();
+                break;
+        }
+    }
 }

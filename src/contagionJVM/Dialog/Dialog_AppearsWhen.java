@@ -93,7 +93,7 @@ public class Dialog_AppearsWhen implements IScriptEventHandler {
                 return;
             }
 
-
+            page = dialog.getCurrentPage();
             newNodeText = page.getHeader();
             NWScript.setCustomToken(90000, newNodeText);
             NWScript.setLocalInt(oNPC, "REO_CONVERSATION_SHOW_NODE", 1);

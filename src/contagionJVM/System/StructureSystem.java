@@ -3,6 +3,7 @@ package contagionJVM.System;
 import contagionJVM.Entities.*;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
+import contagionJVM.Models.ConstructionSiteMenuModel;
 import contagionJVM.Repository.PlayerRepository;
 import contagionJVM.Repository.StructureRepository;
 import org.nwnx.nwnx2.jvm.NWLocation;
@@ -458,7 +459,74 @@ public class StructureSystem {
                 break;
             }
         }
+    }
 
+    public static void RazeConstructionSite(NWObject oPC, NWObject site, boolean recoverMaterials)
+    {
+        int constructionSiteID = GetConstructionSiteID(site);
+        if(constructionSiteID > 0)
+        {
+            StructureRepository repo = new StructureRepository();
+            ConstructionSiteEntity entity = repo.GetConstructionSiteByID(constructionSiteID);
+
+            if(recoverMaterials)
+            {
+                int wood = entity.getBlueprint().getWoodRequired() - entity.getWoodRequired();
+                int metal = entity.getBlueprint().getMetalRequired() - entity.getMetalRequired();
+                int nails = entity.getBlueprint().getNailsRequired() - entity.getNailsRequired();
+                int cloth = entity.getBlueprint().getClothRequired() - entity.getClothRequired();
+                int leather = entity.getBlueprint().getLeatherRequired() - entity.getLeatherRequired();
+
+                for(int w = 1; w <= wood; w++) NWScript.createItemOnObject("reo_wood", oPC, 1, "");
+                for(int m = 1; m <= metal; m++) NWScript.createItemOnObject("reo_metal", oPC, 1, "");
+                for(int n = 1; n <= nails; n++) NWScript.createItemOnObject("reo_nails", oPC, 1, "");
+                for(int c = 1; c <= cloth; c++) NWScript.createItemOnObject("reo_cloth", oPC, 1, "");
+                for(int l = 1; l <= leather; l++) NWScript.createItemOnObject("reo_leather", oPC, 1, "");
+
+            }
+
+            repo.Delete(entity);
+        }
+        NWScript.destroyObject(site, 0.0f);
+    }
+
+    public static boolean IsConstructionSiteValid(NWObject site)
+    {
+        StructureRepository repo = new StructureRepository();
+        NWLocation siteLocation = NWScript.getLocation(site);
+        NWObject flag = StructureSystem.GetNearestTerritoryFlag(siteLocation);
+        NWLocation flaglocation = NWScript.getLocation(flag);
+        int flagID = StructureSystem.GetTerritoryFlagID(flag);
+        int constructionSiteID = StructureSystem.GetConstructionSiteID(site);
+        if(flagID <= 0) return true;
+
+        ConstructionSiteEntity constructionSiteEntity = repo.GetConstructionSiteByID(constructionSiteID);
+        PCTerritoryFlagEntity flagEntity = repo.GetPCTerritoryFlagByID(flagID);
+        float distance = NWScript.getDistanceBetweenLocations(flaglocation, siteLocation);
+
+        // Scenario #1: Territory's structure cap has been reached. Blueprint not set on this construction site.
+        //              Site must be razed otherwise player would go over the cap.
+        if(constructionSiteID <= 0)
+        {
+            long structureCount = repo.GetNumberOfStructuresInTerritory(flagID);
+            if(structureCount >= flagEntity.getBlueprint().getMaxStructuresCount())
+            {
+                return false;
+            }
+        }
+
+        // Scenario #2: Construction site is a territory flag blueprint.
+        // Construction site is within the flag's area of influence OR
+        // the blueprint selected would bring the flag inside of its area of influence.
+        if(constructionSiteEntity != null &&
+                constructionSiteEntity.getBlueprint().isTerritoryFlag() &&
+                (distance <= flagEntity.getBlueprint().getMaxBuildDistance() ||
+                        distance <= constructionSiteEntity.getBlueprint().getMaxBuildDistance()))
+        {
+            return false;
+        }
+
+        return true;
     }
 
 }
