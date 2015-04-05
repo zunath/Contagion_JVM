@@ -6,14 +6,14 @@ import org.nwnx.nwnx2.jvm.NWObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuildToolConversationModel {
+public class BuildToolMenuModel {
 
     private List<NWObject> nearbyStructures;
     private NWObject activeStructure;
     private boolean isConfirmingRaze;
     private NWLocation targetLocation;
 
-    public BuildToolConversationModel()
+    public BuildToolMenuModel()
     {
         nearbyStructures = new ArrayList<>();
         isConfirmingRaze = false;

@@ -93,15 +93,7 @@ public class StructureRepository {
         }
     }
 
-    public void Delete(PCTerritoryFlagStructureEntity entity)
-    {
-        try(DataContext context = new DataContext())
-        {
-            context.getSession().delete(entity);
-        }
-    }
-
-    public void Delete(ConstructionSiteEntity entity)
+    public void Delete(Object entity)
     {
         try(DataContext context = new DataContext())
         {
@@ -159,4 +151,70 @@ public class StructureRepository {
 
         return entities;
     }
+
+    public List<PCTerritoryFlagPermissionEntity> GetPermissionsByFlagID(int flagID)
+    {
+        List<PCTerritoryFlagPermissionEntity> entities;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PCTerritoryFlagPermissionEntity.class)
+                    .add(Restrictions.eq("pcTerritoryFlag.pcTerritoryFlagID", flagID));
+
+            entities = criteria.list();
+        }
+
+        return entities;
+    }
+
+    public List<PCTerritoryFlagPermissionEntity> GetPermissionsByPlayerID(String playerID)
+    {
+        List<PCTerritoryFlagPermissionEntity> entities;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PCTerritoryFlagPermissionEntity.class)
+                    .add(Restrictions.eq("player.pcID", playerID));
+
+            entities = criteria.list();
+        }
+
+        return entities;
+    }
+
+    public List<TerritoryFlagPermissionEntity> GetAllTerritorySelectablePermissions()
+    {
+        List<TerritoryFlagPermissionEntity> entities;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(TerritoryFlagPermissionEntity.class)
+                    .add(Restrictions.eq("isActive", true))
+                    .add(Restrictions.eq("isSelectable", true));
+
+            entities = criteria.list();
+        }
+
+        return entities;
+    }
+
+    public TerritoryFlagPermissionEntity GetTerritoryPermissionByID(int territoryPermissionID)
+    {
+        TerritoryFlagPermissionEntity entity;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(TerritoryFlagPermissionEntity.class)
+                    .add(Restrictions.eq("territoryFlagPermissionID", territoryPermissionID));
+
+            entity = (TerritoryFlagPermissionEntity)criteria.uniqueResult();
+        }
+
+        return entity;
+    }
+
 }

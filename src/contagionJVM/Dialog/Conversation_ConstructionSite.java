@@ -2,8 +2,7 @@ package contagionJVM.Dialog;
 
 import contagionJVM.Entities.*;
 import contagionJVM.Helper.ColorToken;
-import contagionJVM.Models.BuildToolConversationModel;
-import contagionJVM.Models.ConstructionSiteConversationModel;
+import contagionJVM.Models.ConstructionSiteMenuModel;
 import contagionJVM.Repository.StructureRepository;
 import contagionJVM.System.PlayerAuthorizationSystem;
 import contagionJVM.System.StructureSystem;
@@ -119,7 +118,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         NWObject site = GetDialogTarget();
         NWObject existingFlag = StructureSystem.GetNearestTerritoryFlag(NWScript.getLocation(GetDialogTarget()));
         StructureRepository repo = new StructureRepository();
-        ConstructionSiteConversationModel model = new ConstructionSiteConversationModel();
+        ConstructionSiteMenuModel model = new ConstructionSiteMenuModel();
 
         float distance = NWScript.getDistanceBetween(existingFlag, GetDialogTarget());
         if(existingFlag.equals(NWObject.INVALID))
@@ -144,16 +143,16 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
         SetDialogCustomData(model);
     }
 
-    private ConstructionSiteConversationModel GetModel()
+    private ConstructionSiteMenuModel GetModel()
     {
-        return (ConstructionSiteConversationModel)GetDialogCustomData();
+        return (ConstructionSiteMenuModel)GetDialogCustomData();
     }
 
     private void BuildMainPage()
     {
         DialogPage page = GetPageByName("MainPage");
         String header;
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         StructureRepository repo = new StructureRepository();
 
         page.getResponses().clear();
@@ -171,6 +170,20 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             ConstructionSiteEntity entity = repo.GetConstructionSiteByID(model.getConstructionSiteID());
 
             header = ColorToken.Green() + "Blueprint: " + ColorToken.End() + entity.getBlueprint().getName() + "\n\n";
+
+            if(entity.getBlueprint().getMaxBuildDistance() > 0.0f)
+            {
+                header += ColorToken.Green() + "Build Distance: " + ColorToken.End() + entity.getBlueprint().getMaxBuildDistance() + " meters" + "\n";
+            }
+            if(entity.getBlueprint().getMaxStructuresCount() > 0)
+            {
+                header += ColorToken.Green() + "Max # of Structures: " + ColorToken.End() + entity.getBlueprint().getMaxStructuresCount() + "\n";
+            }
+            if(entity.getBlueprint().getItemStorageCount() > 0)
+            {
+                header += ColorToken.Green() + "Item Storage: " + ColorToken.End() + entity.getBlueprint().getItemStorageCount() + " items" + "\n";
+            }
+
             header += ColorToken.Green() + "Resources Required: " + ColorToken.End() + "\n\n";
 
             header += entity.getWoodRequired() > 0 ? entity.getWoodRequired() + "x Wood" + "\n" : "";
@@ -191,7 +204,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void HandleMainPageResponse(int responseID)
     {
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
 
         if(model.getConstructionSiteID() <= 0)
         {
@@ -239,10 +252,24 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void BuildBlueprintDetailsHeader()
     {
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         StructureRepository repo = new StructureRepository();
         StructureBlueprintEntity entity = repo.GetStructureBlueprintByID(model.getBlueprintID());
         String header = ColorToken.Green() + "Blueprint Name: " + ColorToken.End() + entity.getName() + "\n\n";
+
+        if(entity.getMaxBuildDistance() > 0.0f)
+        {
+            header += ColorToken.Green() + "Build Distance: " + ColorToken.End() + entity.getMaxBuildDistance() + " meters" + "\n";
+        }
+        if(entity.getMaxStructuresCount() > 0)
+        {
+            header += ColorToken.Green() + "Max # of Structures: " + ColorToken.End() + entity.getMaxStructuresCount() + "\n";
+        }
+        if(entity.getItemStorageCount() > 0)
+        {
+            header += ColorToken.Green() + "Item Storage: " + ColorToken.End() + entity.getItemStorageCount() + " items" + "\n";
+        }
+
         if(!entity.getDescription().equals(""))
         {
             header += ColorToken.Green() + "Description: " + ColorToken.End() + entity.getDescription() + "\n\n";
@@ -260,7 +287,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void LoadCategoryPageResponses()
     {
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         StructureRepository repo = new StructureRepository();
         DialogPage page = GetPageByName("BlueprintCategoryPage");
         page.getResponses().clear();
@@ -277,7 +304,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void LoadBlueprintListPageResponses()
     {
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         StructureRepository repo = new StructureRepository();
         DialogPage page = GetPageByName("BlueprintListPage");
         page.getResponses().clear();
@@ -301,7 +328,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             return;
         }
 
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         model.setCategoryID((int)response.getCustomData());
         LoadBlueprintListPageResponses();
         ChangePage("BlueprintListPage");
@@ -316,7 +343,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             return;
         }
 
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         model.setBlueprintID((int) response.getCustomData());
         BuildBlueprintDetailsHeader();
         ChangePage("BlueprintDetailsPage");
@@ -409,7 +436,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoBlueprintPreview(int blueprintID)
     {
-        final ConstructionSiteConversationModel model = GetModel();
+        final ConstructionSiteMenuModel model = GetModel();
         if(model.isPreviewing()) return;
         model.setIsPreviewing(true);
         StructureRepository repo = new StructureRepository();
@@ -431,7 +458,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoConstructionSitePreview()
     {
-        final ConstructionSiteConversationModel model = GetModel();
+        final ConstructionSiteMenuModel model = GetModel();
         if(model.isPreviewing()) return;
         StructureRepository repo = new StructureRepository();
         ConstructionSiteEntity entity = repo.GetConstructionSiteByID(model.getConstructionSiteID());
@@ -452,7 +479,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoRaze()
     {
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
 
         if(model.getConstructionSiteID() > 0)
         {
@@ -473,7 +500,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoSelectBlueprint()
     {
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         StructureSystem.SelectBlueprint(GetPC(), GetDialogTarget(), model.getBlueprintID());
         NWScript.floatingTextStringOnCreature("Blueprint set. Equip a hammer and 'bash' the construction site to build.", GetPC(), false);
         EndConversation();
@@ -482,7 +509,7 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
 
     private void DoRotateConstructionSite(float rotation, boolean isSet)
     {
-        ConstructionSiteConversationModel model = GetModel();
+        ConstructionSiteMenuModel model = GetModel();
         StructureRepository repo = new StructureRepository();
         int constructionSiteID = StructureSystem.GetConstructionSiteID(GetDialogTarget());
         final ConstructionSiteEntity entity = repo.GetConstructionSiteByID(constructionSiteID);

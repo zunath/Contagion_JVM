@@ -128,17 +128,20 @@ public class StructureSystem {
 
     public static boolean CanPCBuildInLocation(NWObject oPC, NWLocation targetLocation)
     {
+        StructureRepository repo = new StructureRepository();
         NWObject flag = GetNearestTerritoryFlag(targetLocation);
+        NWLocation flagLocation = NWScript.getLocation(flag);
+        int pcTerritoryFlagID = GetTerritoryFlagID(flag);
+        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(pcTerritoryFlagID);
+        PlayerGO pcGO = new PlayerGO(oPC);
+        float distance = NWScript.getDistanceBetweenLocations(flagLocation, targetLocation);
 
-        if(flag.equals(NWObject.INVALID))
+        if(flag.equals(NWObject.INVALID) ||
+                distance > entity.getBlueprint().getMaxBuildDistance())
         {
             return true;
         }
 
-        PlayerGO pcGO = new PlayerGO(oPC);
-        int pcTerritoryFlagID = NWScript.getLocalInt(flag, TerritoryFlagIDVariableName);
-        StructureRepository repo = new StructureRepository();
-        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(pcTerritoryFlagID);
 
         if(entity.getPlayerID().equals(pcGO.getUUID()))
         {
@@ -147,8 +150,8 @@ public class StructureSystem {
 
         for(PCTerritoryFlagPermissionEntity permission : entity.getPermissions())
         {
-            if(permission.getPlayerID().equals(pcGO.getUUID()) &&
-                    permission.getTerritoryFlagPermissionID() == 2) // 2 = Can Build
+            if(permission.getPlayer().getPCID().equals(pcGO.getUUID()) &&
+                    permission.getPermission().getTerritoryFlagPermissionID() == 2) // 2 = Can Build Structures
             {
                 return true;
             }
@@ -371,6 +374,19 @@ public class StructureSystem {
         }
 
         repo.Delete(entity);
+    }
+
+
+    public static void RazeTerritory(int pcFlagID)
+    {
+        StructureRepository repo = new StructureRepository();
+        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(pcFlagID);
+
+    }
+
+    public static void TransferTerritoryOwnership(int pcFlagID, String newOwnerUUID)
+    {
+
     }
 
 }

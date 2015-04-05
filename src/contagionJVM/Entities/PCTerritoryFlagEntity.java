@@ -34,6 +34,10 @@ public class PCTerritoryFlagEntity {
     private double locationOrientation;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BuildPrivacySettingID", insertable = false)
+    private BuildPrivacyEntity buildPrivacy;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "StructureBlueprintID")
     private StructureBlueprintEntity blueprint;
 
@@ -122,5 +126,13 @@ public class PCTerritoryFlagEntity {
 
     public void setBlueprint(StructureBlueprintEntity blueprint) {
         this.blueprint = blueprint;
+    }
+
+    public BuildPrivacyEntity getBuildPrivacy() {
+        return buildPrivacy;
+    }
+
+    public void setBuildPrivacy(BuildPrivacyEntity buildPrivacy) {
+        this.buildPrivacy = buildPrivacy;
     }
 }

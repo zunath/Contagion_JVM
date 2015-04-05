@@ -99,7 +99,7 @@ public class ConstructionSite_OnAttacked implements IScriptEventHandler {
         }
 
         final String messageCopy = updateMessage;
-        Scheduler.delay(oPC, 500, new Runnable() {
+        Scheduler.delay(oPC, 750, new Runnable() {
             @Override
             public void run() {
                 NWScript.sendMessageToPC(oPC, messageCopy);

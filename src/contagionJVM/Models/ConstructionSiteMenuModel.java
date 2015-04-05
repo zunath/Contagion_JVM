@@ -1,6 +1,6 @@
 package contagionJVM.Models;
 
-public class ConstructionSiteConversationModel {
+public class ConstructionSiteMenuModel {
 
     private int constructionSiteID;
     private boolean isPreviewing;

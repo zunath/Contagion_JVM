@@ -2,7 +2,7 @@ package contagionJVM.Dialog;
 
 import contagionJVM.Entities.PCTerritoryFlagStructureEntity;
 import contagionJVM.Helper.ColorToken;
-import contagionJVM.Models.BuildToolConversationModel;
+import contagionJVM.Models.BuildToolMenuModel;
 import contagionJVM.Repository.StructureRepository;
 import contagionJVM.System.StructureSystem;
 import org.nwnx.nwnx2.jvm.NWLocation;
@@ -64,7 +64,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
     public void Initialize() {
         NWObject oPC = GetPC();
 
-        BuildToolConversationModel model = new BuildToolConversationModel();
+        BuildToolMenuModel model = new BuildToolMenuModel();
         model.setTargetLocation(NWScript.getLocalLocation(oPC, "BUILD_TOOL_LOCATION_TARGET"));
         NWScript.deleteLocalLocation(oPC, "BUILD_TOOL_LOCATION_TARGET");
         SetDialogCustomData(model);
@@ -157,16 +157,16 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     }
 
-    private BuildToolConversationModel GetModel()
+    private BuildToolMenuModel GetModel()
     {
-        return (BuildToolConversationModel)GetDialogCustomData();
+        return (BuildToolMenuModel)GetDialogCustomData();
     }
 
     private void BuildMainMenuResponses(NWObject excludeObject)
     {
         DialogPage page = GetPageByName("MainPage");
         page.getResponses().clear();
-        BuildToolConversationModel model = GetModel();
+        BuildToolMenuModel model = GetModel();
         model.getNearbyStructures().clear();
         model.setActiveStructure(null);
 
@@ -204,7 +204,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void HandleMainMenuResponse(int responseID)
     {
-        BuildToolConversationModel model = GetModel();
+        BuildToolMenuModel model = GetModel();
         DialogResponse response = GetResponseByID("MainPage", responseID);
         NWObject structure = (NWObject)response.getCustomData();
 
@@ -223,7 +223,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void HandleMoveStructure()
     {
-        BuildToolConversationModel model = GetModel();
+        BuildToolMenuModel model = GetModel();
         NWScript.floatingTextStringOnCreature("Please use your build tool to select a new location for this structure.", GetPC(), false);
         StructureSystem.SetIsPCMovingStructure(GetPC(), model.getActiveStructure(), true);
         EndConversation();
@@ -231,7 +231,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void HandleRotateStructure(float rotation, boolean isSet)
     {
-        BuildToolConversationModel model = GetModel();
+        BuildToolMenuModel model = GetModel();
         StructureRepository repo = new StructureRepository();
         int structureID = StructureSystem.GetPlaceableStructureID(model.getActiveStructure());
         final PCTerritoryFlagStructureEntity entity = repo.GetPCStructureByID(structureID);
@@ -259,7 +259,7 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
 
     private void HandleRazeStructure()
     {
-        BuildToolConversationModel model = GetModel();
+        BuildToolMenuModel model = GetModel();
         int structureID = StructureSystem.GetPlaceableStructureID(model.getActiveStructure());
 
         if(model.isConfirmingRaze())

@@ -76,6 +76,7 @@ public class DataAccess {
         _configuration.addAnnotatedClass(AuthorizedDMEntity.class);
         _configuration.addAnnotatedClass(BadgeEntity.class);
         _configuration.addAnnotatedClass(BaseItemTypeEntity.class);
+        _configuration.addAnnotatedClass(BuildPrivacyEntity.class);
         _configuration.addAnnotatedClass(ConstructionSiteEntity.class);
         _configuration.addAnnotatedClass(DMRoleEntity.class);
         _configuration.addAnnotatedClass(ItemCombinationEntity.class);
