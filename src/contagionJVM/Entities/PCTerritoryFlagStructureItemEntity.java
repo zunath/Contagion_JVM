@@ -12,11 +12,21 @@ public class PCTerritoryFlagStructureItemEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int pcStructureItemID;
 
-    @Column(name = "PCStructureID")
-    private int pcStructureID;
-
     @Column(name = "ItemObject")
     private byte[] itemObject;
+
+    @Column(name = "ItemName")
+    private String itemName;
+
+    @Column(name = "ItemTag")
+    private String itemTag;
+
+    @Column(name = "ItemResref")
+    private String itemResref;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PCStructureID")
+    private PCTerritoryFlagStructureEntity structure;
 
     public int getPcStructureItemID() {
         return pcStructureItemID;
@@ -26,19 +36,43 @@ public class PCTerritoryFlagStructureItemEntity {
         this.pcStructureItemID = pcStructureItemID;
     }
 
-    public int getPcStructureID() {
-        return pcStructureID;
-    }
-
-    public void setPcStructureID(int pcStructureID) {
-        this.pcStructureID = pcStructureID;
-    }
-
     public byte[] getItemObject() {
         return itemObject;
     }
 
     public void setItemObject(byte[] itemObject) {
         this.itemObject = itemObject;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getItemTag() {
+        return itemTag;
+    }
+
+    public void setItemTag(String itemTag) {
+        this.itemTag = itemTag;
+    }
+
+    public String getItemResref() {
+        return itemResref;
+    }
+
+    public void setItemResref(String itemResref) {
+        this.itemResref = itemResref;
+    }
+
+    public PCTerritoryFlagStructureEntity getStructure() {
+        return structure;
+    }
+
+    public void setStructure(PCTerritoryFlagStructureEntity structure) {
+        this.structure = structure;
     }
 }

@@ -4,7 +4,6 @@ import contagionJVM.Entities.*;
 import contagionJVM.Enumerations.StructurePermission;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
-import contagionJVM.Models.ConstructionSiteMenuModel;
 import contagionJVM.Repository.PlayerRepository;
 import contagionJVM.Repository.StructureRepository;
 import org.nwnx.nwnx2.jvm.NWLocation;
@@ -45,6 +44,7 @@ public class StructureSystem {
 
             NWObject constructionSite = NWScript.createObject(ObjectType.PLACEABLE, ConstructionSiteResref, location, false, "");
             NWScript.setLocalInt(constructionSite, ConstructionSiteIDVariableName, entity.getConstructionSiteID());
+            NWScript.setName(constructionSite, "Construction Site: " + entity.getBlueprint().getName());
         }
 
         List<PCTerritoryFlagEntity> territoryFlags = repo.GetAllTerritoryFlags();
@@ -69,6 +69,11 @@ public class StructureSystem {
                 NWScript.setLocalInt(structurePlaceable, StructureIDVariableName, structure.getPcTerritoryFlagStructureID());
                 NWScript.setPlotFlag(structurePlaceable, true);
                 NWScript.setUseableFlag(structurePlaceable, structure.isUseable());
+
+                if(structure.getBlueprint().getItemStorageCount() > 0)
+                {
+                    NWScript.setName(structurePlaceable, NWScript.getName(structurePlaceable, false) + " (" + structure.getBlueprint().getItemStorageCount() + " items)");
+                }
             }
 
         }
@@ -270,6 +275,7 @@ public class StructureSystem {
 
         repo.Save(entity);
         SetConstructionSiteID(constructionSite, entity.getConstructionSiteID());
+        NWScript.setName(constructionSite, "Construction Site: " + entity.getBlueprint().getName());
     }
 
     public static void MoveStructure(NWObject oPC, NWLocation location)
@@ -364,6 +370,7 @@ public class StructureSystem {
             return;
         }
         NWObject copy = NWScript.createObject(ObjectType.PLACEABLE, NWScript.getResRef(target), location, false, "");
+        NWScript.setName(copy, NWScript.getName(target, false));
 
         if(constructionSiteID > 0) SetConstructionSiteID(copy, constructionSiteID);
         else if (structureID > 0) SetPlaceableStructureID(copy, structureID);
@@ -410,9 +417,15 @@ public class StructureSystem {
             pcStructure.setLocationY(entity.getLocationY());
             pcStructure.setLocationZ(entity.getLocationZ());
             pcStructure.setPcTerritoryFlag(entity.getPcTerritoryFlag());
+            pcStructure.setIsUseable(entity.getBlueprint().isUseable());
 
             repo.Save(pcStructure);
             NWScript.setLocalInt(structurePlaceable, StructureIDVariableName, pcStructure.getPcTerritoryFlagStructureID());
+
+            if(entity.getBlueprint().getItemStorageCount() > 0)
+            {
+                NWScript.setName(structurePlaceable, NWScript.getName(structurePlaceable, false) + " (" + entity.getBlueprint().getItemStorageCount() + " items)");
+            }
         }
 
         repo.Delete(entity);
@@ -589,6 +602,5 @@ public class StructureSystem {
 
         return permission != null || entity.getPlayerID().equals(pcGO.getUUID());
     }
-
 
 }

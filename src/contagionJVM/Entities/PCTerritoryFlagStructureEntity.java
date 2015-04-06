@@ -1,7 +1,11 @@
 package contagionJVM.Entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "pc_territory_flags_structures")
@@ -40,6 +44,11 @@ public class PCTerritoryFlagStructureEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PCTerritoryFlagID")
     private PCTerritoryFlagEntity pcTerritoryFlag;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "structure", fetch = FetchType.EAGER, orphanRemoval = true)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<PCTerritoryFlagStructureItemEntity> items;
+
 
     public int getPcTerritoryFlagStructureID() {
         return pcTerritoryFlagStructureID;
@@ -119,5 +128,13 @@ public class PCTerritoryFlagStructureEntity {
 
     public void setBlueprint(StructureBlueprintEntity blueprint) {
         this.blueprint = blueprint;
+    }
+
+    public List<PCTerritoryFlagStructureItemEntity> getItems() {
+        return items;
+    }
+
+    public void setItems(List<PCTerritoryFlagStructureItemEntity> items) {
+        this.items = items;
     }
 }
