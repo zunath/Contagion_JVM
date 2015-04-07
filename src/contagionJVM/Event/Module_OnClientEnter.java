@@ -23,8 +23,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         // Bioware Default
         NWScript.executeScript("x3_mod_def_enter", objSelf);
         InitializeNewCharacter();
-        // Persistent Hit Points
-        NWScript.executeScript("php_mod_enter", objSelf);
         // SimTools
         NWScript.executeScript("fky_chat_clenter", objSelf);
         // Radio System - Also used for NWNX chat (different from SimTools)
@@ -83,6 +81,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             NWScript.createItemOnObject("fky_chat_target", oPC, 1, "");
             NWScript.createItemOnObject("food_bread", oPC, 1, "");
             NWScript.createItemOnObject("combat_knife", oPC, 1, "");
+            NWScript.createItemOnObject("struc_tool", oPC, 1, "");
 
             Scheduler.assign(oPC, new Runnable() {
                 @Override

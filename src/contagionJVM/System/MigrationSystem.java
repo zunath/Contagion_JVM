@@ -52,7 +52,7 @@ public class MigrationSystem {
 
             for(PCMigrationItemEntity item : migration.getPcMigrationItems())
             {
-                if(!item.getCurrentResref().equals("") && !item.getNewResref().equals(""))
+                if(!item.getCurrentResref().equals(""))
                 {
                     itemMap.put(item.getCurrentResref(), item);
                 }
@@ -100,7 +100,10 @@ public class MigrationSystem {
         if(itemMap.containsKey(resref))
         {
             NWScript.destroyObject(item, 0.0f);
-            NWScript.createItemOnObject(migrationItem.getNewResref(), oPC, quantity, "");
+            if(!migrationItem.getNewResref().equals(""))
+            {
+                NWScript.createItemOnObject(migrationItem.getNewResref(), oPC, quantity, "");
+            }
         }
         else if(stripItemList.contains(baseItemTypeID))
         {
@@ -151,6 +154,13 @@ public class MigrationSystem {
         }
 
         ProgressionSystem.GiveExperienceToPC(oPC, migrationEXP);
+
+
+        if(NWScript.getItemPossessedBy(oPC, "struc_tool").equals(NWObject.INVALID))
+        {
+            NWScript.createItemOnObject("struc_tool", oPC, 1, "");
+        }
+
     }
 
 }
