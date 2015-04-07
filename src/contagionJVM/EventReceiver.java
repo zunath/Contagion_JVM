@@ -2,6 +2,7 @@ package contagionJVM;
 
 import contagionJVM.Helper.ErrorHelper;
 import org.nwnx.nwnx2.jvm.NWObject;
+import org.nwnx.nwnx2.jvm.Scheduler;
 import org.nwnx.nwnx2.jvm.SchedulerListener;
 
 
@@ -17,6 +18,7 @@ public class EventReceiver implements SchedulerListener {
             Class scriptClass = Class.forName("contagionJVM." + event);
             IScriptEventHandler script = (IScriptEventHandler)scriptClass.newInstance();
             script.runScript(objSelf);
+            Scheduler.flushQueues();
         }
         catch(Exception ex) {
             ErrorHelper.HandleException(ex, "EventReceiver was unable to execute class method: contagionJVM." + event + ".runScript()");

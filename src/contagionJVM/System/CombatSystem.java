@@ -130,7 +130,6 @@ public class CombatSystem {
 
             // Prevent this from firing on module entry
             NWScript.setLocalInt(oItem, GUN_TEMP_GUN_EQUIPPED, 1);
-            Scheduler.flushQueues();
         }
     }
 
@@ -208,8 +207,6 @@ public class CombatSystem {
                         NWScript.clearAllActions(false);
                     }
                 });
-
-                Scheduler.flushQueues();
                 return;
             }
             else if(targetGO.hasPVPSanctuary())
@@ -222,8 +219,6 @@ public class CombatSystem {
                         NWScript.clearAllActions(false);
                     }
                 });
-
-                Scheduler.flushQueues();
                 return;
             }
         }
@@ -239,8 +234,6 @@ public class CombatSystem {
                     NWScript.clearAllActions(false);
                 }
             });
-
-            Scheduler.flushQueues();
             return;
         }
         // PC is dead or dying
@@ -252,8 +245,6 @@ public class CombatSystem {
                     NWScript.clearAllActions(false);
                 }
             });
-
-            Scheduler.flushQueues();
             return;
         }
 
@@ -268,8 +259,6 @@ public class CombatSystem {
                     NWScript.clearAllActions(false);
                 }
             });
-
-            Scheduler.flushQueues();
             NWScript.floatingTextStringOnCreature(ColorToken.Red() + "You cannot engage in PVP in this area." + ColorToken.End(), oAttacker, false);
             return;
         }
@@ -283,8 +272,6 @@ public class CombatSystem {
                     NWScript.clearAllActions(false);
                 }
             });
-
-            Scheduler.flushQueues();
             return;
         }
 
@@ -328,8 +315,6 @@ public class CombatSystem {
                         NWScript.clearAllActions(false);
                     }
                 });
-                Scheduler.flushQueues();
-
                 return;
             }
             SetAttackAllowed(oAttacker, 1);
@@ -369,7 +354,6 @@ public class CombatSystem {
                                 NWScript.clearAllActions(true);
                             }
                         });
-                        Scheduler.flushQueues();
 
                         NWVector attackerVector = NWScript.getPosition(oAttacker);
                         NWVector targetVector = NWScript.getPosition(oTarget);
@@ -395,7 +379,6 @@ public class CombatSystem {
                                 NWScript.deleteLocalInt(oAttacker, "TEMP_DISABLE_FIRING");
                             }
                         });
-                        Scheduler.flushQueues();
                     }
                 }
             }
@@ -530,8 +513,6 @@ public class CombatSystem {
                 LoadAmmo(oPC, oGun, -1);
             }
         });
-
-        Scheduler.flushQueues();
     }
 
     private void LoadAmmo(final NWObject oPC, final NWObject oGun, int iAmmoOverride)
@@ -652,8 +633,6 @@ public class CombatSystem {
         }
 
         UpdateItemName(oGun);
-
-        Scheduler.flushQueues();
     }
 
     private void UnloadAmmo(NWObject oPC, NWObject oGun)
@@ -827,8 +806,6 @@ public class CombatSystem {
                 }
             }
         }
-
-        Scheduler.flushQueues();
 
         return bFireDefaultScript;
     }
@@ -1019,7 +996,6 @@ public class CombatSystem {
                 NWScript.setCommandable(false, oAttacker);
             }
         });
-        Scheduler.flushQueues();
 
         Scheduler.delay(oAttacker, (int) ((fAnimationLength + fNextAttackDelay) * 1000), new Runnable() {
             @Override
@@ -1027,8 +1003,6 @@ public class CombatSystem {
                 NWScript.setCommandable(true, oAttacker);
             }
         });
-
-        Scheduler.flushQueues();
 
         // Loop for attack
         for (iCurrentShot = 1; iCurrentShot < iShots+1; iCurrentShot++)
@@ -1076,7 +1050,6 @@ public class CombatSystem {
                     FireShot(oAttacker, oTarget, weapon1, animation);
                 }
             });
-            Scheduler.flushQueues();
 
 
             // Second Shot for dual-pistols/SMGs
@@ -1101,8 +1074,6 @@ public class CombatSystem {
                             NWScript.deleteLocalInt(oAttacker, GUN_TEMP_PREVENT_AMMO_BOX_BUG);
                         }
                     });
-                    Scheduler.flushQueues();
-
                 }
                 else
                 {
@@ -1116,8 +1087,6 @@ public class CombatSystem {
                         FireShot(oAttacker, oTarget, weapon2, animation);
                     }
                 });
-
-                Scheduler.flushQueues();
             }
         }
 
@@ -1310,7 +1279,6 @@ public class CombatSystem {
                         IncendiaryDamage(oAttacker, oTarget, NWScript.random(3) + 3);
                     }
                 });
-                Scheduler.flushQueues();
             }
         }
 
@@ -1329,8 +1297,6 @@ public class CombatSystem {
                 NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectDamage(iDamage, DamageType.FIRE, DamagePower.NORMAL), oTarget, 0.0f);
             }
         });
-        Scheduler.flushQueues();
-
 
         // Exit when the incendiary NWEffect wears off
         if(iCounter <= 0) return;
@@ -1344,7 +1310,6 @@ public class CombatSystem {
                 IncendiaryDamage(oAttacker, oTarget, NWScript.random(3) + 3);
             }
         });
-        Scheduler.flushQueues();
         
     }
 

@@ -67,8 +67,6 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                 break;
 
         }
-
-        Scheduler.flushQueues();
     }
 
     @Override

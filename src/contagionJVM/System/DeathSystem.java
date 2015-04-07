@@ -107,7 +107,6 @@ public class DeathSystem {
         PCCorpseRepository repo = new PCCorpseRepository();
         repo.Save(entity);
         NWScript.setLocalInt(corpse, "CORPSE_ID", entity.getPcCorpseID());
-        Scheduler.flushQueues();
     }
 
     public static void OnPlayerRespawn()
@@ -124,8 +123,6 @@ public class DeathSystem {
                 NWScript.actionJumpToLocation(lLocation);
             }
         });
-
-        Scheduler.flushQueues();
     }
 
     public static void OnCorpseDisturb(NWObject corpse)
@@ -160,8 +157,6 @@ public class DeathSystem {
 
             repo.Save(entity);
         }
-
-        Scheduler.flushQueues();
     }
 
     public static void OnCorpseClose(NWObject corpse)

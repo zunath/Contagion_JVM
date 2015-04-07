@@ -60,9 +60,6 @@ public class PersistentStorage_OnDisturbed implements IScriptEventHandler {
             NWScript.sendMessageToPC(oPC, ColorToken.White() + "Item Limit: "  + itemCount + " / " + ColorToken.End() + ColorToken.Red() + entity.getBlueprint().getItemStorageCount() + ColorToken.End());
         }
 
-
-        Scheduler.flushQueues();
-
         repo.Save(entity);
     }
 }

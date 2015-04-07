@@ -52,7 +52,5 @@ public class GasCanister_OnDeath implements IScriptEventHandler {
             iCount++;
             oTarget = NWScript.getNearestObject(ObjectType.CREATURE, objSelf, iCount);
         }
-
-        Scheduler.flushQueues();
     }
 }

@@ -19,8 +19,6 @@ public class Module_OnPlayerDying implements IScriptEventHandler {
 				DeathFunction(oPC, 8);
 			}
 		});
-
-		Scheduler.flushQueues();
 	}
 
 
@@ -65,8 +63,6 @@ public class Module_OnPlayerDying implements IScriptEventHandler {
 						DeathFunction(oPC, dcCopy);
 					}
 				});
-
-				Scheduler.flushQueues();
 			}
 		}
 	}

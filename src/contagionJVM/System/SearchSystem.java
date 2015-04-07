@@ -76,10 +76,7 @@ public class SearchSystem {
                     NWScript.sendMessageToPC(pc, pcName + " found " + itemName + ".");
                 }
             }
-
         }
-
-        Scheduler.flushQueues();
     }
 
     public static void OnChestOpen(NWObject oChest)
@@ -159,8 +156,6 @@ public class SearchSystem {
                 NWScript.actionInteractObject(oCopy);
             }
         });
-
-        Scheduler.flushQueues();
     }
 
     private static void SaveChestInventory(NWObject oPC, NWObject oChest, boolean resetTimeLock)

@@ -73,8 +73,6 @@ public class Area_OnEnter implements IScriptEventHandler {
                 }
             });
         }
-
-        Scheduler.flushQueues();
     }
 
     private void ShowMap(NWObject oPC, NWObject oArea)

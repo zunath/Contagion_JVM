@@ -45,8 +45,6 @@ public class Zombie_OnSpawn implements IScriptEventHandler {
                 NWScript.actionRandomWalk();
             }
         });
-        Scheduler.flushQueues();
-
     }
 
     private void SpawnRandomClothes(NWObject oZombie)

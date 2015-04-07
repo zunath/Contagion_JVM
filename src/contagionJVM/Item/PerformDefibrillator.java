@@ -43,7 +43,5 @@ public class PerformDefibrillator implements IScriptEventHandler {
                 NWScript.setCommandable(true, oPC);
             }
         });
-
-        Scheduler.flushQueues();
     }
 }

@@ -75,7 +75,6 @@ public class SpawnSystem {
                     NWScript.actionRandomWalk();
                 }
             });
-            Scheduler.flushQueues();
         }
     }
 
@@ -145,7 +144,6 @@ public class SpawnSystem {
 
         // Update PC counter
         NWScript.setLocalInt(oArea, ZSS_PLAYER_COUNT, iPCCount);
-        Scheduler.flushQueues();
     }
 
     public void ZSS_OnAreaExit(NWObject oArea)
@@ -251,9 +249,6 @@ public class SpawnSystem {
             });
 
         }
-
-
-        Scheduler.flushQueues();
     }
 
 

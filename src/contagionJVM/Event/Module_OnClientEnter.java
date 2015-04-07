@@ -35,9 +35,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         ApplyGhostwalk();
         // Validate CD Key
         PlayerAuthorizationSystem.OnModuleEnter();
-
-
-        Scheduler.flushQueues();
     }
 
     private void ApplyGhostwalk()
@@ -107,8 +104,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
 
             NWNX_Funcs.SetRawQuickBarSlot(oPC, "1 4 0 1116 0");
         }
-
-        Scheduler.flushQueues();
     }
 
     private void ShowMOTD()

@@ -28,8 +28,6 @@ public class DurabilitySystem {
             });
 
             NWScript.floatingTextStringOnCreature(ColorToken.Red() + "That item is broken and must be repaired before you can use it." + ColorToken.End(), oPC, false);
-
-            Scheduler.flushQueues();
         }
     }
 

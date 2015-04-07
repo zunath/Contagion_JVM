@@ -28,8 +28,6 @@ public class ConstructionSite_OnAttacked implements IScriptEventHandler {
                     NWScript.clearAllActions(false);
                 }
             });
-
-            Scheduler.flushQueues();
             return;
         }
 
@@ -45,7 +43,6 @@ public class ConstructionSite_OnAttacked implements IScriptEventHandler {
                     NWScript.clearAllActions(false);
                 }
             });
-            Scheduler.flushQueues();
             return;
         }
 
@@ -64,7 +61,6 @@ public class ConstructionSite_OnAttacked implements IScriptEventHandler {
                     NWScript.clearAllActions(false);
                 }
             });
-            Scheduler.flushQueues();
             return;
         }
 
@@ -152,7 +148,5 @@ public class ConstructionSite_OnAttacked implements IScriptEventHandler {
                 }
             });
         }
-
-        Scheduler.flushQueues();
     }
 }

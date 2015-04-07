@@ -15,8 +15,6 @@ public class Position {
                 NWScript.setFacingPoint(NWScript.getPosition(oObjectToFace));
             }
         });
-
-        Scheduler.flushQueues();
     }
 
     public static float GetChangeInX(float fDistance, float fAngle)

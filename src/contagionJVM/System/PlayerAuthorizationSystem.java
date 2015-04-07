@@ -29,8 +29,6 @@ public class PlayerAuthorizationSystem {
         {
             ValidatePlayerCDKey(oPC);
         }
-
-        Scheduler.flushQueues();
     }
 
 

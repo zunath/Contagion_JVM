@@ -77,7 +77,6 @@ public class Conversation_StructureStorage extends DialogBase implements IDialog
                 NWScript.actionInteractObject(copy);
             }
         });
-        Scheduler.flushQueues();
     }
 
 }

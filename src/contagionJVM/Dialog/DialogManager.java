@@ -75,7 +75,6 @@ public class DialogManager {
                     NWScript.actionStartConversation(oTalkTo, "reo_dialog", true, false);
                 }
             });
-            Scheduler.flushQueues();
         }
         catch(Exception ex) {
             ErrorHelper.HandleException(ex, "Dialog_Start was unable to execute class method: contagionJVM.Dialog.Conversation_" + conversationName + ".Initialize()");

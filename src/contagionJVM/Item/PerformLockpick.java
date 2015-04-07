@@ -24,8 +24,6 @@ public class PerformLockpick implements IScriptEventHandler {
         });
 
         NWScript.deleteLocalObject(oPC, "LOCKPICK_TEMP_UNLOCKING_OBJECT");
-
-        Scheduler.flushQueues();
     }
 
     private void LockAndClose(final NWObject oTarget)
@@ -37,8 +35,6 @@ public class PerformLockpick implements IScriptEventHandler {
                 NWScript.actionCloseDoor(oTarget);
             }
         });
-
-        Scheduler.flushQueues();
     }
 
 }

@@ -113,7 +113,5 @@ public class Lockpick implements IScriptEventHandler {
             NWScript.floatingTextStringOnCreature(ColorToken.Purple() + "You begin picking the lock..." + ColorToken.End(), oPC, false);
         }
 
-        Scheduler.flushQueues();
-
     }
 }

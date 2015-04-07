@@ -16,8 +16,6 @@ public class Module_OnPlayerRest implements IScriptEventHandler {
             }
         });
 
-        Scheduler.flushQueues();
-
         DialogManager.startConversation(oPC, oPC, "RestMenu");
 	}
 }

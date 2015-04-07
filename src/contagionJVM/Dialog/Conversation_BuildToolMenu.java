@@ -287,8 +287,6 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
                 NWScript.setFacing((float)entity.getLocationOrientation());
             }
         });
-
-        Scheduler.flushQueues();
     }
 
     private void HandleRazeStructure()

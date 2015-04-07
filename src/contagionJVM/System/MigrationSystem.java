@@ -85,8 +85,6 @@ public class MigrationSystem {
                     NWScript.floatingTextStringOnCreature(ColorToken.Green() + "Your character has been updated! Please check near your feet to make sure no items were dropped during the migration." + ColorToken.End(), oPC, false);
                 }
             });
-
-            Scheduler.flushQueues();
         }
     }
 

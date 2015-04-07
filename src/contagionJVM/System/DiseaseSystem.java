@@ -46,7 +46,6 @@ public class DiseaseSystem {
         }
 
         repo.save(entity);
-        Scheduler.flushQueues();
     }
 
     public static PlayerEntity RunDiseaseRemovalProcess(NWObject oPC, PlayerEntity entity)
@@ -179,7 +178,6 @@ public class DiseaseSystem {
                 NWScript.actionUnequipItem(NWScript.getItemInSlot(InventorySlot.RIGHTHAND, oClone));
             }
         });
-        Scheduler.flushQueues();
 
         NWScript.setName(oClone, "(Zombie) " + NWScript.getName(oPC, false));
 

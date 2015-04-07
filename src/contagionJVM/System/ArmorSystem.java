@@ -60,8 +60,6 @@ public class ArmorSystem {
                 });
             }
         }
-
-        Scheduler.flushQueues();
     }
 
     public static void OnModuleUnequipItem()
@@ -107,8 +105,6 @@ public class ArmorSystem {
                 });
             }
         }
-
-        Scheduler.flushQueues();
     }
 
 }

@@ -160,7 +160,6 @@ public class PlayerGO {
                 }
             }
         });
-        Scheduler.flushQueues();
     }
 
     public Date getCreateDate()

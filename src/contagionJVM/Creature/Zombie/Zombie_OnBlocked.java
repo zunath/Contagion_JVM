@@ -30,8 +30,5 @@ public class Zombie_OnBlocked implements IScriptEventHandler {
             NWScript.setLocalObject(oZombie, "PreDoorBashTarget", oTarget);
             NWScript.doDoorAction(oDoor, DoorAction.BASH);
         }
-
-
-        Scheduler.flushQueues();
     }
 }

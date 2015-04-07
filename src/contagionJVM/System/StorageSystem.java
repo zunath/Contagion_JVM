@@ -94,8 +94,6 @@ public class StorageSystem {
             NWScript.sendMessageToPC(oPC, ColorToken.White() + "Item Limit: "  + itemCount + " / " + ColorToken.End() + ColorToken.Red() + itemLimit + ColorToken.End());
         }
 
-        Scheduler.flushQueues();
-
         repo.Save(entity);
     }
 

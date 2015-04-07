@@ -498,7 +498,6 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
                 model.setIsPreviewing(false);
             }
         });
-        Scheduler.flushQueues();
 
     }
 
@@ -520,7 +519,6 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
                 model.setIsPreviewing(false);
             }
         });
-        Scheduler.flushQueues();
     }
 
     private void DoRaze()
@@ -608,7 +606,6 @@ public class Conversation_ConstructionSite extends DialogBase implements IDialog
             }
         });
 
-        Scheduler.flushQueues();
     }
 
     private void HandleRecoverResourcesPage(int responseID)

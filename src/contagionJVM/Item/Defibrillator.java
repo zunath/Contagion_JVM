@@ -78,7 +78,5 @@ public class Defibrillator implements IScriptEventHandler {
         {
             NWScript.sendMessageToPC(oPC, "Invalid target.");
         }
-
-        Scheduler.flushQueues();
     }
 }
