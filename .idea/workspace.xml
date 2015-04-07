@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -44,8 +43,18 @@
       <file leaf-file-name="MigrationSystem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.0934718">
-              <caret line="103" column="13" selection-start-line="103" selection-start-column="13" selection-end-line="103" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.7477745">
+              <caret line="163" column="74" selection-start-line="163" selection-start-column="74" selection-end-line="163" selection-end-column="74" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Module_OnUseItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnUseItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -711,12 +720,6 @@
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
     </task>
-    <task id="LOCAL-00028" summary="Change conversation method">
-      <created>1427341180428</created>
-      <option name="number" value="00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1427341180428</updated>
-    </task>
     <task id="LOCAL-00029" summary="Allocate SP Conversation: Upgrade selection + header display">
       <created>1427417076768</created>
       <option name="number" value="00029" />
@@ -1005,7 +1008,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428281613189</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Give structure tool on login or migration.">
+      <created>1428367797982</created>
+      <option name="number" value="00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1428367797983</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1050,7 +1059,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix zombie respawn issue" />
     <MESSAGE value="Combat system: replace &quot;assign&quot; clear all action calls with &quot;delay&quot; calls." />
     <MESSAGE value="Fix modifying skills/ability scores on upgrade purchase" />
     <MESSAGE value="Get max HP by level in progression system, not total max." />
@@ -1075,7 +1083,8 @@
     <MESSAGE value="Modify checks for determining if a territory flag will overlap with another. Highlight those that will in red in the menu." />
     <MESSAGE value="Permission checks" />
     <MESSAGE value="Structure system persistent storage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Structure system persistent storage" />
+    <MESSAGE value="Give structure tool on login or migration." />
+    <option name="LAST_COMMIT_MESSAGE" value="Give structure tool on login or migration." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1197,13 +1206,6 @@
         <state vertical-scroll-proportion="0.43070045">
           <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnUseItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1484,10 +1486,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnUseItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.0934718">
-          <caret line="103" column="13" selection-start-line="103" selection-start-column="13" selection-end-line="103" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.7477745">
+          <caret line="163" column="74" selection-start-line="163" selection-start-column="74" selection-end-line="163" selection-end-column="74" />
           <folding />
         </state>
       </provider>

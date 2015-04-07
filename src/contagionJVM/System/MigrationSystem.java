@@ -160,7 +160,8 @@ public class MigrationSystem {
         {
             NWScript.createItemOnObject("struc_tool", oPC, 1, "");
         }
-
+        NWScript.setLocalString(pcGO.GetDatabaseItem(), "JAVA_SCRIPT", "Database");
+        NWScript.setLocalInt(pcGO.GetDatabaseItem(), "SKIP_ANIMATION", 1);
     }
 
 }
