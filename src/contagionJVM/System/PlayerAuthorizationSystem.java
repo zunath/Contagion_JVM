@@ -21,7 +21,7 @@ public class PlayerAuthorizationSystem {
         PCAuthorizedCDKeysRepository repo = new PCAuthorizedCDKeysRepository();
         PCAuthorizedCDKeyEntity entity = repo.GetByAccountName(account);
 
-        if(entity.isAddingKey())
+        if(entity != null && entity.isAddingKey())
         {
             AddNewKey(oPC);
         }
