@@ -17,7 +17,5 @@ public class Module_OnPlayerEquipItem implements IScriptEventHandler {
 		// Item Durability System
         DurabilitySystem.OnModuleEquip();
 		ArmorSystem.OnModuleEquipItem();
-
-        InventorySystem.OnModuleEquipItem();
 	}
 }

@@ -1,6 +1,5 @@
 package contagionJVM.Event;
 import contagionJVM.IScriptEventHandler;
-import contagionJVM.System.InventorySystem;
 import contagionJVM.System.RadioSystem;
 import org.nwnx.nwnx2.jvm.*;
 
@@ -12,8 +11,6 @@ public class Module_OnAcquireItem implements IScriptEventHandler {
 
 		// Bioware Default
 		NWScript.executeScript("x2_mod_def_aqu", objSelf);
-
-        InventorySystem.OnModuleAcquireItem();
 
 		radioSystem.OnModuleAcquire();
 

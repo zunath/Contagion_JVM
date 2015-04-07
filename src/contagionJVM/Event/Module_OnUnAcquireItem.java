@@ -13,8 +13,6 @@ public class Module_OnUnAcquireItem implements IScriptEventHandler {
 		// Bioware Default
 		NWScript.executeScript("x2_mod_def_unaqu", objSelf);
 
-        InventorySystem.OnModuleUnAcquireItem();
-
 		radioSystem.OnModuleUnacquire();
 
 	}
