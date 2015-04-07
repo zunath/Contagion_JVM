@@ -1,9 +1,7 @@
 package contagionJVM.Event;
 
 import contagionJVM.IScriptEventHandler;
-import contagionJVM.NWNX.AreaScript;
-import contagionJVM.NWNX.NWNX_Events;
-import contagionJVM.NWNX.NWNX_Funcs;
+import contagionJVM.NWNX.*;
 import contagionJVM.System.DeathSystem;
 import contagionJVM.System.SpawnSystem;
 import contagionJVM.System.StructureSystem;
@@ -70,5 +68,17 @@ public class Module_OnLoad implements IScriptEventHandler {
         NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_USE_FEAT, "reo_mod_usefeat");
         NWNX_Events.SetGlobalEventHandler(NWNX_Events.EVENT_TYPE_USE_ITEM, "reo_mod_useitem");
 
+		NWNX_DMActions.SetDMActionScript(DMActionType.CREATE_ITEM_ON_AREA, "reo_dm_areaitem");
+		NWNX_DMActions.SetDMActionScript(DMActionType.CREATE_ITEM_ON_OBJECT, "reo_dm_objitem");
+		NWNX_DMActions.SetDMActionScript(DMActionType.CREATE_PLACEABLE, "reo_dm_placeable");
+		NWNX_DMActions.SetDMActionScript(DMActionType.GIVE_GOLD, "reo_dm_gold");
+		NWNX_DMActions.SetDMActionScript(DMActionType.GIVE_LEVEL, "reo_dm_level");
+		NWNX_DMActions.SetDMActionScript(DMActionType.GIVE_XP, "reo_dm_xp");
+		NWNX_DMActions.SetDMActionScript(DMActionType.HEAL_CREATURE, "reo_dm_heal");
+		NWNX_DMActions.SetDMActionScript(DMActionType.REST_CREATURE, "reo_dm_rest");
+		NWNX_DMActions.SetDMActionScript(DMActionType.RUNSCRIPT, "reo_dm_runscript");
+		NWNX_DMActions.SetDMActionScript(DMActionType.SPAWN_CREATURE, "reo_dm_spawn");
+		NWNX_DMActions.SetDMActionScript(DMActionType.TOGGLE_IMMORTALITY, "reo_dm_immortal");
+		NWNX_DMActions.SetDMActionScript(DMActionType.TOGGLE_INVULNERABILITY, "reo_dm_invuln");
     }
 }

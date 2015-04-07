@@ -24,6 +24,7 @@ import org.nwnx.nwnx2.jvm.constants.Feat;
 import org.nwnx.nwnx2.jvm.constants.SavingThrow;
 import org.nwnx.nwnx2.jvm.constants.Skill;
 
+import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -132,7 +133,7 @@ public class ProgressionSystem {
 
     public static void GiveExperienceToPC(NWObject oPC, int amount)
     {
-        if(amount <= 0 || NWScript.getIsDM(oPC)) return;
+        if(amount <= 0 || NWScript.getIsDM(oPC) || !NWScript.getIsPC(oPC)) return;
 
         PlayerGO pcGO = new PlayerGO(oPC);
         PlayerRepository repo = new PlayerRepository();
@@ -156,13 +157,31 @@ public class ProgressionSystem {
             entity.setLevel(entity.getLevel() + 1);
             NWScript.floatingTextStringOnCreature("You attained level " + entity.getLevel() + "!", oPC, false);
 
-
             levelEntity = levelRepo.getByLevel(entity.getLevel());
         }
 
         repo.save(entity);
     }
 
+    public static void GiveLevelToPC(NWObject oPC, int givenLevels)
+    {
+        if(givenLevels <= 0 || NWScript.getIsDM(oPC) || !NWScript.getIsPC(oPC)) return;
+
+        int currentLevel = GetPlayerLevel(oPC);
+        if(currentLevel >= LevelCap) return;
+        PlayerGO pcGO = new PlayerGO(oPC);
+        PlayerRepository playerRepo = new PlayerRepository();
+        ProgressionLevelRepository levelRepo = new ProgressionLevelRepository();
+        PlayerEntity entity = playerRepo.getByUUID(pcGO.getUUID());
+        List<ProgressionLevelEntity> levelList = levelRepo.getAll();
+
+        for(int x = entity.getLevel(); x < entity.getLevel() + givenLevels; x++)
+        {
+            int exp = levelList.get(x-1).getExperience();
+            GiveExperienceToPC(oPC, exp);
+        }
+
+    }
 
     public static void PurchaseSkillUpgrade(NWObject oPC, int skillID)
     {
