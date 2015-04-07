@@ -595,12 +595,16 @@ public class StructureSystem {
 
     public static boolean PlayerHasPermission(NWObject oPC, int permissionID, int flagID)
     {
+        if(flagID <= 0) return true;
+
         PlayerGO pcGO = new PlayerGO(oPC);
         StructureRepository repo = new StructureRepository();
         PCTerritoryFlagPermissionEntity permission = repo.GetPermissionByID(pcGO.getUUID(), permissionID, flagID);
         PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
 
-        return permission != null || entity.getPlayerID().equals(pcGO.getUUID());
+        if(permission == null || entity == null) return false;
+        else if (entity.getPlayerID().equals(pcGO.getUUID())) return true;
+        else return true;
     }
 
 }
