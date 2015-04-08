@@ -17,6 +17,8 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
         DialogPage mainPage = new DialogPage(
                 BuildMainPageHeader(oPC),
                 "Allocate Skill Points",
+                "Dice Bag",
+                "Emote Menu",
                 "View Badges",
                 "View Key Items",
                 "Modify Clothes",
@@ -42,16 +44,42 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                     case 1:
                         SwitchConversation("AllocateSkillPoints");
                         break;
-                    // View Badges
+                    // Dice Bag
                     case 2:
+                        NWScript.setLocalObject(oPC, "dmfi_univ_target", oPC);
+                        NWScript.setLocalLocation(oPC, "dmfi_univ_location", NWScript.getLocation(oPC));
+                        NWScript.setLocalString(oPC, "dmfi_univ_conv", "pc_dicebag");
+                        Scheduler.assign(oPC, new Runnable() {
+                            @Override
+                            public void run() {
+                                NWScript.clearAllActions(false);
+                                NWScript.actionStartConversation(oPC, "dmfi_universal", true, false);
+                            }
+                        });
+                        break;
+                    // Emote Menu
+                    case 3:
+                        NWScript.setLocalObject(oPC, "dmfi_univ_target", oPC);
+                        NWScript.setLocalLocation(oPC, "dmfi_univ_location", NWScript.getLocation(oPC));
+                        NWScript.setLocalString(oPC, "dmfi_univ_conv", "pc_emote");
+                        Scheduler.assign(oPC, new Runnable() {
+                            @Override
+                            public void run() {
+                                NWScript.clearAllActions(false);
+                                NWScript.actionStartConversation(oPC, "dmfi_universal", true, false);
+                            }
+                        });
+                        break;
+                    // View Badges
+                    case 4:
                         SwitchConversation("ViewBadges");
                         break;
                     // Key Item Categories Page
-                    case 3:
+                    case 5:
                         SwitchConversation("KeyItems");
                         break;
                     // Modify Clothes
-                    case 4:
+                    case 6:
                         Scheduler.assign(oPC, new Runnable() {
                             @Override
                             public void run() {
@@ -60,7 +88,7 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                         });
                         break;
                     // Character Management
-                    case 5:
+                    case 7:
                         SwitchConversation("CharacterManagement");
                         break;
                 }
