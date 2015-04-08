@@ -26,9 +26,13 @@ public class CheckInfectionLevel implements IScriptEventHandler {
         PlayerEntity entity = repo.getByUUID(targetGO.getUUID());
         int infection = entity.getCurrentInfection();
         String name = NWScript.getName(oTarget, false);
-        String message = "This person looks to be in perfect health. They don't look infected at all.";
+        String message;
 
-        if(infection <= 10 && infection > 0)
+        if(infection <= 0)
+        {
+            message = "This person looks to be in perfect health. They don't look infected at all.";
+        }
+        else if(infection <= 10)
         {
             message = "This person looks to be in generally good health despite some scuffs and bruises. They don't look very sick, if at all.";
         }
@@ -67,6 +71,10 @@ public class CheckInfectionLevel implements IScriptEventHandler {
         else if(infection <= 100)
         {
             message = "There is absolutely no question. This person is in EXTREME danger of turning. It appears that they will turn in a matter of a few minutes. Any attention to save this person needs to be applied now or they are a goner for sure!";
+        }
+        else
+        {
+            message = "It's impossible to tell how infected this individual looks.";
         }
 
 

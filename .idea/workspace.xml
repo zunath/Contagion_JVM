@@ -63,8 +63,8 @@
       <file leaf-file-name="CheckInfectionLevel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/OmniTool/CheckInfectionLevel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5312977">
-              <caret line="62" column="32" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+            <state vertical-scroll-proportion="1.9984733">
+              <caret line="77" column="9" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -765,12 +765,6 @@
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
     </task>
-    <task id="LOCAL-00037" summary="Increase max dialog responses to 12.">
-      <created>1427517146690</created>
-      <option name="number" value="00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1427517146690</updated>
-    </task>
     <task id="LOCAL-00038" summary="Portrait changing menu system">
       <created>1427553446582</created>
       <option name="number" value="00038" />
@@ -1059,7 +1053,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428462888950</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Infection checker tool.">
+      <created>1428464233656</created>
+      <option name="number" value="00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1428464233656</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1104,7 +1104,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Stored &quot;IsAdding&quot; flag in pc_authorized_cdkeys table for tracking across server restarts." />
     <MESSAGE value="Skill point reset functionality." />
     <MESSAGE value="Structure system initial check in" />
     <MESSAGE value="Add metal fields to construction site, structure, and territory marker entities" />
@@ -1129,7 +1128,8 @@
     <MESSAGE value="Segfault fix on rest event. Fix permission check when no flag is in range for structure system" />
     <MESSAGE value="Combined functions of structure tool and infection checker into the database/omni tool." />
     <MESSAGE value="Add dicebag and emote options to rest menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add dicebag and emote options to rest menu" />
+    <MESSAGE value="Infection checker tool." />
+    <option name="LAST_COMMIT_MESSAGE" value="Infection checker tool." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1550,8 +1550,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/OmniTool/CheckInfectionLevel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5312977">
-          <caret line="62" column="32" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+        <state vertical-scroll-proportion="1.9984733">
+          <caret line="77" column="9" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="9" />
           <folding />
         </state>
       </provider>
