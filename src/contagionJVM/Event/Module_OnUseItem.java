@@ -6,6 +6,7 @@ import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
+import org.nwnx.nwnx2.jvm.Scheduler;
 import org.nwnx.nwnx2.jvm.constants.IpConst;
 
 @SuppressWarnings("UnusedDeclaration")
@@ -25,19 +26,24 @@ public class Module_OnUseItem implements IScriptEventHandler {
         String className = NWScript.getLocalString(oItem, "JAVA_SCRIPT");
         if(className.equals("") || NWScript.getLocalInt(oItem, "SKIP_ANIMATION") == 0) return;
 
+        RunJavaScript(oPC, className);
+    }
+
+    private void RunJavaScript(NWObject oPC, String className)
+    {
         try
         {
             NWNX_Events.BypassEvent();
             Class scriptClass = Class.forName("contagionJVM.Item." + className);
             IScriptEventHandler script = (IScriptEventHandler)scriptClass.newInstance();
             script.runScript(oPC);
+            Scheduler.flushQueues();
         }
         catch (Exception ex)
         {
-            ErrorHelper.HandleException(ex, "Module_OnActivateItem was unable to execute class method: contagionJVM.Item." + className + ".runScript()");
+            ErrorHelper.HandleException(ex, "Module_OnUseItem was unable to execute class method: contagionJVM.Item." + className + ".runScript()");
         }
     }
-
 
     private void HandleSpecificItemUses(NWObject oPC)
     {
@@ -59,6 +65,12 @@ public class Module_OnUseItem implements IScriptEventHandler {
         boolean bRadioChannel = XP2.IPGetItemHasProperty(oItem, NWScript.itemPropertyCastSpell(550, IpConst.CASTSPELL_NUMUSES_UNLIMITED_USE), -1, false);
         // Use Lockpick Property
         boolean bLockpick = XP2.IPGetItemHasProperty(oItem, NWScript.itemPropertyCastSpell(551, IpConst.CASTSPELL_NUMUSES_UNLIMITED_USE), -1, false);
+        // Use Structure Tool Property
+        boolean bUseStructure = XP2.IPGetItemHasProperty(oItem, NWScript.itemPropertyCastSpell(553, IpConst.CASTSPELL_NUMUSES_UNLIMITED_USE), -1, false);
+        // Open Rest Menu Property
+        boolean bOpenRestMenu = XP2.IPGetItemHasProperty(oItem, NWScript.itemPropertyCastSpell(554, IpConst.CASTSPELL_NUMUSES_UNLIMITED_USE), -1, false);
+        // Check Infection Level Property
+        boolean bCheckInfectionLevel = XP2.IPGetItemHasProperty(oItem, NWScript.itemPropertyCastSpell(556, IpConst.CASTSPELL_NUMUSES_UNLIMITED_USE), -1, false);
 
 
         String sChangeAmmoScript = "gun_changeammo";
@@ -163,6 +175,26 @@ public class Module_OnUseItem implements IScriptEventHandler {
         {
             bBypassEvent = true;
             NWScript.executeScript(sUseLockpickScript, oPC);
+        }
+        // Omni Tool: Check Infection Level (0), Open Rest Menu (1), Use Structure Tool (2)
+        else if(bUseStructure && bOpenRestMenu && bCheckInfectionLevel)
+        {
+            bBypassEvent = true;
+            // Check Infection Level
+            if(iSubtype == 0)
+            {
+                RunJavaScript(oPC, "OmniTool.CheckInfectionLevel");
+            }
+            // Open Rest Menu
+            else if(iSubtype == 1)
+            {
+                RunJavaScript(oPC, "OmniTool.OpenRestMenu");
+            }
+            // Use Structure Tool
+            else if(iSubtype == 2)
+            {
+                RunJavaScript(oPC, "OmniTool.UseStructureTool");
+            }
         }
         // Fire tag based scripting in all other cases (I.E: Don't bypass this event)
         // Allows for backwards compatibility until we convert other systems over to Linux

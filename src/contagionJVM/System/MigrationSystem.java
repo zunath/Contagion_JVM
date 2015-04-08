@@ -1,5 +1,6 @@
 package contagionJVM.System;
 
+import contagionJVM.Bioware.XP2;
 import contagionJVM.Constants;
 import contagionJVM.Entities.PCMigrationEntity;
 import contagionJVM.Entities.PCMigrationItemEntity;
@@ -7,6 +8,7 @@ import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.ItemGO;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
+import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.Repository.PCMigrationRepository;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
@@ -152,14 +154,8 @@ public class MigrationSystem {
         }
 
         ProgressionSystem.GiveExperienceToPC(oPC, migrationEXP);
-
-
-        if(NWScript.getItemPossessedBy(oPC, "struc_tool").equals(NWObject.INVALID))
-        {
-            NWScript.createItemOnObject("struc_tool", oPC, 1, "");
-        }
-        NWScript.setLocalString(pcGO.GetDatabaseItem(), "JAVA_SCRIPT", "Database");
-        NWScript.setLocalInt(pcGO.GetDatabaseItem(), "SKIP_ANIMATION", 1);
+        NWScript.destroyObject(pcGO.GetDatabaseItem(), 0.0f);
+        NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
     }
 
 }

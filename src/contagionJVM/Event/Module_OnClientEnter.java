@@ -73,12 +73,9 @@ public class Module_OnClientEnter implements IScriptEventHandler {
                 }
             });
 
-            NWScript.createItemOnObject("dmfi_pc_emote", oPC, 1, "");
-            NWScript.createItemOnObject("dmfi_pc_dicebag", oPC, 1, "");
             NWScript.createItemOnObject("fky_chat_target", oPC, 1, "");
             NWScript.createItemOnObject("food_bread", oPC, 1, "");
             NWScript.createItemOnObject("combat_knife", oPC, 1, "");
-            NWScript.createItemOnObject("struc_tool", oPC, 1, "");
 
             Scheduler.assign(oPC, new Runnable() {
                 @Override
