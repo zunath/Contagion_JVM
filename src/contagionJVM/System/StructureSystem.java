@@ -600,13 +600,27 @@ public class StructureSystem {
 
         PlayerGO pcGO = new PlayerGO(oPC);
         StructureRepository repo = new StructureRepository();
-        PCTerritoryFlagPermissionEntity permission = repo.GetPermissionByID(pcGO.getUUID(), permissionID, flagID);
-        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
 
-        if(entity == null) return false;
-        else if (entity.getPlayerID().equals(pcGO.getUUID())) return true;
-        else if(permission == null) return false;
-        else return true;
+        PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
+        int buildPrivacyID = entity.getBuildPrivacy().getBuildPrivacyTypeID();
+
+        if(buildPrivacyID == 1) // Owner Only
+        {
+            return pcGO.getUUID().equals(entity.getPlayerID());
+        }
+        else if(buildPrivacyID == 2) // Friends only
+        {
+            PCTerritoryFlagPermissionEntity permission = repo.GetPermissionByID(pcGO.getUUID(), permissionID, flagID);
+            return permission != null || pcGO.getUUID().equals(entity.getPlayerID());
+        }
+        else if(buildPrivacyID == 3) // Public
+        {
+            return true;
+        }
+        else // Shouldn't reach here.
+        {
+            return false;
+        }
     }
 
 }
