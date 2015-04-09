@@ -22,6 +22,7 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                 "View Badges",
                 "View Key Items",
                 "Modify Clothes",
+                "Dye Clothes",
                 "Character Management");
 
         dialog.addPage("MainPage", mainPage);
@@ -87,8 +88,18 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                             }
                         });
                         break;
-                    // Character Management
+                    // Dye Clothes
                     case 7:
+                        Scheduler.assign(oPC, new Runnable() {
+                            @Override
+                            public void run() {
+                                NWScript.actionStartConversation(oPC, "dye_dyekit", false, false);
+                            }
+                        });
+
+                        break;
+                    // Character Management
+                    case 8:
                         SwitchConversation("CharacterManagement");
                         break;
                 }
