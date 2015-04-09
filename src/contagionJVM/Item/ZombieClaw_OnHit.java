@@ -8,8 +8,6 @@ import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import org.nwnx.nwnx2.jvm.constants.Spell;
 
-import java.util.Objects;
-
 @SuppressWarnings("UnusedDeclaration")
 public class ZombieClaw_OnHit implements IScriptEventHandler {
     @Override
@@ -17,18 +15,18 @@ public class ZombieClaw_OnHit implements IScriptEventHandler {
         NWObject oBite = NWScript.getSpellCastItem();
         NWObject oPC = NWScript.getSpellTargetObject();
         int iChanceToInfect = NWScript.random(100) + 1;
-
+        String itemTag = NWScript.getTag(oBite);
         if (!NWScript.getIsPC(oPC)) return;
 
-        // Fires only for the zombie bite, only if it's valid, and only 80% of the hits
-        if (Objects.equals(NWScript.getTag(oBite), "rotd_zombie_bite") && iChanceToInfect <= 80 && !NWScript.getHasSpellEffect(Spell.SANCTUARY, oPC))
+        if (itemTag.equals("rotd_zombie_bite") &&
+                iChanceToInfect <= 80 &&
+                !NWScript.getHasSpellEffect(Spell.SANCTUARY, oPC))
         {
             int iDiseaseCheck = NWScript.random(20) + 1;
-            int iDiseaseDC = DiseaseSystem.DCCheck + NWScript.random(4);
+            int iDiseaseDC = DiseaseSystem.DCCheck + NWScript.random(6);
 
             // Disease Resistance grants a bonus of +1 infection resistance per point
             int iDiseaseResistance = ProgressionSystem.GetPlayerSkillLevel(oPC, ProgressionSystem.SkillType_DISEASE_RESISTANCE);
-
 
             // Add the bonus to the initial roll
             iDiseaseCheck = iDiseaseCheck + iDiseaseResistance;
