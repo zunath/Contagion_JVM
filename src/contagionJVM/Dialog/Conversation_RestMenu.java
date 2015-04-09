@@ -84,7 +84,7 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                         Scheduler.assign(oPC, new Runnable() {
                             @Override
                             public void run() {
-                                NWScript.actionStartConversation(oPC, "x0_skill_ctrap", false, false);
+                                NWScript.actionStartConversation(oPC, "x0_skill_ctrap", true, false);
                             }
                         });
                         break;
@@ -93,7 +93,7 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
                         Scheduler.assign(oPC, new Runnable() {
                             @Override
                             public void run() {
-                                NWScript.actionStartConversation(oPC, "dye_dyekit", false, false);
+                                NWScript.actionStartConversation(oPC, "dye_dyekit", true, false);
                             }
                         });
 
