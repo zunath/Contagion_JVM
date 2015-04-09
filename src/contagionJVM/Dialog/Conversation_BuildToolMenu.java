@@ -312,6 +312,8 @@ public class Conversation_BuildToolMenu extends DialogBase implements IDialogHan
             StructureRepository repo = new StructureRepository();
             PCTerritoryFlagStructureEntity entity = repo.GetPCStructureByID(structureID);
             repo.Delete(entity);
+
+            NWScript.destroyObject(NWScript.getLocalObject(model.getActiveStructure(), "GateBlock"), 0.0f);
             NWScript.destroyObject(model.getActiveStructure(), 0.0f);
 
             BuildMainMenuResponses(model.getActiveStructure());

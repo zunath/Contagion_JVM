@@ -362,8 +362,6 @@ public class StructureSystem {
             }
         }
 
-
-
         if(outsideOwnFlagRadius)
         {
             NWScript.floatingTextStringOnCreature("Unable to move structure to that location. New location must be within range of the territory marker it is attached to.", oPC, false);
@@ -375,6 +373,7 @@ public class StructureSystem {
         if(constructionSiteID > 0) SetConstructionSiteID(copy, constructionSiteID);
         else if (structureID > 0) SetPlaceableStructureID(copy, structureID);
 
+        NWScript.destroyObject(NWScript.getLocalObject(target, "GateBlock"), 0.0f);
         NWScript.destroyObject(target, 0.0f);
     }
 
@@ -466,6 +465,8 @@ public class StructureSystem {
             if(constructionSiteIDs.contains(GetConstructionSiteID(placeable)) ||
                     structureSiteIDs.contains(GetPlaceableStructureID(placeable)))
             {
+
+                NWScript.destroyObject(NWScript.getLocalObject(placeable, "GateBlock"), 0.0f);
                 NWScript.destroyObject(placeable, 0.0f);
             }
 
@@ -602,8 +603,9 @@ public class StructureSystem {
         PCTerritoryFlagPermissionEntity permission = repo.GetPermissionByID(pcGO.getUUID(), permissionID, flagID);
         PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
 
-        if(permission == null || entity == null) return false;
+        if(entity == null) return false;
         else if (entity.getPlayerID().equals(pcGO.getUUID())) return true;
+        else if(permission == null) return false;
         else return true;
     }
 
