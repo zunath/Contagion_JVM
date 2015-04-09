@@ -92,6 +92,7 @@ public class DataAccess {
         _configuration.addAnnotatedClass(PCCorpseEntity.class);
         _configuration.addAnnotatedClass(PCCorpseItemEntity.class);
         _configuration.addAnnotatedClass(PCOutfitEntity.class);
+        _configuration.addAnnotatedClass(PCOverflowItemEntity.class);
         _configuration.addAnnotatedClass(PCSearchSiteEntity.class);
         _configuration.addAnnotatedClass(PCSearchSiteItemEntity.class);
         _configuration.addAnnotatedClass(PCTerritoryFlagEntity.class);

@@ -16,6 +16,7 @@ public class Area_OnEnter implements IScriptEventHandler {
         SpawnSystem spawnSystem = new SpawnSystem();
 
         NWObject oPC = NWScript.getEnteringObject();
+        MigrationSystem.OnAreaEnter(oPC);
 
         // Temporary Sanctuary Effects
         NWScript.executeScript("sanctuary", oArea);
@@ -24,7 +25,6 @@ public class Area_OnEnter implements IScriptEventHandler {
         spawnSystem.ZSS_OnAreaEnter(oArea);
         // Initialize camera in designated areas.
         NWScript.executeScript("initialize_camer", oArea);
-        MigrationSystem.OnAreaEnter(oPC);
 
         // Save characters
         if(NWScript.getIsObjectValid(oPC) && NWScript.getIsPC(oPC) && !NWScript.getIsDM(oPC)) NWScript.exportSingleCharacter(oPC);

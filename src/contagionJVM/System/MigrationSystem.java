@@ -1,22 +1,24 @@
 package contagionJVM.System;
 
-import contagionJVM.Bioware.XP2;
 import contagionJVM.Constants;
 import contagionJVM.Entities.PCMigrationEntity;
 import contagionJVM.Entities.PCMigrationItemEntity;
+import contagionJVM.Entities.PCOverflowItemEntity;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.ItemGO;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
-import contagionJVM.NWNX.NWNX_Funcs;
+import contagionJVM.Repository.OverflowItemRepository;
 import contagionJVM.Repository.PCMigrationRepository;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
+import org.nwnx.nwnx2.jvm.SCORCO;
 import org.nwnx.nwnx2.jvm.Scheduler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MigrationSystem {
 
@@ -81,10 +83,16 @@ public class MigrationSystem {
             playerRepo.save(entity);
             NWScript.setLocalInt(oPC, "MIGRATION_SYSTEM_LOGGED_IN_ONCE", 1);
 
+            OverflowItemRepository overflowRepo = new OverflowItemRepository();
+            long overflowCount = overflowRepo.GetPlayerOverflowItemCount(pcGO.getUUID());
+
+            final String message = ColorToken.Green() + "Your character has been updated!" +
+                    (overflowCount > 0 ? " Items which could not be created have been placed into overflow inventory. You can access this from the rest menu." : "") +
+                    ColorToken.End();
             Scheduler.delay(oPC, 8000, new Runnable() {
                 @Override
                 public void run() {
-                    NWScript.floatingTextStringOnCreature(ColorToken.Green() + "Your character has been updated! Please check near your feet to make sure no items were dropped during the migration." + ColorToken.End(), oPC, false);
+                    NWScript.floatingTextStringOnCreature(message, oPC, false);
                 }
             });
         }
@@ -92,17 +100,32 @@ public class MigrationSystem {
 
     private static void ProcessItem(NWObject oPC, NWObject item, HashMap<String, PCMigrationItemEntity> itemMap, ArrayList<Integer> stripItemList)
     {
+        PlayerGO pcGO = new PlayerGO(oPC);
         ItemGO itemGO = new ItemGO(item);
         String resref = NWScript.getResRef(item);
         int quantity = NWScript.getItemStackSize(item);
         int baseItemTypeID = NWScript.getBaseItemType(item);
         PCMigrationItemEntity migrationItem = itemMap.get(resref);
+        OverflowItemRepository repo = new OverflowItemRepository();
+
         if(itemMap.containsKey(resref))
         {
             NWScript.destroyObject(item, 0.0f);
             if(!migrationItem.getNewResref().equals(""))
             {
-                NWScript.createItemOnObject(migrationItem.getNewResref(), oPC, quantity, "");
+                NWObject newItem = NWScript.createItemOnObject(migrationItem.getNewResref(), oPC, quantity, "");
+                if(NWScript.getItemPossessor(newItem).equals(NWObject.INVALID))
+                {
+                    PCOverflowItemEntity overflow = new PCOverflowItemEntity();
+                    overflow.setItemResref(NWScript.getResRef(newItem));
+                    overflow.setItemTag(NWScript.getTag(newItem));
+                    overflow.setItemName(NWScript.getName(newItem, false));
+                    overflow.setItemObject(SCORCO.saveObject(newItem));
+                    overflow.setPlayerID(pcGO.getUUID());
+                    repo.Save(overflow);
+
+                    NWScript.destroyObject(newItem, 0.0f);
+                }
             }
         }
         else if(stripItemList.contains(baseItemTypeID))
