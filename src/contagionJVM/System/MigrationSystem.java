@@ -188,6 +188,11 @@ public class MigrationSystem {
                 NWScript.setLocalInt(inventory, "SKIP_ANIMATION", 1);
                 NWScript.setLocalString(inventory, "JAVA_SCRIPT", "Food");
             }
+
+            if(NWScript.getLocalInt(inventory, "THIRST_RESTORE") > 0)
+            {
+                NWScript.destroyObject(inventory, 0.0f);
+            }
         }
 
     }
