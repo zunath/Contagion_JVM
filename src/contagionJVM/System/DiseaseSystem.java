@@ -33,7 +33,7 @@ public class DiseaseSystem {
         {
             CreateZombieClone(oPC);
             NWScript.applyEffectToObject(Duration.TYPE_INSTANT, NWScript.effectHeal(NWScript.getMaxHitPoints(oPC)), oPC, 0.0f);
-            NWScript.applyEffectToObject(DurationType.TEMPORARY, NWScript.effectCutsceneImmobilize(), oPC, 6.0f);
+            NWScript.applyEffectToObject(Duration.TYPE_TEMPORARY, NWScript.effectCutsceneImmobilize(), oPC, 6.0f);
 
             Scheduler.delay(oPC, 1000, new Runnable() {
                 @Override
@@ -48,6 +48,17 @@ public class DiseaseSystem {
         repo.save(entity);
     }
 
+    public static void DecreaseDiseaseLevel(final NWObject oPC, int decreaseBy)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        PlayerRepository repo = new PlayerRepository();
+        PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
+        entity.setCurrentInfection(entity.getCurrentInfection() - decreaseBy);
+
+        NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectVisualEffect(VfxImp.REMOVE_CONDITION, false), oPC, 0.0f);
+        NWScript.sendMessageToPC(oPC, ColorToken.Red() + "Infection Level: " + entity.getCurrentInfection() + "%" + ColorToken.End());
+    }
+
     public static PlayerEntity RunDiseaseRemovalProcess(NWObject oPC, PlayerEntity entity)
     {
         entity.setInfectionRemovalTick(entity.getInfectionRemovalTick() - 1);
@@ -56,7 +67,10 @@ public class DiseaseSystem {
         {
             if(entity.getCurrentInfection() > 0)
             {
-                entity.setCurrentInfection(NWScript.random(10) + 5);
+                int infection = entity.getCurrentInfection() - NWScript.random(10) + 5;
+                if(infection < 0) infection = 0;
+
+                entity.setCurrentInfection(infection);
                 NWScript.sendMessageToPC(oPC, "Your body fights off some of the infection...");
             }
 
