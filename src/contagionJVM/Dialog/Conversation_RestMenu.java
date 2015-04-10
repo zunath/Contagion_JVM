@@ -144,7 +144,6 @@ public class Conversation_RestMenu extends DialogBase implements IDialogHandler 
         header += ColorToken.Green() + "EXP: " + ColorToken.End() + entity.getExperience() + "\n";
         header += ColorToken.Green() + "Skill Points: " + ColorToken.End() + entity.getUnallocatedSP() + "\n";
         header += ColorToken.Green() + "Hunger: " + ColorToken.End() + entity.getCurrentHunger() + "%\n";
-        header += ColorToken.Green() + "Thirst: " + ColorToken.End() + entity.getCurrentThirst() + "%\n";
         header += ColorToken.Green() + "Infection: " + ColorToken.End() + entity.getCurrentInfection() + "%\n";
 
         return header;

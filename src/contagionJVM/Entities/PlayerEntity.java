@@ -37,10 +37,6 @@ public class PlayerEntity {
     private int maxHunger;
     @Column(name="CurrentHunger")
     private int currentHunger;
-    @Column(name="MaxThirst")
-    private int maxThirst;
-    @Column(name="CurrentThirst")
-    private int currentThirst;
     @Column(name="CurrentHungerTick")
     private int currentHungerTick;
     @Column(name = "UnallocatedSP")
@@ -175,24 +171,6 @@ public class PlayerEntity {
         if(currentHunger < 0) currentHunger = 0;
 
         this.currentHunger = currentHunger;
-    }
-
-    public int getMaxThirst() {
-        return maxThirst;
-    }
-
-    public void setMaxThirst(int maxThirst) {
-        this.maxThirst = maxThirst;
-    }
-
-    public int getCurrentThirst() {
-        if(currentThirst < 0) currentThirst = 0;
-
-        return currentThirst;
-    }
-
-    public void setCurrentThirst(int currentThirst) {
-        this.currentThirst = currentThirst;
     }
 
     public int getInfectionRemovalTick() {

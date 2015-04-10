@@ -76,8 +76,6 @@ public class PlayerGO {
         entity.setInfectionCap(100);
         entity.setMaxHunger(100);
         entity.setCurrentHunger(100);
-        entity.setMaxThirst(100);
-        entity.setCurrentThirst(100);
         entity.setInfectionRemovalTick(600);
         entity.setCreateTimestamp(new Date());
         entity.setUnallocatedSP(10);

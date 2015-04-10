@@ -179,6 +179,17 @@ public class MigrationSystem {
         ProgressionSystem.GiveExperienceToPC(oPC, migrationEXP);
         NWScript.destroyObject(pcGO.GetDatabaseItem(), 0.0f);
         NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
+
+
+        for(NWObject inventory : NWScript.getItemsInInventory(oPC))
+        {
+            if(NWScript.getLocalInt(inventory, "HUNGER_RESTORE") > 0)
+            {
+                NWScript.setLocalInt(inventory, "SKIP_ANIMATION", 1);
+                NWScript.setLocalString(inventory, "JAVA_SCRIPT", "Food");
+            }
+        }
+
     }
 
 }
