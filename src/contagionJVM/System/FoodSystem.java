@@ -3,6 +3,7 @@ package contagionJVM.System;
 import contagionJVM.Constants;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.MenuHelper;
 import contagionJVM.Repository.PlayerRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
@@ -59,7 +60,7 @@ public class FoodSystem {
             }
         });
 
-        NWScript.sendMessageToPC(oPC, "Hunger: " + entity.getCurrentHunger() + "% / " + entity.getMaxHunger() + "%");
+        NWScript.sendMessageToPC(oPC, "Hunger: " + MenuHelper.BuildBar(entity.getCurrentHunger(), entity.getMaxHunger(), 100));
         repo.save(entity);
     }
 }

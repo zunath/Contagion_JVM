@@ -5,6 +5,8 @@ import contagionJVM.Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CraftRepository {
@@ -149,9 +151,9 @@ public class CraftRepository {
         return entity;
     }
 
-    public List<CraftBlueprintCategoryEntity> GetCategoriesAvailableToPC(String uuid)
+    public List<CraftBlueprintCategoryEntity> GetCategoriesAvailableToPCByCraftID(String uuid, int craftID)
     {
-        List<CraftBlueprintCategoryEntity> entities;
+        List<CraftBlueprintCategoryEntity> entities = new ArrayList<>();
 
         try(DataContext context = new DataContext())
         {
@@ -159,18 +161,51 @@ public class CraftRepository {
                     .createCriteria(PCBlueprintEntity.class)
                     .createAlias("blueprint", "bp")
                     .createAlias("bp.category", "c")
+                    .createAlias("bp.craft", "cr")
                     .setProjection(Projections.distinct(Projections.property("c.craftBlueprintCategoryID")))
-                    .add(Restrictions.eq("playerID", uuid));
+                    .add(Restrictions.eq("playerID", uuid))
+                    .add(Restrictions.eq("cr.craftID", craftID));
             List<Integer> categories = criteria.list();
 
-            criteria = context.getSession()
-                    .createCriteria(CraftBlueprintCategoryEntity.class)
-                    .add(Restrictions.in("craftBlueprintCategoryID", categories));
-            entities = criteria.list();
+            if(categories.size() > 0)
+            {
+                criteria = context.getSession()
+                        .createCriteria(CraftBlueprintCategoryEntity.class)
+                        .add(Restrictions.in("craftBlueprintCategoryID", categories));
+                entities = criteria.list();
+            }
         }
 
         return entities;
     }
+
+    public List<CraftBlueprintCategoryEntity> GetCategoriesAvailableToPC(String uuid)
+    {
+        List<CraftBlueprintCategoryEntity> entities = new ArrayList<>();
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PCBlueprintEntity.class)
+                    .createAlias("blueprint", "bp")
+                    .createAlias("bp.category", "c")
+                    .createAlias("bp.craft", "cr")
+                    .setProjection(Projections.distinct(Projections.property("c.craftBlueprintCategoryID")))
+                    .add(Restrictions.eq("playerID", uuid));
+            List<Integer> categories = criteria.list();
+
+            if(categories.size() > 0)
+            {
+                criteria = context.getSession()
+                        .createCriteria(CraftBlueprintCategoryEntity.class)
+                        .add(Restrictions.in("craftBlueprintCategoryID", categories));
+                entities = criteria.list();
+            }
+        }
+
+        return entities;
+    }
+
 
     public List<PCBlueprintEntity> GetPCBlueprintsByCategoryID(String uuid, int categoryID)
     {

@@ -1,10 +1,14 @@
 package contagionJVM.Dialog;
 
+import contagionJVM.Entities.CraftBlueprintCategoryEntity;
 import contagionJVM.Entities.KeyItemEntity;
+import contagionJVM.Entities.PCBlueprintEntity;
 import contagionJVM.Entities.PCKeyItemEntity;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.Helper.ColorToken;
+import contagionJVM.Repository.CraftRepository;
 import contagionJVM.Repository.KeyItemRepository;
+import contagionJVM.System.CraftSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 import java.util.List;
@@ -18,10 +22,10 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
         PlayerDialog dialog = new PlayerDialog();
         DialogPage mainPage = new DialogPage(
                 "Select a key item category.",
+                "Blueprints",
                 "Maps",
                 "Quest Items",
                 "Documents",
-                "Blueprints",
                 "Back"
         );
 
@@ -29,10 +33,25 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
                 "Select a key item."
         );
 
+        DialogPage blueprintCategoryPage = new DialogPage(
+                "Select a blueprint category."
+        );
+
+        DialogPage blueprintListPage = new DialogPage(
+                "Select a blueprint."
+        );
+
+        DialogPage blueprintPage = new DialogPage(
+                "<SET LATER>",
+                "Back"
+        );
+
 
         dialog.addPage("MainPage", mainPage);
         dialog.addPage("KeyItemsListPage", keyItemListPage);
-
+        dialog.addPage("BlueprintCategoryPage", blueprintCategoryPage);
+        dialog.addPage("BlueprintListPage", blueprintListPage);
+        dialog.addPage("BlueprintPage", blueprintPage);
         return dialog;
     }
 
@@ -49,10 +68,13 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
         {
             case "MainPage":
                 switch (responseID) {
-                    case 1: // "Maps"
-                    case 2: // "Quest Items"
-                    case 3: // "Documents"
-                    case 4: // "Blueprints"
+                    case 1: // "Blueprints"
+                        LoadBlueprintCategoryPage();
+                        ChangePage("BlueprintCategoryPage");
+                        break;
+                    case 2: // "Maps"
+                    case 3: // "Quest Items"
+                    case 4: // "Documents"
                         NWScript.setLocalInt(GetPC(), "TEMP_MENU_KEY_ITEM_CATEGORY_ID", responseID);
                         LoadKeyItemsOptions(responseID);
                         break;
@@ -63,6 +85,15 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
                 break;
             case "KeyItemsListPage":
                 HandleKeyItemSelectionr(responseID);
+                break;
+            case "BlueprintCategoryPage":
+                HandleBlueprintCategoryResponse(responseID);
+                break;
+            case "BlueprintListPage":
+                HandleBlueprintListResponse(responseID);
+                break;
+            case "BlueprintPage":
+                HandleBlueprintResponse(responseID);
                 break;
         }
     }
@@ -124,5 +155,74 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
         header += ColorToken.Green() + "Description: " + ColorToken.End() + entity.getDescription() + "\n";
 
         return header;
+    }
+
+
+    private void LoadBlueprintCategoryPage()
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        CraftRepository repo = new CraftRepository();
+        List<CraftBlueprintCategoryEntity> categories = repo.GetCategoriesAvailableToPC(pcGO.getUUID());
+        DialogPage page = GetPageByName("BlueprintCategoryPage");
+        page.getResponses().clear();
+
+        for(CraftBlueprintCategoryEntity category : categories)
+        {
+            page.addResponse(category.getName(), true, category.getCraftBlueprintCategoryID());
+        }
+
+        page.addResponse("Back", true);
+    }
+
+    private void HandleBlueprintCategoryResponse(int responseID)
+    {
+        DialogResponse response = GetResponseByID("BlueprintCategoryPage", responseID);
+        if(response.getCustomData() == null)
+        {
+            ChangePage("MainPage");
+            return;
+        }
+        int categoryID = (int)response.getCustomData();
+        LoadBlueprintListPage(categoryID);
+        ChangePage("BlueprintListPage");
+    }
+
+    private void LoadBlueprintListPage(int categoryID)
+    {
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        CraftRepository repo = new CraftRepository();
+        List<PCBlueprintEntity> blueprints = repo.GetPCBlueprintsByCategoryID(pcGO.getUUID(), categoryID);
+        DialogPage page = GetPageByName("BlueprintListPage");
+        page.getResponses().clear();
+
+        for(PCBlueprintEntity bp : blueprints)
+        {
+            page.addResponse(bp.getBlueprint().getItemName(), true, bp.getBlueprint().getCraftBlueprintID());
+        }
+
+        page.addResponse("Back", true);
+    }
+
+    private void HandleBlueprintListResponse(int responseID)
+    {
+        DialogResponse response = GetResponseByID("BlueprintListPage", responseID);
+        if(response.getCustomData() == null)
+        {
+            ChangePage("BlueprintCategoryPage");
+            return;
+        }
+        PlayerGO pcGO = new PlayerGO(GetPC());
+        int blueprintID = (int)response.getCustomData();
+
+        SetPageHeader("BlueprintPage", CraftSystem.BuildBlueprintHeader(GetPC(), blueprintID));
+        ChangePage("BlueprintPage");
+    }
+
+    private void HandleBlueprintResponse(int responseID)
+    {
+        if(responseID == 1)
+        {
+            ChangePage("BlueprintListPage");
+        }
     }
 }

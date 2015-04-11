@@ -63,9 +63,10 @@ public class Conversation_Crafting extends DialogBase implements IDialogHandler 
 
     private void LoadCategoryResponses()
     {
+        int craftID = NWScript.getLocalInt(GetDialogTarget(), "CRAFT_ID");
         PlayerGO pcGO = new PlayerGO(GetPC());
         CraftRepository repo = new CraftRepository();
-        List<CraftBlueprintCategoryEntity> categories = repo.GetCategoriesAvailableToPC(pcGO.getUUID());
+        List<CraftBlueprintCategoryEntity> categories = repo.GetCategoriesAvailableToPCByCraftID(pcGO.getUUID(), craftID);
         DialogPage page = GetPageByName("MainPage");
         page.getResponses().clear();
 
