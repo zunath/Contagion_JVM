@@ -143,7 +143,7 @@ public class ProgressionSystem {
         ProgressionLevelRepository levelRepo = new ProgressionLevelRepository();
         ProgressionLevelEntity levelEntity = levelRepo.getByLevel(entity.getLevel());
 
-        NWScript.floatingTextStringOnCreature("You earned " + amount + " experience points.", oPC, false);
+        NWScript.floatingTextStringOnCreature("You earned experience points.", oPC, false);
 
         if(entity.getLevel() >= LevelCap && entity.getExperience() >= levelEntity.getExperience())
         {

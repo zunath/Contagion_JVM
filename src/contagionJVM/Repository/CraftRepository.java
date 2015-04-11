@@ -192,6 +192,21 @@ public class CraftRepository {
         return entities;
     }
 
+    public List<CraftEntity> GetAllCrafts()
+    {
+        List<CraftEntity> entities;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(CraftEntity.class)
+                    .add(Restrictions.eq("isActive", true));
+            entities = criteria.list();
+        }
+
+        return entities;
+    }
+
     public void Save(Object entity)
     {
         try(DataContext contex = new DataContext())
