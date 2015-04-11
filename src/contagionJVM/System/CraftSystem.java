@@ -2,6 +2,8 @@ package contagionJVM.System;
 
 import contagionJVM.Entities.*;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ColorToken;
+import contagionJVM.Helper.ErrorHelper;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.Repository.CraftRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
@@ -19,7 +21,7 @@ import java.util.Random;
 
 public class CraftSystem {
 
-    private static final float CraftDelay = 14.0f;
+    private static final float CraftDelay = 4.0f;
 
 
     public static void CraftItem(final NWObject oPC, final NWObject device, final int blueprintID)
@@ -55,15 +57,26 @@ public class CraftSystem {
                 }
             });
 
-            NWNX_Funcs.StartTimingBar(oPC, NWScript.floatToInt(CraftDelay * 1000), "");
+            NWNX_Funcs.StartTimingBar(oPC, NWScript.floatToInt(CraftDelay), "");
 
-            Scheduler.delay(oPC, 1000 * NWScript.floatToInt(1000 * (CraftDelay + 0.2f)), new Runnable() {
+            Scheduler.delay(oPC, NWScript.floatToInt(CraftDelay * 1000), new Runnable() {
                 @Override
                 public void run() {
-                    RunCreateItem(oPC, device, blueprintID);
-                    NWScript.deleteLocalInt(oPC, "CRAFT_IS_CRAFTING");
+                    try
+                    {
+                        RunCreateItem(oPC, device, blueprintID);
+                        NWScript.deleteLocalInt(oPC, "CRAFT_IS_CRAFTING");
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorHelper.HandleException(ex, "");
+                    }
                 }
             });
+        }
+        else
+        {
+            NWScript.sendMessageToPC(oPC, ColorToken.Red() + "You are missing required components..." + ColorToken.End());
         }
     }
 
@@ -77,7 +90,7 @@ public class CraftSystem {
             components.put(component.getItemResref(), component.getQuantity());
         }
 
-        NWObject tempStorage = NWScript.createObject(ObjectType.PLACEABLE, "", NWScript.getLocation(device), false, "");
+        NWObject tempStorage = NWScript.createObject(ObjectType.PLACEABLE, "craft_temp_store", NWScript.getLocation(device), false, "");
         NWScript.setLocalObject(device, "CRAFT_TEMP_STORAGE", tempStorage);
 
         for(NWObject item : NWScript.getItemsInInventory(device)) {
@@ -119,12 +132,24 @@ public class CraftSystem {
         CraftRepository repo = new CraftRepository();
         PCBlueprintEntity pcBlueprint = repo.GetPCBlueprintByID(pcGO.getUUID(), blueprintID);
         CraftBlueprintEntity blueprint = pcBlueprint.getBlueprint();
-        PCCraftEntity craft = repo.GetPCCraftByID(pcGO.getUUID(), blueprint.getCraftID());
+        PCCraftEntity craft = repo.GetPCCraftByID(pcGO.getUUID(), blueprint.getCraft().getCraftID());
         float chance = CalculateChanceToCreateItem(craft.getLevel(), blueprint.getLevel());
         Random random = new Random();
         float roll = random.nextFloat() * 100.0f;
 
-        if(roll < chance)
+        if(roll <= chance)
+        {
+            // Success!
+            for(NWObject item : NWScript.getItemsInInventory(tempStorage))
+            {
+                NWScript.destroyObject(item, 0.0f);
+            }
+
+            NWScript.createItemOnObject(blueprint.getItemResref(), oPC, blueprint.getQuantity(), "");
+            NWScript.sendMessageToPC(oPC, "You created " + blueprint.getQuantity() + "x " + blueprint.getItemName() + "!");
+            GiveCraftingExperience(oPC, blueprint.getCraft().getCraftID(), CalculateExperience(craft.getLevel(), blueprint.getLevel()));
+        }
+        else
         {
             // Failure...
             NWObject[] items = NWScript.getItemsInInventory(tempStorage);
@@ -142,20 +167,56 @@ public class CraftSystem {
 
             NWScript.sendMessageToPC(oPC, "You failed to create that item...");
         }
-        else
-        {
-            // Success!
-            for(NWObject item : NWScript.getItemsInInventory(tempStorage))
-            {
-                NWScript.destroyObject(item, 0.0f);
-            }
-
-            NWScript.createItemOnObject(blueprint.getItemResref(), oPC, blueprint.getQuantity(), "");
-            NWScript.sendMessageToPC(oPC, "You created " + blueprint.getQuantity() + "x " + blueprint.getItemName() + "!");
-            GiveCraftingExperience(oPC, blueprint.getCraftID(), CalculateExperience(craft.getLevel(), blueprint.getLevel()));
-        }
 
         NWScript.destroyObject(tempStorage, 0.0f);
+    }
+
+    private static String CalculateDifficulty(int pcLevel, int blueprintLevel)
+    {
+        int delta = pcLevel - blueprintLevel;
+        String difficulty = "";
+
+        if(delta <= -5)
+        {
+            difficulty = ColorToken.Custom(255, 62, 150) + "Impossible" + ColorToken.End();
+        }
+        else if(delta >= 4)
+        {
+            difficulty = ColorToken.Custom(102, 255, 102) + "Trivial" + ColorToken.End();
+        }
+        else
+        {
+            switch (delta)
+            {
+                case -4:
+                    difficulty = ColorToken.Custom(220, 20, 60) + "Extremely Difficult" + ColorToken.End();
+                    break;
+                case -3:
+                    difficulty = ColorToken.Custom(255, 69, 0) + "Very Difficult" + ColorToken.End();
+                    break;
+                case -2:
+                    difficulty = ColorToken.Custom(255, 165, 0) + "Difficult" + ColorToken.End();
+                    break;
+                case -1:
+                    difficulty = ColorToken.Custom(238, 238, 0) + "Challenging" + ColorToken.End();
+                    break;
+                case 0:
+                    difficulty = ColorToken.Custom(255, 255, 255) + "Moderate" + ColorToken.End();
+                    break;
+                case 1:
+                    difficulty = ColorToken.Custom(65, 105, 225) + "Easy" + ColorToken.End();
+                    break;
+                case 2:
+                    difficulty = ColorToken.Custom(113, 113, 198) + "Very Easy" + ColorToken.End();
+                    break;
+                case 3:
+                    difficulty = ColorToken.Custom(153, 255, 255) + "Extremely Easy" + ColorToken.End();
+                    break;
+            }
+        }
+
+
+        return difficulty;
     }
 
 
@@ -168,7 +229,7 @@ public class CraftSystem {
         {
             percentage = 0.0f;
         }
-        else if(delta >= 5)
+        else if(delta >= 4)
         {
             percentage = 95.0f;
         }
@@ -200,9 +261,6 @@ public class CraftSystem {
                 case 3:
                     percentage = 90.0f;
                     break;
-                case 4:
-                    percentage = 93.0f;
-                    break;
             }
         }
 
@@ -216,7 +274,7 @@ public class CraftSystem {
         int delta = pcLevel - blueprintLevel;
 
         if(delta <= -5) exp = 200;
-        else if(delta >= 5) exp = 0;
+        else if(delta >= 4) exp = 0;
         else
         {
             switch (delta)
@@ -245,9 +303,6 @@ public class CraftSystem {
                 case 3:
                     exp = 30;
                     break;
-                case 4:
-                    exp = 15;
-                    break;
             }
         }
 
@@ -267,7 +322,7 @@ public class CraftSystem {
         CraftEntity craft = repo.GetCraftByID(craftID);
         long maxLevel = repo.GetCraftMaxLevel(craftID);
 
-        NWScript.sendMessageToPC(oPC, "You earned " + experience + " " + craft.getName() + " experience.");
+        NWScript.sendMessageToPC(oPC, "You earned " + craft.getName() + " experience.");
         if(entity.getLevel() >= maxLevel)
         {
             entity.setExperience(level.getExperience() - 1);
@@ -281,6 +336,30 @@ public class CraftSystem {
         }
 
         repo.Save(entity);
+    }
+
+    public static String BuildBlueprintHeader(NWObject oPC, int blueprintID)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        CraftRepository repo = new CraftRepository();
+        PCBlueprintEntity blueprint = repo.GetPCBlueprintByID(pcGO.getUUID(), blueprintID);
+        CraftEntity craft = blueprint.getBlueprint().getCraft();
+        PCCraftEntity pcCraft = repo.GetPCCraftByID(pcGO.getUUID(), craft.getCraftID());
+        NWObject tempStorage = NWScript.getObjectByTag("craft_temp_storage", 0);
+
+        String header = ColorToken.Green() + "Blueprint: " + ColorToken.End() + ColorToken.White() + blueprint.getBlueprint().getItemName() + ColorToken.End() + "\n\n";
+        header += ColorToken.Green() + "Skill: " + ColorToken.End() + ColorToken.White() + craft.getName() + " (" + pcCraft.getLevel() + ")" + ColorToken.End() + "\n";
+        header += ColorToken.Green() + "Difficulty: " + ColorToken.End() + CalculateDifficulty(pcCraft.getLevel(), blueprint.getBlueprint().getLevel()) + "\n\n";
+        header += ColorToken.Green() + "Components: " + ColorToken.End() + "\n\n";
+
+        for(CraftComponentEntity component : blueprint.getBlueprint().getComponents())
+        {
+            NWObject item = NWScript.createItemOnObject(component.getItemResref(), tempStorage, 1, "");
+            header += ColorToken.White() + component.getQuantity() + "x " + NWScript.getName(item, false) + ColorToken.End();
+            NWScript.destroyObject(item, 0.0f);
+        }
+
+        return header;
     }
 
 }

@@ -3,6 +3,7 @@ package contagionJVM.Placeable.CraftingDevice;
 import contagionJVM.Entities.CraftBlueprintEntity;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.Repository.CraftRepository;
+import contagionJVM.System.CraftSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -19,8 +20,10 @@ public class CraftingDevice_OnOpened implements IScriptEventHandler {
             CraftRepository repo = new CraftRepository();
             CraftBlueprintEntity entity = repo.GetBlueprintByID(blueprintSelected);
 
-            NWObject menuItem = NWScript.createItemOnObject("cft_craft", device, 1, "");
+            NWObject menuItem = NWScript.createItemOnObject("cft_craft_item", device, 1, "");
             NWScript.setName(menuItem, "Craft Item: " + entity.getItemName());
+
+            NWScript.sendMessageToPC(oPC, CraftSystem.BuildBlueprintHeader(oPC, blueprintSelected));
         }
 
     }

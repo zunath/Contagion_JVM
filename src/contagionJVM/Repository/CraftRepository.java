@@ -5,8 +5,6 @@ import contagionJVM.Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class CraftRepository {
@@ -51,7 +49,8 @@ public class CraftRepository {
         {
             Criteria criteria = context.getSession()
                     .createCriteria(PCBlueprintEntity.class)
-                    .add(Restrictions.eq("craftBlueprintID", blueprintID))
+                    .createAlias("blueprint", "b")
+                    .add(Restrictions.eq("b.craftBlueprintID", blueprintID))
                     .add(Restrictions.eq("playerID", uuid));
             entity = (PCBlueprintEntity)criteria.uniqueResult();
         }
@@ -86,6 +85,18 @@ public class CraftRepository {
                     .add(Restrictions.eq("playerID", uuid))
                     .add(Restrictions.eq("craftID", craftID));
             entity = (PCCraftEntity)criteria.uniqueResult();
+
+            if(entity == null)
+            {
+                entity = new PCCraftEntity();
+                entity.setExperience(0);
+                entity.setLevel(1);
+                entity.setPlayerID(uuid);
+                entity.setCraftID(craftID);
+
+                context.getSession().saveOrUpdate(entity);
+            }
+
         }
 
         return entity;
@@ -113,7 +124,7 @@ public class CraftRepository {
 
         try(DataContext context = new DataContext())
         {
-            maxLevel = (long)context.getSession()
+            maxLevel = (int)context.getSession()
                     .createCriteria(CraftLevelEntity.class)
                     .add(Restrictions.eq("craftID", craftID))
                     .setProjection(Projections.max("level")).uniqueResult();
@@ -156,6 +167,26 @@ public class CraftRepository {
                     .createCriteria(CraftBlueprintCategoryEntity.class)
                     .add(Restrictions.in("craftBlueprintCategoryID", categories));
             entities = criteria.list();
+        }
+
+        return entities;
+    }
+
+    public List<PCBlueprintEntity> GetPCBlueprintsByCategoryID(String uuid, int categoryID)
+    {
+        List<PCBlueprintEntity> entities;
+
+        try(DataContext context = new DataContext())
+        {
+            Criteria criteria = context.getSession()
+                    .createCriteria(PCBlueprintEntity.class)
+                    .createAlias("blueprint", "bp")
+                    .createAlias("bp.category", "c")
+                    .add(Restrictions.eq("playerID", uuid))
+                    .add(Restrictions.eq("c.craftBlueprintCategoryID", categoryID));
+
+            entities = criteria.list();
+
         }
 
         return entities;

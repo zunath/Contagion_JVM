@@ -11,9 +11,6 @@ public class CraftBlueprintEntity {
     @Column(name = "CraftBlueprintID")
     private int craftBlueprintID;
 
-    @Column(name = "CraftID")
-    private int craftID;
-
     @Column(name = "ItemName")
     private String itemName;
 
@@ -33,20 +30,16 @@ public class CraftBlueprintEntity {
     @JoinColumn(name = "CraftCategoryID")
     private CraftBlueprintCategoryEntity category;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CraftID")
+    private CraftEntity craft;
+
     public int getCraftBlueprintID() {
         return craftBlueprintID;
     }
 
     public void setCraftBlueprintID(int craftBlueprintID) {
         this.craftBlueprintID = craftBlueprintID;
-    }
-
-    public int getCraftID() {
-        return craftID;
-    }
-
-    public void setCraftID(int craftID) {
-        this.craftID = craftID;
     }
 
     public String getItemName() {
@@ -95,5 +88,13 @@ public class CraftBlueprintEntity {
 
     public void setCategory(CraftBlueprintCategoryEntity category) {
         this.category = category;
+    }
+
+    public CraftEntity getCraft() {
+        return craft;
+    }
+
+    public void setCraft(CraftEntity craft) {
+        this.craft = craft;
     }
 }
