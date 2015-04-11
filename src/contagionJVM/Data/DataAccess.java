@@ -78,6 +78,11 @@ public class DataAccess {
         _configuration.addAnnotatedClass(BaseItemTypeEntity.class);
         _configuration.addAnnotatedClass(BuildPrivacyEntity.class);
         _configuration.addAnnotatedClass(ConstructionSiteEntity.class);
+        _configuration.addAnnotatedClass(CraftBlueprintCategoryEntity.class);
+        _configuration.addAnnotatedClass(CraftBlueprintEntity.class);
+        _configuration.addAnnotatedClass(CraftComponentEntity.class);
+        _configuration.addAnnotatedClass(CraftEntity.class);
+        _configuration.addAnnotatedClass(CraftLevelEntity.class);
         _configuration.addAnnotatedClass(DMRoleEntity.class);
         _configuration.addAnnotatedClass(ItemCombinationEntity.class);
         _configuration.addAnnotatedClass(KeyItemCategoryEntity.class);
@@ -86,11 +91,13 @@ public class DataAccess {
         _configuration.addAnnotatedClass(LootTableItemEntity.class);
         _configuration.addAnnotatedClass(PCAuthorizedCDKeyEntity.class);
         _configuration.addAnnotatedClass(PCBadgeEntity.class);
+        _configuration.addAnnotatedClass(PCBlueprintEntity.class);
         _configuration.addAnnotatedClass(PCKeyItemEntity.class);
         _configuration.addAnnotatedClass(PCMigrationEntity.class);
         _configuration.addAnnotatedClass(PCMigrationItemEntity.class);
         _configuration.addAnnotatedClass(PCCorpseEntity.class);
         _configuration.addAnnotatedClass(PCCorpseItemEntity.class);
+        _configuration.addAnnotatedClass(PCCraftEntity.class);
         _configuration.addAnnotatedClass(PCOutfitEntity.class);
         _configuration.addAnnotatedClass(PCOverflowItemEntity.class);
         _configuration.addAnnotatedClass(PCSearchSiteEntity.class);

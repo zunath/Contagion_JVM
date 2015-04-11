@@ -42,10 +42,6 @@ public class Dialog_AppearsWhen implements IScriptEventHandler {
                 displayNode = true;
             }
         }
-        else if(nodeText.equals("End"))
-        {
-            displayNode = true;
-        }
         else if(nodeType == NodeType.ReplyNode)
         {
             int responseID = (dialog.getPageOffset() * DialogManager.NumberOfResponsesPerPage) + nodeID;

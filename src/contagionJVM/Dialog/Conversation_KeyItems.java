@@ -21,6 +21,7 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
                 "Maps",
                 "Quest Items",
                 "Documents",
+                "Blueprints",
                 "Back"
         );
 
@@ -51,10 +52,11 @@ public class Conversation_KeyItems extends DialogBase implements IDialogHandler 
                     case 1: // "Maps"
                     case 2: // "Quest Items"
                     case 3: // "Documents"
+                    case 4: // "Blueprints"
                         NWScript.setLocalInt(GetPC(), "TEMP_MENU_KEY_ITEM_CATEGORY_ID", responseID);
                         LoadKeyItemsOptions(responseID);
                         break;
-                    case 4: // "Back"
+                    case 5: // "Back"
                         SwitchConversation("RestMenu");
                         break;
                 }

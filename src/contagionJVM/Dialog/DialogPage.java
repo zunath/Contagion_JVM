@@ -13,6 +13,7 @@ public class DialogPage {
     public DialogPage()
     {
         responses = new ArrayList<>();
+        header = "";
     }
 
     public DialogPage(String header, String... responseOptions)
