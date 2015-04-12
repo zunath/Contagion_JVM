@@ -18,9 +18,9 @@ public class FoodSystem {
     {
         String sAreaTag = NWScript.getTag(NWScript.getArea(pc));
         if(sAreaTag.equals("ooc_area") || sAreaTag.equals("death_realm")) return entity;
-        entity.setCurrentHungerTick(entity.getCurrentHungerTick() - 1);
+        int hungerTick = entity.getCurrentHungerTick() - 1;
 
-        if(entity.getCurrentHungerTick() <= 0 && entity.getCurrentHunger() > 0)
+        if(hungerTick <= 0 && entity.getCurrentHunger() > 0)
         {
             entity.setCurrentHunger(entity.getCurrentHunger() - 1);
             entity.setCurrentHungerTick(Constants.BaseHungerRate);
@@ -38,6 +38,8 @@ public class FoodSystem {
             {
                 NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectDeath(false, true), pc, 0.0f);
             }
+
+            entity.setCurrentHungerTick(hungerTick);
         }
 
         return entity;

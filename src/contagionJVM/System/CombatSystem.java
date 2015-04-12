@@ -200,7 +200,7 @@ public class CombatSystem {
             // Either the attacker or target has sanctuary - prevent combat from happening
             if(attackerGO.hasPVPSanctuary())
             {
-                NWScript.floatingTextStringOnCreature(ColorToken.Red() + "You are under the NWEffects of PVP sanctuary and cannot engage in PVP. To disable this feature permanently refer to the 'Disable PVP Sanctuary' option in your rest menu." + ColorToken.End(), oAttacker, false);
+                NWScript.floatingTextStringOnCreature(ColorToken.Red() + "You are under the effects of PVP sanctuary and cannot engage in PVP. To disable this feature permanently refer to the 'Disable PVP Sanctuary' option in your rest menu." + ColorToken.End(), oAttacker, false);
                 Scheduler.delay(oAttacker, 1, new Runnable() {
                     @Override
                     public void run() {

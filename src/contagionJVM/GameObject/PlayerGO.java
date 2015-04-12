@@ -215,4 +215,27 @@ public class PlayerGO {
 
         return !(hasOverride || currentDate.after(sanctuaryCutOffDate));
     }
+
+    public void setIsBusy(boolean isBusy)
+    {
+        NWScript.setLocalInt(_pc, "IS_BUSY", isBusy ? 1 : 0);
+    }
+
+    public boolean isBusy()
+    {
+        return NWScript.getLocalInt(_pc, "IS_BUSY") == 1;
+    }
+
+    public void setBleedingTicks(int ticks)
+    {
+        if(ticks < 1) ticks = 0;
+
+        NWScript.setLocalInt(_pc, "BLEEDING_TICKS", ticks);
+    }
+
+    public int getBleedingTicks()
+    {
+        return NWScript.getLocalInt(_pc, "BLEEDING_TICKS");
+    }
+
 }
