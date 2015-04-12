@@ -225,17 +225,4 @@ public class PlayerGO {
     {
         return NWScript.getLocalInt(_pc, "IS_BUSY") == 1;
     }
-
-    public void setBleedingTicks(int ticks)
-    {
-        if(ticks < 1) ticks = 0;
-
-        NWScript.setLocalInt(_pc, "BLEEDING_TICKS", ticks);
-    }
-
-    public int getBleedingTicks()
-    {
-        return NWScript.getLocalInt(_pc, "BLEEDING_TICKS");
-    }
-
 }

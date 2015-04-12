@@ -26,13 +26,13 @@ public class CraftSystem {
 
     public static void CraftItem(final NWObject oPC, final NWObject device, final int blueprintID)
     {
-        boolean isCrafting = NWScript.getLocalInt(oPC, "CRAFT_IS_CRAFTING") == 1;
+        final PlayerGO pcGO = new PlayerGO(oPC);
 
-        if(isCrafting)
+        if(pcGO.isBusy())
         {
             return;
         }
-        NWScript.setLocalInt(oPC, "CRAFT_IS_CRAFTING", 1);
+        pcGO.setIsBusy(true);
 
         CraftRepository repo = new CraftRepository();
         CraftBlueprintEntity blueprint = repo.GetBlueprintByID(blueprintID);
@@ -65,7 +65,7 @@ public class CraftSystem {
                     try
                     {
                         RunCreateItem(oPC, device, blueprintID);
-                        NWScript.deleteLocalInt(oPC, "CRAFT_IS_CRAFTING");
+                        pcGO.setIsBusy(false);
                     }
                     catch (Exception ex)
                     {
@@ -82,6 +82,7 @@ public class CraftSystem {
 
     private static boolean CheckItemCounts(NWObject oPC, NWObject device, List<CraftComponentEntity> componentList)
     {
+        PlayerGO pcGO = new PlayerGO(oPC);
         boolean allComponentsFound = false;
         HashMap<String, Integer> components = new HashMap<>();
 
@@ -119,7 +120,7 @@ public class CraftSystem {
                 NWScript.copyItem(item, device, true);
                 NWScript.destroyObject(item, 0.0f);
             }
-            NWScript.deleteLocalInt(oPC, "CRAFT_IS_CRAFTING");
+            pcGO.setIsBusy(false);
         }
 
         return allComponentsFound;

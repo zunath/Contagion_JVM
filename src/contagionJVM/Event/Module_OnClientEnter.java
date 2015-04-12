@@ -7,6 +7,7 @@ import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.Repository.PlayerRepository;
+import contagionJVM.System.CustomEffectSystem;
 import contagionJVM.System.PlayerAuthorizationSystem;
 import contagionJVM.System.ProgressionSystem;
 import contagionJVM.System.RadioSystem;
@@ -35,6 +36,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         ApplyGhostwalk();
         // Validate CD Key
         PlayerAuthorizationSystem.OnModuleEnter();
+        CustomEffectSystem.OnModuleEnter();
     }
 
     private void ApplyGhostwalk()

@@ -1,17 +1,13 @@
 package contagionJVM.Item;
 
-import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Enumerations.CustomEffectType;
 import contagionJVM.Helper.ColorToken;
-import contagionJVM.Helper.EffectHelper;
 import contagionJVM.IScriptEventHandler;
-import contagionJVM.NWNX.NWNX_Funcs;
-import contagionJVM.NWNX.NWNX_Structs;
+import contagionJVM.System.CustomEffectSystem;
 import contagionJVM.System.DiseaseSystem;
 import contagionJVM.System.ProgressionSystem;
-import org.nwnx.nwnx2.jvm.NWEffect;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
-import org.nwnx.nwnx2.jvm.constants.DurationType;
 import org.nwnx.nwnx2.jvm.constants.Spell;
 
 import java.util.Random;
@@ -57,8 +53,6 @@ public class ZombieClaw_OnHit implements IScriptEventHandler {
 
     private void RunBleedingRoutine(NWObject oPC, NWObject oZombie)
     {
-        PlayerGO pcGO = new PlayerGO(oPC);
-
-        pcGO.setBleedingTicks(10);
+        CustomEffectSystem.ApplyCustomEffect(oPC, CustomEffectType.Bleeding, 6);
     }
 }
