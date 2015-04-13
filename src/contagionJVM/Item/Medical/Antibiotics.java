@@ -1,6 +1,7 @@
 package contagionJVM.Item.Medical;
 
 import contagionJVM.Enumerations.CustomEffectType;
+import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -15,7 +16,15 @@ import org.nwnx.nwnx2.jvm.constants.Animation;
 public class Antibiotics implements IScriptEventHandler {
     @Override
     public void runScript(final NWObject oPC) {
+        final PlayerGO pcGO = new PlayerGO(oPC);
         final NWObject target = NWNX_Events.GetEventTarget();
+
+        if(pcGO.isBusy())
+        {
+            NWScript.sendMessageToPC(oPC, "You are busy.");
+            return;
+        }
+
         if(!NWScript.getIsPC(target) || NWScript.getIsDM(target))
         {
             NWScript.sendMessageToPC(oPC, "Only players who are suffering from an infection may be targeted with this item.");
@@ -38,7 +47,6 @@ public class Antibiotics implements IScriptEventHandler {
         int skill = ProgressionSystem.GetPlayerSkillLevel(oPC, ProgressionSystem.SkillType_FIRST_AID);
         final float delay = 7.0f - (skill * 0.5f);
 
-
         NWScript.sendMessageToPC(oPC, "You begin administering antibiotics to " + NWScript.getName(target, false) + ".");
 
         if(!oPC.equals(target))
@@ -49,6 +57,8 @@ public class Antibiotics implements IScriptEventHandler {
         Scheduler.assign(oPC, new Runnable() {
             @Override
             public void run() {
+                pcGO.setIsBusy(true);
+
                 NWScript.setFacingPoint(NWScript.getPosition(target));
                 NWScript.actionPlayAnimation(Animation.LOOPING_GET_MID, 1.0f, delay);
                 NWScript.setCommandable(false, oPC);
@@ -58,9 +68,9 @@ public class Antibiotics implements IScriptEventHandler {
         Scheduler.delay(oPC, (int) (delay * 1000), new Runnable() {
             @Override
             public void run() {
-
                 float distance = NWScript.getDistanceBetween(oPC, target);
                 NWScript.setCommandable(true, oPC);
+                pcGO.setIsBusy(false);
 
                 if(distance > 3.5f)
                 {

@@ -7,12 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Antibiotics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Antibiotics.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Antibiotics.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Bandage.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Bandage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/HerbalRemedy.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/HerbalRemedy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/MedicalSupplies.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/MedicalSupplies.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java" afterPath="$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Stimulant.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Stimulant.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/TreatmentKit.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Item/Medical/TreatmentKit.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -36,11 +36,51 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="Antibiotics.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Antibiotics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="25" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bandage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Bandage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MedicalSupplies.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/MedicalSupplies.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="56" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Stimulant.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Stimulant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="59" selection-start-line="31" selection-start-column="59" selection-end-line="31" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="TreatmentKit.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/TreatmentKit.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.051437218">
-              <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.43419063">
+              <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -107,17 +147,17 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/CustomEffectEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/CustomEffectSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/CustomEffect/InfectionOverTimeEffect.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Item/ZombieClaw_OnHit.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/FoodSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/HerbalRemedy.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/TreatmentKit.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Bandage.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Antibiotics.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Bandage.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/MedicalSupplies.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/Stimulant.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/TreatmentKit.java" />
       </list>
     </option>
   </component>
@@ -457,6 +497,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Contagion_JVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Contagion_JVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contagionJVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -687,12 +749,6 @@
       <created>1423272595571</created>
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
-    </task>
-    <task id="LOCAL-00055" summary="Fix modifying skills/ability scores on upgrade purchase">
-      <created>1427668915791</created>
-      <option name="number" value="00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1427668915792</updated>
     </task>
     <task id="LOCAL-00056" summary="Get max HP by level in progression system, not total max.">
       <created>1427755651519</created>
@@ -982,7 +1038,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428887781468</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="Medical item scripts">
+      <created>1428895281100</created>
+      <option name="number" value="00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1428895281100</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1027,7 +1089,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove hooks into inventory limitation system" />
     <MESSAGE value="DM action hooks + overriding give/take XP/levels logic." />
     <MESSAGE value="Null check on player authorization system - logging in for the first time." />
     <MESSAGE value="Remove individual calls to Scheduler.flushQueues() and put it in the root of the script execution process." />
@@ -1052,14 +1113,15 @@
     <MESSAGE value="Crafting item scripts, fix bug in zombie attack script, beginning custom effect handler framework." />
     <MESSAGE value="Custom effects framework" />
     <MESSAGE value="Finish custom effects, couple bug fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish custom effects, couple bug fixes" />
+    <MESSAGE value="Medical item scripts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Medical item scripts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="207" />
+      <option name="time" value="208" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1068,20 +1130,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_Crafting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="36" selection-start-line="70" selection-start-column="36" selection-end-line="70" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/CraftRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="193" column="60" selection-start-line="193" selection-start-column="60" selection-end-line="193" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.49295774">
@@ -1100,13 +1148,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.44">
           <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/org.nwnx.nwnx2.jvm.jar!/org/nwnx/nwnx2/jvm/constants/Ability.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31726283">
-          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1314,22 +1355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3072378">
-          <caret line="30" column="119" selection-start-line="30" selection-start-column="119" selection-end-line="30" selection-end-column="119" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="80" selection-start-line="16" selection-start-column="80" selection-end-line="16" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Player_OnHeartbeat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1394,9 +1419,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnUseItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/ProgressionSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="315" column="22" selection-start-line="315" selection-start-column="22" selection-end-line="315" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/TestEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="81" selection-start-line="62" selection-start-column="81" selection-end-line="62" selection-end-column="81" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/org.nwnx.nwnx2.jvm.jar!/org/nwnx/nwnx2/jvm/constants/Ability.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3207547">
+          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Herb.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45990923">
+        <state vertical-scroll-proportion="0.0">
           <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
           <folding />
         </state>
@@ -1410,42 +1475,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Stimulant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74281394">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/MedicalSupplies.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3570348">
-          <caret line="42" column="14" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Antibiotics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48865354">
-          <caret line="46" column="44" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="25" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Bandage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20574887">
-          <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/MedicalSupplies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="56" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/Stimulant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="59" selection-start-line="31" selection-start-column="59" selection-end-line="31" selection-end-column="59" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Item/Medical/TreatmentKit.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.051437218">
-          <caret line="2" column="42" selection-start-line="2" selection-start-column="42" selection-end-line="2" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.43419063">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
           <folding />
         </state>
       </provider>

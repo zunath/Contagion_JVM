@@ -14,6 +14,6 @@ public class TestEvent implements IScriptEventHandler {
         final NWObject oPC = NWScript.getLastUsedBy();
         PlayerGO pcGO = new PlayerGO(oPC);
 
-        CustomEffectSystem.ApplyCustomEffect(oPC, CustomEffectType.Bleeding, 6);
+        CustomEffectSystem.ApplyCustomEffect(oPC, CustomEffectType.InfectionOverTime, 6);
     }
 }

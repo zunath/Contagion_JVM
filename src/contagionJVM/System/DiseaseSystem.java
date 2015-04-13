@@ -57,7 +57,7 @@ public class DiseaseSystem {
         entity.setCurrentInfection(entity.getCurrentInfection() - decreaseBy);
 
         NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectVisualEffect(VfxImp.REMOVE_CONDITION, false), oPC, 0.0f);
-        NWScript.sendMessageToPC(oPC, ColorToken.Red() + "Infection Level: " + entity.getCurrentInfection() + "%" + ColorToken.End());
+        NWScript.sendMessageToPC(oPC, "Infection Level: " + MenuHelper.BuildBar(entity.getCurrentInfection(), 100, 100));
     }
 
     public static PlayerEntity RunDiseaseRemovalProcess(NWObject oPC, PlayerEntity entity)

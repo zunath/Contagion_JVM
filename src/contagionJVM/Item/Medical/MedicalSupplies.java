@@ -19,6 +19,14 @@ public class MedicalSupplies implements IScriptEventHandler {
     public void runScript(final NWObject oPC) {
 
         final NWObject oTarget = NWNX_Events.GetEventTarget();
+        final PlayerGO pcGO = new PlayerGO(oPC);
+
+        if(pcGO.isBusy())
+        {
+            NWScript.sendMessageToPC(oPC, "You are busy.");
+            return;
+        }
+
         if(!NWScript.getIsPC(oTarget) || NWScript.getIsDM(oTarget))
         {
             NWScript.sendMessageToPC(oPC, "Only players may be targeted with this item.");
@@ -52,6 +60,7 @@ public class MedicalSupplies implements IScriptEventHandler {
         Scheduler.assign(oPC, new Runnable() {
             @Override
             public void run() {
+                pcGO.setIsBusy(true);
                 NWScript.setFacingPoint(NWScript.getPosition(oTarget));
                 NWScript.actionPlayAnimation(Animation.LOOPING_GET_MID, 1.0f, delay);
                 NWScript.setCommandable(false, oPC);
@@ -61,6 +70,7 @@ public class MedicalSupplies implements IScriptEventHandler {
         Scheduler.delay(oPC, (int) (1000 * delay), new Runnable() {
             @Override
             public void run() {
+                pcGO.setIsBusy(false);
                 NWScript.setCommandable(true, oPC);
                 float distance = NWScript.getDistanceBetween(oPC, oTarget);
 
