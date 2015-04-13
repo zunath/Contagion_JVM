@@ -12,6 +12,7 @@ import org.nwnx.nwnx2.jvm.Scheduler;
 import org.nwnx.nwnx2.jvm.constants.Ability;
 import org.nwnx.nwnx2.jvm.constants.Animation;
 import org.nwnx.nwnx2.jvm.constants.DurationType;
+import org.nwnx.nwnx2.jvm.constants.EffectType;
 
 @SuppressWarnings("unused")
 public class Stimulant implements IScriptEventHandler {
@@ -50,6 +51,14 @@ public class Stimulant implements IScriptEventHandler {
             public void run() {
                 pcGO.setIsBusy(false);
                 NWScript.setCommandable(true, oPC);
+
+                for(NWEffect e : NWScript.getEffects(oPC))
+                {
+                    if(NWScript.getEffectType(e) == EffectType.ABILITY_INCREASE)
+                    {
+                        NWScript.removeEffect(oPC, e);
+                    }
+                }
 
                 NWEffect effect = NWScript.effectAbilityIncrease(attribute, power);
                 NWScript.applyEffectToObject(DurationType.TEMPORARY, effect, oPC, duration);
