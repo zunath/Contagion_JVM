@@ -9,6 +9,8 @@ import contagionJVM.System.DiseaseSystem;
 import contagionJVM.System.ProgressionSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
+import org.nwnx.nwnx2.jvm.Scheduler;
+import org.nwnx.nwnx2.jvm.constants.Animation;
 
 @SuppressWarnings("unused")
 public class HerbalRemedy implements IScriptEventHandler {
@@ -27,6 +29,13 @@ public class HerbalRemedy implements IScriptEventHandler {
             NWScript.sendMessageToPC(oPC, "You are not infected. There would be no point to use this item.");
             return;
         }
+
+        Scheduler.assign(oPC, new Runnable() {
+            @Override
+            public void run() {
+                NWScript.actionPlayAnimation(Animation.FIREFORGET_SALUTE, 1.0f, 0.0f);
+            }
+        });
 
         DiseaseSystem.DecreaseDiseaseLevel(oPC, NWScript.random(10) + 1 + NWScript.random(skillLevel * 2));
         NWScript.destroyObject(oItem, 0.0f);

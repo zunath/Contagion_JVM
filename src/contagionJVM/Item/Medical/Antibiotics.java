@@ -1,6 +1,5 @@
 package contagionJVM.Item.Medical;
 
-import contagionJVM.Bioware.Position;
 import contagionJVM.Enumerations.CustomEffectType;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
@@ -13,19 +12,19 @@ import org.nwnx.nwnx2.jvm.Scheduler;
 import org.nwnx.nwnx2.jvm.constants.Animation;
 
 @SuppressWarnings("unused")
-public class Bandage implements IScriptEventHandler {
+public class Antibiotics implements IScriptEventHandler {
     @Override
     public void runScript(final NWObject oPC) {
         final NWObject target = NWNX_Events.GetEventTarget();
         if(!NWScript.getIsPC(target) || NWScript.getIsDM(target))
         {
-            NWScript.sendMessageToPC(oPC, "Only bleeding players may be targeted with this item.");
+            NWScript.sendMessageToPC(oPC, "Only players who are suffering from an infection may be targeted with this item.");
             return;
         }
 
-        if(!CustomEffectSystem.HasCustomEffect(target, CustomEffectType.Bleeding))
+        if(!CustomEffectSystem.HasCustomEffect(target, CustomEffectType.InfectionOverTime))
         {
-            NWScript.sendMessageToPC(oPC, "Your target is not bleeding.");
+            NWScript.sendMessageToPC(oPC, "Your target is not suffering from an infection.");
             return;
         }
         float distance = NWScript.getDistanceBetween(oPC, target);
@@ -37,13 +36,13 @@ public class Bandage implements IScriptEventHandler {
 
         final NWObject item = NWNX_Events.GetEventItem();
         int skill = ProgressionSystem.GetPlayerSkillLevel(oPC, ProgressionSystem.SkillType_FIRST_AID);
-        final float delay = 8.0f - (skill * 0.5f);
+        final float delay = 7.0f - (skill * 0.5f);
 
 
-        NWScript.sendMessageToPC(oPC, "You begin bandaging " + NWScript.getName(target, false) + "'s wounds.");
+        NWScript.sendMessageToPC(oPC, "You begin administering antibiotics to " + NWScript.getName(target, false) + ".");
 
         if(!oPC.equals(target))
-            NWScript.sendMessageToPC(target, NWScript.getName(oPC, false) + " begins bandaging your wounds.");
+            NWScript.sendMessageToPC(target, NWScript.getName(oPC, false) + " begins administering antibiotics to you..");
 
         NWNX_Funcs.StartTimingBar(oPC, (int) delay, "");
 
@@ -55,7 +54,6 @@ public class Bandage implements IScriptEventHandler {
                 NWScript.setCommandable(false, oPC);
             }
         });
-
 
         Scheduler.delay(oPC, (int) (delay * 1000), new Runnable() {
             @Override
@@ -70,10 +68,10 @@ public class Bandage implements IScriptEventHandler {
                     return;
                 }
 
-                CustomEffectSystem.RemoveCustomEffect(target, CustomEffectType.Bleeding);
+                CustomEffectSystem.RemoveCustomEffect(target, CustomEffectType.InfectionOverTime);
                 NWScript.destroyObject(item, 0.0f);
 
-                NWScript.sendMessageToPC(oPC, "You successfully bandage " + NWScript.getName(target, false) + ".");
+                NWScript.sendMessageToPC(oPC, "You successfully administer antibiotics to " + NWScript.getName(target, false) + ".");
             }
         });
     }

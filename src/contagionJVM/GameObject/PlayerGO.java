@@ -2,10 +2,7 @@ package contagionJVM.GameObject;
 
 import contagionJVM.Constants;
 import contagionJVM.Entities.PlayerEntity;
-import org.nwnx.nwnx2.jvm.NWLocation;
-import org.nwnx.nwnx2.jvm.NWObject;
-import org.nwnx.nwnx2.jvm.NWScript;
-import org.nwnx.nwnx2.jvm.Scheduler;
+import org.nwnx.nwnx2.jvm.*;
 import org.nwnx.nwnx2.jvm.constants.Inventory;
 
 import java.text.DateFormat;
@@ -224,5 +221,16 @@ public class PlayerGO {
     public boolean isBusy()
     {
         return NWScript.getLocalInt(_pc, "IS_BUSY") == 1;
+    }
+
+    public void removeEffect(int effectType)
+    {
+        for(NWEffect effect : NWScript.getEffects(_pc))
+        {
+            if(NWScript.getEffectType(effect) == effectType)
+            {
+                NWScript.removeEffect(_pc, effect);
+            }
+        }
     }
 }
