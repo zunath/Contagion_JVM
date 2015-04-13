@@ -1,5 +1,6 @@
 package contagionJVM.Item;
 
+import contagionJVM.Entities.CustomEffectEntity;
 import contagionJVM.Enumerations.CustomEffectType;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.IScriptEventHandler;
@@ -47,12 +48,24 @@ public class ZombieClaw_OnHit implements IScriptEventHandler {
             if (iDiseaseCheck < iDiseaseDC)
             {
                 DiseaseSystem.IncreaseDiseaseLevel(oPC, random.nextInt(12) + 1);
+
+                // 10% Chance to get Infection Over Time (IOT)
+                if(random.nextInt(100) <= 10)
+                {
+                    CustomEffectSystem.ApplyCustomEffect(oPC, CustomEffectType.InfectionOverTime, 6);
+                }
+
             }
         }
     }
 
     private void RunBleedingRoutine(NWObject oPC, NWObject oZombie)
     {
-        CustomEffectSystem.ApplyCustomEffect(oPC, CustomEffectType.Bleeding, 6);
+        Random random = new Random();
+
+        if(random.nextInt(100) <= 25)
+        {
+            CustomEffectSystem.ApplyCustomEffect(oPC, CustomEffectType.Bleeding, 6);
+        }
     }
 }

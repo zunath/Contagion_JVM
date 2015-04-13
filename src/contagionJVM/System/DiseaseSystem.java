@@ -3,6 +3,7 @@ package contagionJVM.System;
 import contagionJVM.Helper.ColorToken;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.MenuHelper;
 import contagionJVM.NWNX.CreatureEvent;
 import contagionJVM.NWNX.MovementRate;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -27,7 +28,7 @@ public class DiseaseSystem {
         entity.setCurrentInfection(entity.getCurrentInfection() + iIncreaseBy);
 
         NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectVisualEffect(Vfx.IMP_DISEASE_S, false), oPC, 0.0f);
-        NWScript.sendMessageToPC(oPC, ColorToken.Red() + "Infection Level: " + entity.getCurrentInfection() + "%" + ColorToken.End());
+        NWScript.sendMessageToPC(oPC, "Infection Level: " + MenuHelper.BuildBar(entity.getCurrentInfection(), 100, 100));
 
         if(entity.getCurrentInfection() >= entity.getInfectionCap())
         {

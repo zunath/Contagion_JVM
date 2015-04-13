@@ -34,8 +34,6 @@ public class Module_OnHeartbeat implements IScriptEventHandler {
 				entity = HandleRegenerationTick(pc, entity);
 				entity = HandleDiseaseTick(pc, entity);
 				entity = HandleFoodTick(pc, entity);
-				HandleBleedingTick(pc);
-
 				repo.save(entity);
 			}
 		}
@@ -84,24 +82,6 @@ public class Module_OnHeartbeat implements IScriptEventHandler {
 	private PlayerEntity HandleFoodTick(NWObject oPC, PlayerEntity entity)
 	{
 		return FoodSystem.RunHungerCycle(oPC, entity);
-	}
-
-	private void HandleBleedingTick(NWObject oPC)
-	{
-		NWObject oArea = NWScript.getArea(oPC);
-		String sTag = NWScript.getTag(oArea);
-
-		if(NWScript.getIsDead(oPC) || Objects.equals(sTag, "ooc_entry") || Objects.equals(sTag, "WelcometoHeaven") || Objects.equals(sTag, "WelcometoHell") || Objects.equals(sTag, "WelcometoLimbo")) return;
-
-		int iCurrentHP = NWScript.getCurrentHitPoints(oPC);
-		int iMaxHP = NWScript.getMaxHitPoints(oPC);
-		NWLocation lLocation = NWScript.getLocation(oPC);
-
-		if(iCurrentHP <= (iMaxHP * 0.3))
-		{
-			NWObject oBlood = NWScript.createObject(ObjectType.PLACEABLE, "zep_bloodstain7", lLocation, false, "");
-			NWScript.destroyObject(oBlood, 48.0f);
-		}
 	}
 }
 

@@ -25,6 +25,7 @@ public class CustomEffectSystem {
             PCCustomEffectEntity result = RunCustomEffectProcess(oPC, effect);
             if(result == null)
             {
+                NWScript.sendMessageToPC(oPC, effect.getCustomEffect().getWornOffMessage());
                 repo.Delete(effect);
             }
             else
@@ -34,27 +35,12 @@ public class CustomEffectSystem {
         }
     }
 
-    public static void OnModuleEnter()
-    {
-        NWObject oPC = NWScript.getEnteringObject();
-        if(!NWScript.getIsPC(oPC) || NWScript.getIsDM(oPC)) return;
-
-        PlayerGO pcGO = new PlayerGO(oPC);
-        CustomEffectRepository repo = new CustomEffectRepository();
-        List<PCCustomEffectEntity> effects = repo.GetPCEffects(pcGO.getUUID());
-
-        for(PCCustomEffectEntity effect : effects)
-        {
-            EffectHelper.ApplyEffectIcon(oPC, effect.getCustomEffect().getIconID(), effect.getTicks() * 6.0f);
-        }
-
-    }
-
     private static PCCustomEffectEntity RunCustomEffectProcess(NWObject oPC, PCCustomEffectEntity effect)
     {
         effect.setTicks(effect.getTicks() - 1);
         if(effect.getTicks() < 0) return null;
 
+        NWScript.sendMessageToPC(oPC, effect.getCustomEffect().getContinueMessage());
         try {
             Class scriptClass = Class.forName("contagionJVM.CustomEffect." + effect.getCustomEffect().getScriptHandler());
             ICustomEffectHandler script = (ICustomEffectHandler)scriptClass.newInstance();
@@ -85,6 +71,29 @@ public class CustomEffectSystem {
         entity.setTicks(ticks);
         repo.Save(entity);
 
-        EffectHelper.ApplyEffectIcon(oPC, effectEntity.getIconID(), ticks * 6.0f);
+        NWScript.sendMessageToPC(oPC, effectEntity.getStartMessage());
+        // Serious limitations in NWN with adding custom effects / using custom icons. Commented out for now.
+        //EffectHelper.ApplyEffectIcon(oPC, effectEntity.getIconID(), ticks * 6.0f);
+    }
+
+    public static boolean HasCustomEffect(NWObject oPC, int customEffectID)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        CustomEffectRepository repo = new CustomEffectRepository();
+        PCCustomEffectEntity entity = repo.GetPCEffectByID(pcGO.getUUID(), customEffectID);
+
+        return entity != null;
+    }
+
+    public static void RemoveCustomEffect(NWObject oPC, int customEffectID)
+    {
+        PlayerGO pcGO = new PlayerGO(oPC);
+        CustomEffectRepository repo = new CustomEffectRepository();
+        PCCustomEffectEntity effect = repo.GetPCEffectByID(pcGO.getUUID(), customEffectID);
+
+        if(effect == null) return;
+
+        repo.Delete(effect);
+        NWScript.sendMessageToPC(oPC, effect.getCustomEffect().getWornOffMessage());
     }
 }

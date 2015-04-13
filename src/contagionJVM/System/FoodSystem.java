@@ -22,8 +22,7 @@ public class FoodSystem {
 
         if(hungerTick <= 0 && entity.getCurrentHunger() > 0)
         {
-            entity.setCurrentHunger(entity.getCurrentHunger() - 1);
-            entity.setCurrentHungerTick(Constants.BaseHungerRate);
+            hungerTick = Constants.BaseHungerRate;
 
             if(entity.getCurrentHunger() == 70 || entity.getCurrentHunger() == 60 || entity.getCurrentHunger() == 50 || entity.getCurrentHunger() == 40)
             {
@@ -38,9 +37,9 @@ public class FoodSystem {
             {
                 NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectDeath(false, true), pc, 0.0f);
             }
-
-            entity.setCurrentHungerTick(hungerTick);
         }
+
+        entity.setCurrentHungerTick(hungerTick);
 
         return entity;
     }

@@ -19,6 +19,16 @@ public class CustomEffectEntity {
     @Column(name = "ScriptHandler")
     private String scriptHandler;
 
+    @Column(name = "StartMessage")
+    private String startMessage;
+
+    @Column(name = "ContinueMessage")
+    private String continueMessage;
+
+    @Column(name = "WornOffMessage")
+    private String wornOffMessage;
+
+
     public int getCustomEffectID() {
         return customEffectID;
     }
@@ -49,5 +59,29 @@ public class CustomEffectEntity {
 
     public void setScriptHandler(String scriptHandler) {
         this.scriptHandler = scriptHandler;
+    }
+
+    public String getWornOffMessage() {
+        return wornOffMessage;
+    }
+
+    public void setWornOffMessage(String wornOffMessage) {
+        this.wornOffMessage = wornOffMessage;
+    }
+
+    public String getStartMessage() {
+        return startMessage;
+    }
+
+    public void setStartMessage(String startMessage) {
+        this.startMessage = startMessage;
+    }
+
+    public String getContinueMessage() {
+        return continueMessage;
+    }
+
+    public void setContinueMessage(String continueMessage) {
+        this.continueMessage = continueMessage;
     }
 }

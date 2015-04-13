@@ -36,7 +36,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         ApplyGhostwalk();
         // Validate CD Key
         PlayerAuthorizationSystem.OnModuleEnter();
-        CustomEffectSystem.OnModuleEnter();
     }
 
     private void ApplyGhostwalk()
