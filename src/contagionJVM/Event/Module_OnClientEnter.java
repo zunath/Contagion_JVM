@@ -7,13 +7,11 @@ import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.Repository.PlayerRepository;
-import contagionJVM.System.CustomEffectSystem;
 import contagionJVM.System.PlayerAuthorizationSystem;
 import contagionJVM.System.ProgressionSystem;
 import contagionJVM.System.RadioSystem;
 import org.nwnx.nwnx2.jvm.*;
-import org.nwnx.nwnx2.jvm.constants.Duration;
-import org.nwnx.nwnx2.jvm.constants.InventorySlot;
+import org.nwnx.nwnx2.jvm.constants.*;
 
 @SuppressWarnings("unused")
 public class Module_OnClientEnter implements IScriptEventHandler {
@@ -24,6 +22,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         // Bioware Default
         NWScript.executeScript("x3_mod_def_enter", objSelf);
         InitializeNewCharacter();
+        LoadCharacter();
         // SimTools
         NWScript.executeScript("fky_chat_clenter", objSelf);
         // Radio System - Also used for NWNX chat (different from SimTools)
@@ -118,5 +117,29 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         });
     }
 
+    private void LoadCharacter()
+    {
+        final NWObject oPC = NWScript.getEnteringObject();
+        PlayerGO pcGO = new PlayerGO(oPC);
+        PlayerRepository repo = new PlayerRepository();
+        PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
 
+        if(entity == null) return;
+
+        int hp = NWScript.getCurrentHitPoints(oPC);
+        int damage;
+        if(entity.getHitPoints() < 0)
+        {
+            damage = hp + Math.abs(entity.getHitPoints());
+        }
+        else
+        {
+            damage = hp - entity.getHitPoints();
+        }
+
+        if(damage != 0)
+        {
+            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectDamage(damage, DamageType.MAGICAL, DamagePower.NORMAL), oPC, 0.0f);
+        }
+    }
 }
