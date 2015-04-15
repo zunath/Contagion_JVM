@@ -35,7 +35,6 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Wisdom",
                 "Intelligence",
                 "Charisma",
-                "Inventory",
                 "Back"
         );
 
@@ -57,7 +56,6 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Move Silently",
                 "First Aid",
                 "Lockpicking",
-                "Mixing",
                 "Item Repair",
                 "Back"
         );
@@ -147,10 +145,7 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                     case 7:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_CHARISMA);
                         break;
-                    case 8:
-                        LoadSkillUpgradePage(ProgressionSystem.SkillType_INVENTORY_SPACE);
-                        break;
-                    case 9: // "Back"
+                    case 8: // "Back"
                         ClearTempVariables();
                         ChangePage("MainPage");
                         break;
@@ -200,12 +195,9 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_LOCKPICKING);
                         break;
                     case 6:
-                        LoadSkillUpgradePage(ProgressionSystem.SkillType_MIXING);
-                        break;
-                    case 7:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_ITEM_REPAIR);
                         break;
-                    case 8: // "Back"
+                    case 7: // "Back"
                         ClearTempVariables();
                         ChangePage("MainPage");
                         break;
