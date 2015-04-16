@@ -180,18 +180,22 @@ public class Module_OnUseItem implements IScriptEventHandler {
         else if(bUseStructure && bOpenRestMenu && bCheckInfectionLevel)
         {
             bBypassEvent = true;
-            // Check Infection Level
             if(iSubtype == 0)
+            {
+                RunJavaScript(oPC, "OmniTool.AutoFollow");
+            }
+            // Check Infection Level
+            else if(iSubtype == 1)
             {
                 RunJavaScript(oPC, "OmniTool.CheckInfectionLevel");
             }
             // Open Rest Menu
-            else if(iSubtype == 1)
+            else if(iSubtype == 2)
             {
                 RunJavaScript(oPC, "OmniTool.OpenRestMenu");
             }
             // Use Structure Tool
-            else if(iSubtype == 2)
+            else if(iSubtype == 3)
             {
                 RunJavaScript(oPC, "OmniTool.UseStructureTool");
             }

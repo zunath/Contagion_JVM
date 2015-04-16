@@ -64,7 +64,7 @@ public class PlayerGO {
         PlayerEntity entity = new PlayerEntity();
         entity.setPCID(getUUID());
         entity.setCharacterName(NWScript.getName(_pc, false));
-        entity.setHitPoints(NWScript.getCurrentHitPoints(_pc));
+        entity.setHitPoints(NWScript.getMaxHitPoints(_pc));
         entity.setLocationAreaTag(NWScript.getTag(NWScript.getArea(_pc)));
         entity.setLocationOrientation(NWScript.getFacing(_pc));
         entity.setLocationX(location.getX());
