@@ -63,11 +63,11 @@ public class DataAccess {
     {
         Configuration _configuration = new Configuration();
 
-        _configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
-        _configuration.setProperty("hibernate.connection.url", "jdbc:mysql://" + _host + "/" + _schema);
+        _configuration.setProperty("hibernate.connection.driver_class", "net.sourceforge.jtds.jdbc.Driver");
+        _configuration.setProperty("hibernate.connection.url", "jdbc:jtds:sqlserver://" + _host + "/" + _schema);
         _configuration.setProperty("hibernate.connection.username", _username);
         _configuration.setProperty("hibernate.connection.password", _password);
-        _configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        _configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.SQLServerDialect");
         _configuration.setProperty("hibernate.cache.use_second_level_cache", "false");
         _configuration.setProperty("hibernate.cache.use_query_cache", "false");
         _configuration.setProperty("hibernate.current_session_context_class", "thread");
