@@ -90,6 +90,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
                 NWNX_Funcs.SetRawQuickBarSlot(oPC, slot + " 0 0 0 0");
             }
 
+            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectHeal(NWScript.getMaxHitPoints(oPC)), oPC, 0.0f);
             // Save to database
             PlayerRepository repo = new PlayerRepository();
             PlayerEntity entity = pcGO.createEntity();
