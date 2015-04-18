@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "pc_badges")
+@Table(name = "PCBadges")
 public class PCBadgeEntity {
 
     @Id

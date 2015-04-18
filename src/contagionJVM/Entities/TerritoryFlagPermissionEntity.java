@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "territory_flag_permissions")
+@Table(name = "TerritoryFlagPermissions")
 public class TerritoryFlagPermissionEntity {
 
     @Id

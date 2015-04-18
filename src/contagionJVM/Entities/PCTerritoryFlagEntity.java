@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "pc_territory_flags")
+@Table(name = "PCTerritoryFlags")
 public class PCTerritoryFlagEntity {
 
     @Id

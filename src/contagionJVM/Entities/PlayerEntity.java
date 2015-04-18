@@ -5,7 +5,7 @@ import java.util.Date;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="playercharacters")
+@Table(name="PlayerCharacters")
 public class PlayerEntity {
 
     @Id

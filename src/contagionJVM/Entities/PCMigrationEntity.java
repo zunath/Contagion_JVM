@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "pc_migrations")
+@Table(name = "PCMigrations")
 public class PCMigrationEntity {
 
     @Id

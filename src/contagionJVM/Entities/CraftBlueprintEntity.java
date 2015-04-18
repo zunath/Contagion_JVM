@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "craft_blueprints")
+@Table(name = "CraftBlueprints")
 public class CraftBlueprintEntity {
 
     @Id

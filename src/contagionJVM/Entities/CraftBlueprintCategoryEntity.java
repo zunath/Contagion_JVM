@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "craft_blueprint_categories")
+@Table(name = "CraftBlueprintCategories")
 public class CraftBlueprintCategoryEntity {
 
     @Id

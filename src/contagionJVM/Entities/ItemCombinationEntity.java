@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="item_combinations")
+@Table(name="ItemCombinations")
 public class ItemCombinationEntity {
 
     @Id

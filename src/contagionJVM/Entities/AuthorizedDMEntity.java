@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="authorized_dm")
+@Table(name="AuthorizedDMs")
 public class AuthorizedDMEntity {
 
     @Id

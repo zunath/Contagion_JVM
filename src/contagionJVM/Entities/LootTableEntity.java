@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "loot_tables")
+@Table(name = "LootTables")
 public class LootTableEntity {
 
     @Id

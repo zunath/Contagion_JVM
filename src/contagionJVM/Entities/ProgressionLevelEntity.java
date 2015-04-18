@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="progression_levels")
+@Table(name="ProgressionLevels")
 public class ProgressionLevelEntity {
 
     @Id

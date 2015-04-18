@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "structure_categories")
+@Table(name = "StructureCategories")
 public class StructureCategoryEntity {
 
     @Id

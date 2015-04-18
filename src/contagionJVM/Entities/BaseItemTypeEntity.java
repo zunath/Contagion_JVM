@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "base_item_types")
+@Table(name = "BaseItemTypes")
 public class BaseItemTypeEntity {
 
     @Id

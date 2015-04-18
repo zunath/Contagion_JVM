@@ -6,7 +6,7 @@ import java.util.List;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="pc_corpses")
+@Table(name="PCCorpses")
 public class PCCorpseEntity {
 
     @Id

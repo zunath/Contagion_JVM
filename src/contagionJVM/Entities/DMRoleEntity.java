@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="dm_role_domain")
+@Table(name="DMRoleDomain")
 public class DMRoleEntity {
 
     @Id

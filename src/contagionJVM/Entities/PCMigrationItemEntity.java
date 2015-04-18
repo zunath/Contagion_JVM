@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pc_migration_items")
+@Table(name = "PCMigrationItems")
 public class PCMigrationItemEntity {
 
     @Id

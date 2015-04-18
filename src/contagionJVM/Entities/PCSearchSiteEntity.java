@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "pc_search_sites")
+@Table(name = "PCSearchSites")
 public class PCSearchSiteEntity implements Serializable {
 
     @Id

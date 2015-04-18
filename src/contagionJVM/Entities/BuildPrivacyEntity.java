@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "build_privacy_domain")
+@Table(name = "BuildPrivacyDomain")
 public class BuildPrivacyEntity {
 
     @Id

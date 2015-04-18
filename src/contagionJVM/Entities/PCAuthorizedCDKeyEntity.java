@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="pc_authorized_cdkeys")
+@Table(name="PCAuthorizedCDKeys")
 public class PCAuthorizedCDKeyEntity {
 
     @Id

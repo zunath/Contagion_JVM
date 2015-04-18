@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="pc_corpse_items")
+@Table(name="PCCorpseItems")
 public class PCCorpseItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

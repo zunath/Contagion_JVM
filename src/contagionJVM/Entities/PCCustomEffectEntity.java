@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pc_custom_effects")
+@Table(name = "PCCustomEffects")
 public class PCCustomEffectEntity {
 
     @Id

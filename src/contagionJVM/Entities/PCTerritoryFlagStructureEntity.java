@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "pc_territory_flags_structures")
+@Table(name = "PCTerritoryFlagsStructures")
 public class PCTerritoryFlagStructureEntity {
 
     @Id

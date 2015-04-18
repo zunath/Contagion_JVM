@@ -4,7 +4,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pc_territory_flags_structures_items")
+@Table(name = "PCTerritoryFlagsStructuresItems")
 public class PCTerritoryFlagStructureItemEntity {
 
     @Id

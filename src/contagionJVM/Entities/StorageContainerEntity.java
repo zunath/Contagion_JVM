@@ -6,7 +6,7 @@ import java.util.List;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name = "storage_containers")
+@Table(name = "StorageContainers")
 public class StorageContainerEntity {
 
     @Id

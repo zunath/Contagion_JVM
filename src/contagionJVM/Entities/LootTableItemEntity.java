@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "loot_table_items")
+@Table(name = "LootTableItems")
 public class LootTableItemEntity {
 
     @Id

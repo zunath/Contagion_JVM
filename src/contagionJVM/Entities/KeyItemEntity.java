@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="key_items")
+@Table(name="KeyItems")
 public class KeyItemEntity {
 
     @Id

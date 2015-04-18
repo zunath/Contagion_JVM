@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @SuppressWarnings("UnusedDeclaration")
 @Entity
-@Table(name="pc_key_items")
+@Table(name="PCKeyItems")
 public class PCKeyItemEntity {
 
     @Id

@@ -3,7 +3,7 @@ package contagionJVM.Entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name="key_item_categories")
+@Table(name="KeyItemCategories")
 @SuppressWarnings("UnusedDeclaration")
 public class KeyItemCategoryEntity {
 

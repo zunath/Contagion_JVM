@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "pc_blueprints")
+@Table(name = "PCBlueprints")
 public class PCBlueprintEntity {
 
     @Id
