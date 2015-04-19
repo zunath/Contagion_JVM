@@ -26,7 +26,7 @@ public class Module_OnUseItem implements IScriptEventHandler {
         String className = NWScript.getLocalString(oItem, "JAVA_SCRIPT");
         if(className.equals("") || NWScript.getLocalInt(oItem, "SKIP_ANIMATION") == 0) return;
 
-        RunJavaScript(oPC, className);
+        RunJavaScript(oPC, "Item." + className);
     }
 
     private void RunJavaScript(NWObject oPC, String className)
@@ -34,7 +34,7 @@ public class Module_OnUseItem implements IScriptEventHandler {
         try
         {
             NWNX_Events.BypassEvent();
-            Class scriptClass = Class.forName("contagionJVM.Item." + className);
+            Class scriptClass = Class.forName("contagionJVM." + className);
             IScriptEventHandler script = (IScriptEventHandler)scriptClass.newInstance();
             script.runScript(oPC);
             Scheduler.flushQueues();
@@ -182,22 +182,27 @@ public class Module_OnUseItem implements IScriptEventHandler {
             bBypassEvent = true;
             if(iSubtype == 0)
             {
-                RunJavaScript(oPC, "OmniTool.AutoFollow");
+                RunJavaScript(oPC, "Item.OmniTool.AutoFollow");
             }
             // Check Infection Level
             else if(iSubtype == 1)
             {
-                RunJavaScript(oPC, "OmniTool.CheckInfectionLevel");
+                RunJavaScript(oPC, "Item.OmniTool.CheckInfectionLevel");
             }
             // Open Rest Menu
             else if(iSubtype == 2)
             {
-                RunJavaScript(oPC, "OmniTool.OpenRestMenu");
+                RunJavaScript(oPC, "Item.OmniTool.OpenRestMenu");
             }
-            // Use Structure Tool
+            // Reload
             else if(iSubtype == 3)
             {
-                RunJavaScript(oPC, "OmniTool.UseStructureTool");
+                RunJavaScript(oPC, "Feat.ReloadGun");
+            }
+            // Use Structure Tool
+            else if(iSubtype == 4)
+            {
+                RunJavaScript(oPC, "Item.OmniTool.UseStructureTool");
             }
         }
         // Fire tag based scripting in all other cases (I.E: Don't bypass this event)
