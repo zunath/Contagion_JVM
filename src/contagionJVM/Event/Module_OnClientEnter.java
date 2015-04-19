@@ -96,7 +96,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             PlayerEntity entity = pcGO.createEntity();
             repo.save(entity);
 
-            pcGO.setCreateDate(entity.getCreateTimestamp());
+            pcGO.setCreateDate();
 
             ProgressionSystem.InitializePlayer(oPC);
 

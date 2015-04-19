@@ -2,6 +2,10 @@ package contagionJVM.GameObject;
 
 import contagionJVM.Constants;
 import contagionJVM.Entities.PlayerEntity;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.nwnx.nwnx2.jvm.*;
 import org.nwnx.nwnx2.jvm.constants.Inventory;
 
@@ -157,30 +161,19 @@ public class PlayerGO {
         });
     }
 
-    public Date getCreateDate()
+    public DateTime getCreateDate()
     {
         NWObject database = GetDatabaseItem();
         String dateString = NWScript.getLocalString(database, "PC_CREATE_DATE");
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-        try
-        {
-            return format.parse(dateString);
-        }
-        catch (ParseException e) {
-            return null;
-        }
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssz");
+        return formatter.withZone(DateTimeZone.UTC).parseDateTime(dateString);
     }
 
-    public void setCreateDate(Date value)
+    public void setCreateDate()
     {
         NWObject database = GetDatabaseItem();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String dateString = format.format(value);
-
-        NWScript.setLocalString(database, "PC_CREATE_DATE", dateString);
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssz");
+        NWScript.setLocalString(database, "PC_CREATE_DATE", formatter.print(new DateTime(DateTimeZone.UTC)));
     }
 
     public void setHasPVPSanctuaryOverride(boolean value)
@@ -202,15 +195,11 @@ public class PlayerGO {
     {
         if(NWScript.getIsDM(_pc) || !NWScript.getIsPC(_pc)) return false;
 
-        Date createDate = getCreateDate();
+        DateTime createDate = getCreateDate();
         boolean hasOverride = getHasPVPSanctuaryOverride();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(createDate);
-        calendar.add(Calendar.HOUR_OF_DAY, 72);
-        Date sanctuaryCutOffDate = calendar.getTime();
-        Date currentDate = new Date();
+        DateTime currentTime = new DateTime(DateTimeZone.UTC);
 
-        return !(hasOverride || currentDate.after(sanctuaryCutOffDate));
+        return !(hasOverride || createDate.isAfter(currentTime));
     }
 
     public void setIsBusy(boolean isBusy)

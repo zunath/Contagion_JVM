@@ -149,10 +149,8 @@ public class MigrationSystem {
 
     private static void Migrate_ToVersion1(NWObject oPC)
     {
-        PlayerRepository playerRepo = new PlayerRepository();
         PlayerGO pcGO = new PlayerGO(oPC);
-        PlayerEntity pcEntity = playerRepo.getByUUID(pcGO.getUUID());
-        pcGO.setCreateDate(pcEntity.getCreateTimestamp());
+        pcGO.setCreateDate();
 
         int level = NWScript.getLevelByPosition(1, oPC) +
                 NWScript.getLevelByPosition(2, oPC) +
