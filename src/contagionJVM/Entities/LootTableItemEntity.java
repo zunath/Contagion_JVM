@@ -8,6 +8,7 @@ public class LootTableItemEntity {
 
     @Id
     @Column(name ="LootTableItemID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int lootTableItemID;
 
     @Column(name = "Resref")

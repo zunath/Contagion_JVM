@@ -292,15 +292,18 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         PlayerGO pcGO = new PlayerGO(GetPC());
         PlayerProgressionSkillsRepository pcSkillRepo = new PlayerProgressionSkillsRepository();
         ProgressionSkillRepository skillRepo = new ProgressionSkillRepository();
+        PlayerRepository playerRepo = new PlayerRepository();
 
         PlayerProgressionSkillEntity pcSkill = pcSkillRepo.GetByUUIDAndSkillID(pcGO.getUUID(), skillID);
         ProgressionSkillEntity skill = skillRepo.getByID(skillID);
+        PlayerEntity playerEntity = playerRepo.getByUUID(pcGO.getUUID());
 
         DialogResponse response = GetResponseByID("UpgradePage", 1);
         int upgradeLevel = pcSkill == null ? 0 : pcSkill.getUpgradeLevel();
         int upgradeCap = pcSkill == null || !pcSkill.isSoftCapUnlocked() ? skill.getSoftCap() : skill.getMaxUpgrades();
+        int nextUpgradeCost = pcSkill == null ? skill.getInitialPrice() : pcSkill.getUpgradeLevel() + skill.getInitialPrice() + 1;
 
-        if(upgradeLevel >= upgradeCap)
+        if(upgradeLevel >= upgradeCap || playerEntity.getUnallocatedSP() < nextUpgradeCost)
         {
             response.setActive(false);
         }
@@ -327,7 +330,7 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
         int upgradeLevel = pcSkill == null ? 0 : pcSkill.getUpgradeLevel();
         int upgradeCap = pcSkill == null || !pcSkill.isSoftCapUnlocked() ? skill.getSoftCap() : skill.getMaxUpgrades();
         int availableSP = pcEntity.getUnallocatedSP();
-        int nextUpgradeCost = skill.getInitialPrice() + (pcSkill == null ? 0 : pcSkill.getUpgradeLevel());
+        int nextUpgradeCost = 1 + skill.getInitialPrice() + (pcSkill == null ? 0 : pcSkill.getUpgradeLevel());
 
         String upgradeCapText = ColorToken.Yellow() + upgradeCap + ColorToken.End();
         if(pcSkill != null && pcSkill.isSoftCapUnlocked())
