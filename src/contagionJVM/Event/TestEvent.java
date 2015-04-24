@@ -3,6 +3,7 @@ package contagionJVM.Event;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Funcs;
 import contagionJVM.NWNX.TriggerScript;
+import contagionJVM.System.ProgressionSystem;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
 
@@ -15,17 +16,20 @@ public class TestEvent implements IScriptEventHandler {
     public void runScript(NWObject objSelf) {
         final NWObject oPC = NWScript.getLastUsedBy();
 
+        ProgressionSystem.GiveExperienceToPC(oPC, 500);
+
+        /*
         try
         {
             PrintWriter writer = new PrintWriter("/home/mzs3/Desktop/test.txt", "UTF-8");
 
             ArrayList<String> badResrefs = new ArrayList<>();
-            //badResrefs.add("zz_comm_chest");
+            badResrefs.add("zz_comm_chest");
             badResrefs.add("mzslore_search");
             badResrefs.add("asb_scavsite");
             badResrefs.add("asb_scavsite001");
-            //badResrefs.add("_mzs2_perstor_1");
-            //badResrefs.add("zst_chest");
+            badResrefs.add("_mzs2_perstor_1");
+            badResrefs.add("zst_chest");
             badResrefs.add("asb_grasstuft");
             //badResrefs.add("d_template003");
             badResrefs.add("sts_fertilesoil");
@@ -66,7 +70,7 @@ public class TestEvent implements IScriptEventHandler {
         {
 
         }
-
+        */
 
     }
 }

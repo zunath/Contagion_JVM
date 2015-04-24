@@ -1,27 +1,31 @@
 package contagionJVM.Event;
 import contagionJVM.Constants;
+import contagionJVM.Entities.ActivePlayerEntity;
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
+import contagionJVM.Repository.ActivePlayerRepository;
 import contagionJVM.Repository.PlayerRepository;
 import contagionJVM.System.DiseaseSystem;
 import contagionJVM.System.FoodSystem;
 import contagionJVM.System.ProgressionSystem;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.nwnx.nwnx2.jvm.*;
 import org.nwnx.nwnx2.jvm.constants.DurationType;
-import org.nwnx.nwnx2.jvm.constants.ObjectType;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class Module_OnHeartbeat implements IScriptEventHandler {
 
-	PlayerRepository repo;
+	PlayerRepository playerRepo;
 
 	@Override
 	public void runScript(NWObject objSelf) {
 
-		repo = new PlayerRepository();
+		playerRepo = new PlayerRepository();
 
 		NWObject[] players = NWScript.getPCs();
 		for(NWObject pc : players)
@@ -29,16 +33,17 @@ public class Module_OnHeartbeat implements IScriptEventHandler {
 			if(!NWScript.getIsDM(pc))
 			{
 				PlayerGO pcGO = new PlayerGO(pc);
-				PlayerEntity entity = repo.getByUUID(pcGO.getUUID());
+				PlayerEntity entity = playerRepo.getByUUID(pcGO.getUUID());
 
 				entity = HandleRegenerationTick(pc, entity);
 				entity = HandleDiseaseTick(pc, entity);
 				entity = HandleFoodTick(pc, entity);
-				repo.save(entity);
+				playerRepo.save(entity);
 			}
 		}
 
 		SaveCharacters();
+		RefreshActivePlayers();
 	}
 
 	// Export all characters every minute.
@@ -82,6 +87,39 @@ public class Module_OnHeartbeat implements IScriptEventHandler {
 	private PlayerEntity HandleFoodTick(NWObject oPC, PlayerEntity entity)
 	{
 		return FoodSystem.RunHungerCycle(oPC, entity);
+	}
+
+	private void RefreshActivePlayers()
+	{
+		int activePlayersTick = NWScript.getLocalInt(NWObject.MODULE, "ACTIVE_PLAYERS_TICK") + 1;
+
+		if(activePlayersTick >= 10)
+		{
+			ActivePlayerRepository repo = new ActivePlayerRepository();
+			List<ActivePlayerEntity> entities = new ArrayList<>();
+
+			for(NWObject pc : NWScript.getPCs())
+			{
+				PlayerEntity playerEntity = playerRepo.getByUUID(new PlayerGO(pc).getUUID());
+				int level = ProgressionSystem.GetPlayerLevel(pc);
+				int expPercentage = (int)((float)playerEntity.getExperience() / (float)ProgressionSystem.GetLevelExperienceRequired(level) * 100.0f);
+				ActivePlayerEntity entity = new ActivePlayerEntity();
+				entity.setAccountName(NWScript.getPCPlayerName(pc));
+				entity.setCharacterName(NWScript.getName(pc, false));
+				entity.setLevelPercentage((int) (((float) level / (float) ProgressionSystem.LevelCap) * 100.0f));
+				entity.setLevel(level);
+				entity.setExpPercentage(expPercentage);
+				entity.setAreaName(NWScript.getName(NWScript.getArea(pc), false));
+				entity.setCreateDate(new DateTime(DateTimeZone.UTC).toDate());
+
+				entities.add(entity);
+			}
+
+			repo.Save(entities);
+			activePlayersTick = 0;
+		}
+
+		NWScript.setLocalInt(NWObject.MODULE, "ACTIVE_PLAYERS_TICK", activePlayersTick);
 	}
 }
 

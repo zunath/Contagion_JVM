@@ -31,7 +31,7 @@ import java.util.Objects;
 public class ProgressionSystem {
 
     // Configuration
-    private static final int LevelCap = 50;
+    public static final int LevelCap = 50;
     private static final int SPEarnedOnLevelUp = 10;
     private static final int ResetCooldownDays = 3;
     public static final int ResetTokensMaxStock = 3;
@@ -384,5 +384,12 @@ public class ProgressionSystem {
         NWScript.floatingTextStringOnCreature(ColorToken.Green() + "Skill reset completed successfully." + ColorToken.End(), oPC, false);
     }
 
+    public static int GetLevelExperienceRequired(int level)
+    {
+        ProgressionLevelRepository repo = new ProgressionLevelRepository();
+        ProgressionLevelEntity entity = repo.getByLevel(level);
+
+        return entity.getExperience();
+    }
 
 }

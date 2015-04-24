@@ -73,6 +73,7 @@ public class DataAccess {
         _configuration.setProperty("hibernate.current_session_context_class", "thread");
 
         // Link all DB entities to the configuration here.
+        _configuration.addAnnotatedClass(ActivePlayerEntity.class);
         _configuration.addAnnotatedClass(AuthorizedDMEntity.class);
         _configuration.addAnnotatedClass(BadgeEntity.class);
         _configuration.addAnnotatedClass(BaseItemTypeEntity.class);
