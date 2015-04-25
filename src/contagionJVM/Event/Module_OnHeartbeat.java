@@ -111,6 +111,7 @@ public class Module_OnHeartbeat implements IScriptEventHandler {
 				entity.setExpPercentage(expPercentage);
 				entity.setAreaName(NWScript.getName(NWScript.getArea(pc), false));
 				entity.setCreateDate(new DateTime(DateTimeZone.UTC).toDate());
+				entity.setDescription(NWScript.getDescription(pc, false, true));
 
 				entities.add(entity);
 			}

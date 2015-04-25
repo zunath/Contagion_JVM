@@ -34,6 +34,9 @@ public class ActivePlayerEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
+    @Column(name = "Description")
+    private String description;
+
     public int getActivePlayerID() {
         return activePlayerID;
     }
@@ -96,5 +99,13 @@ public class ActivePlayerEntity {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
