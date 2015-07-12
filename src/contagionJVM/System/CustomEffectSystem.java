@@ -4,7 +4,6 @@ import contagionJVM.CustomEffect.ICustomEffectHandler;
 import contagionJVM.Entities.CustomEffectEntity;
 import contagionJVM.Entities.PCCustomEffectEntity;
 import contagionJVM.GameObject.PlayerGO;
-import contagionJVM.Helper.EffectHelper;
 import contagionJVM.Helper.ErrorHelper;
 import contagionJVM.Repository.CustomEffectRepository;
 import org.nwnx.nwnx2.jvm.NWObject;
@@ -22,6 +21,12 @@ public class CustomEffectSystem {
 
         for(PCCustomEffectEntity effect : effects)
         {
+            if(NWScript.getIsDead(oPC))
+            {
+                RemoveCustomEffect(oPC, effect.getCustomEffect().getCustomEffectID());
+                return;
+            }
+
             PCCustomEffectEntity result = RunCustomEffectProcess(oPC, effect);
             if(result == null)
             {

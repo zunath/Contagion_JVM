@@ -6,8 +6,12 @@ import contagionJVM.GameObject.PlayerGO;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.Repository.BadgeRepository;
 import contagionJVM.System.ProgressionSystem;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.nwnx.nwnx2.jvm.NWObject;
 import org.nwnx.nwnx2.jvm.NWScript;
+
+import java.sql.Timestamp;
 
 @SuppressWarnings("unused")
 public class BadgeTrigger implements IScriptEventHandler {
@@ -31,7 +35,7 @@ public class BadgeTrigger implements IScriptEventHandler {
             pcBadge.setAcquiredAreaTag(NWScript.getTag(oArea));
             pcBadge.setBadgeID(badgeID);
             pcBadge.setPlayerID(pcGO.getUUID());
-
+            pcBadge.setAcquiredDate(new Timestamp(new DateTime().getMillis()));
             NWScript.floatingTextStringOnCreature("You discovered a new area! Badge acquired: " + entity.getName(), oPC, false);
             ProgressionSystem.GiveExperienceToPC(oPC, entity.getExperience());
             repo.Save(pcBadge);
