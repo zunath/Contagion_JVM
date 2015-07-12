@@ -27,7 +27,7 @@ public class MigrationSystem {
         if(!NWScript.getIsPC(oPC) ||
                 NWScript.getIsDM(oPC) ||
                 NWScript.getLocalInt(oPC, "MIGRATION_SYSTEM_LOGGED_IN_ONCE") == 1 ||
-                NWScript.getTag(NWScript.getArea(oPC)).equals("ooc_area")) return;
+                !NWScript.getTag(NWScript.getArea(oPC)).equals("ooc_area")) return;
         PerformMigration(oPC);
     }
 

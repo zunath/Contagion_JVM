@@ -16,9 +16,8 @@ public class TestEvent implements IScriptEventHandler {
     public void runScript(NWObject objSelf) {
         final NWObject oPC = NWScript.getLastUsedBy();
 
-        ProgressionSystem.GiveExperienceToPC(oPC, 500);
 
-        /*
+
         try
         {
             PrintWriter writer = new PrintWriter("/home/mzs3/Desktop/test.txt", "UTF-8");
@@ -38,6 +37,9 @@ public class TestEvent implements IScriptEventHandler {
             badResrefs.add("newgeneric002");
             badResrefs.add("refill_point");
             badResrefs.add("resttrigger");
+            badResrefs.add("largerubble3");
+            badResrefs.add("blueprint003");
+            badResrefs.add("_mdrn_pl_df_osc");
 
             NWObject area = NWNX_Funcs.GetFirstArea();
             while(NWScript.getIsObjectValid(area))
@@ -70,7 +72,6 @@ public class TestEvent implements IScriptEventHandler {
         {
 
         }
-        */
 
     }
 }
