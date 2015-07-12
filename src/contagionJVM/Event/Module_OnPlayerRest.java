@@ -12,7 +12,8 @@ public class Module_OnPlayerRest implements IScriptEventHandler {
         int restType = NWScript.getLastRestEventType();
 
         if(restType != RestEventtype.REST_STARTED ||
-                oPC.equals(NWObject.INVALID)) return;
+                oPC.equals(NWObject.INVALID) ||
+                NWScript.getIsDM(oPC)) return;
 
         Scheduler.assignNow(oPC, new Runnable() {
             @Override

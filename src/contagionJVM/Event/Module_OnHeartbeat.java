@@ -100,20 +100,23 @@ public class Module_OnHeartbeat implements IScriptEventHandler {
 
 			for(NWObject pc : NWScript.getPCs())
 			{
-				PlayerEntity playerEntity = playerRepo.getByUUID(new PlayerGO(pc).getUUID());
-				int level = ProgressionSystem.GetPlayerLevel(pc);
-				int expPercentage = (int)((float)playerEntity.getExperience() / (float)ProgressionSystem.GetLevelExperienceRequired(level) * 100.0f);
-				ActivePlayerEntity entity = new ActivePlayerEntity();
-				entity.setAccountName(NWScript.getPCPlayerName(pc));
-				entity.setCharacterName(NWScript.getName(pc, false));
-				entity.setLevelPercentage((int) (((float) level / (float) ProgressionSystem.LevelCap) * 100.0f));
-				entity.setLevel(level);
-				entity.setExpPercentage(expPercentage);
-				entity.setAreaName(NWScript.getName(NWScript.getArea(pc), false));
-				entity.setCreateDate(new DateTime(DateTimeZone.UTC).toDate());
-				entity.setDescription(NWScript.getDescription(pc, false, true));
+				if(!NWScript.getIsDM(pc))
+				{
+					PlayerEntity playerEntity = playerRepo.getByUUID(new PlayerGO(pc).getUUID());
+					int level = ProgressionSystem.GetPlayerLevel(pc);
+					int expPercentage = (int) ((float) playerEntity.getExperience() / (float) ProgressionSystem.GetLevelExperienceRequired(level) * 100.0f);
+					ActivePlayerEntity entity = new ActivePlayerEntity();
+					entity.setAccountName(NWScript.getPCPlayerName(pc));
+					entity.setCharacterName(NWScript.getName(pc, false));
+					entity.setLevelPercentage((int) (((float) level / (float) ProgressionSystem.LevelCap) * 100.0f));
+					entity.setLevel(level);
+					entity.setExpPercentage(expPercentage);
+					entity.setAreaName(NWScript.getName(NWScript.getArea(pc), false));
+					entity.setCreateDate(new DateTime(DateTimeZone.UTC).toDate());
+					entity.setDescription(NWScript.getDescription(pc, false, true));
 
-				entities.add(entity);
+					entities.add(entity);
+				}
 			}
 
 			repo.Save(entities);

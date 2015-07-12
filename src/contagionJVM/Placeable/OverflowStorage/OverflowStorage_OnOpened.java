@@ -25,5 +25,6 @@ public class OverflowStorage_OnOpened implements IScriptEventHandler {
             NWScript.setLocalInt(oItem, "TEMP_OVERFLOW_ITEM_ID", item.getPcOverflowItemID());
         }
 
+        NWScript.setUseableFlag(objSelf, false);
     }
 }

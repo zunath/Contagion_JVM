@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class PCOverflowItemEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PCOverflowItemID")
     private int pcOverflowItemID;
 
