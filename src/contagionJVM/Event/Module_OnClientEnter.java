@@ -101,7 +101,12 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             ProgressionSystem.InitializePlayer(oPC);
             NWNX_Funcs.SetRawQuickBarSlot(oPC, "1 4 0 1116 0");
             NWScript.setLocalInt(oDatabase, "MIGRATED_TO_OAL", 1);
-            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectHeal(NWScript.getMaxHitPoints(oPC)), oPC, 0.0f);
+            Scheduler.delay(oPC, 1000, new Runnable() {
+                @Override
+                public void run() {
+                    NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectHeal(999), oPC, 0.0f);
+                }
+            });
         }
     }
 

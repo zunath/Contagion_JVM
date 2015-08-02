@@ -10,12 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnHeartbeat.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnHeartbeat.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java" afterPath="$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Repository/PortraitRepository.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Repository/PortraitRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -38,11 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PortraitEntity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PortraitEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PortraitEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23652695">
-              <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -52,7 +47,7 @@
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="100" column="56" selection-start-line="100" selection-start-column="56" selection-end-line="100" selection-end-column="56" />
+              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -63,6 +58,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Module_OnClientEnter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.76497006">
+              <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -138,8 +143,8 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PortraitEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Repository/PortraitRepository.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" />
       </list>
     </option>
   </component>
@@ -652,12 +657,6 @@
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
     </task>
-    <task id="LOCAL-00074" summary="Modify checks for determining if a territory flag will overlap with another. Highlight those that will in red in the menu.">
-      <created>1428266173077</created>
-      <option name="number" value="00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1428266173077</updated>
-    </task>
     <task id="LOCAL-00075" summary="Permission checks">
       <created>1428272990061</created>
       <option name="number" value="00075" />
@@ -946,7 +945,13 @@
       <option name="project" value="LOCAL" />
       <updated>1438487564351</updated>
     </task>
-    <option name="localTasksCounter" value="123" />
+    <task id="LOCAL-00123" summary="Migration bug fixes, null check on heartbeat script, correct PC_CREATE_DATE value on their database item, immediately jump player to lost souls room when infection reaches 100%,">
+      <created>1438542351909</created>
+      <option name="number" value="00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1438542351911</updated>
+    </task>
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -991,7 +996,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="View Crafts menu option, mask EXP gains and values." />
     <MESSAGE value="Add known blueprints to key items menu" />
     <MESSAGE value="Crafting item scripts, fix bug in zombie attack script, beginning custom effect handler framework." />
     <MESSAGE value="Custom effects framework" />
@@ -1016,7 +1020,8 @@
     <MESSAGE value="Badge triggers should not fire for anyone besides PCs" />
     <MESSAGE value="Fix hunger decrement bug" />
     <MESSAGE value="Custom effects will be removed only if HP is at or below 11 HP or PC is in the death realm." />
-    <option name="LAST_COMMIT_MESSAGE" value="Custom effects will be removed only if HP is at or below 11 HP or PC is in the death realm." />
+    <MESSAGE value="Migration bug fixes, null check on heartbeat script, correct PC_CREATE_DATE value on their database item, immediately jump player to lost souls room when infection reaches 100%," />
+    <option name="LAST_COMMIT_MESSAGE" value="Migration bug fixes, null check on heartbeat script, correct PC_CREATE_DATE value on their database item, immediately jump player to lost souls room when infection reaches 100%," />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1208,6 +1213,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.028885832">
           <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1385,14 +1391,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="100" column="56" selection-start-line="100" selection-start-column="56" selection-end-line="100" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5673653">
@@ -1409,18 +1407,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java">
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PortraitEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5673653">
-          <caret line="95" column="54" selection-start-line="95" selection-start-column="54" selection-end-line="95" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PortraitEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/DeathSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23652695">
-          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.76497006">
+          <caret line="120" column="31" selection-start-line="120" selection-start-column="31" selection-end-line="120" selection-end-column="31" />
           <folding />
         </state>
       </provider>
