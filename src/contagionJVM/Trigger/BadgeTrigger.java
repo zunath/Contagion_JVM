@@ -18,6 +18,8 @@ public class BadgeTrigger implements IScriptEventHandler {
     @Override
     public void runScript(NWObject objSelf) {
         NWObject oPC = NWScript.getEnteringObject();
+        if(!NWScript.getIsPC(oPC) || NWScript.getIsDM(oPC)) return;
+
         PlayerGO pcGO = new PlayerGO(oPC);
         int badgeID = NWScript.getLocalInt(objSelf, "BadgeID");
         BadgeRepository repo = new BadgeRepository();
