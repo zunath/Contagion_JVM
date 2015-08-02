@@ -41,7 +41,7 @@ public class MigrationSystem {
         // This piece of code migrates characters from MZS3 to the new version's database structure.
         if(entity == null &&
                 (!NWScript.getLocalString(pcGO.GetDatabaseItem(), Constants.PCIDNumberVariable).equals("") ||
-                NWScript.getLocalInt(pcGO.GetDatabaseItem(), Constants.PCIDNumberVariable) <= 0))
+                NWScript.getLocalInt(pcGO.GetDatabaseItem(), Constants.PCIDNumberVariable) > 0))
         {
             entity = pcGO.createEntity();
             entity.setVersionNumber(0);

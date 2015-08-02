@@ -55,11 +55,10 @@ public class Module_OnClientEnter implements IScriptEventHandler {
         NWObject oDatabase = pcGO.GetDatabaseItem();
 
         if(NWScript.getIsDM(oPC) || NWScript.getLocalInt(oDatabase, "MIGRATED_TO_OAL") == 1) return;
+        boolean missingStringID = NWScript.getLocalString(oDatabase, Constants.PCIDNumberVariable).equals("");
+        boolean missingIntegerID = NWScript.getLocalInt(oDatabase, Constants.PCIDNumberVariable) <= 0;
 
-
-        if(oDatabase == NWObject.INVALID ||
-                NWScript.getLocalString(oDatabase, Constants.PCIDNumberVariable).equals("") ||
-                NWScript.getLocalInt(oDatabase, Constants.PCIDNumberVariable) <= 0)
+        if(oDatabase == NWObject.INVALID || (missingStringID && missingIntegerID))
         {
             pcGO.destroyAllEquippedItems();
             pcGO.destroyAllInventoryItems(true);

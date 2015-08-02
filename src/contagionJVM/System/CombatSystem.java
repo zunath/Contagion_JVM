@@ -618,11 +618,10 @@ public class CombatSystem {
         }
         else
         {
-            // Equipping the ammo outright doesn't work. Not sure why a delay fixes it.
-            // Maybe the item hasn't been created at the time of execution?
-            Scheduler.delay(oPC, 1, new Runnable() {
+            Scheduler.assign(oPC, new Runnable() {
                 @Override
                 public void run() {
+                    NWScript.clearAllActions(false);
                     NWScript.actionEquipItem(oAmmo, InventorySlot.ARROWS);
                     NWScript.deleteLocalInt(oPC, GUN_TEMP_RELOADING_GUN);
                 }
