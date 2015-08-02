@@ -18,10 +18,11 @@ public class CustomEffectSystem {
         PlayerGO pcGO = new PlayerGO(oPC);
         CustomEffectRepository repo = new CustomEffectRepository();
         List<PCCustomEffectEntity> effects = repo.GetPCEffects(pcGO.getUUID());
+        String areaResref = NWScript.getResRef(NWScript.getArea(oPC));
 
         for(PCCustomEffectEntity effect : effects)
         {
-            if(NWScript.getIsDead(oPC))
+            if(NWScript.getCurrentHitPoints(oPC) <= 11 || areaResref.equals("death_realm"))
             {
                 RemoveCustomEffect(oPC, effect.getCustomEffect().getCustomEffectID());
                 return;
