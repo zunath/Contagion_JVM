@@ -20,9 +20,10 @@ public class FoodSystem {
         if(sAreaTag.equals("ooc_area") || sAreaTag.equals("death_realm")) return entity;
         int hungerTick = entity.getCurrentHungerTick() - 1;
 
-        if(hungerTick <= 0 && entity.getCurrentHunger() > 0)
+        if(hungerTick <= 0 && entity.getCurrentHunger() >= 0)
         {
             hungerTick = Constants.BaseHungerRate;
+            entity.setCurrentHunger(entity.getCurrentHunger() - 1);
 
             if(entity.getCurrentHunger() == 70 || entity.getCurrentHunger() == 60 || entity.getCurrentHunger() == 50 || entity.getCurrentHunger() == 40)
             {
