@@ -51,19 +51,20 @@ public class Module_OnClientEnter implements IScriptEventHandler {
     private void InitializeNewCharacter()
     {
         final NWObject oPC = NWScript.getEnteringObject();
-
-        if(NWScript.getIsDM(oPC)) return;
-
         PlayerGO pcGO = new PlayerGO(oPC);
         NWObject oDatabase = pcGO.GetDatabaseItem();
 
+        if(NWScript.getIsDM(oPC) || NWScript.getLocalInt(oDatabase, "MIGRATED_TO_OAL") == 1) return;
+
+
         if(oDatabase == NWObject.INVALID ||
-                NWScript.getLocalString(oDatabase, Constants.PCIDNumberVariable).equals(""))
+                NWScript.getLocalString(oDatabase, Constants.PCIDNumberVariable).equals("") ||
+                NWScript.getLocalInt(oDatabase, Constants.PCIDNumberVariable) <= 0)
         {
             pcGO.destroyAllEquippedItems();
             pcGO.destroyAllInventoryItems(true);
 
-            NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
+            oDatabase = NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
 
             Scheduler.assign(oPC, new Runnable() {
                 @Override
@@ -90,7 +91,6 @@ public class Module_OnClientEnter implements IScriptEventHandler {
                 NWNX_Funcs.SetRawQuickBarSlot(oPC, slot + " 0 0 0 0");
             }
 
-            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectHeal(NWScript.getMaxHitPoints(oPC)), oPC, 0.0f);
             // Save to database
             PlayerRepository repo = new PlayerRepository();
             PlayerEntity entity = pcGO.createEntity();
@@ -99,8 +99,9 @@ public class Module_OnClientEnter implements IScriptEventHandler {
             pcGO.setCreateDate();
 
             ProgressionSystem.InitializePlayer(oPC);
-
             NWNX_Funcs.SetRawQuickBarSlot(oPC, "1 4 0 1116 0");
+            NWScript.setLocalInt(oDatabase, "MIGRATED_TO_OAL", 1);
+            NWScript.applyEffectToObject(DurationType.INSTANT, NWScript.effectHeal(NWScript.getMaxHitPoints(oPC)), oPC, 0.0f);
         }
     }
 
@@ -108,7 +109,7 @@ public class Module_OnClientEnter implements IScriptEventHandler {
     {
         final NWObject oPC = NWScript.getEnteringObject();
         final String sMOTD = NWScript.getLocalString(NWObject.MODULE, "MOTD");
-        final String message = ColorToken.Green() + "Welcome to Colorado Contagion!\n\nMOTD:" + ColorToken.White() +  sMOTD + ColorToken.End();
+        final String message = ColorToken.Green() + "Welcome to Outbreak: After Life!\n\nMOTD:" + ColorToken.White() +  sMOTD + ColorToken.End();
 
         Scheduler.delay(oPC, 6500, new Runnable() {
             @Override

@@ -6,6 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.List;
+
 public class PortraitRepository {
 
     public PortraitEntity GetByPortraitID(int portraitID)
@@ -40,14 +42,19 @@ public class PortraitRepository {
 
     public PortraitEntity GetByResref(String portraitResref)
     {
-        PortraitEntity entity;
+        PortraitEntity entity = null;
 
         try(DataContext context = new DataContext())
         {
-            Criteria criteria = context.getSession()
-                    .createCriteria(PortraitEntity.class);
 
-            entity = (PortraitEntity)criteria.add(Restrictions.eq("resref", portraitResref)).uniqueResult();
+            Criteria criteria = context.getSession()
+                    .createCriteria(PortraitEntity.class)
+                    .add(Restrictions.eq("resref", portraitResref));
+
+            List<PortraitEntity> entities = criteria.list();
+            if(entities.size() > 0){
+                entity = entities.get(0);
+            }
         }
 
         return entity;

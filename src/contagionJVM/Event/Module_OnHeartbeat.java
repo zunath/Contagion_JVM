@@ -35,10 +35,13 @@ public class Module_OnHeartbeat implements IScriptEventHandler {
 				PlayerGO pcGO = new PlayerGO(pc);
 				PlayerEntity entity = playerRepo.getByUUID(pcGO.getUUID());
 
-				entity = HandleRegenerationTick(pc, entity);
-				entity = HandleDiseaseTick(pc, entity);
-				entity = HandleFoodTick(pc, entity);
-				playerRepo.save(entity);
+				if(entity != null)
+				{
+					entity = HandleRegenerationTick(pc, entity);
+					entity = HandleDiseaseTick(pc, entity);
+					entity = HandleFoodTick(pc, entity);
+					playerRepo.save(entity);
+				}
 			}
 		}
 

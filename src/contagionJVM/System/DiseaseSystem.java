@@ -36,7 +36,7 @@ public class DiseaseSystem {
             NWScript.applyEffectToObject(Duration.TYPE_INSTANT, NWScript.effectHeal(NWScript.getMaxHitPoints(oPC)), oPC, 0.0f);
             NWScript.applyEffectToObject(Duration.TYPE_TEMPORARY, NWScript.effectCutsceneImmobilize(), oPC, 6.0f);
 
-            Scheduler.delay(oPC, 1000, new Runnable() {
+            Scheduler.assign(oPC, new Runnable() {
                 @Override
                 public void run() {
                     NWScript.actionJumpToLocation(NWScript.getLocation(NWScript.getWaypointByTag("DEATH_REALM_LOST_SOULS")));

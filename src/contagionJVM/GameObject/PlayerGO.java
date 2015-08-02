@@ -166,8 +166,15 @@ public class PlayerGO {
     public void setCreateDate()
     {
         NWObject database = GetDatabaseItem();
+        setCreateDate(database);
+    }
+
+    public void setCreateDate(NWObject databaseItem)
+    {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssz");
-        NWScript.setLocalString(database, "PC_CREATE_DATE", formatter.print(new DateTime(DateTimeZone.UTC)));
+        DateTime dt = new DateTime(DateTimeZone.UTC);
+        String timestamp = dt.toString(formatter);
+        NWScript.setLocalString(databaseItem, "PC_CREATE_DATE", timestamp);
     }
 
     public void setHasPVPSanctuaryOverride(boolean value)

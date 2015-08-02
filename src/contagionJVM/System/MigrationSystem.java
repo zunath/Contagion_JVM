@@ -18,7 +18,6 @@ import org.nwnx.nwnx2.jvm.Scheduler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class MigrationSystem {
 
@@ -41,7 +40,8 @@ public class MigrationSystem {
 
         // This piece of code migrates characters from MZS3 to the new version's database structure.
         if(entity == null &&
-                !NWScript.getLocalString(pcGO.GetDatabaseItem(), Constants.PCIDNumberVariable).equals(""))
+                (!NWScript.getLocalString(pcGO.GetDatabaseItem(), Constants.PCIDNumberVariable).equals("") ||
+                NWScript.getLocalInt(pcGO.GetDatabaseItem(), Constants.PCIDNumberVariable) <= 0))
         {
             entity = pcGO.createEntity();
             entity.setVersionNumber(0);
@@ -150,7 +150,6 @@ public class MigrationSystem {
     private static void Migrate_ToVersion1(NWObject oPC)
     {
         PlayerGO pcGO = new PlayerGO(oPC);
-        pcGO.setCreateDate();
 
         int level = NWScript.getLevelByPosition(1, oPC) +
                 NWScript.getLevelByPosition(2, oPC) +
@@ -176,8 +175,9 @@ public class MigrationSystem {
 
         ProgressionSystem.GiveExperienceToPC(oPC, migrationEXP);
         NWScript.destroyObject(pcGO.GetDatabaseItem(), 0.0f);
-        NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
-
+        NWObject databaseItem = NWScript.createItemOnObject(Constants.PCDatabaseTag, oPC, 1, "");
+        pcGO.setCreateDate(databaseItem);
+        NWScript.setLocalInt(databaseItem, "MIGRATED_TO_OAL", 1);
 
         for(NWObject inventory : NWScript.getItemsInInventory(oPC))
         {
