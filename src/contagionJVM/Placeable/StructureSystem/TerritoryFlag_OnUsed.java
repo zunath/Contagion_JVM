@@ -18,7 +18,8 @@ public class TerritoryFlag_OnUsed implements IScriptEventHandler {
         StructureRepository repo = new StructureRepository();
         int flagID = StructureSystem.GetTerritoryFlagID(site);
         PCTerritoryFlagEntity entity = repo.GetPCTerritoryFlagByID(flagID);
-        if(!pcGO.getUUID().equals(entity.getPlayerID()))
+
+        if(!pcGO.getUUID().equals(entity.getPlayerID()) && !NWScript.getIsDM(oPC))
         {
             NWScript.sendMessageToPC(oPC, "Only the owner of the territory may use this.");
         }
