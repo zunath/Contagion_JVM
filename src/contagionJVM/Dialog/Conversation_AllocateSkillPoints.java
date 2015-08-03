@@ -45,7 +45,6 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Shotgun Proficiency",
                 "Rifle Proficiency",
                 "SMG Proficiency",
-                "Magnum Proficiency",
                 "Back"
         );
 
@@ -168,10 +167,7 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                     case 5:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_SMG_PROFICIENCY);
                         break;
-                    case 6:
-                        LoadSkillUpgradePage(ProgressionSystem.SkillType_MAGNUM_PROFICIENCY);
-                        break;
-                    case 7: // "Back"
+                    case 6: // "Back"
                         ClearTempVariables();
                         ChangePage("MainPage");
                         break;
