@@ -2,6 +2,7 @@ package contagionJVM.Item.Medical;
 
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ItemHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.Repository.PlayerRepository;
@@ -38,6 +39,6 @@ public class HerbalRemedy implements IScriptEventHandler {
         });
 
         DiseaseSystem.DecreaseDiseaseLevel(oPC, NWScript.random(10) + 1 + NWScript.random(skillLevel * 2));
-        NWScript.destroyObject(oItem, 0.0f);
+        ItemHelper.ReduceItemStack(oItem);
     }
 }

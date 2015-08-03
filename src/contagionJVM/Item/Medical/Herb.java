@@ -1,5 +1,6 @@
 package contagionJVM.Item.Medical;
 
+import contagionJVM.Helper.ItemHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.System.ProgressionSystem;
@@ -33,6 +34,6 @@ public class Herb implements IScriptEventHandler {
         NWEffect healEffect = NWScript.effectHeal(hitPoints);
         NWScript.applyEffectToObject(DurationType.INSTANT, healEffect, oPC, 0.0f);
 
-        NWScript.destroyObject(item, 0.0f);
+        ItemHelper.ReduceItemStack(item);
     }
 }

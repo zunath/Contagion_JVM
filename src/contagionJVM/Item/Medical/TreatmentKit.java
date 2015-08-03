@@ -2,6 +2,7 @@ package contagionJVM.Item.Medical;
 
 import contagionJVM.Entities.PlayerEntity;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ItemHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -78,7 +79,7 @@ public class TreatmentKit implements IScriptEventHandler {
                 }
 
                 DiseaseSystem.DecreaseDiseaseLevel(target, restoreAmount);
-                NWScript.destroyObject(item, 0.0f);
+                ItemHelper.ReduceItemStack(item);
             }
         });
     }

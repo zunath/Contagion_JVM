@@ -1,6 +1,7 @@
 package contagionJVM.Item.Medical;
 
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ItemHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -55,7 +56,7 @@ public class Stimulant implements IScriptEventHandler {
                 NWEffect effect = NWScript.effectAbilityIncrease(attribute, power);
                 NWScript.applyEffectToObject(DurationType.TEMPORARY, effect, oPC, duration);
 
-                NWScript.destroyObject(item, 0.0f);
+                ItemHelper.ReduceItemStack(item);
             }
         });
 

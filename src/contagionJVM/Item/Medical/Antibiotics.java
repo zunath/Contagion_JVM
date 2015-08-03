@@ -2,6 +2,7 @@ package contagionJVM.Item.Medical;
 
 import contagionJVM.Enumerations.CustomEffectType;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ItemHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -79,7 +80,7 @@ public class Antibiotics implements IScriptEventHandler {
                 }
 
                 CustomEffectSystem.RemoveCustomEffect(target, CustomEffectType.InfectionOverTime);
-                NWScript.destroyObject(item, 0.0f);
+                ItemHelper.ReduceItemStack(item);
 
                 NWScript.sendMessageToPC(oPC, "You successfully administer antibiotics to " + NWScript.getName(target, false) + ".");
             }

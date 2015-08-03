@@ -1,6 +1,7 @@
 package contagionJVM.Item.Medical;
 
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ItemHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -84,8 +85,8 @@ public class MedicalSupplies implements IScriptEventHandler {
 
                 NWEffect regeneration = NWScript.effectRegenerate(restoreAmount, 6.0f);
                 NWScript.applyEffectToObject(DurationType.TEMPORARY, regeneration, oTarget, duration);
+                ItemHelper.ReduceItemStack(item);
 
-                NWScript.destroyObject(item, 0.0f);
                 NWScript.sendMessageToPC(oPC, "You successfully treat " + NWScript.getName(oTarget, false) + "'s wounds.");
 
             }

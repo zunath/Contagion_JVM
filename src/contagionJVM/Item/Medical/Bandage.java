@@ -3,6 +3,7 @@ package contagionJVM.Item.Medical;
 import contagionJVM.Bioware.Position;
 import contagionJVM.Enumerations.CustomEffectType;
 import contagionJVM.GameObject.PlayerGO;
+import contagionJVM.Helper.ItemHelper;
 import contagionJVM.IScriptEventHandler;
 import contagionJVM.NWNX.NWNX_Events;
 import contagionJVM.NWNX.NWNX_Funcs;
@@ -81,7 +82,7 @@ public class Bandage implements IScriptEventHandler {
                 }
 
                 CustomEffectSystem.RemoveCustomEffect(target, CustomEffectType.Bleeding);
-                NWScript.destroyObject(item, 0.0f);
+                ItemHelper.ReduceItemStack(item);
 
                 NWScript.sendMessageToPC(oPC, "You successfully bandage " + NWScript.getName(target, false) + ".");
             }
