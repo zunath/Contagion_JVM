@@ -5,7 +5,10 @@ import contagionJVM.Entities.*;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +37,8 @@ public class CraftRepository {
                 entity = new PCBlueprintEntity();
                 entity.setPlayerID(uuid);
                 entity.setBlueprint(blueprint);
+                DateTime dt = new DateTime(DateTimeZone.UTC);
+                entity.setAcquiredDate(new Timestamp(dt.getMillis()));
 
                 context.getSession().saveOrUpdate(entity);
                 addedSuccessfully = true;
