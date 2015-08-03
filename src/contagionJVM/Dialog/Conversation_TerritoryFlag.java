@@ -261,7 +261,7 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
 
         for(NWObject oPC : NWScript.getPCs())
         {
-            if(!oPC.equals(GetPC())) {
+            if(!oPC.equals(GetPC()) && !NWScript.getIsDM(oPC)) {
                 PlayerGO pcGO = new PlayerGO(oPC);
                 String message = "Add Permissions: ";
                 if (existingUUIDs.contains(pcGO.getUUID())) {
@@ -467,10 +467,9 @@ public class Conversation_TerritoryFlag extends DialogBase implements IDialogHan
         DialogPage page = GetPageByName("TransferOwnershipPage");
         page.getResponses().clear();
 
-        NWObject[] players = NWScript.getPCs();
-        for(NWObject player : players)
+        for(NWObject player : NWScript.getPCs())
         {
-            if(!player.equals(GetPC()))
+            if(!player.equals(GetPC()) && !NWScript.getIsDM(player))
             {
                 PlayerGO pcGO = new PlayerGO(player);
                 page.addResponse("Transfer Ownership: " + NWScript.getName(player, false), true, pcGO.getUUID());
