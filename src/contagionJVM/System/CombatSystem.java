@@ -1255,6 +1255,11 @@ public class CombatSystem {
         // Finally, multiply that value with the multiplier.
         int iFirepower = NWScript.floatToInt(stGunInfo.getFirepower() * (0.01f * stGunInfo.getDurability()));
         int iDamage = NWScript.floatToInt(iFirepower * fMultiplier);
+
+        if(bIsCriticalHit == 1){
+            iDamage *= 2;
+        }
+
         // Attack missed - return zero damaged
         if(NWScript.random(100) > iChanceToHit) return 0;
 

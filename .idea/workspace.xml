@@ -9,10 +9,8 @@
     <bookmark url="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnHeartbeat.java" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
+    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Fix migration ID check. Clear all actions before reloading.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -78,8 +76,8 @@
       <file leaf-file-name="CombatSystem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30802292">
-              <caret line="622" column="35" selection-start-line="622" selection-start-column="35" selection-end-line="622" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.67528737">
+              <caret line="1260" column="9" selection-start-line="1260" selection-start-column="9" selection-end-line="1260" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -679,12 +677,6 @@
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
     </task>
-    <task id="LOCAL-00076" summary="Structure system persistent storage">
-      <created>1428281613189</created>
-      <option name="number" value="00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1428281613189</updated>
-    </task>
     <task id="LOCAL-00077" summary="Give structure tool on login or migration.">
       <created>1428367797982</created>
       <option name="number" value="00077" />
@@ -973,7 +965,13 @@
       <option name="project" value="LOCAL" />
       <updated>1438543175931</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="Fix migration ID check. Clear all actions before reloading.">
+      <created>1438559795183</created>
+      <option name="number" value="00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1438559795183</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -984,15 +982,15 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2585837" sideWeight="0.43609506" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18991417" sideWeight="0.54916066" order="12" side_tool="true" content_ui="tabs" x="330" y="493" width="1368" height="188" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19206008" sideWeight="0.54916066" order="12" side_tool="true" content_ui="tabs" x="330" y="493" width="1368" height="188" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.4977521" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22621903" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18991417" sideWeight="0.45083934" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22621903" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19206008" sideWeight="0.45083934" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1018,7 +1016,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Crafting item scripts, fix bug in zombie attack script, beginning custom effect handler framework." />
     <MESSAGE value="Custom effects framework" />
     <MESSAGE value="Finish custom effects, couple bug fixes" />
     <MESSAGE value="Medical item scripts" />
@@ -1043,7 +1040,8 @@
     <MESSAGE value="Custom effects will be removed only if HP is at or below 11 HP or PC is in the death realm." />
     <MESSAGE value="Migration bug fixes, null check on heartbeat script, correct PC_CREATE_DATE value on their database item, immediately jump player to lost souls room when infection reaches 100%," />
     <MESSAGE value="Delay heal at character creation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Delay heal at character creation." />
+    <MESSAGE value="Fix migration ID check. Clear all actions before reloading." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix migration ID check. Clear all actions before reloading." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1449,8 +1447,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30802292">
-          <caret line="622" column="35" selection-start-line="622" selection-start-column="35" selection-end-line="622" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.67528737">
+          <caret line="1260" column="9" selection-start-line="1260" selection-start-column="9" selection-end-line="1260" selection-end-column="9" />
           <folding />
         </state>
       </provider>
