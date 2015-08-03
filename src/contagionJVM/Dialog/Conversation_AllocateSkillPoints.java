@@ -42,9 +42,13 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                 "Please select an upgrade.",
                 "Armor Proficiency",
                 "Handgun Proficiency",
+                "Handgun Accuracy",
                 "Shotgun Proficiency",
+                "Shotgun Accuracy",
                 "Rifle Proficiency",
+                "Rifle Accuracy",
                 "SMG Proficiency",
+                "SMG Accuracy",
                 "Back"
         );
 
@@ -159,15 +163,27 @@ public class Conversation_AllocateSkillPoints extends DialogBase implements IDia
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_HANDGUN_PROFICIENCY);
                         break;
                     case 3:
-                        LoadSkillUpgradePage(ProgressionSystem.SkillType_SHOTGUN_PROFICIENCY);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_HANDGUN_ACCURACY);
                         break;
                     case 4:
-                        LoadSkillUpgradePage(ProgressionSystem.SkillType_RIFLE_PROFICIENCY);
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_SHOTGUN_PROFICIENCY);
                         break;
                     case 5:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_SHOTGUN_ACCURACY);
+                        break;
+                    case 6:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_RIFLE_PROFICIENCY);
+                        break;
+                    case 7:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_RIFLE_ACCURACY);
+                        break;
+                    case 8:
                         LoadSkillUpgradePage(ProgressionSystem.SkillType_SMG_PROFICIENCY);
                         break;
-                    case 6: // "Back"
+                    case 9:
+                        LoadSkillUpgradePage(ProgressionSystem.SkillType_SMG_ACCURACY);
+                        break;
+                    case 10: // "Back"
                         ClearTempVariables();
                         ChangePage("MainPage");
                         break;
