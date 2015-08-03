@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_TerritoryFlag.java" afterPath="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_TerritoryFlag.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" afterPath="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -33,31 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CombatSystem.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CombatSystem.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.862069">
-              <caret line="1409" column="9" selection-start-line="1409" selection-start-column="9" selection-end-line="1409" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Conversation_AllocateSkillPoints.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_AllocateSkillPoints.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Conversation_TerritoryFlag.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_TerritoryFlag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33655173">
-              <caret line="468" column="0" selection-start-line="468" selection-start-column="0" selection-end-line="468" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.8045977">
+              <caret line="1407" column="33" selection-start-line="1407" selection-start-column="33" selection-end-line="1407" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -122,7 +102,6 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/System/DiseaseSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/System/MigrationSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Event/Module_OnClientEnter.java" />
-        <option value="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Repository/CraftRepository.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Placeable/StructureSystem/TerritoryFlag_OnUsed.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Helper/ItemHelper.java" />
@@ -135,6 +114,7 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/Item/Medical/TreatmentKit.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_AllocateSkillPoints.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_TerritoryFlag.java" />
+        <option value="$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java" />
       </list>
     </option>
   </component>
@@ -537,12 +517,6 @@
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
     </task>
-    <task id="LOCAL-00083" summary="Segfault fix on rest event. Fix permission check when no flag is in range for structure system">
-      <created>1428450695524</created>
-      <option name="number" value="00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1428450695524</updated>
-    </task>
     <task id="LOCAL-00084" summary="Combined functions of structure tool and infection checker into the database/omni tool.">
       <created>1428461310802</created>
       <option name="number" value="00084" />
@@ -831,7 +805,13 @@
       <option name="project" value="LOCAL" />
       <updated>1438643047805</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="Exclude DMs from the transfer ownership and permission change options in the territory flag management menu.">
+      <created>1438643619410</created>
+      <option name="number" value="00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1438643619410</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -876,7 +856,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Remove unused allocate SP options." />
     <MESSAGE value="Added auto follow tool to Omni Tool" />
     <MESSAGE value="Updated project dependencies to pull from Maven when possible." />
     <MESSAGE value="JTDS library, update DataAccess class" />
@@ -901,7 +880,8 @@
     <MESSAGE value="Allow DMs to access the territory flag menu." />
     <MESSAGE value="Adjust stack size, if necessary for items under medical category." />
     <MESSAGE value="Add firearm accuracy options to skill allocation menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add firearm accuracy options to skill allocation menu" />
+    <MESSAGE value="Exclude DMs from the transfer ownership and permission change options in the territory flag management menu." />
+    <option name="LAST_COMMIT_MESSAGE" value="Exclude DMs from the transfer ownership and permission change options in the territory flag management menu." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1275,26 +1255,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_TerritoryFlag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.862069">
-          <caret line="1409" column="9" selection-start-line="1409" selection-start-column="9" selection-end-line="1409" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.33655173">
+          <caret line="468" column="0" selection-start-line="468" selection-start-column="0" selection-end-line="468" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_AllocateSkillPoints.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.16413793">
           <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/Conversation_TerritoryFlag.java">
+    <entry file="file://$PROJECT_DIR$/src/contagionJVM/System/CombatSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33655173">
-          <caret line="468" column="0" selection-start-line="468" selection-start-column="0" selection-end-line="468" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.8045977">
+          <caret line="1407" column="33" selection-start-line="1407" selection-start-column="33" selection-end-line="1407" selection-end-column="33" />
           <folding />
         </state>
       </provider>

@@ -1385,27 +1385,27 @@ public class CombatSystem {
             case GunType.Hangun:
                 iProficiencySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_HANDGUN_PROFICIENCY);
                 iAccuracySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_HANDGUN_ACCURACY);
-                fStunDuration = 1.0f;
+                fStunDuration = 2.0f;
                 break;
             case GunType.Rifle:
                 iProficiencySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_RIFLE_PROFICIENCY);
                 iAccuracySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_RIFLE_ACCURACY);
-                fStunDuration = 1.0f;
+                fStunDuration = 2.0f;
                 break;
             case GunType.SMG:
                 iProficiencySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_SMG_PROFICIENCY);
                 iAccuracySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_SMG_ACCURACY);
-                fStunDuration = 1.0f;
+                fStunDuration = 2.0f;
                 break;
             case GunType.AssaultRifle:
                 iProficiencySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_SMG_PROFICIENCY);
                 iAccuracySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_SMG_ACCURACY);
-                fStunDuration = 1.0f;
+                fStunDuration = 2.0f;
                 break;
             case GunType.Magnum:
                 iProficiencySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_MAGNUM_PROFICIENCY);
                 iAccuracySkill = ProgressionSystem.GetPlayerSkillLevel(oAttacker, ProgressionSystem.SkillType_MAGNUM_ACCURACY);
-                fStunDuration = 1.0f;
+                fStunDuration = 2.0f;
                 break;
         }
 
