@@ -222,6 +222,7 @@ public class CraftRepository {
                     .createCriteria(PCBlueprintEntity.class)
                     .createAlias("blueprint", "bp")
                     .createAlias("bp.category", "c")
+                    .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
                     .add(Restrictions.eq("playerID", uuid))
                     .add(Restrictions.eq("c.craftBlueprintCategoryID", categoryID));
 

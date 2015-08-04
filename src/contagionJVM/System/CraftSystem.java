@@ -356,7 +356,7 @@ public class CraftSystem {
         for(CraftComponentEntity component : blueprint.getBlueprint().getComponents())
         {
             NWObject item = NWScript.createItemOnObject(component.getItemResref(), tempStorage, 1, "");
-            header += ColorToken.White() + component.getQuantity() + "x " + NWScript.getName(item, false) + ColorToken.End();
+            header += ColorToken.White() + component.getQuantity() + "x " + NWScript.getName(item, false) + ColorToken.End() + "\n";
             NWScript.destroyObject(item, 0.0f);
         }
 
