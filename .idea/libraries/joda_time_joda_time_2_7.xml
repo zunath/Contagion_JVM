@@ -2,7 +2,7 @@
   <library name="joda-time:joda-time:2.7" type="repository">
     <properties maven-id="joda-time:joda-time:2.7" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/joda-time/joda-time/2.7/joda-time-2.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Libraries/joda-time-2.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
