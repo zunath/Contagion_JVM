@@ -1,4 +1,6 @@
-# Contagion_JVM
+# Contagion: Afterlife Java Server Code
+
+Game: Neverwinter Nights 1
 
 Website: http://nwnoutbreak.com
 
