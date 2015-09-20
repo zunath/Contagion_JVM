@@ -9,14 +9,19 @@
     <bookmark url="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnHeartbeat.java" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Fixing third party packages from fresh install">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/antlr_2_7_7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/dom4j_1_6_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" />
-      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\joda_time_joda_time_2_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\org_hibernate_hibernate_core_4_2_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\org_nwnx_nwnx2_jvm.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Contagion_JVM.iml" afterPath="$PROJECT_DIR$/Contagion_JVM.iml" />
+    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Fixing third party packages from fresh install try #2">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/antlr-2.7.7.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/dom4j-1.6.1.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/hibernate-commons-annotations-4.0.1.Final.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/hibernate-core-4.2.0.Final.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/hibernate-jpa-2.0-api-1.0.1.Final.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/javassist-3.15.0-GA.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/jboss-logging-3.1.0.GA.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/jboss-transaction-api_1.1_spec-1.0.0.Final.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/joda-time-2.7.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/org.nwnx.nwnx2.jvm.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libs/tools.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -39,16 +44,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="CraftRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/CraftRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="239" column="30" selection-start-line="239" selection-start-column="30" selection-end-line="239" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PCCustomEffectEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/Entities/PCCustomEffectEntity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -132,8 +127,8 @@
       <file leaf-file-name="PlayerGO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8448795">
-              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.40963855">
+              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -162,7 +157,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCSearchSiteEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCSearchSiteItemEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/PCTerritoryFlagPermissionEntity.java" />
@@ -213,6 +207,7 @@
         <option value="$PROJECT_DIR$/src/contagionJVM/System/CraftSystem.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Entities/CraftBlueprintEntity.java" />
         <option value="$PROJECT_DIR$/src/contagionJVM/Repository/CraftRepository.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -227,7 +222,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="960" />
+    <option name="x" value="7" />
+    <option name="width" value="953" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -340,6 +336,10 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contagionJVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -351,7 +351,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="libs" />
+              <option name="myItemId" value="out" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -369,7 +369,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/tools.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SolarOdyssey_JVM" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.36495388" />
@@ -540,7 +540,7 @@
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="JAR_PATH" value="$PROJECT_DIR$/libs/dom4j-1.6.1.jar" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/libs/antlr-2.7.7.jar" />
       <envs />
       <method />
     </configuration>
@@ -607,12 +607,6 @@
       <created>1423272595571</created>
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
-    </task>
-    <task id="LOCAL-00086" summary="Infection checker tool.">
-      <created>1428464233656</created>
-      <option name="number" value="00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1428464233656</updated>
     </task>
     <task id="LOCAL-00087" summary="Infection checker tool - handle edge case.">
       <created>1428464411354</created>
@@ -902,11 +896,17 @@
       <option name="project" value="LOCAL" />
       <updated>1442755647199</updated>
     </task>
-    <option name="localTasksCounter" value="135" />
+    <task id="LOCAL-00135" summary="Fixing third party packages from fresh install try #2">
+      <created>1442756502309</created>
+      <option name="number" value="00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1442756502309</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="960" height="1040" extended-state="0" />
+    <frame x="7" y="0" width="953" height="1040" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -919,7 +919,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.4977521" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29978815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30202776" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -947,7 +947,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="JTDS library, update DataAccess class" />
     <MESSAGE value="Update names of tables" />
     <MESSAGE value="Use JodaTime for calculating create date / sanctuary date" />
     <MESSAGE value="Add reload functionality to omni tool" />
@@ -972,7 +971,8 @@
     <MESSAGE value="Exclude DMs from the transfer ownership and permission change options in the territory flag management menu." />
     <MESSAGE value="Increase stopping power length." />
     <MESSAGE value="Fixing third party packages from fresh install" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing third party packages from fresh install" />
+    <MESSAGE value="Fixing third party packages from fresh install try #2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing third party packages from fresh install try #2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -996,13 +996,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/contagionJVM/Repository/PlayerRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27994013">
-          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/Dialog/DialogBase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1439,10 +1432,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13343799">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8448795">
-          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.40963855">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1459,7 +1460,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.36495388" />
                 <option value="0.5" />
               </list>
             </option>
@@ -1472,7 +1473,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.36495388" />
               </list>
             </option>
           </splitter-proportions>
@@ -1495,7 +1496,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.36495388" />
               </list>
             </option>
           </splitter-proportions>
