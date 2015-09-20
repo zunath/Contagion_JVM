@@ -9,16 +9,14 @@
     <bookmark url="file://$PROJECT_DIR$/src/contagionJVM/Event/Module_OnHeartbeat.java" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\joda_time_2_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\mysql_connector_java_5_1_34_bin.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\mysql_connector_java_5_1_35_bin.xml" afterPath="" />
+    <list default="true" id="5ae3d420-75fd-4a5d-a617-3689c8fe3204" name="Default" comment="Fixing third party packages from fresh install">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/antlr_2_7_7.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/dom4j_1_6_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/libs.xml" />
+      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\joda_time_joda_time_2_7.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\org_hibernate_hibernate_core_4_2_0_Final.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Tyler\Documents\Java Projects\Contagion_JVM\.idea\libraries\org_nwnx_nwnx2_jvm.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Contagion_JVM.iml" afterPath="$PROJECT_DIR$/Contagion_JVM.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/joda_time_joda_time_2_7.xml" afterPath="$PROJECT_DIR$/.idea/libraries/joda_time_joda_time_2_7.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/mysql_mysql_connector_java_5_1_35.xml" afterPath="$PROJECT_DIR$/.idea/libraries/mysql_mysql_connector_java_5_1_35.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_jtds_jtds_1_3_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/net_sourceforge_jtds_jtds_1_3_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_hibernate_hibernate_core_4_2_0_Final.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_hibernate_hibernate_core_4_2_0_Final.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/org_nwnx_nwnx2_jvm.xml" afterPath="$PROJECT_DIR$/.idea/libraries/org_nwnx_nwnx2_jvm.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Contagion_JVM.iws" />
@@ -134,9 +132,11 @@
       <file leaf-file-name="PlayerGO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.10240964">
-              <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-              <folding />
+            <state vertical-scroll-proportion="0.8448795">
+              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -227,7 +227,6 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="960" />
     <option name="width" value="960" />
     <option name="height" value="1040" />
   </component>
@@ -342,6 +341,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Contagion_JVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Contagion_JVM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -356,8 +369,8 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Libraries/org.nwnx.nwnx2.jvm.jar!/" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/tools.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.36495388" />
     <property name="Downloaded.Files.Path.Enabled" value="true" />
@@ -527,7 +540,7 @@
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="JAR_PATH" value="$PROJECT_DIR$/Libraries/org.nwnx.nwnx2.jvm.jar" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/libs/dom4j-1.6.1.jar" />
       <envs />
       <method />
     </configuration>
@@ -594,12 +607,6 @@
       <created>1423272595571</created>
       <option name="number" value="Default" />
       <updated>1423272595571</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Add dicebag and emote options to rest menu">
-      <created>1428462888950</created>
-      <option name="number" value="00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1428462888950</updated>
     </task>
     <task id="LOCAL-00086" summary="Infection checker tool.">
       <created>1428464233656</created>
@@ -889,11 +896,17 @@
       <option name="project" value="LOCAL" />
       <updated>1438643925070</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="Fixing third party packages from fresh install">
+      <created>1442755647198</created>
+      <option name="number" value="00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1442755647199</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="960" y="0" width="960" height="1040" extended-state="0" />
+    <frame x="0" y="0" width="960" height="1040" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -934,7 +947,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated project dependencies to pull from Maven when possible." />
     <MESSAGE value="JTDS library, update DataAccess class" />
     <MESSAGE value="Update names of tables" />
     <MESSAGE value="Use JodaTime for calculating create date / sanctuary date" />
@@ -959,7 +971,8 @@
     <MESSAGE value="Add firearm accuracy options to skill allocation menu" />
     <MESSAGE value="Exclude DMs from the transfer ownership and permission change options in the territory flag management menu." />
     <MESSAGE value="Increase stopping power length." />
-    <option name="LAST_COMMIT_MESSAGE" value="Increase stopping power length." />
+    <MESSAGE value="Fixing third party packages from fresh install" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing third party packages from fresh install" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1428,9 +1441,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/contagionJVM/GameObject/PlayerGO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10240964">
-          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
-          <folding />
+        <state vertical-scroll-proportion="0.8448795">
+          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1492,8 +1507,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
-                <option value="0.6" />
+                <option value="0.36495388" />
               </list>
             </option>
           </splitter-proportions>
@@ -1513,7 +1527,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>joda-time:joda-time:2.7</last-edited>
+          <last-edited>mysql:mysql-connector-java:5.1.35</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
