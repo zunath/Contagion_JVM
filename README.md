@@ -2,7 +2,7 @@
 
 Website: http://nwnoutbreak.com
 
-Forums: http://nwnoutbreak.com/forums
+Forums: http://nwnoutbreak.com/forum
 
 # Project Description
 
