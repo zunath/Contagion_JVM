@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="dom4j-1.6.1">
+  <library name="javassist-3.15.0-GA">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/javassist-3.15.0-GA.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

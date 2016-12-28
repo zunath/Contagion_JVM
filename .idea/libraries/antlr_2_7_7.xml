@@ -2,8 +2,26 @@
   <library name="antlr-2.7.7">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/libs/antlr-2.7.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/c3p0-0.9.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/hibernate-c3p0-4.0.0.CR2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/hibernate-commons-annotations-4.0.1.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/hibernate-core-4.2.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/hibernate-jpa-2.0-api-1.0.1.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ini4j-0.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/javassist-3.15.0-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jboss-logging-3.1.0.GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jboss-transaction-api_1.1_spec-1.0.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/joda-time-2.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jtds-1.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/mysql-connector-java-5.1.40-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/org.nwnx.nwnx2.jvm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/sqljdbc4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/tools.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/tools.jar!/" />
+    </SOURCES>
   </library>
 </component>

@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="dom4j-1.6.1">
+  <library name="jtds-1.3.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jtds-1.3.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

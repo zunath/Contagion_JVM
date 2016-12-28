@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="dom4j-1.6.1">
+  <library name="ini4j-0.5.4">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ini4j-0.5.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

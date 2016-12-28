@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="dom4j-1.6.1">
+  <library name="joda-time-2.7">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/joda-time-2.7.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

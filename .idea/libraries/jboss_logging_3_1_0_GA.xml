@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="dom4j-1.6.1">
+  <library name="jboss-logging-3.1.0.GA">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jboss-logging-3.1.0.GA.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
